@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 08, 2021 at 01:01 AM
+-- Generation Time: Nov 08, 2021 at 01:21 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -183,6 +183,19 @@ CREATE TABLE `permision` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `permisiondetail`
+--
+
+CREATE TABLE `permisiondetail` (
+  `PermisionDetailID` int(11) NOT NULL,
+  `ActionCode` int(11) NOT NULL,
+  `CheckAction` int(11) NOT NULL,
+  `PermisionID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `product`
 --
 
@@ -314,19 +327,6 @@ CREATE TABLE `variant` (
   `ProductId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `_`
---
-
-CREATE TABLE `_` (
-  `PermisionDetailID` int(11) NOT NULL,
-  `ActionCode` int(11) NOT NULL,
-  `CheckAction` int(11) NOT NULL,
-  `PermisionID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Indexes for dumped tables
 --
@@ -369,6 +369,7 @@ ALTER TABLE `category`
 -- Indexes for table `comment`
 --
 ALTER TABLE `comment`
+  ADD PRIMARY KEY (`CommentId`),
   ADD KEY `ProductId` (`ProductId`),
   ADD KEY `UserId` (`UserId`);
 
@@ -410,6 +411,13 @@ ALTER TABLE `payment`
 --
 ALTER TABLE `permision`
   ADD PRIMARY KEY (`PermisionID`);
+
+--
+-- Indexes for table `permisiondetail`
+--
+ALTER TABLE `permisiondetail`
+  ADD PRIMARY KEY (`PermisionDetailID`),
+  ADD KEY `PermisionID` (`PermisionID`);
 
 --
 -- Indexes for table `product`
@@ -473,11 +481,128 @@ ALTER TABLE `variant`
   ADD KEY `ProductId` (`ProductId`);
 
 --
--- Indexes for table `_`
+-- AUTO_INCREMENT for dumped tables
 --
-ALTER TABLE `_`
-  ADD PRIMARY KEY (`PermisionDetailID`),
-  ADD KEY `PermisionID` (`PermisionID`);
+
+--
+-- AUTO_INCREMENT for table `blog`
+--
+ALTER TABLE `blog`
+  MODIFY `BlogID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `blog_category`
+--
+ALTER TABLE `blog_category`
+  MODIFY `Blog_CategoryID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `CartId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `CategoryId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `CommentId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `historyorder`
+--
+ALTER TABLE `historyorder`
+  MODIFY `HistoryOrderId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `orderdetail`
+--
+ALTER TABLE `orderdetail`
+  MODIFY `OrderDetailId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `OrderId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `PaymentId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `permision`
+--
+ALTER TABLE `permision`
+  MODIFY `PermisionID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `permisiondetail`
+--
+ALTER TABLE `permisiondetail`
+  MODIFY `PermisionDetailID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `ProductId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `shipoption`
+--
+ALTER TABLE `shipoption`
+  MODIFY `ShipOptionId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `slider`
+--
+ALTER TABLE `slider`
+  MODIFY `SliderId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `status`
+--
+ALTER TABLE `status`
+  MODIFY `StatusId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `supplier`
+--
+ALTER TABLE `supplier`
+  MODIFY `SupplierId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `token`
+--
+ALTER TABLE `token`
+  MODIFY `TokenID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user_permision_relationship`
+--
+ALTER TABLE `user_permision_relationship`
+  MODIFY `User_PermisionID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `variant`
+--
+ALTER TABLE `variant`
+  MODIFY `VariantId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -529,6 +654,12 @@ ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`ShipOptionId`) REFERENCES `shipoption` (`ShipOptionId`);
 
 --
+-- Constraints for table `permisiondetail`
+--
+ALTER TABLE `permisiondetail`
+  ADD CONSTRAINT `permisiondetail_ibfk_1` FOREIGN KEY (`PermisionID`) REFERENCES `permision` (`PermisionID`);
+
+--
 -- Constraints for table `product`
 --
 ALTER TABLE `product`
@@ -554,12 +685,6 @@ ALTER TABLE `user_permision_relationship`
 --
 ALTER TABLE `variant`
   ADD CONSTRAINT `variant_ibfk_1` FOREIGN KEY (`ProductId`) REFERENCES `product` (`ProductId`);
-
---
--- Constraints for table `_`
---
-ALTER TABLE `_`
-  ADD CONSTRAINT `__ibfk_1` FOREIGN KEY (`PermisionID`) REFERENCES `permision` (`PermisionID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
