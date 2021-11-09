@@ -5,8 +5,8 @@ use App\Models\Category;
 
 class CategoryController extends Controller {
     public function index() {
-        $data = Category::paginate(2);
-        return view('category.index', compact('data'));
+//        $data = Category::paginate(2);
+        return view('category.index');
     }
 
     //param
