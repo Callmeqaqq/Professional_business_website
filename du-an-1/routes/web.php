@@ -23,3 +23,8 @@ Route::get('/wellcome', function () {
 });
 Route::get('/','HomeController@index');
 
+
+// Blog Route
+Route::get('/blog', 'BlogController@index');
+Route::get('/post/{slug}', 'BlogController@viewBySlug');
+Route::get('/blog/{category}', 'BlogController@showAllCategory');
