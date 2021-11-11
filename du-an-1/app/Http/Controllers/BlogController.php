@@ -12,7 +12,7 @@ class BlogController extends Controller
         dd($data);
     }
     function viewBySlug($slug){
-        $data = DB::table('blog')->Where('slug',$slug)->first();
+        $data = DB::table('blog')->Join('users', 'blog.UserId','users.UserId')->Where('slug',$slug)->first();
         if(isset($data)) {
             return view('postSingle', compact('data'));
         }else{
