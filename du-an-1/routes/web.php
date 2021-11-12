@@ -28,3 +28,7 @@ Route::get('/','HomeController@index');
 Route::get('/blog', 'BlogController@index');
 Route::get('/post/{slug}', 'BlogController@viewBySlug');
 Route::get('/blog/{category}', 'BlogController@showAllCategory');
+
+
+// About Route
+Route::get('/about-us', 'AboutController@index');

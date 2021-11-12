@@ -1,19 +1,6 @@
 @extends('layouts.head')
 @section('main')
-    <div class="breadcrumb-area bg-gray-4 breadcrumb-padding-1">
-        <div class="container">
-            <div class="breadcrumb-content text-center">
-                <h2 data-aos="fade-up" data-aos-delay="200">{{ $data->Title }}</h2>
-                <ul data-aos="fade-up" data-aos-delay="400">
-                    <li><a href="{{url('/')}}">Trang chủ</a></li>
-                    <li><i class="ti-angle-right"></i></li>
-                    <li><a href="{{url('/blog')}}">Tin tức</a></li>
-                    <li><i class="ti-angle-right"></i></li>
-                    <li>{{ $data->Title }}</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    {{Breadcrumbs::render('post', $data->Title, $data->slug)}}
     <div class="blog-details-area pt-100 pb-100">
         <div class="container">
             <div class="row" style="justify-content: center">

@@ -9,7 +9,7 @@ class BlogController extends Controller
 {
     public $postId;
     function index(){
-        $data = DB::table('blog')->get();
+        $data = DB::table('blog')->Join('users', 'blog.UserId', 'users.UserId')->paginate(9);
         return view('blog', compact('data'));
     }
     function viewBySlug($slug){

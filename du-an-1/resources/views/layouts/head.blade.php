@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="{{ asset('css/index.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/plugins/swiper.min.css')}} "/>
 </head>
-
 <body>
 <div class="main-wrapper main-wrapper-2">
     <header class="header-area header-responsive-padding header-height-1">
@@ -45,7 +44,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-6 col-6">
                         <div class="logo">
-                            <a href="index.html"><img src="{{asset('/images/logo/logo.png')}}" alt="logo"/></a>
+                            <a href="{{url('/')}}"><img src="{{asset('/images/logo/logo.png')}}" alt="logo"/></a>
                         </div>
                     </div>
                     <div
@@ -54,7 +53,7 @@
                             <nav>
                                 <ul>
                                     <li>
-                                        <a href="index.html">TRANG CHỦ</a>
+                                        <a href="{{url('/')}}">TRANG CHỦ</a>
                                     </li>
                                     <li>
                                         <a href="shop-sidebar.html">SẢN PHẨM</a>
@@ -88,14 +87,13 @@
                                                         </ul>
                                                     </li>
                                                     <li>
-                                                        <a href="shop.html"><img
-                                                                src="{{asset('/images/banner/menu.png')}}" alt=""/></a>
+                                                        <a href="shop.html"><img src="{{asset('/images/banner/menu.png')}}" alt=""/></a>
                                                     </li>
                                                 </ul>
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a href="blog.html">TIN TỨC</a></li>
+                                    <li><a href="{{url('blog')}}">TIN TỨC</a></li>
                                     <li><a href="about-us.html">GIỚI THIỆU</a></li>
                                 </ul>
                             </nav>
@@ -282,7 +280,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#">Tin tức</a>
+                            <a href="{{url('blog')}}">Tin tức</a>
                         </li>
                         <li>
                             <a href="about-us.html">Giới Thiệu</a>
