@@ -20,13 +20,11 @@ Breadcrumbs::for('shop', function (BreadcrumbTrail $trail) {
     $trail->push('Cửa Hàng', url('shop'));
 });
 
-//Home > ProductDetail
+//Home > Shop > ProductDetail
 Breadcrumbs::for('products', function (BreadcrumbTrail $trail) {
     $trail->parent('shop');
     $trail->push('Chi tiết sản phẩm', url('products')."/{{slug}}");
 });
-
-//Shop > ProductDetails
 
 // Home > Blog
 Breadcrumbs::for('blog', function (BreadcrumbTrail $trail) {
