@@ -5,9 +5,7 @@
  * v2.4.1
  *
  */
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
+
 !(function (l, o, e) {
   "use strict";
   (l.fn.scrollUp = function (o) {
@@ -103,8 +101,6 @@
     }),
     (l.scrollUp = l.fn.scrollUp);
 })(jQuery, window, document);
-=======
->>>>>>> parent of e5893c3 (Revert "marge khai")
 !function (l, o, e) {
     "use strict";
     l.fn.scrollUp = function (o) {
@@ -159,8 +155,3 @@
     }, l.scrollUp = l.fn.scrollUp
 }(jQuery, window, document);
 
-
-<<<<<<< HEAD
-=======
->>>>>>> khai
->>>>>>> parent of e5893c3 (Revert "marge khai")

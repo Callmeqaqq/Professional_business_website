@@ -350,21 +350,21 @@
     </div>
 </div>
 <!-- Javascript có thể dựa vào đây custom lại-->
-{{--    <script src="{{asset('js/vendor/modernizr-3.11.2.min.js')}} "></script>--}}
-{{--    <script src="{{asset('js/vendor/jquery-3.6.0.min.js')}}"></script>--}}
-{{--    <script src="{{asset('js/vendor/jquery-migrate-3.3.2.min.js')}}"></script>--}}
-{{--    <script src="{{asset('js/vendor/popper.min.js')}}"></script>--}}
-{{--    <script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>--}}
+    <script src="{{asset('js/vendor/modernizr-3.11.2.min.js')}} "></script>
+    <script src="{{asset('js/vendor/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{asset('js/vendor/jquery-migrate-3.3.2.min.js')}}"></script>
+    <script src="{{asset('js/vendor/popper.min.js')}}"></script>
+    <script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>
 
 {{--    <script src="{{asset('js/plugins/jquery.syotimer.min.js')}}"></script>--}}
 {{--    <script src="{{asset('js/plugins/swiper.min.js')}}"></script>--}}
-{{--    <script src="{{asset('js/plugins/scrollup.js')}}"></script>--}}
+    <script src="{{asset('js/plugins/scrollup.js')}}"></script>
 {{--    <script src="{{asset('js/plugins/imagesloaded.pkgd.min.js')}}"></script>--}}
 {{--    <script src="{{asset('js/plugins/jquery.nice-select.min.js')}}"></script>--}}
 {{--    <script src="{{asset('js/plugins/counterup.min.js')}}"></script>--}}
 {{--    <script src="{{asset('js/plugins/select2.min.js')}}"></script>--}}
 {{--    <script src="{{asset('js/plugins/easyzoom.js')}}"></script>--}}
 <!-- JS chính -->
-{{--    <script src="{{asset('js/main.js')}}"></script>--}}
+    <script src="{{asset('js/main.js')}}"></script>
 </body>
 </html>

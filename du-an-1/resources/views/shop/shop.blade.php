@@ -1,4 +1,4 @@
-@extends('layouts.head')
+@extends('layouts.site')
 @section('main')
 {{--Style cho pagination--}}
 <style>

@@ -1,4 +1,4 @@
-@extends('layouts.head')
+@extends('layouts.site')
 @section('main')
 
 <div class="product-details-area pb-100 pt-100">
