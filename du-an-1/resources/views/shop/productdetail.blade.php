@@ -1,6 +1,6 @@
 @extends('layouts.site')
 @section('main')
-
+{{Breadcrumbs::render('products', $data[0]->ProductName, $data[0]->Slug)}}
 <div class="product-details-area pb-100 pt-100">
     <div class="container">
         <div class="row">

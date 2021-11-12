@@ -1,4 +1,4 @@
-@extends('layouts.head')
+@extends('layouts.site')
 @section('main')
     {{ Breadcrumbs::render('about') }}
     <div class="blog-details-area pt-100 pb-100">

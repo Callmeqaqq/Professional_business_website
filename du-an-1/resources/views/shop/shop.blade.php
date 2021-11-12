@@ -27,6 +27,7 @@
         $sl++;
     }
 ?>
+{{ Breadcrumbs::render('shop') }}
 <div class="shop-area shop-page-responsive pt-100 pb-100">
     <div class="container">
         <div class="row flex-row-reverse">

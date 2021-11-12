@@ -14,6 +14,20 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
     $trail->push('Trang chủ', url('/'));
 });
 
+//Home > Shop
+Breadcrumbs::for('shop', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Cửa Hàng', url('shop'));
+});
+
+//Home > ProductDetail
+Breadcrumbs::for('products', function (BreadcrumbTrail $trail) {
+    $trail->parent('shop');
+    $trail->push('Chi tiết sản phẩm', url('products')."/{{slug}}");
+});
+
+//Shop > ProductDetails
+
 // Home > Blog
 Breadcrumbs::for('blog', function (BreadcrumbTrail $trail) {
     $trail->parent('home');

@@ -1,4 +1,4 @@
-@extends('layouts.head')
+@extends('layouts.site')
 @section('main')
     {{Breadcrumbs::render('post', $data->Title, $data->slug)}}
     <div class="blog-details-area pt-100 pb-100">

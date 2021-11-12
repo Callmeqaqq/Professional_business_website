@@ -1,4 +1,4 @@
-@extends('layouts.head')
+@extends('layouts.site')
 @section('main')
     {{Breadcrumbs::render('blog')}}
     @if(count($data)>1)
