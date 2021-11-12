@@ -8,5 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class ProductModel extends Model
 {
     use HasFactory;
-    protected $table = 'hang_hoa';
+    protected $table;
+    function GetProduct(){
+        $table = 'product';
+    }
+    function GetVariant(){
+        $table = 'variant';
+    }
+    
 }
