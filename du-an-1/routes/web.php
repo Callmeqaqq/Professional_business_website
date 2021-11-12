@@ -23,3 +23,8 @@ Route::get('/wellcome', function () {
 });
 Route::get('/','HomeController@index');
 
+Route::get('/shop','ShopController@index');
+
+Route::get('/{slug}','ProductDetailController@index');
+Route::get('/shop/{slug}','ProductDetailController@index');
+// Shop
