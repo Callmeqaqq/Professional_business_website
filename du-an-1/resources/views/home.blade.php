@@ -1,3 +1,3 @@
 
-@extends('layouts.head')
+@extends('layouts.site')
 
