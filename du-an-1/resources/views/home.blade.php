@@ -1,4 +1,10 @@
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+@extends('layouts.site')
+=======
+>>>>>>> parent of e5893c3 (Revert "marge khai")
 @extends('layouts.head')
 @section('main')
     <div class="product-area pb-60">
@@ -14,6 +20,10 @@
                     <a href="#pro-3" data-bs-toggle="tab" class=""> Giảm giá </a>
                 </div>
             </div>
+<<<<<<< HEAD
+=======
+>>>>>>> khai
+>>>>>>> parent of e5893c3 (Revert "marge khai")
 
             <div class="tab-content jump">
             {{-- Sản Phẩm Mới--}}
