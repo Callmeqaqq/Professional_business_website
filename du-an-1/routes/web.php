@@ -40,3 +40,4 @@ Route::get('welcome', function () {
 });
 Route::get('/','HomeController@index')->name('home');
 
+// cc fuck github
