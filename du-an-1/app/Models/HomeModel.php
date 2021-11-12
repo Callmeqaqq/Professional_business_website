@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-class HomeModel
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class HomeModel extends Model
 {
-    public static function getHomeModel(){
-        return [
-            'name' => "mnb",
-            'old_name' => 'xyz'
-        ];
-    }
+    use HasFactory;
+    protected $table = 'product';
 }
