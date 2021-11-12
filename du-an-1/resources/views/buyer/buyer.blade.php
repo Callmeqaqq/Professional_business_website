@@ -33,10 +33,10 @@
 
                                             <span class="text-danger">@error('loginPassword') {{$message}}@enderror</span>
                                             <div class="login-toggle-btn">
-                                                <label>
-                                                    <input type="checkbox">
-                                                </label>
-                                                <label>Nhớ đăng nhâp</label>
+{{--                                                <label>--}}
+{{--                                                    <input type="checkbox">--}}
+{{--                                                </label>--}}
+{{--                                                <label>Nhớ đăng nhâp</label>--}}
                                                 <a href="#lg3" >Quên mật khẩu?</a>
                                             </div>
                                             <div class="button-box btn-hover">
@@ -49,7 +49,7 @@
                             <div id="lg2" class="tab-pane">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="{{route('buyer.insertUser')}}" method="post">
+                                        <form action="{{ route('buyer.insertUser') }}" method="post">
                                             @csrf
                                             <input type="text" name="name" placeholder="Họ và Tên"
                                                    value="{{old('name')}}">
