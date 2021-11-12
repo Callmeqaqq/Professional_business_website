@@ -36,8 +36,7 @@ Route::get('/','HomeController@index')->name('home');
 
 Route::get('/shop','ShopController@index');
 
-Route::get('/{slug}','ProductDetailController@index');
-Route::get('/shop/{slug}','ProductDetailController@index');
+
 
 Route::get('/login', 'loginController@index');
 Route::post('/login', 'loginController@index');
@@ -54,3 +53,6 @@ Route::get('/blog/{category}', 'BlogController@showAllCategory');
 
 // About Route
 Route::get('/about-us', 'AboutController@index');
+
+Route::get('/{slug}','ProductDetailController@index');
+Route::get('/shop/{slug}','ProductDetailController@index');
