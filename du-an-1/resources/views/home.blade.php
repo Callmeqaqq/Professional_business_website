@@ -1,8 +1,6 @@
 
-<<<<<<< HEAD
 @extends('layouts.site')
-=======
-@extends('layouts.head')
+{{--@extends('layouts.head')--}}
 @section('main')
     <div class="product-area pb-60">
         <div class="container">
@@ -17,7 +15,6 @@
                     <a href="#pro-3" data-bs-toggle="tab" class=""> Giảm giá </a>
                 </div>
             </div>
->>>>>>> khai
 
             <div class="tab-content jump">
             {{-- Sản Phẩm Mới--}}

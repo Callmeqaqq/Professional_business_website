@@ -144,7 +144,11 @@
 
                             <div class="header-action-style">
                                 <a title="Đăng nhập/ Đăng kí" href="
-                                    {{route('buyer.login')}}
+                                    @if (Session()->has('LoggedUser'))
+                                {{route('buyer.profile')}}
+                                @else
+                                {{route('buyer.login')}}
+                                @endif
                                     "
                                 ><i class="pe-7s-user"></i
                                     ></a>

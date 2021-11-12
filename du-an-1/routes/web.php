@@ -21,17 +21,19 @@ Route::get('/buyer/login', 'BuyerController@login')->name('buyer.login')->middle
 Route::post('/buyer/login', 'BuyerController@check')->name('buyer.check')->middleware('AlreadyLogIn');
 //-----------------------------register-------------------------------
 Route::get('/buyer/register', 'BuyerController@register')->name('buyer.register')->middleware('AlreadyLogIn');
-Route::post('/buyer/register', 'BuyerController@insertUser')->name('buyer.insertUser')->middleware('AlreadyLogIn');
+Route::post('/buyer/insertUser', 'BuyerController@insertUser')->name('buyer.insertUser')->middleware('AlreadyLogIn');
 // ---------------------------logout----------------------------------
 Route::get('/buyer/logout', 'BuyerController@logout')->name('buyer.logout');
 // -------------------------forgot password --------------------------
 Route::get('/buyer/forgot', 'BuyerController@forgot')->name('buyer.forgot')->middleware('AlreadyLogIn');
-Route::post('/buyer/forgot', 'BuyerController@postEmail')->name('buyer.postEmail')->middleware('AlreadyLogIn');
+Route::post('/buyer/postEmail', 'BuyerController@postEmail')->name('buyer.postEmail')->middleware('AlreadyLogIn');
 // -------------------------reset password --------------------------
 Route::get('/buyer/reset/{token}/{email}', 'BuyerController@reset')->name('buyer.reset')->middleware('AlreadyLogIn');
 Route::post('/buyer/reset', 'BuyerController@resetToken')->name('buyer.resetToken')->middleware('AlreadyLogIn');
-
-Route::get('/profile', 'BuyerController@profile')->middleware('isLogged');
+// --------------------------profile---------------------------------
+Route::get('/profile', 'Profile@index')->name('buyer.profile')->middleware('isLogged');
+Route::post('/profile/update', 'Profile@update')->name('buyer.update')->middleware('isLogged');
+Route::post('/profile/change', 'Profile@change')->name('buyer.change')->middleware('isLogged');
 
 Route::get('welcome', function () {
     return view('welcome');

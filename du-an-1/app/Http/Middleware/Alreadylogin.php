@@ -18,10 +18,10 @@ class Alreadylogin
     {
         $req = $request->url();
         if (!empty($req)) {
-            if( (session()->has('LoggedUser') && (url('buyer/login') === $req))
+            if( session()->has('LoggedUser') && ((url('buyer/login') === $req)
                 || ( url('buyer/register') ===  $req  )
                 || ( url('buyer/forgot') ===  $req  )
-                || ( url('buyer/reset') ===  $req  )
+                || ( url('buyer/reset') ===  $req  ))
             ){
                 return back();
             }
