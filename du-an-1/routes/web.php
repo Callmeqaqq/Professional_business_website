@@ -38,8 +38,3 @@ Route::get('welcome', function () {
 });
 Route::get('/','HomeController@index')->name('home');
 
-Route::get('/shop','ShopController@index');
-
-Route::get('/{slug}','ProductDetailController@index');
-Route::get('/shop/{slug}','ProductDetailController@index');
-// Shop
