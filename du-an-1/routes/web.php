@@ -25,11 +25,9 @@ Route::get('/','HomeController@index');
 
 Route::get('/shop','ShopController@index');
 
-<<<<<<< HEAD
-=======
 Route::get('/shop','ShopController@index');
 
->>>>>>> parent of e5893c3 (Revert "marge khai")
+
 Route::get('/{slug}','ProductDetailController@index');
 Route::get('/shop/{slug}','ProductDetailController@index');
 // Shop
