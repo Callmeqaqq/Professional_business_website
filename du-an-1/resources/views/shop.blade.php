@@ -46,7 +46,7 @@
                                 <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                                     <div class="product-wrap mb-35" data-aos="fade-up" data-aos-delay="200">
                                     <div class="product-img img-zoom mb-25">
-                                        <a href="{{$item->Slug}}">
+                                        <a href="products/{{$item->Slug}}">
                                             <img src="images/product/{{$item->Images}}" alt="">
                                         </a>
                                         <div class="product-badge badge-top badge-right badge-pink">
@@ -59,7 +59,7 @@
                                         </div>
                                     </div>
                                     <div class="product-content">
-                                        <h3><a href="{{$item->Slug}}">{{$item->ProductName}}</a></h3>
+                                        <h3><a href="products/{{$item->Slug}}">{{$item->ProductName}}</a></h3>
                                         <div class="product-price">
                                             @if ($item->Discount != 0)
                                             <span class="old-price">{{number_format((100*$item->Price)/((1-$item->Discount)*100))}} <sup>vnđ</sup></span>
