@@ -21,6 +21,6 @@ class ProductDetailController extends Controller
                         ->where('Slug','=', $slug)
                         ->Get();
 //         dd($data);
-        return view('productdetail', compact('data','variant'));
+        return view('shop/productdetail', compact('data','variant'));
     }
 }

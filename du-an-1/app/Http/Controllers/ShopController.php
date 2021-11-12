@@ -11,6 +11,6 @@ class ShopController extends Controller
         $data = DB::table('product')->paginate(9);
         $count = DB::table('product')->count();
 //         dd($data);
-        return view('shop',compact('data','count'));
+        return view('shop/shop',compact('data','count'));
     }
 }
