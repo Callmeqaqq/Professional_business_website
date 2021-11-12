@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    function index(){
-        return view('buyer');
+    public function index($name){
+        return $name;
+//        return view('buyer');
     }
 
 }
