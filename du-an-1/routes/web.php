@@ -33,10 +33,7 @@ Route::post('/profile/update', 'Profile@update')->name('buyer.update')->middlewa
 Route::post('/profile/change', 'Profile@change')->name('buyer.change')->middleware('isLogged');
 
 Route::get('/','HomeController@index')->name('home');
-
 Route::get('/shop','ShopController@index');
-
-
 
 Route::get('/login', 'loginController@index');
 Route::post('/login', 'loginController@index');
@@ -53,6 +50,10 @@ Route::get('/blog/{category}', 'BlogController@showAllCategory');
 
 // About Route
 Route::get('/about-us', 'AboutController@index');
+
+// ---------------------------Cart----------------------------------
+Route::get('/cart', 'CartController@index')->name('cart');
+Route::get('/add-cart/{slug}', 'CartController@AddCart')->name('cart.add');
 
 Route::get('/{slug}','ProductDetailController@index');
 Route::get('/shop/{slug}','ProductDetailController@index');
