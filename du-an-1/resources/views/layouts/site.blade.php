@@ -15,8 +15,6 @@
     />
 
     <!-- All CSS is here -->
-    {{--    <link rel="stylesheet" href="/css/vendor/bootstrap.min.css'" />--}}
-    {{--    <link rel="stylesheet" href="/css/vendor/pe-icon-7-stroke.css'" />--}}
     <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/vendor/pe-icon-7-stroke.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/vendor/themify-icons.css')}}"/>
@@ -64,10 +62,10 @@
                             <nav>
                                 <ul>
                                     <li>
-                                        <a href="{{url('')}}">TRANG CHỦ</a>
+                                        <a href="{{url(' ')}}">TRANG CHỦ</a>
                                     </li>
                                     <li>
-                                        <a href="shop-sidebar.html">SẢN PHẨM</a>
+                                        <a href="{{url('shop')}}">CỬA HÀNG</a>
                                         <ul class="mega-menu-style mega-menu-mrg-1">
                                             <li>
                                                 <ul>
@@ -141,15 +139,8 @@
                                     </form>
                                 </div>
                             </div>
-
                             <div class="header-action-style">
-                                <a title="Đăng nhập/ Đăng kí" href="
-                                    @if (Session()->has('LoggedUser'))
-                                {{route('buyer.profile')}}
-                                @else
-                                {{route('buyer.login')}}
-                                @endif
-                                    "
+                                <a title="Đăng nhập/ Đăng kí" href="{{url('login')}}"
                                 ><i class="pe-7s-user"></i
                                     ></a>
                             </div>
@@ -226,14 +217,15 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                             <div class="footer-widget footer-about mb-40">
                                 <div class="footer-logo">
-                                    <a href="{{url('')}}"> <img src="assets/images/logo/logo.png" alt="logo"
+                                    <a href="{{url('')}}"
+                                    ><img src="assets/images/logo/logo.png" alt="logo"
                                         /></a>
                                 </div>
                                 <p>
                                     Mơ ước của mọi nhà
                                 </p>
                                 <div class="payment-img">
-                                    <a href="{{url('')}}"
+                                    <a href="#"
                                     ><img
                                             src="assets/images/icon-img/payment.png"
                                             alt="logo"
@@ -314,7 +306,7 @@
                 <div id="mobile-menu" class="slinky-mobile-menu text-left">
                     <ul>
                         <li>
-                            <a href="{{url('')}}">Trang Chủ</a>
+                            <a href="index.html">Trang Chủ</a>
                         </li>
                         <li>
                             <a href="#">Cửa Hàng</a>
@@ -351,17 +343,22 @@
         </div>
     </div>
 </div>
-<!-- All JS is here -->
-<script src="{{asset('js/vendor/modernizr-3.11.2.min.js')}} "></script>
-<script src="{{asset('js/vendor/jquery-3.6.0.min.js')}}"></script>
-<script src="{{asset('js/vendor/jquery-migrate-3.3.2.min.js')}}"></script>
-<script src="{{asset('js/vendor/popper.min.js')}}"></script>
-<script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>
+<!-- Javascript có thể dựa vào đây custom lại-->
+{{--    <script src="{{asset('js/vendor/modernizr-3.11.2.min.js')}} "></script>--}}
+{{--    <script src="{{asset('js/vendor/jquery-3.6.0.min.js')}}"></script>--}}
+{{--    <script src="{{asset('js/vendor/jquery-migrate-3.3.2.min.js')}}"></script>--}}
+{{--    <script src="{{asset('js/vendor/popper.min.js')}}"></script>--}}
+{{--    <script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>--}}
 
-<script src="{{asset('js/plugins/jquery.syotimer.min.js')}}"></script>
-<script src="{{asset('js/plugins/swiper.min.js')}}"></script>
-<script src="{{asset('js/plugins/scrollup.js')}}"></script>
-<!-- Main JS -->
-<script src="{{asset('js/main.js')}}"></script>
+{{--    <script src="{{asset('js/plugins/jquery.syotimer.min.js')}}"></script>--}}
+{{--    <script src="{{asset('js/plugins/swiper.min.js')}}"></script>--}}
+{{--    <script src="{{asset('js/plugins/scrollup.js')}}"></script>--}}
+{{--    <script src="{{asset('js/plugins/imagesloaded.pkgd.min.js')}}"></script>--}}
+{{--    <script src="{{asset('js/plugins/jquery.nice-select.min.js')}}"></script>--}}
+{{--    <script src="{{asset('js/plugins/counterup.min.js')}}"></script>--}}
+{{--    <script src="{{asset('js/plugins/select2.min.js')}}"></script>--}}
+{{--    <script src="{{asset('js/plugins/easyzoom.js')}}"></script>--}}
+<!-- JS chính -->
+{{--    <script src="{{asset('js/main.js')}}"></script>--}}
 </body>
 </html>
