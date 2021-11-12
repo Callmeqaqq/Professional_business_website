@@ -16,12 +16,10 @@ class BuyerController extends Controller
 
     function login()
     {
-
         return view('buyer/buyer')->with('page', 'login');
     }
     function register()
     {
-
         return view('buyer/buyer')->with('page', 'register');
     }
     function forgot(){
@@ -56,10 +54,10 @@ class BuyerController extends Controller
     }
     function insertUser(Request $request)
     {
+
 //        validate request
         $message = [
             'required' => 'Vui lòng nhập :attribute',
-            'name.required' => 'Vui lòng nhập Họ và Tên',
             'email.unique' => 'Email đã được đăng ký',
             'email' => 'Vui lòng nhập đúng định dạng email',
             'password.min' => 'Các kí tự không đươc ít hơn 6',
@@ -71,12 +69,14 @@ class BuyerController extends Controller
         $validate = Validator::make($request->all(),[
             'name' => 'required|min:5|max:100',
             'password' => 'required|min:6|max:50|confirmed',
-            'password_confirmation' => ['required'],
+            'password_confirmation' => 'required',
             'email' => 'required|email|unique:users',
         ],$message);
+
         if ($validate->fails()) {
-            return redirect('/buyer/register')->withErrors($validate)->withInput();
+            return redirect('buyer/register')->withErrors($validate);
         }
+
         //insert data into database
 //        $user = new User();
 //        $user->fullname = $request->name;
@@ -111,7 +111,7 @@ class BuyerController extends Controller
             'loginPassword' => 'required|min:6|max:50'
         ],$message);
         if ($validate->fails()) {
-            return back()->withErrors($validate)->withInput();
+            return redirect('/buyer/login')->withErrors($validate)->withInput();
         }
 
         //if form validate successfully, process login
@@ -121,7 +121,7 @@ class BuyerController extends Controller
         if ($user) {
             if (Hash::check($request->loginPassword, $user->Password)) {
                 $request->session()->put('LoggedUser', $user->UserId);
-                return redirect('profile');
+                return redirect('/profile');
 
             } else {
                 return redirect('/buyer/login')->with('status', 'Mật khẩu không chính xác');;
@@ -131,16 +131,16 @@ class BuyerController extends Controller
         }
     }
 
-    function profile()
-    {
-        if (session()->has('LoggedUser')) {
-            $user = User::where('UserId', '=', session('LoggedUser'))->first();
-            $data = [
-                'loggedUserInfo' => $user
-            ];
-            return view('test', $data);
-        }
-    }
+//    function profile()
+//    {
+//        if (session()->has('LoggedUser')) {
+//            $user = User::where('UserId', '=', session('LoggedUser'))->first();
+//            $data = [
+//                'loggedUserInfo' => $user
+//            ];
+//            return view('test', $data);
+//        }
+//    }
 
     public function reset($token,$email) {
         return view('buyer.reset', ['token' => $token,'email' =>$email]);
