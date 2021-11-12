@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-<<<<<<< HEAD
 // -----------------------------log in  ------------------------------
 Route::get('/buyer/login', 'BuyerController@login')->name('buyer.login')->middleware('AlreadyLogIn');
 Route::post('/buyer/login', 'BuyerController@check')->name('buyer.check')->middleware('AlreadyLogIn');
@@ -43,7 +39,6 @@ Route::get('/shop','ShopController@index');
 Route::get('/{slug}','ProductDetailController@index');
 Route::get('/shop/{slug}','ProductDetailController@index');
 
-=======
 Route::get('/login', 'loginController@index');
 Route::post('/login', 'loginController@index');
 Route::get('/wellcome', function () {
@@ -51,4 +46,11 @@ Route::get('/wellcome', function () {
 });
 Route::get('/','HomeController@index');
 
->>>>>>> parent of 08724a7 (Revert "Merge branch 'nhat'")
+// Blog Route
+Route::get('/blog', 'BlogController@index');
+Route::get('/post/{slug}', 'BlogController@viewBySlug');
+Route::get('/blog/{category}', 'BlogController@showAllCategory');
+
+
+// About Route
+Route::get('/about-us', 'AboutController@index');
