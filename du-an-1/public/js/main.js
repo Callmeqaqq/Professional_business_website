@@ -1,5 +1,46 @@
+
 (function ($) {
     "use strict";
+    let register = () =>{
+        $("#lg1").hide();
+        $("#lg2").show();
+        $("[href=#lg1]").removeClass("active");
+        $("[href=#lg2]").addClass('active');
+        $("#lg3").hide();
+    };
+    let login = ()=>{
+        $("#lg1").show();
+        $("#lg2").hide();
+        $("[href=#lg1]").addClass("active");
+        $("[href=#lg2]").removeClass('active');
+        $("#lg3").hide();
+    };
+    let forgotPassword = ()=>{
+        $("#lg1").hide();
+        $("#lg2").hide();
+        $("#lg3").show();
+        $("[href=#lg1]").removeClass("active");
+        $("[href=#lg2]").removeClass('active');
+    };
+    $("[href=#lg1]").click(function () {
+        login();
+    });
+    $("[href=#lg2]").click(function () {
+        register();
+    });
+    $("[href=#lg3]").click(function (e) {
+        e.preventDefault();
+        forgotPassword();
+    });
+    if ($("#register").length) {
+       register();
+    }
+    if ($("#login").length) {
+        login();
+    }
+    if ($("#forgot").length) {
+        forgotPassword();
+    }
 
     /*--
     currency active
@@ -561,4 +602,5 @@
     });
 
 })(jQuery);
+
 
