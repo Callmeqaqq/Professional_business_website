@@ -69,24 +69,9 @@
                                                     <li>
                                                         <a class="dropdown-title" href="#">Danh mục sản phẩm</a>
                                                         <ul>
-                                                            <li>
-                                                                <a href="product-details.html">tab style 1</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="product-details-2.html">tab style 2</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="product-details-gallery.html">gallery style</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="product-details-affiliate.html">affiliate style</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="product-details-group.html">group style</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="product-details-fixed-img.html">fixed image style</a>
-                                                            </li>
+                                                            @foreach($category as $cat)
+                                                                <li><a href="category/{{$cat->CategorySlug}}">{{$cat->CategoryName}}</a></li>
+                                                            @endforeach
                                                         </ul>
                                                     </li>
                                                     <li>
@@ -274,24 +259,9 @@
                         <li>
                             <a href="#">Cửa Hàng</a>
                             <ul>
-                                <li><a href="product-details.html">Tab Style 1</a></li>
-                                <li><a href="product-details-2.html">Tab Style 2</a></li>
-                                <li>
-                                    <a href="product-details-gallery.html">Gallery style </a>
-                                </li>
-                                <li>
-                                    <a href="product-details-affiliate.html"
-                                    >Affiliate style</a
-                                    >
-                                </li>
-                                <li>
-                                    <a href="product-details-group.html">Group Style</a>
-                                </li>
-                                <li>
-                                    <a href="product-details-fixed-img.html"
-                                    >Fixed Image Style
-                                    </a>
-                                </li>
+                                @foreach($category as $cat)
+                                    <li><a href="category/{{$cat->CategorySlug}}">{{$cat->CategoryName}}</a></li>
+                                @endforeach
                             </ul>
                         </li>
                         <li>
