@@ -1,5 +1,32 @@
 @extends('layouts.site')
 @section('main')
+    {{--    Danh mục--}}
+    <div class="category-area bg-gray-4 pt-95 pb-100">
+        <div class="container">
+            <div class="section-title-2 st-border-center text-center mb-75" data-aos="fade-up" data-aos-delay="200">
+                <h2>Danh mục sản phẩm</h2>
+            </div>
+            <div class="category-slider-active-2 swiper-container">
+                <div class="swiper-wrapper">
+                    @foreach($category as $cat)
+                        <div class="cat-container">
+                            <div class="cat-img">
+                                <center>
+                                    <a href="category/{{$cat->CategorySlug}}">
+                                        <img class="cat-normal-img" src="{{asset('images/product/'.$cat->CategoryImage)}}" alt="">
+                                    </a>
+                                </center>
+                            </div>
+                            <div class="cat-name">
+                                <h4><a href="category/{{$cat->CategorySlug}}">{{$cat->CategoryName}}</a></h4>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Sản Phẩm   --}}
     <div class="product-area pb-60">
         <div class="container">
             {{-- NAV Sản Phẩm--}}

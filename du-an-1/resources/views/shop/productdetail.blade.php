@@ -1,5 +1,6 @@
 @extends('layouts.site')
 @section('main')
+
 {{Breadcrumbs::render('products', $data[0]->ProductName, $data[0]->Slug)}}
 <div class="product-details-area pb-100 pt-100">
     <div class="container">
@@ -87,6 +88,74 @@
                                 </ul>
                             </li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+{{--            Bình luận--}}
+            <div style='padding-top:50px'class="description-review-area pb-85">
+                <div class="container">
+                    <div class="description-review-topbar nav" data-aos="fade-up" data-aos-delay="200">
+                        <a data-bs-toggle="tab" href="#des-details3" class=""> BÌNH LUẬN </a>
+                    </div>
+                    <div class="tab-content">
+                        <div id="des-details3" class="tab-pane">
+                            <div class="review-wrapper">
+                                <h3>{{count($comment)}} Đánh giá cho sản phẩm {{$data[0]->ProductName}}</h3>
+                                @foreach($comment as $com)
+                                <div class="single-review">
+                                    <div class="review-img">
+                                        <img src="{{asset('/images/product/bluedot1.jpg')}}" alt="">
+                                    </div>
+                                    <div class="review-content">
+                                        <div class="review-rating">
+                                            <a href="#"><i class="ti-star"></i></a>
+                                            <a href="#"><i class="ti-star"></i></a>
+                                            <a href="#"><i class="ti-star"></i></a>
+                                            <a href="#"><i class="ti-star"></i></a>
+                                            <a href="#"><i class="ti-star"></i></a>
+                                        </div>
+                                        <h5><span>{{$com->Fullname}}</span>- Ngày {{date('d-m-Y', strtotime($com->CreateAt))}}</h5>
+                                        <p>{{$com->Content}}</p>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                            @if($accept == true)
+                            <div class="ratting-form-wrapper">
+                                <h3>Thêm đánh giá và bình luận của bạn</h3>
+                                <p>Hãy thêm đánh giá và bình luận của bạn về sản phẩm nào >.< <span>*</span></p>
+                                <div class="your-rating-wrap">
+                                    <span>Đánh giá</span>
+                                    <div class="your-rating">
+                                        <a href="#"><i class="ti-star"></i></a>
+                                        <a href="#"><i class="ti-star"></i></a>
+                                        <a href="#"><i class="ti-star"></i></a>
+                                        <a href="#"><i class="ti-star"></i></a>
+                                        <a href="#"><i class="ti-star"></i></a>
+                                    </div>
+                                </div>
+
+                                <div class="ratting-form">
+                                    <form action="#">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="rating-form-style mb-15">
+                                                    <label>Bình luận của bạn: <span>*</span></label>
+                                                    <textarea name="Your Review"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-submit">
+                                                    <input type="submit" value="Gửi bình luận">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

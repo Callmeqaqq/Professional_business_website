@@ -1,6 +1,12 @@
 
 (function ($) {
     "use strict";
+    if($("a[href='#password_change'].active").length) {
+        $("#password_change").removeClass("fade").addClass("active");
+    }
+    if($("a[href='#info'].active").length) {
+        $("#info").removeClass("fade").addClass("active");
+    }
     let register = () =>{
         $("#lg1").hide();
         $("#lg2").show();

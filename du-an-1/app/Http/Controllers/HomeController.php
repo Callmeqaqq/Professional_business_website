@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     function index(){
-        $data = DB::table('product')->offset(2)->limit(8)->get();
+        $data = DB::table('product')->where('Active', '=',1)->limit(8)->get();
         return view('home', compact('data'));
     }
 }

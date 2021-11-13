@@ -8,9 +8,28 @@ use Illuminate\Support\Facades\DB;
 class ShopController extends Controller
 {
     function index(){
-        $data = DB::table('product')->paginate(9);
-        $count = DB::table('product')->count();
+        $data = DB::table('product')
+            ->join('category','product.CategoryId','=','category.CategoryId')
+            ->select('product.*','category.CatActive')
+            ->where('category.CatActive','=',1)
+            ->where('Active','=',1)
+            ->paginate(9);
+
 //         dd($data);
-        return view('shop/shop',compact('data','count'));
+        return view('shop/shop',compact('data'));
     }
+
+    function category($slug){
+        $data = DB::table('product')
+            ->join('category','product.CategoryId','=','category.CategoryId')
+            ->select('product.*','category.CatActive','category.CategorySlug')
+            ->where('category.CatActive','=',1)
+            ->where('Active','=',1)
+            ->where('category.CategorySlug','=',$slug)
+            ->paginate(9);
+
+//         dd($data);
+        return view('shop/shop',compact('data'));
+    }
+
 }
