@@ -26,7 +26,12 @@ class ProductDetailController extends Controller
                         ->select('comment.*','product.Slug','users.Fullname')
                         ->where('product.Slug','=', $slug)
                         ->Get();
+
+        $accept = false;
+        if(session()->has("LoggedUser")){
+            $accept = true;
+        }
 //         dd($comment);
-        return view('shop/productdetail', compact('data','variant','comment'));
+        return view('shop/productdetail', compact('data','variant','comment','accept'));
     }
 }

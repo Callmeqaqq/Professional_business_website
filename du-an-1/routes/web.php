@@ -64,3 +64,4 @@ Route::get('/about-us', 'AboutController@index');
 Route::get('/cart', 'CartController@index')->name('cart');
 Route::get('/add-cart/{slug}', 'CartController@AddCart')->name('cart.add');
 
+

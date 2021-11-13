@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $category = DB::table('Category')->where('CatActive','=',1)->Get();
+        $category = DB::table('category')->where('CatActive','=',1)->Get();
 //        $countpd = DB::table('category')
 //            ->join('product', 'category.CategoryId','=','product.CategoryId')
 //            ->select('product.*','category.CategoryId')

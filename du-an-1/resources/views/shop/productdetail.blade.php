@@ -1,5 +1,6 @@
 @extends('layouts.site')
 @section('main')
+
 {{Breadcrumbs::render('products', $data[0]->ProductName, $data[0]->Slug)}}
 <div class="product-details-area pb-100 pt-100">
     <div class="container">
@@ -119,6 +120,7 @@
                                 </div>
                                 @endforeach
                             </div>
+                            @if($accept == true)
                             <div class="ratting-form-wrapper">
                                 <h3>Thêm đánh giá và bình luận của bạn</h3>
                                 <p>Hãy thêm đánh giá và bình luận của bạn về sản phẩm nào >.< <span>*</span></p>
@@ -132,6 +134,7 @@
                                         <a href="#"><i class="ti-star"></i></a>
                                     </div>
                                 </div>
+
                                 <div class="ratting-form">
                                     <form action="#">
                                         <div class="row">
@@ -150,6 +153,7 @@
                                         </div>
                                     </form>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     </div>
