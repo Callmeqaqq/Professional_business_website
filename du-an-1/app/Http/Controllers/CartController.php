@@ -26,4 +26,9 @@ class CartController extends Controller
             }
             return view('cart/cart');
     }
+
+    protected function Checkout()
+    {
+        return view('cart/checkout');
+    }
 }

@@ -13,13 +13,13 @@
     <!-- All CSS is here -->
     {{--    <link rel="stylesheet" href="/css/vendor/bootstrap.min.css'" />--}}
     {{--    <link rel="stylesheet" href="/css/vendor/pe-icon-7-stroke.css'" />--}}
-    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap.min.css')}}"/>
-    <link rel="stylesheet" href="{{ asset('css/vendor/pe-icon-7-stroke.css')}}"/>
-    <link rel="stylesheet" href="{{ asset('css/vendor/themify-icons.css')}}"/>
-    <link rel="stylesheet" href="{{ asset('css/vendor/font-awesome.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/vendor/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/vendor/pe-icon-7-stroke.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/vendor/themify-icons.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/vendor/font-awesome.min.css')}}"/>
 
-    <link rel="stylesheet" href="{{ asset('css/index.css')}}"/>
-    <link rel="stylesheet" href="{{ asset('css/plugins/swiper.min.css')}} "/>
+    <link rel="stylesheet" href="{{asset('css/index.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/plugins/swiper.min.css')}} "/>
 </head>
 
 <body>
@@ -223,9 +223,9 @@
                             <div class="footer-widget footer-widget-margin-2 footer-address mb-40">
                                 <h3 class="footer-title">Get in touch</h3>
                                 <ul>
-                                    <li><span>Địa chỉ: </span>Your address goes here</li>
-                                    <li><span>Điện thoại:</span> (012) 345 6789</li>
-                                    <li><span>Email: </span>demo@example.com</li>
+                                    <li><span>Địa chỉ: </span>123 abc hcm</li>
+                                    <li><span>Điện thoại:</span> (+84) 345 6789</li>
+                                    <li><span>Email: </span>demo@domain.com</li>
                                 </ul>
                                 <div class="open-time">
                                     <p>
@@ -304,5 +304,6 @@
 <script src="{{asset('js/plugins/swiper.min.js')}}"></script>
 <!-- Main JS -->
 <script src="{{asset('js/main.js')}}"></script>
+<script src="{{asset('js/checkout.js')}}"></script>
 </body>
 </html>
