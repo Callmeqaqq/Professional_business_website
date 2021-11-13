@@ -9,11 +9,19 @@ class BlogController extends Controller
 {
     public $postId;
     function index(){
-        $data = DB::table('blog')->Join('users', 'blog.UserId', 'users.UserId')->paginate(9);
+        $data = DB::table('blog')
+            ->Join('users', 'blog.UserId', 'users.UserId')
+            ->Join('blog_category', 'blog.Blog_CategoryID','blog_category.Blog_CategoryID')
+            ->select('blog_category.*','blog.*','users.Fullname','blog.slug as blogSlug', 'blog_category.slug as categorySlug')
+            ->paginate(9);
         return view('blog', compact('data'));
     }
-    function viewBySlug($slug){
-        $data = DB::table('blog')->Join('users', 'blog.UserId','users.UserId')->Where('slug',$slug)->first();
+    function viewBySlug($Category, $slug){
+        $data = DB::table('blog')->Join('users', 'blog.UserId','users.UserId')
+            ->Join('blog_category','blog.Blog_CategoryID', 'blog_category.Blog_CategoryID')
+            ->Where('blog.slug',$slug)
+            ->Select('blog.*','users.*','blog_category.slug as categorySlug','blog_category.BlogName as BlogName')
+            ->first();
         if(isset($data)) {
             $this->postId = $data->BlogID;
             $prePost = $this->getInfoPost($this->postId - 1);
@@ -23,12 +31,20 @@ class BlogController extends Controller
             return view('404');
         }
     }
-    function showAllCategory($category)
+    function viewByCategory($category)
     {
-        $data = DB::table('blog_category')->get();
-        dd($data);
+        $data = DB::table('blog_category')
+            ->Join('blog', 'blog.Blog_CategoryID','blog_category.Blog_CategoryID')
+            ->Join('users', 'blog.UserId','users.UserId')
+            ->Where('blog_category.slug',$category)
+            ->select('blog_category.*','blog.*','users.Fullname','blog.slug as blogSlug', 'blog_category.slug as categorySlug')
+            ->paginate(9);
+            return view('blog',compact('data'));
     }
     private function getInfoPost($id){
-        return DB::table('blog')->Where('BlogID',$id)->first();
+        return DB::table('blog')->Where('BlogID',$id)
+        ->Join('blog_category','blog.Blog_CategoryID','blog_category.Blog_CategoryID')
+        ->Select('blog_category.slug as categorySlug','blog.*')
+        ->first();
     }
 }
