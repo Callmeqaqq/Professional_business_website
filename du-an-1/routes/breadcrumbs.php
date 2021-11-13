@@ -14,16 +14,34 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
     $trail->push('Trang chủ', url('/'));
 });
 
+//Home > Shop
+Breadcrumbs::for('shop', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Cửa Hàng', url('shop'));
+});
+
+//Home > Shop > ProductDetail
+Breadcrumbs::for('products', function (BreadcrumbTrail $trail) {
+    $trail->parent('shop');
+    $trail->push('Chi tiết sản phẩm', url('products')."/{{slug}}");
+});
+
 // Home > Blog
 Breadcrumbs::for('blog', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Tin tức', url('blog'));
 });
 
-// Home > Blog > bài viết
-Breadcrumbs::for('post', function (BreadcrumbTrail $trail, $title, $slug) {
+// Home > Blog > Category
+Breadcrumbs::for('blogCategory', function (BreadcrumbTrail $trail, $title, $slug) {
     $trail->parent('blog');
-    $trail->push($title,url('post')."/{{slug}}");
+    $trail->push($title,url('blog')."/$slug");
+});
+
+// Home > Blog > Category > Post
+Breadcrumbs::for('post', function (BreadcrumbTrail $trail, $category, $categorySlug, $title, $slug) {
+    $trail->parent('blogCategory', $category, $categorySlug);
+    $trail->push($title,url('blog')."/{{categorySlug}}/{{slug}}");
 });
 
 

@@ -1,6 +1,6 @@
 @extends('layouts.site')
 @section('main')
-
+{{Breadcrumbs::render('products', $data[0]->ProductName, $data[0]->Slug)}}
 <div class="product-details-area pb-100 pt-100">
     <div class="container">
         <div class="row">
@@ -65,7 +65,7 @@
                         <span>Màu :</span>
                         <ul>
                             @foreach($variant as $color)
-                            <li><a class='pd_img_color' href="#"><img src="images/product/{{$color->Color}}" alt=""></a></li>
+                                <li><a class='pd_img_color' href="#"><img src="{{asset('images/product/'.$color->Color)}}" alt=""></a></li>
                             @endforeach
                         </ul>
                     </div>

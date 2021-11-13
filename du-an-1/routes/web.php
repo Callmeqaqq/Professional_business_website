@@ -47,12 +47,17 @@ Route::get('/','HomeController@index');
 
 // Blog Route
 Route::get('/blog', 'BlogController@index');
-Route::get('/post/{slug}', 'BlogController@viewBySlug');
-Route::get('/blog/{category}', 'BlogController@showAllCategory');
+Route::get('/blog/{category}/{slug}', 'BlogController@viewBySlug');
+Route::get('/blog/{category}', 'BlogController@viewByCategory');
 
 
 // About Route
 Route::get('/about-us', 'AboutController@index');
+
+Route::get('/products/{slug}','ProductDetailController@index');
+// ---------------------------Cart----------------------------------
+Route::get('/cart', 'CartController@index')->name('cart');
+Route::get('/add-cart/{slug}', 'CartController@AddCart')->name('cart.add');
 
 Route::get('/{slug}','ProductDetailController@index');
 Route::get('/shop/{slug}','ProductDetailController@index');
