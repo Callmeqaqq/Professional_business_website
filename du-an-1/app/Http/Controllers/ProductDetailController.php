@@ -20,7 +20,13 @@ class ProductDetailController extends Controller
                         ->select('variant.Color')
                         ->where('Slug','=', $slug)
                         ->Get();
-//         dd($data);
-        return view('shop/productdetail', compact('data','variant'));
+        $comment = DB::table('comment')
+                        ->join('product', 'product.ProductId', '=', 'comment.ProductId')
+                        ->join('users','users.UserId', '=', 'comment.UserId')
+                        ->select('comment.*','product.Slug','users.Fullname')
+                        ->where('product.Slug','=', $slug)
+                        ->Get();
+//         dd($comment);
+        return view('shop/productdetail', compact('data','variant','comment'));
     }
 }
