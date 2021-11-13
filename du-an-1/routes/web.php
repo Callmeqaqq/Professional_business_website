@@ -59,5 +59,3 @@ Route::get('/products/{slug}','ProductDetailController@index');
 Route::get('/cart', 'CartController@index')->name('cart');
 Route::get('/add-cart/{slug}', 'CartController@AddCart')->name('cart.add');
 
-Route::get('/{slug}','ProductDetailController@index');
-Route::get('/shop/{slug}','ProductDetailController@index');
