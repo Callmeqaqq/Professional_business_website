@@ -136,35 +136,41 @@
                                 <div class="tab-pane fade show active" id="account-info" role="tabpanel">
                                     <div class="myaccount-content">
                                         <h3>Thông Tin Tài Khoản</h3>
+                                        @if(Session::get('status'))
+                                            <div class="alert alert-success">
+                                                {{Session::get('status')}}
+                                            </div>
+                                        @endif
                                         <div class="account-details-form">
                                             <form action="{{route('buyer.update')}}" method="post">
+
                                                 @csrf
                                                 <div class="single-input-item">
                                                     <label for="display-name" class="required">Họ va Tên
-                                                        <input type="text" id="ho_ten" name="name" {{old('name')}} placeholder="Nhập họ và tên của bạn"/>
+                                                        <input type="text" id="ho_ten" name="name" value="{{$user->Fullname ??old('name')}}" placeholder="Nhập họ và tên của bạn"/>
                                                         <span class="text-danger">@error('name'){{ $message }} @enderror</span>
                                                     </label>
                                                 </div>
 
                                                 <div class="single-input-item">
                                                     <label for="email" class="required">Địa Chỉ Email
-                                                    <input type="email" id="email" name="email" {{old('email')}}  placeholder="Nhập email của bạn"/></label>
+                                                    <input type="email" id="email" name="email" value="{{$user->Email ?? old('email')}}"  placeholder="Nhập email của bạn"/></label>
                                                     <span class="text-danger" >@error('email') {{$message}}@enderror</span>
                                                 </div>
                                                 <div class="single-input-item">
                                                     <label for="display-name" class="required">Số Diện Thoại
-                                                    <input type="text" id="phone " name="phone" {{old('phone')}}  placeholder="Nhập số điện thoại của bạn" /></label>
+                                                    <input type="text" id="phone " name="phone" value="{{$user->Phone ?? old('phone')}}"  placeholder="Nhập số điện thoại của bạn" /></label>
                                                     <span class="text-danger" >@error('phone') {{$message}}@enderror</span>
                                                 </div>
                                                 <div class="single-input-item">
                                                     <label for="display-name" class="required">Địa Chỉ
-                                                    <input type="text" id="address" name="address" {{old('address')}}  placeholder="Nhập địa chỉ hiện tại của bạn để thận tiện cho việc giao hàng"/></label>
+                                                    <input type="text" id="address" name="address" value="{{$user->Address??old('address')}}"  placeholder="Nhập địa chỉ hiện tại của bạn để thận tiện cho việc giao hàng"/></label>
                                                     <span class="text-danger" >@error('address') {{$message}}@enderror</span>
                                                 </div>
                                                 <div class="single-input-item">
                                                     <label for="display-name" class="required">Mật khẩu
-                                                        <input type="password" id="address" name="password" placeholder="Nhập mật khẩu của bạn"/></label>
-                                                    <span class="text-danger" >@error('address') {{$message}}@enderror</span>
+                                                        <input type="password" id="password" name="password" placeholder="Nhập mật khẩu của bạn"/></label>
+                                                    <span class="text-danger" >@error('password') {{$message}}@enderror</span>
                                                 </div>
                                                 <div class="single-input-item btn-hover">
                                                     <button class="check-btn sqr-btn">Lưu thay đổi</button>
