@@ -6016,7 +6016,6 @@ textarea {
 .sidebar-widget .sidebar-list-style.sidebar-widget-color ul li a.orange:before {
     background-color: #ffba00;
 }
-<<<<<<< HEAD
 /* Product Detail*/
 
 .product-details-content {
@@ -7361,7 +7360,6 @@ textarea {
 }
 
 .sidebar-widget .search-wrap-2 .search-2-form .button-search {
-=======
 
 .sidebar-widget .sidebar-widget-tag a {
     color: #575757;
@@ -7400,7 +7398,6 @@ textarea {
 }
 
 .sidebar-widget .search-wrap-3 .search-3-form .button-search {
->>>>>>> parent of 08724a7 (Revert "Merge branch 'nhat'")
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
