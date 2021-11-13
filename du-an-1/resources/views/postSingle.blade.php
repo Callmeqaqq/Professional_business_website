@@ -50,19 +50,19 @@
                         <div class="blog-next-previous-post" data-aos="fade-up" data-aos-delay="200">
                             <div class="blog-prev-post-wrap">
                                 <div class="blog-prev-post-icon">
-                                    <a href="{{url('post/')}}/{{$prePost->slug}}"><i class="fa fa-angle-left"></i></a>
+                                    <a href="{{url('/blog')}}/{{$prePost->categorySlug}}/{{$prePost->slug}}"><i class="fa fa-angle-left"></i></a>
                                 </div>
                                 <div class="blog-prev-post-content">
-                                    <h3><a href="{{url('post/')}}/{{$prePost->slug}}">{{$prePost->Title}}</a></h3>
+                                    <h3><a href="{{url('/blog')}}/{{$prePost->categorySlug}}/{{$prePost->slug}}">{{$prePost->Title}}</a></h3>
                                     <span>{{$prePost->CreateAt}}</span>
                                 </div>
                             </div>
                             <div class="blog-next-post-wrap">
                                 <div class="blog-next-post-icon">
-                                    <a href="{{url('/post')}}/{{$nextPost->slug}}"> <i class="fa fa-angle-right"></i> </a>
+                                    <a href="{{url('/blog')}}/{{$nextPost->categorySlug}}/{{$nextPost->slug}}"> <i class="fa fa-angle-right"></i> </a>
                                 </div>
                                 <div class="blog-next-post-content">
-                                    <h3><a href="{{url('/post')}}/{{$nextPost->slug}}">{{$nextPost->Title}}</a></h3>
+                                    <h3><a href="{{url('/blog')}}/{{$nextPost->categorySlug}}/{{$nextPost->slug}}">{{$nextPost->Title}}</a></h3>
                                     <span>{{$nextPost->CreateAt}}</span>
                                 </div>
                             </div>
@@ -72,10 +72,10 @@
                                 <div class="blog-next-previous-post" data-aos="fade-up" data-aos-delay="200">
                                     <div class="blog-prev-post-wrap">
                                         <div class="blog-prev-post-icon">
-                                            <a href="{{url('/post')}}/{{$prePost->slug}}"><i class="fa fa-angle-left"></i></a>
+                                            <a href="{{url('/blog')}}/{{$prePost->categorySlug}}/{{$prePost->slug}}"><i class="fa fa-angle-left"></i></a>
                                         </div>
                                         <div class="blog-prev-post-content">
-                                            <h3><a href="{{url('/post')}}/{{$prePost->slug}}">{{$prePost->Title}}</a></h3>
+                                            <h3><a href="{{url('/blog')}}/{{$prePost->categorySlug}}/{{$prePost->slug}}">{{$prePost->Title}}</a></h3>
                                             <span>{{$prePost->CreateAt}}</span>
                                         </div>
                                     </div>
@@ -84,10 +84,10 @@
                                 <div class="blog-next-previous-post" data-aos="fade-up" data-aos-delay="200">
                                     <div class="blog-next-post-wrap">
                                         <div class="blog-next-post-icon">
-                                            <a href="{{url('/post')}}/{{$nextPost->slug}}"> <i class="fa fa-angle-right"></i> </a>
+                                            <a href="{{url('/blog')}}/{{$nextPost->categorySlug}}/{{$nextPost->slug}}"> <i class="fa fa-angle-right"></i> </a>
                                         </div>
                                         <div class="blog-next-post-content">
-                                            <h3><a href="{{url('/post')}}/{{$nextPost->slug}}">{{$nextPost->Title}}</a></h3>
+                                            <h3><a href="{{url('/blog')}}/{{$nextPost->categorySlug}}/{{$nextPost->slug}}">{{$nextPost->Title}}</a></h3>
                                             <span>{{$nextPost->CreateAt}}</span>
                                         </div>
                                     </div>

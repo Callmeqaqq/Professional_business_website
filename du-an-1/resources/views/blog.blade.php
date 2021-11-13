@@ -10,7 +10,7 @@
                         <div class="blog-wrap mb-50" data-aos="fade-up" data-aos-delay="200">
                             <div class="blog-img-date-wrap mb-25">
                                 <div class="blog-img">
-                                    <a href="{{url('post')}}/{{$item->slug}}"><img src="{{asset('/images/blog')}}/{{$item->thumbnail}}" alt=""></a>
+                                    <a href="{{url('blog')}}/{{$item->categorySlug}}/{{$item->blogSlug}}"><img src="{{asset('/images/blog')}}/{{$item->thumbnail}}" alt=""></a>
                                 </div>
                             </div>
                             <div class="blog-content">
@@ -19,10 +19,10 @@
                                         <li>Tác giả:<a href="#"> {{$item->Fullname}}</a></li>
                                     </ul>
                                 </div>
-                                <h3><a href="{{url('post')}}/{{$item->slug}}">{{$item->Title}}</a></h3>
-                                <p>{{$item->Content}}</p>
+                                <h3><a href="{{url('blog')}}/{{$item->categorySlug}}/{{$item->blogSlug}}">{{$item->Title}}</a></h3>
+                                <p>{{$item->Blog_des}}</p>
                                 <div class="blog-btn-2 btn-hover">
-                                    <a class="btn hover-border-radius theme-color" href="{{url('post')}}/{{$item->slug}}">Xem thêm</a>
+                                    <a class="btn hover-border-radius theme-color" href="{{url('blog')}}/{{$item->categorySlug}}/{{$item->blogSlug}}">Xem thêm</a>
                                 </div>
                             </div>
                         </div>
@@ -35,6 +35,6 @@
             </div>
         </div>
     @else
-    Ban chua co bai viet nao
+    <center>Ban chua co bai viet nao<center>
     @endif
 @stop()

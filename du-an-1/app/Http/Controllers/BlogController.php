@@ -12,7 +12,7 @@ class BlogController extends Controller
         $data = DB::table('blog')->Join('users', 'blog.UserId', 'users.UserId')->paginate(9);
         return view('blog', compact('data'));
     }
-    function viewBySlug($slug){
+    function viewBySlug($Category, $slug){
         $data = DB::table('blog')->Join('users', 'blog.UserId','users.UserId')->Where('slug',$slug)->first();
         if(isset($data)) {
             $this->postId = $data->BlogID;
@@ -23,12 +23,20 @@ class BlogController extends Controller
             return view('404');
         }
     }
-    function showAllCategory($category)
+    function viewByCategory($category)
     {
-        $data = DB::table('blog_category')->get();
-        dd($data);
+        $data = DB::table('blog_category')
+            ->Join('blog', 'blog_category.Blog_CategoryID','blog_category.Blog_CategoryID')
+            ->Join('users', 'blog.UserId','users.UserId')
+            ->Where('blog_category.slug',$category)
+            ->select('blog_category.*','blog.*','users.Fullname','blog.slug as blogSlug', 'blog_category.slug as categorySlug')
+            ->paginate(9);
+            return view('blog',compact('data'));
     }
     private function getInfoPost($id){
-        return DB::table('blog')->Where('BlogID',$id)->first();
+        return DB::table('blog')->Where('BlogID',$id)
+        ->Join('blog_category','blog.Blog_CategoryID','blog_category.Blog_CategoryID')
+        ->Select('blog_category.slug as categorySlug','blog.*')
+        ->first();
     }
 }

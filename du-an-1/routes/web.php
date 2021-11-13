@@ -47,8 +47,8 @@ Route::get('/','HomeController@index');
 
 // Blog Route
 Route::get('/blog', 'BlogController@index');
-Route::get('/post/{slug}', 'BlogController@viewBySlug');
-Route::get('/blog/{category}', 'BlogController@showAllCategory');
+Route::get('/blog/{category}/{slug}', 'BlogController@viewBySlug');
+Route::get('/blog/{category}', 'BlogController@viewByCategory');
 
 
 // About Route
