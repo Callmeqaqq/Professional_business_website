@@ -11,17 +11,18 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-4">
                             <div class="myaccount-tab-menu nav" role="tablist">
-                                <a href="#account-info"  class="active" data-bs-toggle="tab">Thông tin tài khoản</a>
+                                <a href="#info" {{$page === 'info' ? 'class=active':''}}  data-bs-toggle="tab">Thông tin tài khoản</a>
 {{--                                <a href="#dashboad" data-bs-toggle="tab">Dashboard</a>--}}
-                                <a href="#download" data-bs-toggle="tab">Đổi mật khẩu</a>
-                                <a href="#orders" data-bs-toggle="tab">Orders</a>
+                                <a href="#password_change" {{$page === 'change_pass' ? 'class=active':''}} data-bs-toggle="tab" >Đổi mật khẩu</a>
+                                <a href="#orders" {{$page === 'orders' ? 'class="active"':''}} data-bs-toggle="tab">Orders</a>
 
-                                <a href="#payment-method" data-bs-toggle="tab">Payment Method</a>
-                                <a href="#address-edit" data-bs-toggle="tab">Address</a>
+                                <a href="#payment-method" {{$page === 'payment-method' ? 'class="active"':''}} data-bs-toggle="tab">Payment Method</a>
+                                <a href="#address-edit" {{$page === 'address-edit' ? 'class="active"':''}} data-bs-toggle="tab">Address</a>
 
                                 <a href="{{route('buyer.logout')}}">Đăng xuất</a>
                             </div>
                         </div>
+
                         <!-- My Account Tab Menu End -->
                         <!-- My Account Tab Content Start -->
                         <div class="col-lg-9 col-md-8">
@@ -82,25 +83,35 @@
                                 </div>
                                 <!-- Single Tab Content End -->
                                 <!-- Single Tab Content Start -->
-                                <div class="tab-pane fade" id="download" role="tabpanel">
+                                <div class="tab-pane fade" id="password_change" role="tabpanel">
                                     <div class="myaccount-content">
                                         <h3>Đổi Mật khẩu</h3>
                                         <div class="account-details-form">
+                                            @if(Session::get('status'))
+                                                <div class="alert alert-success">
+                                                    {{Session::get('status')}}
+                                                </div>
+                                            @endif
                                             <form action="{{route('buyer.change')}}" method="post">
                                                 @csrf
                                                 <div class="single-input-item">
                                                     <label for="display-name" class="required">Mật khẩu hiện tại
-                                                        <input type="password" id="password_current" name="password_current" value="{{old('password_current')}}" placeholder="Nhập Mật khẩu hiện tại của bạn"/>
+                                                        <input type="password" id="password_current" name="password-current" placeholder="Nhập Mật khẩu hiện tại của bạn"/>
+                                                        <span class="text-danger">@error('password-current') {{$message}} @enderror</span>
                                                     </label>
                                                 </div>
 
                                                 <div class="single-input-item">
                                                     <label for="email" class="required">Mật khẩu mới
-                                                        <input type="password" id="password_new" name="password_new" value="{{old('password_new')}}"placeholder="nhập mật khẩu mới"/></label>
+                                                        <input type="password" id="password_new" name="password" placeholder="nhập mật khẩu mới"/>
+                                                        <span class="text-danger">@error('password') {{$message}} @enderror</span>
+                                                    </label>
                                                 </div>
                                                 <div class="single-input-item">
                                                     <label for="display-name" class="required">Xác nhậ mật khẩu
-                                                        <input type="text" id="password_confirm" name="password_confirm" placeholder="Nhập lại mật khẩu mới" /></label>
+                                                        <input type="password" id="password_confirm" name="password_confirmation" placeholder="Nhập lại mật khẩu mới" />
+                                                        <span class="text-danger">@error('password_confirmation') {{$message}} @enderror</span>
+                                                    </label>
                                                 </div>
                                                 <div class="single-input-item btn-hover">
                                                     <button class="check-btn sqr-btn">Đổi mật khẩu</button>
@@ -133,7 +144,7 @@
                                 </div>
                                 <!-- Single Tab Content End -->
                                 <!-- Single Tab Content Start -->
-                                <div class="tab-pane fade show active" id="account-info" role="tabpanel">
+                                <div class="tab-pane fade" id="info" role="tabpanel">
                                     <div class="myaccount-content">
                                         <h3>Thông Tin Tài Khoản</h3>
                                         @if(Session::get('status'))
