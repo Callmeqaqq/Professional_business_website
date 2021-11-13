@@ -9,7 +9,11 @@ class BlogController extends Controller
 {
     public $postId;
     function index(){
-        $data = DB::table('blog')->Join('users', 'blog.UserId', 'users.UserId')->paginate(9);
+        $data = DB::table('blog')
+            ->Join('users', 'blog.UserId', 'users.UserId')
+            ->Join('blog_category', 'blog.Blog_CategoryID','blog_category.Blog_CategoryID')
+            ->select('blog_category.*','blog.*','users.Fullname','blog.slug as blogSlug', 'blog_category.slug as categorySlug')
+            ->paginate(9);
         return view('blog', compact('data'));
     }
     function viewBySlug($Category, $slug){
@@ -26,7 +30,7 @@ class BlogController extends Controller
     function viewByCategory($category)
     {
         $data = DB::table('blog_category')
-            ->Join('blog', 'blog_category.Blog_CategoryID','blog_category.Blog_CategoryID')
+            ->Join('blog', 'blog.Blog_CategoryID','blog_category.Blog_CategoryID')
             ->Join('users', 'blog.UserId','users.UserId')
             ->Where('blog_category.slug',$category)
             ->select('blog_category.*','blog.*','users.Fullname','blog.slug as blogSlug', 'blog_category.slug as categorySlug')
