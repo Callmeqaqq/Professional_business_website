@@ -43,7 +43,8 @@ Route::post('/login', 'loginController@index');
 Route::get('/wellcome', function () {
     return view('welcome');
 });
-Route::get('/','HomeController@index');
+Route::get('/', 'HomeController@index');
+Route::get('/checkout', 'CheckoutController@index');
 
 // Blog Route
 Route::get('/blog', 'BlogController@index');
