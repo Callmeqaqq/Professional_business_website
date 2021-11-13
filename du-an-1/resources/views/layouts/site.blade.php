@@ -6,8 +6,7 @@
     <title>MetaH - Mơ ước của mọi nhà</title>
     <meta name="robots" content="noindex, follow"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <!-- Jquery -->
-{{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--}}
+
     <!-- Add site Favicon -->
     <link
         rel="icon"
@@ -207,7 +206,7 @@
                     <h4>Thành tiền: <span>$170.00</span></h4>
                 </div>
                 <div class="cart-btn btn-hover">
-                    <a class="theme-color" href="{{route('cart')}}">Xem giỏ hàng</a>
+                    <a class="theme-color" href="cart.html">Xem giỏ hàng</a>
                 </div>
                 <div class="checkout-btn btn-hover">
                     <a class="theme-color" href="checkout.html">Thanh toán</a>
@@ -357,16 +356,14 @@
     <script src="{{asset('js/vendor/popper.min.js')}}"></script>
     <script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>
 
-    <script src="{{asset('js/plugins/jquery.syotimer.min.js')}}"></script>
-    <script src="{{asset('js/plugins/swiper.min.js')}}"></script>
+{{--    <script src="{{asset('js/plugins/jquery.syotimer.min.js')}}"></script>--}}
+{{--    <script src="{{asset('js/plugins/swiper.min.js')}}"></script>--}}
     <script src="{{asset('js/plugins/scrollup.js')}}"></script>
-    <script src="{{asset('js/plugins/imagesloaded.pkgd.min.js')}}"></script>
-    <script src="{{asset('js/plugins/jquery.nice-select.min.js')}}"></script>
-    <script src="{{asset('js/plugins/counterup.min.js')}}"></script>
-    <script src="{{asset('js/plugins/select2.min.js')}}"></script>
-    <script src="{{asset('js/plugins/easyzoom.js')}}"></script>
-{{--JS AddToCart--}}
-    <script src="{{asset('js/add-to-cart.js')}}"></script>
+{{--    <script src="{{asset('js/plugins/imagesloaded.pkgd.min.js')}}"></script>--}}
+{{--    <script src="{{asset('js/plugins/jquery.nice-select.min.js')}}"></script>--}}
+{{--    <script src="{{asset('js/plugins/counterup.min.js')}}"></script>--}}
+{{--    <script src="{{asset('js/plugins/select2.min.js')}}"></script>--}}
+{{--    <script src="{{asset('js/plugins/easyzoom.js')}}"></script>--}}
 <!-- JS chính -->
     <script src="{{asset('js/main.js')}}"></script>
 </body>
