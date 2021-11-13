@@ -20,7 +20,7 @@
                                     </ul>
                                 </div>
                                 <h3><a href="{{url('blog')}}/{{$item->categorySlug}}/{{$item->blogSlug}}">{{$item->Title}}</a></h3>
-                                <p>{{$item->Blog_des}}</p>
+                                <p>{{Str::limit($item->Blog_des),'150','(...)'}}</p>
                                 <div class="blog-btn-2 btn-hover">
                                     <a class="btn hover-border-radius theme-color" href="{{url('blog')}}/{{$item->categorySlug}}/{{$item->blogSlug}}">Xem thêm</a>
                                 </div>
