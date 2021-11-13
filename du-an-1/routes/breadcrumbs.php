@@ -32,10 +32,16 @@ Breadcrumbs::for('blog', function (BreadcrumbTrail $trail) {
     $trail->push('Tin tức', url('blog'));
 });
 
-// Home > Blog > bài viết
-Breadcrumbs::for('post', function (BreadcrumbTrail $trail, $title, $slug) {
+// Home > Blog > Category
+Breadcrumbs::for('blogCategory', function (BreadcrumbTrail $trail, $title, $slug) {
     $trail->parent('blog');
-    $trail->push($title,url('post')."/{{slug}}");
+    $trail->push($title,url('blog')."/$slug");
+});
+
+// Home > Blog > Category > Post
+Breadcrumbs::for('post', function (BreadcrumbTrail $trail, $category, $categorySlug, $title, $slug) {
+    $trail->parent('blogCategory', $category, $categorySlug);
+    $trail->push($title,url('blog')."/{{categorySlug}}/{{slug}}");
 });
 
 

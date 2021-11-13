@@ -1,6 +1,6 @@
 @extends('layouts.site')
 @section('main')
-    {{Breadcrumbs::render('post', $data->Title, $data->slug)}}
+    {{Breadcrumbs::render('post',$data->BlogName, $data->categorySlug, $data->Title, $data->slug)}}
     <div class="blog-details-area pt-100 pb-100">
         <div class="container">
             <div class="row" style="justify-content: center">

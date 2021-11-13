@@ -17,7 +17,11 @@ class BlogController extends Controller
         return view('blog', compact('data'));
     }
     function viewBySlug($Category, $slug){
-        $data = DB::table('blog')->Join('users', 'blog.UserId','users.UserId')->Where('slug',$slug)->first();
+        $data = DB::table('blog')->Join('users', 'blog.UserId','users.UserId')
+            ->Join('blog_category','blog.Blog_CategoryID', 'blog_category.Blog_CategoryID')
+            ->Where('blog.slug',$slug)
+            ->Select('blog.*','users.*','blog_category.slug as categorySlug','blog_category.BlogName as BlogName')
+            ->first();
         if(isset($data)) {
             $this->postId = $data->BlogID;
             $prePost = $this->getInfoPost($this->postId - 1);
