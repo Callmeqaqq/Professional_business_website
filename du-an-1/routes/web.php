@@ -32,10 +32,16 @@ Route::get('/profile', 'Profile@index')->name('buyer.profile')->middleware('isLo
 Route::post('/profile/update', 'Profile@update')->name('buyer.update')->middleware('isLogged');
 Route::post('/profile/change', 'Profile@change')->name('buyer.change')->middleware('isLogged');
 
+
+// Home
 Route::get('/','HomeController@index')->name('home');
 
+// Shop
 Route::get('/shop','ShopController@index');
 
+//Category, ProductDetail
+Route::get('/category/{slug}','ShopController@category');
+Route::get('/products/{slug}','ProductDetailController@index');
 
 
 Route::get('/login', 'loginController@index');
@@ -54,7 +60,6 @@ Route::get('/blog/{category}', 'BlogController@viewByCategory');
 // About Route
 Route::get('/about-us', 'AboutController@index');
 
-Route::get('/products/{slug}','ProductDetailController@index');
 // ---------------------------Cart----------------------------------
 Route::get('/cart', 'CartController@index')->name('cart');
 Route::get('/add-cart/{slug}', 'CartController@AddCart')->name('cart.add');
