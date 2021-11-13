@@ -62,7 +62,7 @@
                                     </div>
                                 </div>
                                 <div class="product-content">
-                                    <h3><a id="{{$item->ProductId}}" href="products/{{$item->Slug}}">{{$item->ProductName}}</a></h3>
+                                    <h3><a id="{{$item->ProductId}}" slug="{{$item->Slug}}" href="products/{{$item->Slug}}">{{$item->ProductName}}</a></h3>
                                     <div class="product-price">
                                         @if ($item->Discount != 0)
                                         <span class="old-price">{{number_format((100*$item->Price)/((1-$item->Discount)*100))}} <sup>vnđ</sup></span>

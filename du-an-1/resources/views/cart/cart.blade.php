@@ -1,6 +1,6 @@
 @extends('layouts.site')
 @section('main')
-    @if (Session::has('cart') != null)
+    @if (Session::has('Cart') != null)
     <div class="cart-area pt-100 pb-100">
         <div class="container">
             <div class="row">
@@ -20,13 +20,13 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach(Session::get('cart')->product as $value)
+                                    @foreach(Session::get('Cart')->products as $value)
                                     <tr>
                                         <td class="product-thumbnail">
-                                            <a href="product-details.html"><img src="assets/images/cart/cart-1.jpg" alt=""></a>
+                                            <a href="/products/{{$value['productInfo']->Slug}}"><img src="{{'images/product/'.$value['productInfo']->Images}}" alt=""></a>
                                         </td>
                                         <td class="product-name">
-                                            <h5><a href="product-details.html">Tên sản phẩm</a></h5>
+                                            <h5><a href="/products/{{$value['productInfo']->Slug}}">{{$value['productInfo']->ProductName}}</a></h5>
                                         </td>
                                         <td class="product-cart-price"><span class="amount">{{number_format($value['price'])}}</span></td>
                                         <td class="cart-quality">
@@ -42,23 +42,23 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="cart-shiping-update-wrapper">
-                                    <div class="cart-shiping-update btn-hover">
-                                        <a href="#">Continue Shopping</a>
-                                    </div>
-                                    <div class="cart-clear-wrap">
-                                        <div class="cart-clear btn-hover">
-                                            <button>Update Cart</button>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="cart-shiping-update-wrapper">
+                                        <div class="cart-shiping-update btn-hover">
+                                            <a href="">Tiếp tục mua hàng</a>
                                         </div>
-                                        <div class="cart-clear btn-hover">
-                                            <a href="#">Clear Cart</a>
+                                        <div class="cart-clear-wrap">
+                                            <div class="cart-clear btn-hover">
+                                                <button>Cập nhật giỏ hàng</button>
+                                            </div>
+                                            <div class="cart-clear btn-hover">
+                                                <a href="#">Xóa tất cả</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -138,5 +138,7 @@
             </div>
         </div>
     </div>
+    @else
+        <p style="text-align: center">Giỏ hàng hiện đang trống</p>
     @endif
 @stop()
