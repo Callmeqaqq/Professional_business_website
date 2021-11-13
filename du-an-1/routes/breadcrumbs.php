@@ -44,3 +44,15 @@ Breadcrumbs::for('about', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Về chúng tôi', url('about-us'));
 });
+
+//home > cart
+Breadcrumbs::for('cart', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Giỏ hàng', url('cart'));
+});
+
+//home > cart > checkout
+Breadcrumbs::for('checkout', function (BreadcrumbTrail $trail) {
+   $trail->parent('cart');
+   $trail->push('Thanh toán', url('checkout'));
+});

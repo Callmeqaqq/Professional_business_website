@@ -8,7 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- Jquery -->
 {{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--}}
-    <!-- Add site Favicon -->
+<!-- Add site Favicon -->
+    {{--    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB_AA5smsg2IRTnjdq6d93fPvbLJDZKTA&libraries=places"></script>--}}
+    {{--        // AIzaSyCB_AA5smsg2IRTnjdq6d93fPvbLJDZKTA--}}
+    {{--        // &callback=initMap--}}
+
+    {{--    GoongMap--}}
+    <script src="https://cdn.jsdelivr.net/npm/@goongmaps/goong-js@1.0.9/dist/goong-js.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@goongmaps/goong-js@1.0.9/dist/goong-js.css" rel="stylesheet" />
+
     <link
         rel="icon"
         href="assets/images/favicon/cropped-favicon-32x32.png"
@@ -210,7 +218,7 @@
                     <a class="theme-color" href="{{route('cart')}}">Xem giỏ hàng</a>
                 </div>
                 <div class="checkout-btn btn-hover">
-                    <a class="theme-color" href="checkout.html">Thanh toán</a>
+                    <a class="theme-color" href="{{route('cart.checkout')}}">Thanh toán</a>
                 </div>
             </div>
         </div>
@@ -351,23 +359,24 @@
     </div>
 </div>
 <!-- Javascript có thể dựa vào đây custom lại-->
-    <script src="{{asset('js/vendor/modernizr-3.11.2.min.js')}} "></script>
-    <script src="{{asset('js/vendor/jquery-3.6.0.min.js')}}"></script>
-    <script src="{{asset('js/vendor/jquery-migrate-3.3.2.min.js')}}"></script>
-    <script src="{{asset('js/vendor/popper.min.js')}}"></script>
-    <script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/vendor/modernizr-3.11.2.min.js')}} "></script>
+<script src="{{asset('js/vendor/jquery-3.6.0.min.js')}}"></script>
+<script src="{{asset('js/vendor/jquery-migrate-3.3.2.min.js')}}"></script>
+<script src="{{asset('js/vendor/popper.min.js')}}"></script>
+<script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>
 
-    <script src="{{asset('js/plugins/jquery.syotimer.min.js')}}"></script>
-    <script src="{{asset('js/plugins/swiper.min.js')}}"></script>
-    <script src="{{asset('js/plugins/scrollup.js')}}"></script>
-    <script src="{{asset('js/plugins/imagesloaded.pkgd.min.js')}}"></script>
-    <script src="{{asset('js/plugins/jquery.nice-select.min.js')}}"></script>
-    <script src="{{asset('js/plugins/counterup.min.js')}}"></script>
-    <script src="{{asset('js/plugins/select2.min.js')}}"></script>
-    <script src="{{asset('js/plugins/easyzoom.js')}}"></script>
+<script src="{{asset('js/plugins/jquery.syotimer.min.js')}}"></script>
+<script src="{{asset('js/plugins/swiper.min.js')}}"></script>
+<script src="{{asset('js/plugins/scrollup.js')}}"></script>
+<script src="{{asset('js/plugins/imagesloaded.pkgd.min.js')}}"></script>
+<script src="{{asset('js/plugins/jquery.nice-select.min.js')}}"></script>
+<script src="{{asset('js/plugins/counterup.min.js')}}"></script>
+<script src="{{asset('js/plugins/select2.min.js')}}"></script>
+<script src="{{asset('js/plugins/easyzoom.js')}}"></script>
 {{--JS AddToCart--}}
-    <script src="{{asset('js/add-to-cart.js')}}"></script>
+<script src="{{asset('js/add-to-cart.js')}}"></script>
 <!-- JS chính -->
-    <script src="{{asset('js/main.js')}}"></script>
+<script src="{{asset('js/main.js')}}"></script>
+<script src="{{asset('js/checkout.js')}}"></script>
 </body>
 </html>

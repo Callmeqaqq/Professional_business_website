@@ -6100,7 +6100,6 @@ button {
 .sidebar-widget .sidebar-list-style.sidebar-widget-color ul li a.orange:before {
     background-color: #ffba00;
 }
-<<<<<<< HEAD
 /* Product Detail*/
 
 .product-details-content {
@@ -7444,9 +7443,6 @@ button {
     opacity: 1;
 }
 
-.sidebar-widget .search-wrap-2 .search-2-form .button-search {
-=======
-
 .sidebar-widget .sidebar-widget-tag a {
     color: #575757;
     font-weight: 300;
@@ -7484,23 +7480,18 @@ button {
 }
 
 .sidebar-widget .search-wrap-3 .search-3-form .button-search {
->>>>>>> parent of 08724a7 (Revert "Merge branch 'nhat'")
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-<<<<<<< HEAD
     right: 15px;
-=======
     right: 19px;
->>>>>>> parent of 08724a7 (Revert "Merge branch 'nhat'")
     border: none;
     background-color: transparent;
     font-size: 18px;
     color: #000000;
     padding: 0;
-<<<<<<< HEAD
 }
 /* Filter Price */
 .sidebar-widget .sidebar-widget-title h3 {
@@ -7678,7 +7669,6 @@ button {
     color: #575757;
     font-weight: 300;
     font-family: "Poppins", sans-serif;
-=======
     color: #818181;
 }
 
@@ -7751,12 +7741,10 @@ button {
 }
 
 .sidebar-widget .latest-post-wrap .single-latest-post {
->>>>>>> parent of 08724a7 (Revert "Merge branch 'nhat'")
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-<<<<<<< HEAD
     -webkit-box-pack: justify;
     -webkit-justify-content: space-between;
     -ms-flex-pack: justify;
