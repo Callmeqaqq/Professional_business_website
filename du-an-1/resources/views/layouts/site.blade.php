@@ -147,40 +147,34 @@
             <div class="cart-content">
                 <h3>Giỏ Hàng</h3>
                 <ul>
-                    <li>
-                        <div class="cart-img">
-                            <a href="#"><img src="assets/images/cart/cart-1.jpg" alt=""/></a>
-                        </div>
-                        <div class="cart-title">
-                            <h4><a href="#">Stylish Swing Chair</a></h4>
-                            <span> 1 × $49.00 </span>
-                        </div>
-                        <div class="cart-delete">
-                            <a href="#">×</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="cart-img">
-                            <a href="#"><img src="assets/images/cart/cart-2.jpg" alt=""/></a>
-                        </div>
-                        <div class="cart-title">
-                            <h4><a href="#">Modern Chairs</a></h4>
-                            <span> 1 × $49.00 </span>
-                        </div>
-                        <div class="cart-delete">
-                            <a href="#">×</a>
-                        </div>
-                    </li>
+                    @if (Session::has('Cart') != null)
+                        @foreach(Session::get('Cart')->products as $value)
+                        <li>
+                            <div class="cart-img">
+                                <a href="/products/{{$value['productInfo']->Slug}}"><img src="{{'images/product/'.$value['productInfo']->Images}}" alt=""/></a>
+                            </div>
+                            <div class="cart-title">
+                                <h4><a href="/products/{{$value['productInfo']->Slug}}">{{$value['productInfo']->ProductName}}</a></h4>
+                                <span> {{$value['quantity']}} × {{number_format($value['price'])}} </span>
+                            </div>
+                            <div class="cart-delete">
+                                <a href="#">×</a>
+                            </div>
+                        </li>
+                        @endforeach
                 </ul>
-                <div class="cart-total">
-                    <h4>Thành tiền: <span>$170.00</span></h4>
-                </div>
-                <div class="cart-btn btn-hover">
-                    <a class="theme-color" href="{{route('cart')}}">Xem giỏ hàng</a>
-                </div>
-                <div class="checkout-btn btn-hover">
-                    <a class="theme-color" href="checkout.html">Thanh toán</a>
-                </div>
+                    <div class="cart-total">
+                        <h4>Thành tiền: <span>$170.00</span></h4>
+                    </div>
+                    <div class="cart-btn btn-hover">
+                        <a class="theme-color" href="{{route('cart')}}">Xem giỏ hàng</a>
+                    </div>
+                    <div class="checkout-btn btn-hover">
+                        <a class="theme-color" href="checkout.html">Thanh toán</a>
+                    </div>
+                    @else
+                        <p style="text-align: center">Giỏ hàng hiện đang trống!</p>
+                    @endif
             </div>
         </div>
     </div>
