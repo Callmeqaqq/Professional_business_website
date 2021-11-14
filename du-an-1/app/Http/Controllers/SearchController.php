@@ -13,13 +13,13 @@ class SearchController extends Controller
      */
     function action(Request $request){
         $query = $request->get('keyword');
-//        $data = DB::table('product')
-//            ->join('category','product.CategoryId','=','category.CategoryId')
-//            ->select('product.*','category.CatActive')
-//            ->where('category.CatActive','=',1)
-//            ->where('Active','=',1)
-//            ->Where('ProductName','like','%'.$query.'%')->paginate(9);
-        $data = Product::search($query)->paginate(9);
+        $data = DB::table('product')
+            ->join('category','product.CategoryId','=','category.CategoryId')
+            ->select('product.*','category.CatActive')
+            ->where('category.CatActive','=',1)
+            ->where('Active','=',1)
+            ->Where('ProductName','like','%'.$query.'%')->paginate(9);
+//        $data = Product::search($query)->paginate(9);
         $totalRow = $data->count();
             if($request->ajax()){
                 $paginate = '';
