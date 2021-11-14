@@ -66,8 +66,19 @@ class ProductDetailController extends Controller
             ->where('ProductId','=',$productId)
             ->get();
 //        dd($comment);
+        $nd='';
+        if(count($comment)==0){
+            $nd='<h3>Chưa có đánh giá cho sản phẩm này</h3>';
+        }
+        else{
+            $nd='<h3>'.count($comment).' Đánh giá cho sản phẩm</h3>';
+        }
 
-        $output='';
+        $output='
+            <div class="review-wrapper">
+                '.$nd.'
+            </div>
+        ';
         foreach($comment as $key=>$comm){
             $star1='';
             $star2='';
