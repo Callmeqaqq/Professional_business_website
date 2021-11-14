@@ -54,6 +54,7 @@ Route::get('/shop','ShopController@index');
 //Category, ProductDetail
 Route::get('/category/{slug}','ShopController@category');
 Route::get('/products/{slug}','ProductDetailController@index');
+Route::post('/load-comment','ProductDetailController@load_comment');
 
 // ---------------------------Blog----------------------------------
 Route::get('/blog', 'BlogController@index');

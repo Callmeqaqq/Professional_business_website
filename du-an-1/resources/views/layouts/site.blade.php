@@ -302,5 +302,26 @@
 <script src="{{asset('js/main.js')}}"></script>
 <script src="{{asset('js/checkout.js')}}"></script>
 <script src="{{asset('js/plugins/search.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        load_comment();
+        // alert(productId);
+        function load_comment() {
+            var productId = $('.comment_productId').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:"{{url("/load-comment")}}",
+                method:"POST",
+                data:{
+                    productId:productId,
+                    _token:_token
+                },
+                success:function(data){
+                    $('#comment_show').html(data);
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>
