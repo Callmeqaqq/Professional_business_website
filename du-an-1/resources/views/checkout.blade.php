@@ -31,13 +31,17 @@
             }
         }
 
+        .mapboxgl-ctrl-geocoder {
+            box-shadow: none;
+        }
+
     </style>
     {{ Breadcrumbs::render('checkout') }}
-    <div class="checkout-main-area pt-100">
+    <div class="checkout-main-area pb-100 pt-100">
         <div class="container">
             <div class="checkout-wrap pt-30">
                 <div class="row">
-                    <div class="col-lg-7">
+                    <div class="col-lg-7 billing-block">
                         <div class="billing-info-wrap">
                             <h3>Thông Tin Thanh Toán</h3>
                             <div class="row">
@@ -52,17 +56,17 @@
                                     <div class="billing-info mb-20">
                                         <label>Địa chỉ <abbr class="required"
                                                              title="Thông tin bắt buộc">*</abbr></label>
-{{--                                        địa chỉ công ty--}}
+                                        {{--Company address--}}
                                         <input id="latt" type="hidden" name="latt" value="10.854252599999999">
                                         <input id="long" type="hidden" name="long" value="106.62872511153768">
-{{--                                        địa chỉ khách hàng--}}
+                                        {{--User address--}}
                                         <input id="latt_user" type="hidden" name="latt_user" value="">
                                         <input id="long_user" type="hidden" name="long_user" value="">
-                                        {{--bộ mã hóa địa lý--}}
 
+                                        {{--autocomplete & place info--}}
                                         <div id="geocoder" class="billing-address"></div>
-                                        <pre id="result"></pre>
-                                        <span id="kilo"></span>
+
+                                        <span id="kilo" class="text-warnings"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
@@ -118,7 +122,8 @@
                                                name="payment_method">
                                         <label for="payment-method-3">Thanh toán khi nhận hàng</label>
                                         <div class="payment-box" id="after">
-                                            <p>Tổng quãng đường: 300km</p>
+                                            <p>Quãng đường vận chuyển: <span id="shipping-km">chọn địa chỉ giao</span>
+                                            </p>
                                             <p>Phí vận chuyển: 1.000.000vnđ</p>
                                             <hr>
                                             <p>Hàng sẽ được giao trong vòng 48h(3-5 ngày đối với giao hàng ở tỉnh), quý
@@ -141,7 +146,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <p align="justify">Nhấn "Đặt hàng" đồng nghĩa với việc bạn đồng ý với <a href="#">Điều khoản
+                            <p align="justify" style="font-size: 10.5px; margin-top: 8px">Nhấn "Đặt hàng" đồng nghĩa với
+                                việc bạn đồng ý với <a href="#" class="rules">Điều khoản
                                     MetaH</a></p>
                             <div class="Place-order btn-hover">
                                 <a href="#">Đặt hàng</a>

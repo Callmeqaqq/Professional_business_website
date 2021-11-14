@@ -2796,7 +2796,7 @@ textarea {
     .login-form-container
     .login-register-form
     form
-    input[type="checkbox"]:-webkit-input-placeholder {
+    input[type="checkbox"]::-webkit-input-placeholder {
     color: #000000;
     opacity: 1;
 }
@@ -8401,10 +8401,7 @@ textarea {
     padding: 2px 20px;
     color: #000000;
     font-size: 14px;
-    padding: 20px 0;
     color: #333;
-
-    margin-bottom: 26px;
 }
 
 .sidebar-widget .latest-post-wrap .single-latest-post:last-child {
@@ -8446,9 +8443,53 @@ textarea {
 .sidebar-widget .latest-post-wrap .single-latest-post .latest-post-img a img {
     width: 100%;
 }
+.billing-info-wrap h3 {
+    font-size: 22px;
+    position: relative;
+    margin: 0 0 55px;
+    text-transform: capitalize;
+    font-weight: 500;
+}
 
-.billing-info-wrap
-    .billing-info input:focus {
+@media only screen and (max-width: 767px) {
+    .billing-info-wrap h3 {
+        margin-bottom: 40px;
+    }
+}
+
+.billing-info-wrap h3:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: -12px;
+    background-color: #e97730;
+    width: 50px;
+    height: 2px;
+}
+
+.billing-info-wrap .billing-info label {
+    font-size: 14px;
+    text-transform: capitalize;
+    display: block;
+    margin: 0 0 5px;
+    font-weight: 500;
+}
+
+.billing-info-wrap .billing-info label abbr {
+    color: red;
+}
+
+.billing-info-wrap .billing-info input {
+    border: 1px solid #e8e8e8;
+    height: 50px;
+    background-color: transparent;
+    padding: 2px 20px;
+    color: #000000;
+    font-size: 14px;
+    width: 100%;
+}
+
+.billing-info-wrap .billing-info input:focus {
     border: 1px solid #343538;
 }
 
@@ -8466,8 +8507,7 @@ textarea {
     opacity: 1;
 }
 
-.billing-info-wrap
-        .billing-select label {
+.billing-info-wrap .billing-select label {
     font-size: 15px;
     text-transform: capitalize;
     display: block;
@@ -8495,8 +8535,7 @@ textarea {
     opacity: 1;
 }
 
-.billing-info-wrap
-    .checkout-account input::-webkit-input-placeholder {
+.billing-info-wrap .checkout-account input::-webkit-input-placeholder {
     color: #000000;
     opacity: 1;
 }
@@ -8516,11 +8555,8 @@ textarea {
     margin: 0 0 5px;
 }
 
-.sidebar-widget .sidebar-banner a img {
-    width: 100%;
-    -webkit-transition: all .3s ease 0s;
-    -o-transition: all .3s ease 0s;
-    transition: all .3s ease 0s;
+.billing-info-wrap .checkout-account-toggle label abbr {
+    color: red;
 }
 
 .billing-info-wrap .checkout-account-toggle input {
@@ -8586,7 +8622,19 @@ textarea {
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .billing-info-wrap.mr-50 {
-        margin-right: 0;
+        margin-right: 0px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .billing-info-wrap.mr-50 {
+        margin-right: 0px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .billing-info-wrap.mr-50 {
+        margin-right: 0px;
     }
 }
 
@@ -8637,7 +8685,7 @@ textarea {
 }
 
 .your-order-area {
-    padding: 0 50px 50px;
+    padding: 50px 50px 50px;
     border-width: 2px;
     border-style: solid;
     position: relative;
@@ -8766,7 +8814,7 @@ textarea {
 .your-order-area .your-order-wrap .payment-method .sin-payment label {
     font-size: 15px;
     text-transform: uppercase;
-    margin: 0 0 0 21px;
+    margin: 0px 0 0 21px;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -8791,6 +8839,11 @@ textarea {
 
 .your-order-area .your-order-wrap .payment-method .sin-payment label a {
     text-decoration: underline;
+.billing-info-wrap .billing-info inputne;
+}
+
+.billing-block{
+ padding-bottom: 30px;
 }
 
 .your-order-area .your-order-wrap .payment-method .sin-payment .payment-box {
@@ -8807,12 +8860,15 @@ textarea {
     margin-top: 40px;
 }
 
+.rules{
+    color: #e97730;
+}
+
 @media only screen and (max-width: 767px) {
     .your-order-area .Place-order {
         margin-top: 20px;
     }
 }
-/*viet fix css*/
 
 .your-order-area .Place-order a {
     background-color: #e97730;
