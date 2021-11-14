@@ -305,5 +305,6 @@
 <!-- JS chính -->
 <script src="{{asset('js/main.js')}}"></script>
 <script src="{{asset('js/checkout.js')}}"></script>
+<script src="{{asset('js/plugins/search.js')}}"></script>
 </body>
 </html>
