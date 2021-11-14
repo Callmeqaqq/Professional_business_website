@@ -14,7 +14,7 @@ class BlogController extends Controller
             ->Join('blog_category', 'blog.Blog_CategoryID','blog_category.Blog_CategoryID')
             ->select('blog_category.*','blog.*','users.Fullname','blog.slug as blogSlug', 'blog_category.slug as categorySlug')
             ->paginate(9);
-        return view('blog', compact('data'));
+        return view('blog/blog', compact('data'));
     }
     function viewBySlug($Category, $slug){
         $data = DB::table('blog')->Join('users', 'blog.UserId','users.UserId')
@@ -26,7 +26,7 @@ class BlogController extends Controller
             $this->postId = $data->BlogID;
             $prePost = $this->getInfoPost($this->postId - 1);
             $nextPost = $this->getInfoPost($this->postId + 1);
-            return view('postSingle', compact('data','prePost','nextPost'));
+            return view('blog/postSingle', compact('data','prePost','nextPost'));
         }else{
             return view('404');
         }
