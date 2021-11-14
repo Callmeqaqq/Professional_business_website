@@ -52,14 +52,11 @@
                     </div>
                     {{-- Đánh giá sản phẩm theo sao--}}
                     <div class="product-details-review">
+                        <h3>{{$star}}/5</h3>
                         <div class="product-rating">
                             <i class=" ti-star"></i>
-                            <i class=" ti-star"></i>
-                            <i class=" ti-star"></i>
-                            <i class=" ti-star"></i>
-                            <i class=" ti-star"></i>
                         </div>
-                        <span>( 1 Khách hàng đánh giá )</span>
+                        <span>( {{count($comment)}} Khách hàng đánh giá )</span>
                     </div>
                     {{-- Biến thể màu của sản phẩm--}}
                     <div class="product-color product-color-active product-details-color">
@@ -108,11 +105,12 @@
                                     </div>
                                     <div class="review-content">
                                         <div class="review-rating">
-                                            <a href="#"><i class="ti-star"></i></a>
-                                            <a href="#"><i class="ti-star"></i></a>
-                                            <a href="#"><i class="ti-star"></i></a>
-                                            <a href="#"><i class="ti-star"></i></a>
-                                            <a href="#"><i class="ti-star"></i></a>
+                                            @for($i=1;$i <= $com->Rating;$i++)
+                                                <i style="color:#e97730" class="fas fa-star"></i>
+                                            @endfor
+                                            @for($i=1;$i<= (5-$com->Rating);$i++)
+                                                <i style="color:#e97730" class="far fa-star"></i>
+                                            @endfor
                                         </div>
                                         <h5><span>{{$com->Fullname}}</span>- Ngày {{date('d-m-Y', strtotime($com->CreateAt))}}</h5>
                                         <p>{{$com->Content}}</p>

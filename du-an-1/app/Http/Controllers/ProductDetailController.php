@@ -26,12 +26,16 @@ class ProductDetailController extends Controller
                         ->select('comment.*','product.Slug','users.Fullname')
                         ->where('product.Slug','=', $slug)
                         ->Get();
-
+        $sum = 0;
+        foreach ($comment as $com){
+            $sum = $sum + $com->Rating;
+        }
+        $star = $sum / count($comment);
         $accept = false;
         if(session()->has("LoggedUser")){
             $accept = true;
         }
 //         dd($comment);
-        return view('shop/productdetail', compact('data','variant','comment','accept'));
+        return view('shop/productdetail', compact('data','variant','comment','accept','star'));
     }
 }
