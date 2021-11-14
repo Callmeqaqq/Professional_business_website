@@ -1558,7 +1558,7 @@ textarea {
   font-weight: 500;
   letter-spacing: 0.2px;
   background-color: #e97730;
-  -webkit-transition: all 0.3s ease ease 0s;
+  -webkit-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease ease 0s;
   transition: all 0.3s ease ease 0s;
   z-index: 1;
