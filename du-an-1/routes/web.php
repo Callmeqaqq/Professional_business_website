@@ -68,5 +68,6 @@ Route::get('/cart', 'CartController@index')->name('cart');
 Route::get('/add-cart/{slug}', 'CartController@AddCart')->name('cart.add');
 Route::get('/checkout', 'CheckoutController@index')->name('cart.checkout');
 
-
+//--------------------------search----------------------------
+Route::get('/search{keyword?}', 'SearchController@action')->name('search');
 
