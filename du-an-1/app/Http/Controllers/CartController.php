@@ -6,24 +6,25 @@ use App\Cart;
 use Illuminate\Http\Request;
 use App\Models\ProductModel;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Session;
 
 class CartController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return view('cart/cart');
     }
 
     public function AddCart(Request $request, $slug) {
-        $product = DB::table('product')->where('Slug',$slug)->first();
-        $newCart = null;
-        if ($product != null) {
-            $oldCart = Session('cart') ? Session('cart') : null;
-            $newCart = new Cart($oldCart);
-            $newCart->AddCart($product, $slug);
-            $request->Session()->put('cart', $newCart);
-        }
-        return view('cart/cart', compact('newCart'));
+            $product = DB::table('product')->where('Slug', $slug)->first();
+            if ($product != null) {
+                $oldCart = Session('Cart') ? Session('Cart') : null;
+                $newCart = new Cart($oldCart);
+                $newCart->AddCart($product, $slug);
+                $request->Session()->put('Cart', $newCart);
+//            dd($newCart);
+            }
+            return view('cart/cart');
     }
 
     protected function Checkout()
