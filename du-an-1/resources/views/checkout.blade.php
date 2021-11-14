@@ -122,8 +122,8 @@
                                                name="payment_method">
                                         <label for="payment-method-3">Thanh toán khi nhận hàng</label>
                                         <div class="payment-box" id="after">
-                                            <p>Quãng đường vận chuyển: <span id="shipping-km">chọn địa chỉ giao</span>
-                                            </p>
+                                            <p>Quãng đường vận chuyển: <span id="shipping-km">chọn địa chỉ giao</span></p>
+                                            <p>Trọng lượng tổng sản phẩm: </p>
                                             <p>Phí vận chuyển: 1.000.000vnđ</p>
                                             <hr>
                                             <p>Hàng sẽ được giao trong vòng 48h(3-5 ngày đối với giao hàng ở tỉnh), quý
