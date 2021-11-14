@@ -111,15 +111,11 @@
                                     @csrf
                                     <input type="hidden" name="comment_productId" class="comment_productId" value="{{$data[0]->ProductId}}">
 
-                                    <div class="review-wrapper">
-                                        @if(count($comment)==0)
-                                            <h3>Chưa có đánh giá cho sản phẩm {{$data[0]->ProductName}}</h3>
-                                        @else
-                                            <h3>{{count($comment)}} Đánh giá cho sản phẩm {{$data[0]->ProductName}}</h3>
-                                        @endif
+
                                     <div id="comment_show">
+
                                     </div>
-                                    </div>
+
                                 </form>
 {{--                                    @foreach($comment as $com)--}}
 {{--                                    <div class="single-review">--}}
