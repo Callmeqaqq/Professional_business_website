@@ -28,4 +28,14 @@ class Cart {
         $this->quantity += $newProduct['quantity'];
         $this->quantity++;
     }
+
+    public function DeleteItemCart($slug) {
+        $this->quantity -= $this->products[$slug]['quantity'];
+        $this->totalPrice -= $this->products[$slug]['price'];
+        unset($this->products[$slug]);
+    }
+
+    public function DeleteAllCart() {
+        unset($this->products);
+    }
 }

@@ -26,7 +26,7 @@
                                             <a href="/products/{{$value['productInfo']->Slug}}"><img src="{{'images/product/'.$value['productInfo']->Images}}" alt=""></a>
                                         </td>
                                         <td class="product-name">
-                                            <h5><a href="/products/{{$value['productInfo']->Slug}}">{{$value['productInfo']->ProductName}}</a></h5>
+                                            <h5><a slug="{{$value['productInfo']->Slug}}" href="/products/{{$value['productInfo']->Slug}}">{{$value['productInfo']->ProductName}}</a></h5>
                                         </td>
                                         <td class="product-cart-price"><span class="amount">{{number_format($value['price'])}}</span></td>
                                         <td class="cart-quality">
@@ -35,7 +35,7 @@
                                                 <div class="inc qtybutton">+</div></div>
                                         </td>0
                                         <td class="product-total"><span>{{number_format($value['quantity']*$value['price'])}}</span></td>
-                                        <td class="product-remove"><a href="#"><i class=" ti-trash "></i></a></td>
+                                        <td class="product-remove"><a href=""><i class="ti-trash"></i></a></td>
                                     </tr>
                                     @endforeach
                                     </tbody>

@@ -66,6 +66,8 @@ Route::get('/about-us', 'AboutController@index');
 // ---------------------------Cart----------------------------------
 Route::get('/cart', 'CartController@index')->name('cart');
 Route::get('/add-cart/{slug}', 'CartController@AddCart')->name('cart.add');
+Route::get('/delete-item-cart/{slug}', 'CartController@DeleteItemCart')->name('cart.deleteItemCart');
+Route::get('/delete-all-cart', 'CartController@DeleteAllCart')->name('cart.deleteAllCart');
 Route::get('/checkout', 'CheckoutController@index')->name('cart.checkout');
 
 

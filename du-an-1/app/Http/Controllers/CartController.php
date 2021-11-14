@@ -27,6 +27,24 @@ class CartController extends Controller
             return view('cart/cart');
     }
 
+    public function DeleteItemCart(Request $request, $slug) {
+        $oldCart = Session('Cart') ? Session('Cart') : null;
+        $newCart = new Cart($oldCart);
+        $newCart->DeleteItemCart($slug);
+
+        if (Count($newCart->products) > 0) {
+            $request->Session()->put('Cart', $newCart);
+        } else {
+            $request->Session()->forget('Cart');
+        }
+        return view('cart', compact('newCart'));
+    }
+
+    public function DeleteAllCart(Request $request) {
+        $oldCart = Session('Cart') ? Session('Cart') : null;
+        $newCart = new Cart($oldCart);
+    }
+
     protected function Checkout()
     {
         return view('cart/checkout');

@@ -123,7 +123,13 @@
                             </div>
                             <div class="header-action-style header-action-cart">
                                 <a class="cart-active" href="#"><i class="pe-7s-shopbag"></i>
-                                    <span class="product-count bg-black">01</span>
+                                    <span class="product-count bg-black">
+                                        @if (Session::has('Cart') != null)
+                                            {{Count(Session::get('Cart')->products)}}
+                                        @else
+                                            0
+                                        @endif
+                                    </span>
                                 </a>
                             </div>
                             <div class="header-action-style d-block d-lg-none">
@@ -140,7 +146,7 @@
             <a class="cart-close" href="#"><i class="pe-7s-close"></i></a>
             <div class="cart-content">
                 <h3>Giỏ Hàng</h3>
-                <ul>
+                <ul  id="cart-main">
                     @if (Session::has('Cart') != null)
                         @foreach(Session::get('Cart')->products as $value)
                         <li>
@@ -160,15 +166,15 @@
                     <div class="cart-total">
                         <h4>Thành tiền: <span>$170.00</span></h4>
                     </div>
+                    @else
+                        <p style="text-align: center">Giỏ hàng hiện đang trống!</p>
+                    @endif
                     <div class="cart-btn btn-hover">
                         <a class="theme-color" href="{{route('cart')}}">Xem giỏ hàng</a>
                     </div>
                     <div class="checkout-btn btn-hover">
                         <a class="theme-color" href="checkout.html">Thanh toán</a>
                     </div>
-                    @else
-                        <p style="text-align: center">Giỏ hàng hiện đang trống!</p>
-                    @endif
             </div>
         </div>
     </div>
