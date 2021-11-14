@@ -54,9 +54,6 @@ Route::get('/shop','ShopController@index');
 //Category, ProductDetail
 Route::get('/category/{slug}','ShopController@category');
 Route::get('/products/{slug}','ProductDetailController@index');
-Route::post('/load-comment','ProductDetailController@load_comment');
-Route::post('/send-comment','ProductDetailController@send_comment');
-
 
 // ---------------------------Blog----------------------------------
 Route::get('/blog', 'BlogController@index');
@@ -71,6 +68,5 @@ Route::get('/cart', 'CartController@index')->name('cart');
 Route::get('/add-cart/{slug}', 'CartController@AddCart')->name('cart.add');
 Route::get('/checkout', 'CheckoutController@index')->name('cart.checkout');
 
-//--------------------------search----------------------------
-Route::get('/search{keyword?}', 'SearchController@action')->name('search');
+
 
