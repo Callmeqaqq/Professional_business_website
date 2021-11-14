@@ -1,5 +1,34 @@
 @extends('layouts.site')
 @section('main')
+    {{--    slider--}}
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner" style="height:600px;">
+            @foreach($slider as $sliderURL)
+            <div class="carousel-item {{$sliderURL->SliderId==1?'active':''}}">
+                <img src="{{$sliderURL->URL}}" class="d-block w-100" alt="#">
+            </div>
+                @endforeach
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
     {{--    Danh mục--}}
     <div class="category-area bg-gray-4 pt-95 pb-100">
         <div class="container">
@@ -13,7 +42,8 @@
                             <div class="cat-img">
                                 <center>
                                     <a href="category/{{$cat->CategorySlug}}">
-                                        <img class="cat-normal-img" src="{{asset('images/product/'.$cat->CategoryImage)}}" alt="">
+                                        <img class="cat-normal-img"
+                                             src="{{asset('images/product/'.$cat->CategoryImage)}}" alt="">
                                     </a>
                                 </center>
                             </div>
@@ -42,40 +72,44 @@
             </div>
 
             <div class="tab-content jump">
-            {{-- Sản Phẩm Mới--}}
+                {{-- Sản Phẩm Mới--}}
                 <div id="pro-1" class="tab-pane active">
                     <div class="row">
                         @foreach($data as $item)
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                            <div class="product-wrap mb-35" data-aos="fade-up" data-aos-delay="200">
-                                <div class="product-img img-zoom mb-25">
-                                    <a href="products/{{$item->Slug}}">
-                                        <img src="{{asset('images/product/'.$item->Images)}}" alt="">
-                                    </a>
-                                    <div class="product-badge badge-top badge-right badge-pink">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                                <div class="product-wrap mb-35" data-aos="fade-up" data-aos-delay="200">
+                                    <div class="product-img img-zoom mb-25">
+                                        <a href="products/{{$item->Slug}}">
+                                            <img src="{{asset('images/product/'.$item->Images)}}" alt="">
+                                        </a>
+                                        <div class="product-badge badge-top badge-right badge-pink">
                                             @if ($item->Discount != 0)
-                                            <span>-{{$item->Discount*100}}%</span>
+                                                <span>-{{$item->Discount*100}}%</span>
                                             @endif
+                                        </div>
+                                        <div class="product-action-2-wrap">
+                                            <button class="product-action-btn-2" title="Add To Cart"><i
+                                                    class="pe-7s-cart"></i> Thêm vào giỏ hàng
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="product-action-2-wrap">
-                                        <button class="product-action-btn-2" title="Add To Cart"><i class="pe-7s-cart"></i> Thêm vào giỏ hàng</button>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3><a id="{{$item->ProductId}}" slug="{{$item->Slug}}" href="products/{{$item->Slug}}">{{$item->ProductName}}</a></h3>
-                                    <div class="product-price">
-                                        @if ($item->Discount != 0)
-                                        <span class="old-price">{{number_format((100*$item->Price)/((1-$item->Discount)*100))}} <sup>vnđ</sup></span>
-                                        @endif
-                                        <span class="new-price">{{number_format($item->Price)}} <sup>vnđ</sup></span>
+                                    <div class="product-content">
+                                        <h3><a id="{{$item->ProductId}}" slug="{{$item->Slug}}"
+                                               href="products/{{$item->Slug}}">{{$item->ProductName}}</a></h3>
+                                        <div class="product-price">
+                                            @if ($item->Discount != 0)
+                                                <span class="old-price">{{number_format((100*$item->Price)/((1-$item->Discount)*100))}} <sup>vnđ</sup></span>
+                                            @endif
+                                            <span
+                                                class="new-price">{{number_format($item->Price)}} <sup>vnđ</sup></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                 </div>
-            {{-- Sản Phẩm Bán chạy--}}
+                {{-- Sản Phẩm Bán chạy--}}
                 <div id="pro-2" class="tab-pane">
                     <div class="row">
                         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
@@ -88,13 +122,17 @@
                                         <span>-10%</span>
                                     </div>
                                     <div class="product-action-wrap">
-                                        <button class="product-action-btn-1" title="Wishlist"><i class="pe-7s-like"></i></button>
-                                        <button class="product-action-btn-1" title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button class="product-action-btn-1" title="Wishlist"><i class="pe-7s-like"></i>
+                                        </button>
+                                        <button class="product-action-btn-1" title="Quick View" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal">
                                             <i class="pe-7s-look"></i>
                                         </button>
                                     </div>
                                     <div class="product-action-2-wrap">
-                                        <button class="product-action-btn-2" title="Add To Cart"><i class="pe-7s-cart"></i> Add to cart</button>
+                                        <button class="product-action-btn-2" title="Add To Cart"><i
+                                                class="pe-7s-cart"></i> Add to cart
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="product-content">
@@ -108,7 +146,7 @@
                         </div>
                     </div>
                 </div>
-            {{-- Sản Phẩm Giảm Giá--}}
+                {{-- Sản Phẩm Giảm Giá--}}
                 <div id="pro-3" class="tab-pane">
                     <div class="row">
                         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
@@ -121,13 +159,17 @@
                                         <span>-10%</span>
                                     </div>
                                     <div class="product-action-wrap">
-                                        <button class="product-action-btn-1" title="Wishlist"><i class="pe-7s-like"></i></button>
-                                        <button class="product-action-btn-1" title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button class="product-action-btn-1" title="Wishlist"><i class="pe-7s-like"></i>
+                                        </button>
+                                        <button class="product-action-btn-1" title="Quick View" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal">
                                             <i class="pe-7s-look"></i>
                                         </button>
                                     </div>
                                     <div class="product-action-2-wrap">
-                                        <button class="product-action-btn-2" title="Add To Cart"><i class="pe-7s-cart"></i> Add to cart</button>
+                                        <button class="product-action-btn-2" title="Add To Cart"><i
+                                                class="pe-7s-cart"></i> Add to cart
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="product-content">
@@ -144,4 +186,7 @@
             </div>
         </div>
     </div>
+    <script>
+
+    </script>
 @stop()

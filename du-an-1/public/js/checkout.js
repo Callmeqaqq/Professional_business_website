@@ -13,25 +13,21 @@ $(document).ready(function () {
     });
 
     // ---------------------DistanceMatrix----------------------------
-    //company lattitude,longtitude
     var geocoder = new GoongGeocoder({
         accessToken: '6Em1syIO2rI54vIEhIqaXDR69cXg7QW4jaPc2BS1'
     });
+
+    // Add geocoder to input
     geocoder.addTo('#geocoder');
 
-    // Get the geocoder results container.
-    var results = document.getElementById('result');
-
     $('.mapboxgl-ctrl-geocoder--input').on('change', function () {
-        // Add geocoder result to container.
         geocoder.on('result', function (e) {
             var json = JSON.stringify(e.result, null, 2);
-            // chuyển json thành mảng js
             var obj = JSON.parse(json);
             var latt = obj["result"]["geometry"]["location"]["lat"];
             var long = obj["result"]["geometry"]["location"]["lng"];
-            $('#latt_user').val(latt);
-            $('#long_user').val(long);
+
+            //company lattitude,longtitude
             var lattCompany = $('#latt').val();
             var longCompany = $('#long').val();
             console.log(latt);
@@ -53,13 +49,7 @@ $(document).ready(function () {
                 }
             });
         });
-
-        // Clear results container when search is cleared.
-        geocoder.on('clear', function () {
-            results.innerText = '';
-        });
-
-        //search map options
-        $('.mapboxgl-ctrl-geocoder--input').attr("placeholder", "Nhập địa chỉ của bạn");
     });
+    //search map options
+    $('.mapboxgl-ctrl-geocoder--input').attr("placeholder", "Nhập địa chỉ của bạn");
 });

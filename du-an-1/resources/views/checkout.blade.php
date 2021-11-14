@@ -59,9 +59,6 @@
                                         {{--Company address--}}
                                         <input id="latt" type="hidden" name="latt" value="10.854252599999999">
                                         <input id="long" type="hidden" name="long" value="106.62872511153768">
-                                        {{--User address--}}
-                                        <input id="latt_user" type="hidden" name="latt_user" value="">
-                                        <input id="long_user" type="hidden" name="long_user" value="">
 
                                         {{--autocomplete & place info--}}
                                         <div id="geocoder" class="billing-address"></div>
