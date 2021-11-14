@@ -11,9 +11,6 @@ $(document).ready(function () {
                 break;
         }
     });
-    //search map options
-    $('.mapboxgl-ctrl-geocoder--input').attr("placeholder", "Nhập địa chỉ của bạn");
-
 
     // ---------------------DistanceMatrix----------------------------
     //company lattitude,longtitude
@@ -47,8 +44,9 @@ $(document).ready(function () {
                     var json = JSON.stringify(result, null, 2);
                     var obj = JSON.parse(json);
                     var kilometers = obj['rows'][0]['elements'][0]['distance']['text'];
-                    kilometers = kilometers.slice(0, -3);
-                    $('#kilo').html(kilometers + "km");
+                    // kilometers = kilometers.slice(0, -3);
+                    $('#kilo').html(kilometers + " so với vị trí của chúng tôi");
+                    $('#shipping-km').html(kilometers);
                 },
                 error: function (error) {
                     console.log(' error ${error}');
@@ -60,5 +58,8 @@ $(document).ready(function () {
         geocoder.on('clear', function () {
             results.innerText = '';
         });
+
+        //search map options
+        $('.mapboxgl-ctrl-geocoder--input').attr("placeholder", "Nhập địa chỉ của bạn");
     });
 });
