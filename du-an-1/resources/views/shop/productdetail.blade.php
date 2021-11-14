@@ -52,7 +52,7 @@
                     </div>
                     {{-- Đánh giá sản phẩm theo sao--}}
                     <div class="product-details-review">
-                        <h3>{{$star}}/5</h3>
+                        <h3>{{round($star,1)}}/5</h3>
                         <div class="product-rating">
                             <i class=" ti-star"></i>
                         </div>
@@ -108,9 +108,9 @@
                         </div>
                         <div id="des-details3" class="tab-pane">
                                 <form>
-
                                     @csrf
                                     <input type="hidden" name="comment_productId" class="comment_productId" value="{{$data[0]->ProductId}}">
+
                                     <div class="review-wrapper">
                                         @if(count($comment)==0)
                                             <h3>Chưa có đánh giá cho sản phẩm {{$data[0]->ProductName}}</h3>
@@ -118,9 +118,9 @@
                                             <h3>{{count($comment)}} Đánh giá cho sản phẩm {{$data[0]->ProductName}}</h3>
                                         @endif
                                     <div id="comment_show">
-
                                     </div>
-
+                                    </div>
+                                </form>
 {{--                                    @foreach($comment as $com)--}}
 {{--                                    <div class="single-review">--}}
 {{--                                        <div class="review-img">--}}
@@ -140,8 +140,7 @@
 {{--                                        </div>--}}
 {{--                                    </div>--}}
 {{--                                    @endforeach--}}
-                                    </div>
-                                </form>
+
 
                             @if($accept == true)
                             <div class="ratting-form-wrapper">
@@ -150,8 +149,12 @@
 
 
                                 <div class="ratting-form">
-                                    <form action="#">
-{{--                                        <div class="your-rating-wrap">--}}
+                                    <form>
+                                    @csrf
+{{--                                        <input type="hidden" name="comment_productId" class="comment_productId" value="{{$data[0]->ProductId}}">--}}
+                                        <input type="hidden" name="comment_userId" class="comment_userId" value="{{session()->get('LoggedUser')}}">
+                                        <input type="hidden" name="comment_createAt" class="comment_createAt" value="{{date('Y-m-d')}}">
+                                        {{--                                        <div class="your-rating-wrap">--}}
 {{--                                            <span>Đánh giá:*</span>--}}
 {{--                                            --}}
 {{--                                        </div>--}}
@@ -159,15 +162,16 @@
                                             <div class="col-md-12">
                                                 <div class="rating-form-style mb-15">
                                                     <label>Bình luận của bạn: <span>*</span></label>
-                                                    <textarea name="Your Review"></textarea>
+                                                    <textarea class="comment_content" name="comment_content"></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-12">
                                                 <div class="form-submit">
-                                                    <input type="submit" value="Gửi bình luận">
+                                                    <input type="button" class="send-comment" value="Gửi bình luận">
                                                 </div>
                                             </div>
+                                            <div id="notify_comment"></div>
                                         </div>
                                     </form>
                                 </div>

@@ -321,6 +321,29 @@
                 }
             });
         }
+        $('.send-comment').click(function (){
+            var productId = $('.comment_productId').val();
+            var userId = $('.comment_userId').val();
+            var commentCreateAt = $('.comment_createAt').val();
+            var comment_content = $('.comment_content').val();
+            var _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url:"{{url("/send-comment")}}",
+                method:"POST",
+                data:{
+                    productId:productId,
+                    userId:userId,
+                    comment_content:comment_content,
+                    commentCreateAt:commentCreateAt,
+                    _token:_token
+                },
+                success:function(data){
+                    $('#notify_comment').html('<p class="text text-success"> Thêm bình luận thành công</p>');
+                    load_comment();
+                }
+            });
+        });
     });
 </script>
 </body>
