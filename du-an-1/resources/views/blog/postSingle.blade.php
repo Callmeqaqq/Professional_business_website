@@ -94,6 +94,30 @@
                                 </div>
                             @endif
                         @endif
+                        <div class="blog-comment-wrapper">
+                            <h4 class="blog-dec-title aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">Bình luận ({{count($commentData)}})</h4>
+                            @foreach($commentData as $comment)
+                            <div class="single-comment-wrapper single-comment-border aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
+                                <div class="blog-comment-img">
+                                    <img src="assets/images/blog/blog-comment-1.png" alt="">
+                                </div>
+                                <div class="blog-comment-content">
+                                    <div class="comment-info-reply-wrap">
+                                        <div class="comment-info">
+                                            <span>{{$comment->createAt}}</span>
+                                            <h4>{{$comment->Fullname}}</h4>
+                                        </div>
+                                        @if(session()->has('LoggedUser'))
+                                        <div class="comment-reply">
+                                            <a href="#">Xoá bài</a>
+                                        </div>
+                                        @endif
+                                    </div>
+                                    <p>{{$comment->message}}</p>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
