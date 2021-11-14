@@ -98,4 +98,20 @@ class ProductDetailController extends Controller
         }
         echo $output;
     }
+
+    function send_comment(Request $request){
+        $productId = $request->productId;
+        $userId = $request->userId;
+        $comment_content = $request->comment_content;
+        $commentCreateAt = $request->commentCreateAt;
+        DB::table('comment')
+            ->insert([
+               'ProductId' => $productId,
+                'UserId' => $userId,
+                'Content' => $comment_content,
+                'CreateAt' => $commentCreateAt,
+                'Rating' => 5
+            ]);
+
+    }
 }
