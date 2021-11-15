@@ -4,13 +4,13 @@ namespace App;
 class Cart {
     public $products = null;
     public $totalPrice = 0;
-    public $quantity = 0;
+    public $totalQuantity = 0;
 
     public function __construct($cart) {
         if ($cart) {
             $this->products = $cart->products;
             $this->totalPrice = $cart->totalPrice;
-            $this->quantity = $cart->quantity;
+            $this->totalQuantity = $cart->totalQuantity;
         }
     }
 
@@ -25,12 +25,11 @@ class Cart {
         $newProduct['price'] = $newProduct['quantity'] * $product->Price;
         $this->products[$slug] = $newProduct;
         $this->totalPrice += $product->Price;
-        $this->quantity += $newProduct['quantity'];
-        $this->quantity++;
+        $this->totalQuantity++;
     }
 
     public function DeleteItemCart($slug) {
-        $this->quantity -= $this->products[$slug]['quantity'];
+        $this->totalQuantity -= $this->products[$slug]['quantity'];
         $this->totalPrice -= $this->products[$slug]['price'];
         unset($this->products[$slug]);
     }

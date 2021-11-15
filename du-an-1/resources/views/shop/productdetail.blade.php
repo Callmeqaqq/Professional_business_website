@@ -77,7 +77,7 @@
                             <input class="cart-plus-minus-box input-text qty text" name="qtybutton" value="1">
                         </div>
                         <div class="single-product-cart btn-hover">
-                            <a href="#">Thêm vào giỏ hàng</a>
+                            <a href="" slug="{{$data[0]->Slug}}" class="product-action-btn-2">Thêm vào giỏ hàng</a>
                         </div>
                     </div>
                     {{-- Danh mục của Sản Phẩm--}}
@@ -196,6 +196,11 @@
                                             @if ($item->Discount != 0)
                                                 <span>-{{$item->Discount*100}}%</span>
                                             @endif
+                                        </div>
+                                        <div class="product-action-2-wrap">
+                                            <button slug='{{$item->Slug}}' class="product-action-btn-2" title="Thêm vào giỏ hàng"><i
+                                                    class="pe-7s-cart"></i> Thêm vào giỏ hàng
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="product-content">
