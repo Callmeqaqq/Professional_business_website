@@ -40,7 +40,10 @@ class BlogController extends Controller
             ->Where('blog_category.slug',$category)
             ->select('blog_category.*','blog.*','users.Fullname','blog.slug as blogSlug', 'blog_category.slug as categorySlug')
             ->paginate(9);
-            return view('blog/blog',compact('data'));
+        $categoryData = DB::table('blog_category')
+            ->Where('slug',$category)
+            ->first();
+        return view('blog/blog',compact('data','categoryData'));
     }
     private function getInfoPost($id){
         return DB::table('blog')->Where('BlogID',$id)
