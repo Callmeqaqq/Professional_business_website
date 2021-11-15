@@ -88,7 +88,7 @@
                                             @endif
                                         </div>
                                         <div class="product-action-2-wrap">
-                                            <button class="product-action-btn-2" title="Add To Cart"><i
+                                            <button slug='{{$item->Slug}}' class="product-action-btn-2" title="Thêm vào giỏ hàng"><i
                                                     class="pe-7s-cart"></i> Thêm vào giỏ hàng
                                             </button>
                                         </div>
@@ -182,6 +182,24 @@
                             @endif
                         @endforeach
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="brand-logo-area pb-95">
+        <div class="container">
+            <div class="section-title-2" data-aos="fade-up" data-aos-delay="200" style="margin-bottom: 40px">
+                <h2>Nhà Phân Phối</h2>
+            </div>
+            <div class="brand-logo-active swiper-container">
+                <div class="swiper-wrapper">
+                    @foreach($company as $com)
+                    <div class="swiper-slide">
+                        <div class="single-brand-logo" data-aos="fade-up" data-aos-delay="200">
+                            <a style="cursor: pointer;"><img src="{{asset('images/supplier/'.$com->Images)}}" alt=""></a>
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

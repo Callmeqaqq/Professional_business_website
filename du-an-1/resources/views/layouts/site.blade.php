@@ -17,7 +17,6 @@
     {{--    GoongMap--}}
     <script src="https://cdn.jsdelivr.net/npm/@goongmaps/goong-js@1.0.9/dist/goong-js.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/@goongmaps/goong-js@1.0.9/dist/goong-js.css" rel="stylesheet" />
-
     <link
         rel="icon"
         href="{{asset('images/favicon/cropped-favicon-32x32.png')}}"
@@ -125,7 +124,13 @@
                             </div>
                             <div class="header-action-style header-action-cart">
                                 <a class="cart-active" href="#"><i class="pe-7s-shopbag"></i>
-                                    <span class="product-count bg-black">01</span>
+                                    <span class="product-count bg-black">
+                                        @if (Session::has('Cart') != null)
+                                            <span id="total-quantity-show">{{Session::get('Cart')->totalQuantity}}</span>
+                                        @else
+                                            <span id="total-quantity-show">0</span>
+                                        @endif
+                                    </span>
                                 </a>
                             </div>
                             <div class="header-action-style d-block d-lg-none">
@@ -142,35 +147,37 @@
             <a class="cart-close" href="#"><i class="pe-7s-close"></i></a>
             <div class="cart-content">
                 <h3>Giỏ Hàng</h3>
-                <ul>
+                <div id="list-cart">
                     @if (Session::has('Cart') != null)
-                        @foreach(Session::get('Cart')->products as $value)
-                        <li>
-                            <div class="cart-img">
-                                <a href="/products/{{$value['productInfo']->Slug}}"><img src="{{'images/product/'.$value['productInfo']->Images}}" alt=""/></a>
-                            </div>
-                            <div class="cart-title">
-                                <h4><a href="/products/{{$value['productInfo']->Slug}}">{{$value['productInfo']->ProductName}}</a></h4>
-                                <span> {{$value['quantity']}} × {{number_format($value['price'])}} </span>
-                            </div>
-                            <div class="cart-delete">
-                                <a href="#">×</a>
-                            </div>
-                        </li>
-                        @endforeach
-                </ul>
-                    <div class="cart-total">
-                        <h4>Thành tiền: <span>$170.00</span></h4>
-                    </div>
-                    <div class="cart-btn btn-hover">
-                        <a class="theme-color" href="{{route('cart')}}">Xem giỏ hàng</a>
-                    </div>
-                    <div class="checkout-btn btn-hover">
-                        <a class="theme-color" href="checkout.html">Thanh toán</a>
-                    </div>
+                        <ul>
+                            @foreach(Session::get('Cart')->products as $item)
+                                <li>
+                                    <div class="cart-img">
+                                        <a href="/products/{{$item['productInfo']->Slug}}"><img src="{{asset('images/product/'.$item['productInfo']->Images)}}" alt=""/></a>
+                                    </div>
+                                    <div class="cart-title">
+                                        <h4><a href="/products/{{$item['productInfo']->Slug}}">{{$item['productInfo']->ProductName}}</a></h4>
+                                        <span> {{number_format($item['productInfo']->Price)}} × {{$item['quantity']}} </span>
+                                    </div>
+                                    <div class="cart-delete">
+                                        <a style="display: block; cursor: pointer;" slug="{{$item['productInfo']->Slug}}" class="btn-delete-item-cart">x</a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <div class="cart-total">
+                            <h4>Thành tiền: <span>{{number_format(Session::get('Cart')->totalPrice)}} đ</span></h4>
+                        </div>
+                        <div class="cart-btn btn-hover">
+                            <a class="theme-color" href="{{route('cart')}}">Xem giỏ hàng</a>
+                        </div>
+                        <div class="checkout-btn btn-hover">
+                            <a class="theme-color" href="/checkout">Thanh toán</a>
+                        </div>
                     @else
                         <p style="text-align: center">Giỏ hàng hiện đang trống!</p>
                     @endif
+                </div>
             </div>
         </div>
     </div>
@@ -298,6 +305,8 @@
 <script src="{{asset('js/plugins/easyzoom.js')}}"></script>
 {{--JS AddToCart--}}
 <script src="{{asset('js/add-to-cart.js')}}"></script>
+<script type="text/javascript">
+</script>
 <!-- JS chính -->
 <script src="{{asset('js/main.js')}}"></script>
 <script src="{{asset('js/checkout.js')}}"></script>
