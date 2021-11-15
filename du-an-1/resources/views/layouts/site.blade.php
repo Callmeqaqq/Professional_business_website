@@ -172,7 +172,7 @@
                             <a class="theme-color" href="{{route('cart')}}">Xem giỏ hàng</a>
                         </div>
                         <div class="checkout-btn btn-hover">
-                            <a class="theme-color" href="checkout.html">Thanh toán</a>
+                            <a class="theme-color" href="/checkout">Thanh toán</a>
                         </div>
                     @else
                         <p style="text-align: center">Giỏ hàng hiện đang trống!</p>

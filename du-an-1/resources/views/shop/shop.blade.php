@@ -56,7 +56,6 @@
                                         </div>
                                         <div class="product-action-2-wrap">
                                             <button slug="{{$item->Slug}}" class="product-action-btn-2" title="Add To Cart"><i class="pe-7s-cart"></i> Thêm vào giỏ hàng</button>
-                                            <button class="product-action-btn-2" title="Thêm vào giỏ hàng"><i class="pe-7s-cart"></i> Thêm vào giỏ hàng</button>
                                         </div>
                                     </div>
                                     <div class="product-content">
