@@ -184,7 +184,7 @@
                             <div class="footer-widget footer-about mb-40">
                                 <div class="footer-logo">
                                     <a href="{{url('')}}"
-                                    ><img src="{{asset('/images/logo/logo.png')}}" alt="logo"
+                                    ><img src="{{asset('/images/logo/logo3.png')}}" alt="logo"
                                         /></a>
                                 </div>
                                 <p>
