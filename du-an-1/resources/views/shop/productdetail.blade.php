@@ -1,7 +1,10 @@
 @extends('layouts.site')
 @section('main')
 
-{{Breadcrumbs::render('products', $data[0]->ProductName, $data[0]->Slug)}}
+{{--{{Breadcrumbs::render('products', $data[0]->ProductName, $data[0]->Slug)}}--}}
+
+{{Breadcrumbs::render('products',$data[0]->CategoryName, $data[0]->CategorySlug, $data[0]->ProductName, $data[0]->Slug)}}
+
 <div class="product-details-area pb-100 pt-100">
     <div class="container">
         <div class="row">
@@ -52,7 +55,7 @@
                     </div>
                     {{-- Đánh giá sản phẩm theo sao--}}
                     <div class="product-details-review">
-                        <h3>{{round($star,1)}}/5</h3>
+                        <h3>{{round($star,1)}}/ <h4>5</h4></h3>
                         <div class="product-rating">
                             <i class=" ti-star"></i>
                         </div>
@@ -85,7 +88,7 @@
                         <ul>
                             <li><span class="title">Danh mục:</span>
                                 <ul>
-                                    <li><a href="#">{{$data[0]->CategoryName}}</a></li>
+                                    <li><a href="{{asset('/category/'.$data[0]->CategorySlug)}}">{{$data[0]->CategoryName}}</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -201,7 +204,7 @@
                                     <div class="product-content">
                                         <h3><a href="{{asset('products/'.$item->Slug)}}">{{$item->ProductName}}</a></h3>
                                         <div class="product-price">
-                                            <span class="old-price">{{number_format((100*$item->Price)/((1-$item->Discount)*100))}} <sup>vnđ</sup> </span>
+                                            <span class="old-price">{{number_format((100*$item->Price)/((1-$item->Discount)*100))}} <sup>vnđ</sup></span>
                                             <span class="new-price">{{number_format($item->Price)}} <sup>vnđ</sup> </span>
                                         </div>
                                     </div>

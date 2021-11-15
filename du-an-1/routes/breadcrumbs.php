@@ -19,13 +19,20 @@ Breadcrumbs::for('shop', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Cửa Hàng', url('shop'));
 });
-
-//Home > Shop > ProductDetail
-Breadcrumbs::for('products', function (BreadcrumbTrail $trail) {
+//Home >Shop >Category
+Breadcrumbs::for('productCategory', function (BreadcrumbTrail $trail, $title, $slug) {
     $trail->parent('shop');
-    $trail->push('Chi tiết sản phẩm', url('products')."/{{slug}}");
+    $trail->push($title,url('category')."/$slug");
 });
-
+//Home > Shop > Category >ProductDetail
+//Breadcrumbs::for('products', function (BreadcrumbTrail $trail) {
+//    $trail->parent('shop');
+//    $trail->push('Chi tiết sản phẩm', url('products')."/{{slug}}");
+//});
+Breadcrumbs::for('products', function (BreadcrumbTrail $trail, $category, $categorySlug, $title, $slug) {
+    $trail->parent('shop', $category, $categorySlug);
+    $trail->push($title,url('products')."/$slug");
+});
 // Home > Blog
 Breadcrumbs::for('blog', function (BreadcrumbTrail $trail) {
     $trail->parent('home');

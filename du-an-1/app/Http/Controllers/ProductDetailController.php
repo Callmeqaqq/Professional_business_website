@@ -13,7 +13,7 @@ class ProductDetailController extends Controller
                         ->join('supplier', 'product.SupplierId', '=', 'supplier.SupplierId')
                         ->join('product_image', 'product.ProductId', '=', 'product_image.ProductId')
                         ->join('category', 'product.CategoryId', '=', 'category.CategoryId')
-                        ->select('product.*', 'product_image.images','supplier.SupplierName','category.CategoryName')
+                        ->select('product.*', 'product_image.images','supplier.SupplierName','category.CategoryName','category.CategorySlug')
                         ->where('Slug','=', $slug)
                         -> Get();
         $variant = DB::table('product')
