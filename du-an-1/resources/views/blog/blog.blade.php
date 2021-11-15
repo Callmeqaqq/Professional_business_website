@@ -1,6 +1,10 @@
 @extends('layouts.site')
 @section('main')
-    {{Breadcrumbs::render('blog')}}
+    @if(isset($categoryData))
+        {{Breadcrumbs::render('blogCategory',$categoryData->BlogName, $categoryData->slug)}}
+    @else
+        {{Breadcrumbs::render('blog')}}
+    @endif
     @if(count($data)>1)
         <div class="blog-area pt-100 pb-100">
             <div class="container">
@@ -20,7 +24,7 @@
                                     </ul>
                                 </div>
                                 <h3><a href="{{url('blog')}}/{{$item->categorySlug}}/{{$item->blogSlug}}">{{$item->Title}}</a></h3>
-                                <p>{{$item->Blog_des}}</p>
+                                <p>{{Str::limit($item->Blog_des),'150','(...)'}}</p>
                                 <div class="blog-btn-2 btn-hover">
                                     <a class="btn hover-border-radius theme-color" href="{{url('blog')}}/{{$item->categorySlug}}/{{$item->blogSlug}}">Xem thêm</a>
                                 </div>
@@ -35,6 +39,6 @@
             </div>
         </div>
     @else
-    <center>Ban chua co bai viet nao<center>
+    <center>Bạn chưa có bài viết nào<center>
     @endif
 @stop()

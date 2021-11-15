@@ -94,6 +94,62 @@
                                 </div>
                             @endif
                         @endif
+                        <div class="blog-comment-wrapper">
+                            <h4 class="blog-dec-title aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">Bình luận ({{count($commentData)}})</h4>
+                            @foreach($commentData as $comment)
+                            <div class="single-comment-wrapper single-comment-border aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
+                                <div class="blog-comment-img">
+                                    <img src="assets/images/blog/blog-comment-1.png" alt="">
+                                </div>
+                                <div class="blog-comment-content">
+                                    <div class="comment-info-reply-wrap">
+                                        <div class="comment-info">
+                                            <span>{{$comment->createAt}}</span>
+                                            <h4>{{$comment->Fullname}}</h4>
+                                        </div>
+                                        @if(session()->has('LoggedUser'))
+                                        <div class="comment-reply">
+                                            <a href="#">Xoá bài</a>
+                                        </div>
+                                        @endif
+                                    </div>
+                                    <p>{{$comment->message}}</p>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                        @if(session()->has('LoggedUser'))
+                        <div class="blog-comment-form-wrap">
+                            <div class="blog-comment-form-title">
+                                <h2 data-aos="fade-up" data-aos-delay="200">Để lại bình luận</h2>
+                                <p data-aos="fade-up" data-aos-delay="400">Hãy để lại bình luận nếu như bạn có đóng góp hoặc ý kiến nhé</p>
+                            </div>
+                            <div class="blog-comment-form">
+                                <form action="#">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="single-blog-comment-form" data-aos="fade-up" data-aos-delay="500">
+                                                <textarea placeholder="Nhập bình luận của bạn ở đây"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="single-blog-comment-checkbox" data-aos="fade-up" data-aos-delay="600">
+                                                <input type="checkbox">
+                                                <label>Tôi đã đọc và đồng ý với điều khoản sử dụng</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="comment-submit-btn btn-hover" data-aos="fade-up" data-aos-delay="700">
+                                                <button class="submit" type="submit">Gửi bình luận <i class=" ti-arrow-right"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        @else
+                        <center>Bạn cần <a href="{{url('buyer/login')}}" target="_blank">đăng nhập</a> để có thể bình luận</center>
+                        @endif
                     </div>
                 </div>
             </div>
