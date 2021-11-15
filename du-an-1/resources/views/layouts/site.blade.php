@@ -32,6 +32,8 @@
 
     <link rel="stylesheet" href="{{ asset('css/index.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/plugins/swiper.min.css')}} "/>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 </head>
 
 <body>
@@ -79,7 +81,7 @@
                                                         <a class="dropdown-title" href="#">Danh mục sản phẩm</a>
                                                         <ul>
                                                             @foreach($category as $cat)
-                                                                <li><a href="category/{{$cat->CategorySlug}}">{{$cat->CategoryName}}</a></li>
+                                                                <li><a href="{{asset('category/'.$cat->CategorySlug)}}">{{$cat->CategoryName}}</a></li>
                                                             @endforeach
                                                         </ul>
                                                     </li>
@@ -305,5 +307,51 @@
 <!-- JS chính -->
 <script src="{{asset('js/main.js')}}"></script>
 <script src="{{asset('js/checkout.js')}}"></script>
+<script src="{{asset('js/plugins/search.js')}}"></script>
+{{--Ajax bình luận sản phẩm--}}
+<script type="text/javascript">
+    $(document).ready(function(){
+        load_comment();
+        // alert(productId);
+        function load_comment() {
+            var productId = $('.comment_productId').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:"{{url("/load-comment")}}",
+                method:"POST",
+                data:{
+                    productId:productId,
+                    _token:_token
+                },
+                success:function(data){
+                    $('#comment_show').html(data);
+                }
+            });
+        }
+        $('.send-comment').click(function (){
+            var productId = $('.comment_productId').val();
+            var userId = $('.comment_userId').val();
+            var commentCreateAt = $('.comment_createAt').val();
+            var comment_content = $('.comment_content').val();
+            var _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url:"{{url("/send-comment")}}",
+                method:"POST",
+                data:{
+                    productId:productId,
+                    userId:userId,
+                    comment_content:comment_content,
+                    commentCreateAt:commentCreateAt,
+                    _token:_token
+                },
+                success:function(data){
+                    $('#notify_comment').html('<p class="text text-success"> Thêm bình luận thành công</p>');
+                    load_comment();
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

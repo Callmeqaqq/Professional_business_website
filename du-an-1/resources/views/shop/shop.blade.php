@@ -78,10 +78,12 @@
                 <div class="sidebar-wrapper">
                     <div class="sidebar-widget mb-40" data-aos="fade-up" data-aos-delay="200">
                         <div class="search-wrap-2">
-                            <form class="search-2-form" action="#">
-                                <input placeholder="Tìm kiếm sản phẩm*" type="text">
+{{--                            <form class="search-2-form">--}}
+                            <div class="search-2-form">
+                                <input placeholder="Tìm kiếm sản phẩm*" id="search-all" type="text">
                                 <button class="button-search"><i class=" ti-search "></i></button>
-                            </form>
+                            </div>
+{{--                            </form>--}}
                         </div>
                     </div>
                     <div class="sidebar-widget sidebar-widget-border mb-40 pb-35" data-aos="fade-up" data-aos-delay="200">

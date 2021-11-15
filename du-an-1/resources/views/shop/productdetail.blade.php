@@ -52,14 +52,15 @@
                     </div>
                     {{-- Đánh giá sản phẩm theo sao--}}
                     <div class="product-details-review">
+                        <h3>{{round($star,1)}}/5</h3>
                         <div class="product-rating">
                             <i class=" ti-star"></i>
-                            <i class=" ti-star"></i>
-                            <i class=" ti-star"></i>
-                            <i class=" ti-star"></i>
-                            <i class=" ti-star"></i>
                         </div>
-                        <span>( 1 Khách hàng đánh giá )</span>
+                        @if(count($comment)==0)
+                            <span>( Chưa có khách hàng đánh giá )</span>
+                        @else
+                            <span>( {{count($comment)}} Khách hàng đánh giá )</span>
+                        @endif
                     </div>
                     {{-- Biến thể màu của sản phẩm--}}
                     <div class="product-color product-color-active product-details-color">
@@ -95,66 +96,118 @@
             <div style='padding-top:50px'class="description-review-area pb-85">
                 <div class="container">
                     <div class="description-review-topbar nav" data-aos="fade-up" data-aos-delay="200">
+                        <a data-bs-toggle="tab" href="#des-details1" class=""> MÔ TẢ SẢN PHẨM </a>
                         <a data-bs-toggle="tab" href="#des-details3" class=""> BÌNH LUẬN </a>
                     </div>
                     <div class="tab-content">
-                        <div id="des-details3" class="tab-pane">
-                            <div class="review-wrapper">
-                                <h3>{{count($comment)}} Đánh giá cho sản phẩm {{$data[0]->ProductName}}</h3>
-                                @foreach($comment as $com)
-                                <div class="single-review">
-                                    <div class="review-img">
-                                        <img src="{{asset('/images/product/bluedot1.jpg')}}" alt="">
-                                    </div>
-                                    <div class="review-content">
-                                        <div class="review-rating">
-                                            <a href="#"><i class="ti-star"></i></a>
-                                            <a href="#"><i class="ti-star"></i></a>
-                                            <a href="#"><i class="ti-star"></i></a>
-                                            <a href="#"><i class="ti-star"></i></a>
-                                            <a href="#"><i class="ti-star"></i></a>
-                                        </div>
-                                        <h5><span>{{$com->Fullname}}</span>- Ngày {{date('d-m-Y', strtotime($com->CreateAt))}}</h5>
-                                        <p>{{$com->Content}}</p>
-                                    </div>
-                                </div>
-                                @endforeach
+                        <div id="des-details1" class="tab-pane active">
+                            <div class="product-description-content text-center">
+                                <h2>{{$data[0]->ProductName}}</h2>
+                                <p>{{$data[0]->Descreption}} </p>
                             </div>
+                        </div>
+                        <div id="des-details3" class="tab-pane">
+                                <form>
+                                    @csrf
+                                    <input type="hidden" name="comment_productId" class="comment_productId" value="{{$data[0]->ProductId}}">
+
+
+                                    <div id="comment_show">
+
+                                    </div>
+
+                                </form>
+{{--                                    @foreach($comment as $com)--}}
+{{--                                    <div class="single-review">--}}
+{{--                                        <div class="review-img">--}}
+{{--                                            <img src="{{asset('/images/product/bluedot1.jpg')}}" alt="">--}}
+{{--                                        </div>--}}
+{{--                                        <div class="review-content">--}}
+{{--                                            <div class="review-rating">--}}
+{{--                                                @for($i=1;$i <= $com->Rating;$i++)--}}
+{{--                                                    <i style="color:#e97730" class="fas fa-star"></i>--}}
+{{--                                                @endfor--}}
+{{--                                                @for($i=1;$i<= (5-$com->Rating);$i++)--}}
+{{--                                                    <i style="color:#e97730" class="far fa-star"></i>--}}
+{{--                                                @endfor--}}
+{{--                                            </div>--}}
+{{--                                            <h5><span>@ {{$com->Fullname}}</span> - Ngày {{date('d-m-Y', strtotime($com->CreateAt))}}</h5>--}}
+{{--                                            <p>{{$com->Content}}</p>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    @endforeach--}}
+
+
                             @if($accept == true)
                             <div class="ratting-form-wrapper">
                                 <h3>Thêm đánh giá và bình luận của bạn</h3>
                                 <p>Hãy thêm đánh giá và bình luận của bạn về sản phẩm nào >.< <span>*</span></p>
-                                <div class="your-rating-wrap">
-                                    <span>Đánh giá</span>
-                                    <div class="your-rating">
-                                        <a href="#"><i class="ti-star"></i></a>
-                                        <a href="#"><i class="ti-star"></i></a>
-                                        <a href="#"><i class="ti-star"></i></a>
-                                        <a href="#"><i class="ti-star"></i></a>
-                                        <a href="#"><i class="ti-star"></i></a>
-                                    </div>
-                                </div>
+
 
                                 <div class="ratting-form">
-                                    <form action="#">
+                                    <form>
+                                    @csrf
+{{--                                        <input type="hidden" name="comment_productId" class="comment_productId" value="{{$data[0]->ProductId}}">--}}
+                                        <input type="hidden" name="comment_userId" class="comment_userId" value="{{session()->get('LoggedUser')}}">
+                                        <input type="hidden" name="comment_createAt" class="comment_createAt" value="{{date('Y-m-d')}}">
+                                        {{--                                        <div class="your-rating-wrap">--}}
+{{--                                            <span>Đánh giá:*</span>--}}
+{{--                                            --}}
+{{--                                        </div>--}}
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="rating-form-style mb-15">
                                                     <label>Bình luận của bạn: <span>*</span></label>
-                                                    <textarea name="Your Review"></textarea>
+                                                    <textarea class="comment_content" name="comment_content"></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-12">
                                                 <div class="form-submit">
-                                                    <input type="submit" value="Gửi bình luận">
+                                                    <input type="button" class="send-comment" value="Gửi bình luận">
                                                 </div>
                                             </div>
+                                            <div id="notify_comment"></div>
                                         </div>
                                     </form>
                                 </div>
                                 @endif
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="related-product-area pb-95">
+                <div class="container">
+                    <div class="section-title-2 st-border-center text-center mb-75" data-aos="fade-up" data-aos-delay="200">
+                        <h2>Sản Phẩm Liên Quan</h2>
+                    </div>
+                    <div class="related-product-active swiper-container">
+                        <div class="swiper-wrapper">
+                            @foreach($relative as $item)
+                            <div class="swiper-slide">
+                                <div class="product-wrap" data-aos="fade-up" data-aos-delay="200">
+                                    <div class="product-img img-zoom mb-25">
+                                        <a href="{{asset('products/'.$item->Slug)}}">
+                                            <img src="{{ asset('images/product/'.$item->Images) }}" alt="">
+                                        </a>
+                                        <div class="product-badge badge-top badge-right badge-pink">
+                                            @if ($item->Discount != 0)
+                                                <span>-{{$item->Discount*100}}%</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3><a href="{{asset('products/'.$item->Slug)}}">{{$item->ProductName}}</a></h3>
+                                        <div class="product-price">
+                                            <span class="old-price">{{number_format((100*$item->Price)/((1-$item->Discount)*100))}} <sup>vnđ</sup> </span>
+                                            <span class="new-price">{{number_format($item->Price)}} <sup>vnđ</sup> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
