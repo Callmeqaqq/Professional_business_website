@@ -21,7 +21,12 @@
     }
 </style>
 
-{{ Breadcrumbs::render('shop') }}
+{{--{{ Breadcrumbs::render('shop') }}--}}
+@if(isset($data[0]->CategoryName))
+    {{Breadcrumbs::render('productCategory',$data[0]->CategoryName, $data[0]->CategorySlug)}}
+@else
+    {{Breadcrumbs::render('shop')}}
+@endif
 <div class="shop-area shop-page-responsive pt-100 pb-100">
     <div class="container">
         <div class="row flex-row-reverse">
@@ -51,6 +56,7 @@
                                         </div>
                                         <div class="product-action-2-wrap">
                                             <button slug="{{$item->Slug}}" class="product-action-btn-2" title="Add To Cart"><i class="pe-7s-cart"></i> Thêm vào giỏ hàng</button>
+                                            <button class="product-action-btn-2" title="Thêm vào giỏ hàng"><i class="pe-7s-cart"></i> Thêm vào giỏ hàng</button>
                                         </div>
                                     </div>
                                     <div class="product-content">

@@ -191,7 +191,7 @@
                             <div class="footer-widget footer-about mb-40">
                                 <div class="footer-logo">
                                     <a href="{{url('')}}"
-                                    ><img src="{{asset('/images/logo/logo.png')}}" alt="logo"
+                                    ><img src="{{asset('/images/logo/logo3.png')}}" alt="logo"
                                         /></a>
                                 </div>
                                 <p>
@@ -338,6 +338,13 @@
             var comment_content = $('.comment_content').val();
             var _token = $('input[name="_token"]').val();
 
+            var checkbox = document.getElementsByName("rating");
+            for (var i = 0; i < checkbox.length; i++){
+                if (checkbox[i].checked === true){
+                    var rating = checkbox[i].value;
+                }
+            }
+
             $.ajax({
                 url:"{{url("/send-comment")}}",
                 method:"POST",
@@ -346,6 +353,7 @@
                     userId:userId,
                     comment_content:comment_content,
                     commentCreateAt:commentCreateAt,
+                    rating:rating,
                     _token:_token
                 },
                 success:function(data){

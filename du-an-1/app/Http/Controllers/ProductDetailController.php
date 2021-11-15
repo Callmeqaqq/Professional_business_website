@@ -13,7 +13,7 @@ class ProductDetailController extends Controller
                         ->join('supplier', 'product.SupplierId', '=', 'supplier.SupplierId')
                         ->join('product_image', 'product.ProductId', '=', 'product_image.ProductId')
                         ->join('category', 'product.CategoryId', '=', 'category.CategoryId')
-                        ->select('product.*', 'product_image.images','supplier.SupplierName','category.CategoryName')
+                        ->select('product.*', 'product_image.images','supplier.SupplierName','category.CategoryName','category.CategorySlug')
                         ->where('Slug','=', $slug)
                         -> Get();
         $variant = DB::table('product')
@@ -115,13 +115,14 @@ class ProductDetailController extends Controller
         $userId = $request->userId;
         $comment_content = $request->comment_content;
         $commentCreateAt = $request->commentCreateAt;
+        $rating = $request->rating;
         DB::table('comment')
             ->insert([
                'ProductId' => $productId,
                 'UserId' => $userId,
                 'Content' => $comment_content,
                 'CreateAt' => $commentCreateAt,
-                'Rating' => 5
+                'Rating' => $rating
             ]);
 
     }
