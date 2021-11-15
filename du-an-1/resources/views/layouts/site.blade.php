@@ -81,7 +81,7 @@
                                                         <a class="dropdown-title" href="#">Danh mục sản phẩm</a>
                                                         <ul>
                                                             @foreach($category as $cat)
-                                                                <li><a href="category/{{$cat->CategorySlug}}">{{$cat->CategoryName}}</a></li>
+                                                                <li><a href="{{asset('category/'.$cat->CategorySlug)}}">{{$cat->CategoryName}}</a></li>
                                                             @endforeach
                                                         </ul>
                                                     </li>
