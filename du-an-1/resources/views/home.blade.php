@@ -150,6 +150,7 @@
                 <div id="pro-3" class="tab-pane">
                     <div class="row">
                         @foreach($data as $item)
+                            @if($item->Discount !=0)
                             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                                 <div class="product-wrap mb-35" data-aos="fade-up" data-aos-delay="200">
                                     <div class="product-img img-zoom mb-25">
@@ -157,9 +158,7 @@
                                             <img src="{{asset('images/product/'.$item->Images)}}" alt="">
                                         </a>
                                         <div class="product-badge badge-top badge-right badge-pink">
-                                            @if ($item->Discount != 0)
-                                                <span>-{{$item->Discount*100}}%</span>
-                                            @endif
+                                            <span>-{{$item->Discount*100}}%</span>
                                         </div>
                                         <div class="product-action-2-wrap">
                                             <button class="product-action-btn-2" title="Add To Cart"><i
@@ -180,6 +179,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>
