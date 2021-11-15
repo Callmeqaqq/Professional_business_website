@@ -26,7 +26,8 @@ class BlogController extends Controller
             $this->postId = $data->BlogID;
             $prePost = $this->getInfoPost($this->postId - 1);
             $nextPost = $this->getInfoPost($this->postId + 1);
-            return view('blog/postSingle', compact('data','prePost','nextPost'));
+            $commentData = $this->getComments($this->postId);
+            return view('blog/postSingle', compact('data','prePost','nextPost','commentData'));
         }else{
             return view('404');
         }
@@ -39,12 +40,25 @@ class BlogController extends Controller
             ->Where('blog_category.slug',$category)
             ->select('blog_category.*','blog.*','users.Fullname','blog.slug as blogSlug', 'blog_category.slug as categorySlug')
             ->paginate(9);
-            return view('blog',compact('data'));
+        $categoryData = DB::table('blog_category')
+            ->Where('slug',$category)
+            ->first();
+        return view('blog/blog',compact('data','categoryData'));
     }
     private function getInfoPost($id){
         return DB::table('blog')->Where('BlogID',$id)
         ->Join('blog_category','blog.Blog_CategoryID','blog_category.Blog_CategoryID')
         ->Select('blog_category.slug as categorySlug','blog.*')
         ->first();
+    }
+    private function getComments($blogId){
+        return DB::table('blogComment')
+        ->Join('users', 'users.UserId', 'blogComment.userId')
+        ->Where([
+            ['blogComment.postId',$blogId],
+            ['blogComment.status', 1]
+        ])
+        ->Select('users.Fullname as Fullname', 'blogComment.createAt as createAt','message')
+        ->get();
     }
 }

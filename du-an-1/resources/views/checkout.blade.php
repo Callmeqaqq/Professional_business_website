@@ -59,9 +59,6 @@
                                         {{--Company address--}}
                                         <input id="latt" type="hidden" name="latt" value="10.854252599999999">
                                         <input id="long" type="hidden" name="long" value="106.62872511153768">
-                                        {{--User address--}}
-                                        <input id="latt_user" type="hidden" name="latt_user" value="">
-                                        <input id="long_user" type="hidden" name="long_user" value="">
 
                                         {{--autocomplete & place info--}}
                                         <div id="geocoder" class="billing-address"></div>
@@ -123,7 +120,6 @@
                                         <label for="payment-method-3">Thanh toán khi nhận hàng</label>
                                         <div class="payment-box" id="after">
                                             <p>Quãng đường vận chuyển: <span id="shipping-km">chọn địa chỉ giao</span></p>
-                                            <p>Trọng lượng tổng sản phẩm: </p>
                                             <p>Phí vận chuyển: 1.000.000vnđ</p>
                                             <hr>
                                             <p>Hàng sẽ được giao trong vòng 48h(3-5 ngày đối với giao hàng ở tỉnh), quý
@@ -133,7 +129,7 @@
                                     <div class="pay-top sin-payment sin-payment-3">
                                         <input id="payment-method-4" class="input-radio" type="radio" value="before"
                                                name="payment_method">
-                                        <label for="payment-method-4">Ví Momo <img alt=""
+                                        <label for="payment-method-4">Thanh toán trả trước <img alt=""
                                                                                    src="assets/images/icon-img/payment.png"></label>
                                         <div class="payment-box" id="before">
                                             <p>Miễn phí tiền ship khi thanh toán bằng hình thức trả trước.</p>
