@@ -115,13 +115,14 @@ class ProductDetailController extends Controller
         $userId = $request->userId;
         $comment_content = $request->comment_content;
         $commentCreateAt = $request->commentCreateAt;
+        $rating = $request->rating;
         DB::table('comment')
             ->insert([
                'ProductId' => $productId,
                 'UserId' => $userId,
                 'Content' => $comment_content,
                 'CreateAt' => $commentCreateAt,
-                'Rating' => 5
+                'Rating' => $rating
             ]);
 
     }

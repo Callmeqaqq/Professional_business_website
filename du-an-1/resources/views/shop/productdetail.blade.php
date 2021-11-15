@@ -153,10 +153,25 @@
 {{--                                        <input type="hidden" name="comment_productId" class="comment_productId" value="{{$data[0]->ProductId}}">--}}
                                         <input type="hidden" name="comment_userId" class="comment_userId" value="{{session()->get('LoggedUser')}}">
                                         <input type="hidden" name="comment_createAt" class="comment_createAt" value="{{date('Y-m-d')}}">
-                                        {{--                                        <div class="your-rating-wrap">--}}
-{{--                                            <span>Đánh giá:*</span>--}}
-{{--                                            --}}
-{{--                                        </div>--}}
+                                        <div class="your-rating-wrap">
+                                            <span>Đánh giá:*</span>
+                                                <fieldset class="starability-basic">
+                                                    <input type="radio" id="rate1" name="rating" value="1"/>
+                                                    <label for="rate1" title="Kinh khủng">1 star</label>
+
+                                                    <input type="radio" id="rate2" name="rating" value="2"/>
+                                                    <label for="rate2" title="Không tốt">2 stars</label>
+
+                                                    <input type="radio" id="rate3" name="rating" value="3"/>
+                                                    <label for="rate3" title="Tốt">3 stars</label>
+
+                                                    <input type="radio" id="rate4" name="rating" value="4"/>
+                                                    <label for="rate4" title="Quá Tốt">4 stars</label>
+
+                                                    <input type="radio" id="rate5" name="rating" value="5"/>
+                                                    <label for="rate5" title="Tuyệt vời">5 stars</label>
+                                                </fieldset>
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="rating-form-style mb-15">
