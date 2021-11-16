@@ -199,7 +199,7 @@
                 Notiflix.Block.Remove('#commentBox');
                 var data = $.parseJSON(res);
                 if(data.success == true){
-                    Notiflix.Notify.success(data.message);
+                    Notiflix.Notify.Success(data.message);
                 }else{
                     Notiflix.Notify.Warning(data.message);
                 }
