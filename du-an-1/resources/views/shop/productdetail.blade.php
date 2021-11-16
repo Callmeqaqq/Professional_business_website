@@ -188,10 +188,11 @@
                                         </div>
                                     </form>
                                 </div>
-                                @endif
+                                @else
                                 <div>
                                     <p>Bạn chưa đăng nhập. Bạn có muốn đăng nhập để bình luận? <a href="{{asset('/buyer/login')}}">Đăng nhập</a></p>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     </div>
