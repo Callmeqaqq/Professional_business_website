@@ -8,20 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <!-- Add site Favicon -->
-    <link
-        rel="icon"
-        href="assets/images/favicon/cropped-favicon-32x32.png"
-        sizes="32x32"
-    />
+    <link rel="icon" href="{{asset('/images/favicon/cropped-favicon-32x32.png')}}" sizes="32x32"/>
 
     <!-- All CSS is here -->
-    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap.min.css')}}"/>
-    <link rel="stylesheet" href="{{ asset('css/vendor/pe-icon-7-stroke.css')}}"/>
-    <link rel="stylesheet" href="{{ asset('css/vendor/themify-icons.css')}}"/>
-    <link rel="stylesheet" href="{{ asset('css/vendor/font-awesome.min.css')}}"/>
+    {{--    <link rel="stylesheet" href="/css/vendor/bootstrap.min.css'" />--}}
+    {{--    <link rel="stylesheet" href="/css/vendor/pe-icon-7-stroke.css'" />--}}
+    <link rel="stylesheet" href="{{asset('css/vendor/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/vendor/pe-icon-7-stroke.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/vendor/themify-icons.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/vendor/font-awesome.min.css')}}"/>
 
-    <link rel="stylesheet" href="{{ asset('css/index.css')}}"/>
-    <link rel="stylesheet" href="{{ asset('css/plugins/swiper.min.css')}} "/>
+    <link rel="stylesheet" href="{{asset('css/index.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/plugins/swiper.min.css')}} "/>
 </head>
 
 <body>
@@ -50,74 +48,52 @@
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-6 col-6">
                         <div class="logo">
-                            <a href="{{url('')}}"
-                            ><img src="assets/images/logo/logo.png" alt="logo"
-                                /></a>
+                            <a href="{{url('/')}}"><img src="{{ asset('images/logo/logo.png')}}" alt="logo"/></a>
                         </div>
                     </div>
-                    <div
-                        class="col-lg-6 d-none d-lg-block d-flex justify-content-center"
-                    >
+                    <div class="col-lg-6 d-none d-lg-block d-flex justify-content-center">
                         <div class="main-menu text-center">
                             <nav>
                                 <ul>
                                     <li>
-                                        <a href="{{url(' ')}}">TRANG CHỦ</a>
+                                        <a href="{{url('/')}}">TRANG CHỦ</a>
                                     </li>
                                     <li>
-                                        <a href="{{url('shop')}}">CỬA HÀNG</a>
+                                        <a href="shop-sidebar.html">SẢN PHẨM</a>
                                         <ul class="mega-menu-style mega-menu-mrg-1">
                                             <li>
                                                 <ul>
                                                     <li>
-                                                        <a class="dropdown-title" href="#"
-                                                        >Danh mục sản phẩm</a
-                                                        >
+                                                        <a class="dropdown-title" href="#">Danh mục sản phẩm</a>
                                                         <ul>
                                                             <li>
-                                                                <a href="product-details.html"
-                                                                >tab style 1</a
-                                                                >
+                                                                <a href="product-details.html">tab style 1</a>
                                                             </li>
                                                             <li>
-                                                                <a href="product-details-2.html"
-                                                                >tab style 2</a
-                                                                >
+                                                                <a href="product-details-2.html">tab style 2</a>
                                                             </li>
                                                             <li>
-                                                                <a href="product-details-gallery.html"
-                                                                >gallery style
-                                                                </a>
+                                                                <a href="product-details-gallery.html">gallery style</a>
                                                             </li>
                                                             <li>
-                                                                <a href="product-details-affiliate.html"
-                                                                >affiliate style</a
-                                                                >
+                                                                <a href="product-details-affiliate.html">affiliate style</a>
                                                             </li>
                                                             <li>
-                                                                <a href="product-details-group.html"
-                                                                >group style</a
-                                                                >
+                                                                <a href="product-details-group.html">group style</a>
                                                             </li>
                                                             <li>
-                                                                <a href="product-details-fixed-img.html"
-                                                                >fixed image style
-                                                                </a>
+                                                                <a href="product-details-fixed-img.html">fixed image style</a>
                                                             </li>
                                                         </ul>
                                                     </li>
                                                     <li>
-                                                        <a href="shop.html"
-                                                        ><img
-                                                                src="assets/images/banner/menu.png"
-                                                                alt=""
-                                                            /></a>
+                                                        <a href="shop.html"><img src="assets/images/banner/menu.png" alt=""/></a>
                                                     </li>
                                                 </ul>
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a href="blog.html">TIN TỨC</a></li>
+                                    <li><a href="{{url('blog')}}">TIN TỨC</a></li>
                                     <li><a href="about-us.html">GIỚI THIỆU</a></li>
                                 </ul>
                             </nav>
@@ -140,20 +116,15 @@
                                 </div>
                             </div>
                             <div class="header-action-style">
-                                <a title="Đăng nhập/ Đăng kí" href="{{url('login')}}"
-                                ><i class="pe-7s-user"></i
-                                    ></a>
+                                <a title="Đăng nhập/ Đăng kí" href="{{url('login')}}"><i class="pe-7s-user"></i></a>
                             </div>
                             <div class="header-action-style header-action-cart">
-                                <a class="cart-active" href="#"
-                                ><i class="pe-7s-shopbag"></i>
+                                <a class="cart-active" href="#"><i class="pe-7s-shopbag"></i>
                                     <span class="product-count bg-black">01</span>
                                 </a>
                             </div>
                             <div class="header-action-style d-block d-lg-none">
-                                <a class="mobile-menu-active-button" href="#"
-                                ><i class="pe-7s-menu"></i
-                                    ></a>
+                                <a class="mobile-menu-active-button" href="#"><i class="pe-7s-menu"></i></a>
                             </div>
                         </div>
                     </div>
@@ -217,29 +188,18 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                             <div class="footer-widget footer-about mb-40">
                                 <div class="footer-logo">
-                                    <a href="{{url('')}}"
-                                    ><img src="assets/images/logo/logo.png" alt="logo"
-                                        /></a>
+                                    <a href="index.html"><img src="assets/images/logo/logo.png" alt="logo"/></a>
                                 </div>
                                 <p>
                                     Mơ ước của mọi nhà
                                 </p>
                                 <div class="payment-img">
-                                    <a href="#"
-                                    ><img
-                                            src="assets/images/icon-img/payment.png"
-                                            alt="logo"
-                                        /></a>
+                                    <a href="#"><img src="{{ asset('/images/icon-img/payment.png')}}" alt="logo"/></a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                            <div
-                                class="
-                      footer-widget footer-widget-margin-1 footer-list
-                      mb-40
-                    "
-                            >
+                            <div class="footer-widget footer-widget-margin-1 footer-list mb-40">
                                 <h3 class="footer-title">Thông tin</h3>
                                 <ul>
                                     <li><a href="#">Về chúng tôi</a></li>
@@ -260,22 +220,16 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                            <div
-                                class="
-                      footer-widget footer-widget-margin-2 footer-address
-                      mb-40
-                    "
-                            >
+                            <div class="footer-widget footer-widget-margin-2 footer-address mb-40">
                                 <h3 class="footer-title">Get in touch</h3>
                                 <ul>
-                                    <li><span>Địa chỉ: </span>Your address goes here</li>
-                                    <li><span>Điện thoại:</span> (012) 345 6789</li>
-                                    <li><span>Email: </span>demo@example.com</li>
+                                    <li><span>Địa chỉ: </span>123 abc hcm</li>
+                                    <li><span>Điện thoại:</span> (+84) 345 6789</li>
+                                    <li><span>Email: </span>demo@domain.com</li>
                                 </ul>
                                 <div class="open-time">
                                     <p>
-                                        Mở cửa : <span>8:00 AM</span> - Đóng cửa :
-                                        <span>18:00 PM</span>
+                                        Mở cửa: <span>8:00 AM</span> - Đóng cửa: <span>18:00 PM</span>
                                     </p>
                                 </div>
                             </div>
@@ -317,25 +271,21 @@
                                     <a href="product-details-gallery.html">Gallery style </a>
                                 </li>
                                 <li>
-                                    <a href="product-details-affiliate.html"
-                                    >Affiliate style</a
-                                    >
+                                    <a href="product-details-affiliate.html">Affiliate style</a>
                                 </li>
                                 <li>
                                     <a href="product-details-group.html">Group Style</a>
                                 </li>
                                 <li>
-                                    <a href="product-details-fixed-img.html"
-                                    >Fixed Image Style
-                                    </a>
+                                    <a href="product-details-fixed-img.html">Fixed Image Style</a>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#">Tin tức</a>
+                            <a href="{{rul('blog')}}">Tin tức</a>
                         </li>
                         <li>
-                            <a href="about-us.html">Giới Thiệu</a>
+                            <a href="{{url('about-us')}}">Giới Thiệu</a>
                         </li>
                     </ul>
                 </div>
@@ -343,22 +293,17 @@
         </div>
     </div>
 </div>
-<!-- Javascript có thể dựa vào đây custom lại-->
-{{--    <script src="{{asset('js/vendor/modernizr-3.11.2.min.js')}} "></script>--}}
-{{--    <script src="{{asset('js/vendor/jquery-3.6.0.min.js')}}"></script>--}}
-{{--    <script src="{{asset('js/vendor/jquery-migrate-3.3.2.min.js')}}"></script>--}}
-{{--    <script src="{{asset('js/vendor/popper.min.js')}}"></script>--}}
-{{--    <script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>--}}
+<!-- All JS is here -->
+<script src="{{asset('js/vendor/modernizr-3.11.2.min.js')}} "></script>
+<script src="{{asset('js/vendor/jquery-3.6.0.min.js')}}"></script>
+<script src="{{asset('js/vendor/jquery-migrate-3.3.2.min.js')}}"></script>
+<script src="{{asset('js/vendor/popper.min.js')}}"></script>
+<script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>
 
-{{--    <script src="{{asset('js/plugins/jquery.syotimer.min.js')}}"></script>--}}
-{{--    <script src="{{asset('js/plugins/swiper.min.js')}}"></script>--}}
-{{--    <script src="{{asset('js/plugins/scrollup.js')}}"></script>--}}
-{{--    <script src="{{asset('js/plugins/imagesloaded.pkgd.min.js')}}"></script>--}}
-{{--    <script src="{{asset('js/plugins/jquery.nice-select.min.js')}}"></script>--}}
-{{--    <script src="{{asset('js/plugins/counterup.min.js')}}"></script>--}}
-{{--    <script src="{{asset('js/plugins/select2.min.js')}}"></script>--}}
-{{--    <script src="{{asset('js/plugins/easyzoom.js')}}"></script>--}}
-<!-- JS chính -->
-{{--    <script src="{{asset('js/main.js')}}"></script>--}}
+<script src="{{asset('js/plugins/jquery.syotimer.min.js')}}"></script>
+<script src="{{asset('js/plugins/swiper.min.js')}}"></script>
+<!-- Main JS -->
+<script src="{{asset('js/main.js')}}"></script>
+<script src="{{asset('js/checkout.js')}}"></script>
 </body>
 </html>

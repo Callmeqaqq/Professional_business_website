@@ -20,13 +20,13 @@
         box-shadow: 0 0 5px #ff6347;
     }
 </style>
-{{--Đếm số sản phẩm hiện có trên 1 trang--}}
-<?php
-    $sl=0;
-    foreach($data as $item){
-        $sl++;
-    }
-?>
+
+{{--{{ Breadcrumbs::render('shop') }}--}}
+@if(isset($data[0]->CategoryName))
+    {{Breadcrumbs::render('productCategory',$data[0]->CategoryName, $data[0]->CategorySlug)}}
+@else
+    {{Breadcrumbs::render('shop')}}
+@endif
 <div class="shop-area shop-page-responsive pt-100 pb-100">
     <div class="container">
         <div class="row flex-row-reverse">
@@ -34,7 +34,7 @@
                 <div class="shop-topbar-wrapper mb-40">
                     <div class="shop-topbar-left" data-aos="fade-up" data-aos-delay="200">
                         <div class="showing-item">
-                            <span>Có {{$sl}}/ {{$count}} sản phẩm đang được hiển thị</span>
+                            <span>Có {{count($data->items())}}/ {{$data->total()}} sản phẩm đang được hiển thị</span>
                         </div>
                     </div>
                 </div>
@@ -46,8 +46,8 @@
                                 <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                                     <div class="product-wrap mb-35" data-aos="fade-up" data-aos-delay="200">
                                     <div class="product-img img-zoom mb-25">
-                                        <a href="products/{{$item->Slug}}">
-                                            <img src="images/product/{{$item->Images}}" alt="">
+                                        <a href="{{asset('products/'.$item->Slug)}}">
+                                            <img src="{{ asset('images/product/'.$item->Images) }}" alt="">
                                         </a>
                                         <div class="product-badge badge-top badge-right badge-pink">
                                                 @if ($item->Discount != 0)
@@ -55,11 +55,11 @@
                                                 @endif
                                         </div>
                                         <div class="product-action-2-wrap">
-                                            <button class="product-action-btn-2" title="Add To Cart"><i class="pe-7s-cart"></i> Thêm vào giỏ hàng</button>
+                                            <button slug="{{$item->Slug}}" class="product-action-btn-2" title="Add To Cart"><i class="pe-7s-cart"></i> Thêm vào giỏ hàng</button>
                                         </div>
                                     </div>
                                     <div class="product-content">
-                                        <h3><a href="products/{{$item->Slug}}">{{$item->ProductName}}</a></h3>
+                                        <h3><a href="{{asset('products/'.$item->Slug)}}">{{$item->ProductName}}</a></h3>
                                         <div class="product-price">
                                             @if ($item->Discount != 0)
                                             <span class="old-price">{{number_format((100*$item->Price)/((1-$item->Discount)*100))}} <sup>vnđ</sup></span>
@@ -83,10 +83,12 @@
                 <div class="sidebar-wrapper">
                     <div class="sidebar-widget mb-40" data-aos="fade-up" data-aos-delay="200">
                         <div class="search-wrap-2">
-                            <form class="search-2-form" action="#">
-                                <input placeholder="Tìm kiếm sản phẩm*" type="text">
+{{--                            <form class="search-2-form">--}}
+                            <div class="search-2-form">
+                                <input placeholder="Tìm kiếm sản phẩm*" id="search-all" type="text">
                                 <button class="button-search"><i class=" ti-search "></i></button>
-                            </form>
+                            </div>
+{{--                            </form>--}}
                         </div>
                     </div>
                     <div class="sidebar-widget sidebar-widget-border mb-40 pb-35" data-aos="fade-up" data-aos-delay="200">
@@ -110,7 +112,9 @@
                         </div>
                         <div class="sidebar-list-style">
                             <ul>
-                                <li><a href="shop.html">Demo <span>8</span></a></li>
+                                @foreach($category as $cat)
+                                <li><a href="{{asset('category/'.$cat->CategorySlug)}}">{{$cat->CategoryName}} <span></span></a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -134,3 +138,4 @@
     </div>
 </div>
 @stop()
+
