@@ -58,7 +58,87 @@ class BlogController extends Controller
             ['blogComment.postId',$blogId],
             ['blogComment.status', 1]
         ])
-        ->Select('users.Fullname as Fullname', 'blogComment.createAt as createAt','message')
-        ->get();
+        ->orderBy('blogComment.createAt', 'desc')
+        ->Select('users.Fullname as Fullname', 'blogComment.createAt as createAt','message','users.UserId as userId')
+        ->paginate(9);
+    }
+
+    function insertComment($postId, Request $request){
+        $messages = $request->input('messages');
+        $results = array();
+        if(session('LoggedUser')){
+            if($messages != null && $messages != ""){
+                DB::table('blogComment')->insert([
+                    'postId' => $postId,
+                    'userId' => session('LoggedUser'),
+                    'status' => 1,
+                    'message' => $messages,
+                    'createAt' => date('Y-m-d')
+                ]);
+                $results = [
+                    'success' => true,
+                    'code' => 200,
+                    'id' => session('LoggedUser'),
+                    'data' => $messages,
+                    'message' => 'Gửi bình luận thành công',
+                    'time' => date('Y-m-d')
+                ];
+            }else{
+                $results = [
+                    'success' => false,
+                    'code' => 200,
+                    'id' => session('LoggedUser'),
+                    'message' => 'Không để trống nội dung'
+                ]; 
+            }
+        }else{
+            $results = [
+                'success' => false,
+                'code' => 200,
+                'message' => 'Không tìm thấy thông tin user'
+            ];
+        }
+        return json_encode($results);
+    }
+    function deleteComment($postId, Request $request){
+        $messages = $request->input('messages');
+        $results = array();
+        if(session('LoggedUser')){
+            if($messages != null && $messages != ""){
+                DB::table('blogComment')->insert([
+                    'postId' => $postId,
+                    'userId' => session('LoggedUser'),
+                    'status' => 1,
+                    'message' => $messages,
+                    'createAt' => date('Y-m-d')
+                ]);
+                $results = [
+                    'success' => true,
+                    'code' => 200,
+                    'id' => session('LoggedUser'),
+                    'data' => $messages,
+                    'message' => 'Gửi bình luận thành công',
+                    'time' => date('Y-m-d')
+                ];
+            }else{
+                $results = [
+                    'success' => false,
+                    'code' => 200,
+                    'id' => session('LoggedUser'),
+                    'message' => 'Không để trống nội dung'
+                ]; 
+            }
+        }else{
+            $results = [
+                'success' => false,
+                'code' => 200,
+                'message' => 'Không tìm thấy thông tin user'
+            ];
+        }
+        return json_encode($results);
+    }
+
+    function getCommentData($id){
+
     }
 }

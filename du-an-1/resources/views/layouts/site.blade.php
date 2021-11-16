@@ -18,12 +18,19 @@
     <script src="https://cdn.jsdelivr.net/npm/@goongmaps/goong-js@1.0.9/dist/goong-js.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/@goongmaps/goong-js@1.0.9/dist/goong-js.css" rel="stylesheet" />
 
+    <!-- ckeditor lib -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
+
     <link
         rel="icon"
         href="{{asset('images/favicon/cropped-favicon-32x32.png')}}"
         sizes="32x32"
     />
+    <!--- JQuery --->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
+    <!--- Notiflix --->
+    <script src="{{asset('js/notiflix/notiflix-aio.js')}}"></script>
     <!-- All CSS is here -->
     <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/vendor/pe-icon-7-stroke.css')}}"/>
@@ -347,5 +354,6 @@
         });
     });
 </script>
+@yield('scripts')
 </body>
 </html>

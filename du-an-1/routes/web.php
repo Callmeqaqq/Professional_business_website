@@ -74,3 +74,11 @@ Route::get('/checkout', 'CheckoutController@index')->name('cart.checkout');
 //--------------------------search----------------------------
 Route::get('/search{keyword?}', 'SearchController@action')->name('search');
 
+
+
+
+// Api group
+
+Route::prefix('api')->group(function () {
+    Route::post('comment/{id}/insert', 'BlogController@insertComment');
+});
