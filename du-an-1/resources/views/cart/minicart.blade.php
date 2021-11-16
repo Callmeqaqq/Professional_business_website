@@ -10,7 +10,7 @@
                     <span> {{number_format($item['productInfo']->Price)}} × {{$item['quantity']}} </span>
                 </div>
                 <div class="cart-delete">
-                    <a style="display: block; cursor: pointer;" slug="{{$item['productInfo']->Slug}}" class="btn-delete-item-cart">x</a>
+                    <a style="display: block; cursor: pointer;" data-id="{{$item['productInfo']->ProductId}}" data-slug="{{$item['productInfo']->Slug}}" slug="{{$item['productInfo']->Slug}}" class="btn-delete-item-cart">x</a>
                 </div>
             </li>
         @endforeach

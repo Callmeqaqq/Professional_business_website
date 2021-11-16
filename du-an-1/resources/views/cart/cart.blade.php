@@ -1,5 +1,6 @@
 @extends('layouts.site')
 @section('main')
+    <div  id="list-cart-main">
     @if (Session::has('Cart') != null)
     <div class="cart-area pt-100 pb-100">
         <div class="container">
@@ -16,6 +17,7 @@
                                         <th class="width-price">Giá</th>
                                         <th class="width-quantity">Số lượng</th>
                                         <th class="width-subtotal">Thành tiền</th>
+                                        <th class="width-save"></th>
                                         <th class="width-remove"></th>
                                     </tr>
                                     </thead>
@@ -31,11 +33,12 @@
                                         <td class="product-cart-price"><span class="amount">{{number_format($value['price'])}}</span></td>
                                         <td class="cart-quality">
                                             <div class="product-quality"><div class="dec qtybutton">-</div>
-                                                <input class="cart-plus-minus-box input-text qty text" name="qtybutton" value="{{$value['quantity']}}">
+                                                <input class="cart-plus-minus-box input-text qty text" name="qtybutton" id="quantity-item-{{$value['productInfo']->Slug}}" value="{{$value['quantity']}}">
                                                 <div class="inc qtybutton">+</div></div>
                                         </td>0
                                         <td class="product-total"><span>{{number_format($value['quantity']*$value['price'])}}</span></td>
-                                        <td class="product-remove"><a href=""><i class="ti-trash"></i></a></td>
+                                        <td class="product-save"><a style="cursor: pointer;"><i class="ti-save" data-slug="{{$value['productInfo']->Slug}}" onclick="SaveItemListCart('{{$value['productInfo']->Slug}}')" slug="{{$value['productInfo']->Slug}}"></i></a></td>
+                                        <td class="product-remove"><a style="cursor: pointer;"><i class="btn-delete-item-list-cart ti-trash" onclick="DeleteItemListCart('{{$value['productInfo']->Slug}}')" slug="{{$value['productInfo']->Slug}}"></i></a></td>
                                     </tr>
                                     @endforeach
                                     </tbody>
@@ -46,7 +49,7 @@
                                 <div class="col-lg-12">
                                     <div class="cart-shiping-update-wrapper">
                                         <div class="cart-shiping-update btn-hover">
-                                            <a href="">Tiếp tục mua hàng</a>
+                                            <a href="/">Tiếp tục mua hàng</a>
                                         </div>
                                         <div class="cart-clear-wrap">
                                             <div class="cart-clear btn-hover">
@@ -131,7 +134,7 @@
                             </div>
                         </div>
                         <div class="grand-total-btn btn-hover">
-                            <a class="btn theme-color" href="checkout.html">Proceed to checkout</a>
+                            <a class="btn theme-color" href="/checkout">Proceed to checkout</a>
                         </div>
                     </div>
                 </div>
@@ -141,4 +144,49 @@
     @else
         <p style="text-align: center">Giỏ hàng hiện đang trống</p>
     @endif
+    </div>
+    <script type="text/javascript">
+        function DeleteItemListCart(slug) {
+            $.ajax({
+                type : 'GET',
+                url  : 'delete-item-list-cart/'+slug,
+            }).done(function (response) {
+                RenderListCart(response)
+            });
+        }
+
+        function SaveItemListCart(slug) {
+            $.ajax({
+                type : 'GET',
+                url  : 'save-item-list-cart/'+slug+'/'+$('#quantity-item-'+slug).val(),
+            }).done(function (response) {
+                RenderListCart(response);
+                alertify.success('Cập nhật thành công!');
+            })
+        }
+
+        function RenderListCart(response) {
+            $("#list-cart-main").empty();
+            $("#list-cart-main").html(response);
+
+            var CartPlusMinus = $('.product-quality');
+            CartPlusMinus.prepend('<div class="dec qtybutton">-</div>');
+            CartPlusMinus.append('<div class="inc qtybutton">+</div>');
+            $(".qtybutton").on("click", function() {
+                var $button = $(this);
+                var oldValue = $button.parent().find("input").val();
+                if ($button.text() === "+") {
+                    var newVal = parseFloat(oldValue) + 1;
+                } else {
+                    // Don't allow decrementing below zero
+                    if (oldValue > 1) {
+                        var newVal = parseFloat(oldValue) - 1;
+                    } else {
+                        newVal = 1;
+                    }
+                }
+                $button.parent().find("input").val(newVal);
+            });
+        }
+    </script>
 @stop()

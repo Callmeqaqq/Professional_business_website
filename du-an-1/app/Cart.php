@@ -37,4 +37,15 @@ class Cart {
     public function DeleteAllCart() {
         unset($this->products);
     }
+
+    public function UpdateItemCart($slug, $quantity) {
+        $this->totalQuantity -= $this->products[$slug]['quantity'];
+        $this->totalPrice -= $this->products[$slug]['price'];
+
+        $this->products[$slug]['quantity'] = $quantity;
+        $this->products[$slug]['price'] = $quantity * $this->products[$slug]['productInfo']->Price;
+
+        $this->totalQuantity += $this->products[$slug]['quantity'];
+        $this->totalPrice += $this->products[$slug]['price'];
+    }
 }

@@ -65,10 +65,11 @@ Route::get('/about-us', 'AboutController@index');
 
 // ---------------------------Cart----------------------------------
 Route::get('/cart', 'CartController@index')->name('cart');
-Route::get('/add-cart/{slug}', 'CartController@AddCart')->name('cart.add');
-
-Route::get('/delete-item-cart/{slug}', 'CartController@DeleteItemCart')->name('cart.deleteItemCart');
-Route::get('/delete-all-cart', 'CartController@DeleteAllCart')->name('cart.deleteAllCart');
+Route::get('/add-cart/{slug}', 'CartController@AddCart');
+Route::get('/delete-item-cart/{slug}', 'CartController@DeleteItemCart');
+Route::get('/delete-item-list-cart/{slug}', 'CartController@DeleteItemListCart');
+Route::get('/delete-all-cart', 'CartController@DeleteAllCart');
+Route::get('/save-item-list-cart/{slug}/{quantity}', 'CartController@SaveItemListCart');
 
 Route::get('/checkout', 'CheckoutController@index')->name('cart.checkout')->middleware('isLogged');
 

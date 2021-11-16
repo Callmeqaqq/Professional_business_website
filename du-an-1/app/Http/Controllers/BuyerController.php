@@ -124,7 +124,7 @@ class BuyerController extends Controller
                 return redirect('/profile');
 
             } else {
-                return redirect('/buyer/login')->with('status', 'Mật khẩu không chính xác');;
+                return redirect('/buyer/login')->with('status', 'Mật khẩu không chính xác');
             }
         } else {
             return redirect('/buyer/login')->with('status', 'Tài khoản không tồn tại ');
