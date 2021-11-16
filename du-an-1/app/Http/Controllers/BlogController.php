@@ -58,7 +58,7 @@ class BlogController extends Controller
             ['blogComment.postId',$blogId],
             ['blogComment.status', 1]
         ])
-        ->Select('users.Fullname as Fullname', 'blogComment.createAt as createAt','message')
-        ->get();
+        ->Select('users.Fullname as Fullname', 'blogComment.createAt as createAt','message','blogComment.userId')
+        ->paginate(6);
     }
 }
