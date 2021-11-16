@@ -140,7 +140,6 @@
 {{--                                    </div>--}}
 {{--                                    @endforeach--}}
 
-
                             @if($accept == true)
                             <div class="ratting-form-wrapper">
                                 <h3>Thêm đánh giá và bình luận của bạn</h3>
@@ -188,6 +187,10 @@
                                             <div id="notify_comment"></div>
                                         </div>
                                     </form>
+                                </div>
+                                @else
+                                <div>
+                                    <p>Bạn chưa đăng nhập. Bạn có muốn đăng nhập để bình luận? <a href="{{asset('/buyer/login')}}">Đăng nhập</a></p>
                                 </div>
                                 @endif
                             </div>

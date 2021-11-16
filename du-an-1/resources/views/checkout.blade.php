@@ -57,8 +57,8 @@
                                         <label>Địa chỉ <abbr class="required"
                                                              title="Thông tin bắt buộc">*</abbr></label>
                                         {{--Company address--}}
-                                        <input id="latt" type="hidden" name="latt" value="10.854252599999999">
-                                        <input id="long" type="hidden" name="long" value="106.62872511153768">
+                                        <input id="latt" type="number" name="latt" value="10.854252599999999" hidden>
+                                        <input id="long" type="text" name="long" value="106.62872511153768" hidden>
 
                                         {{--autocomplete & place info--}}
                                         <div id="geocoder" class="billing-address"></div>
@@ -103,24 +103,31 @@
                                     </div>
                                     <div class="your-order-middle">
                                         <ul>
-                                            <li>Product X 1 <span>123 </span></li>
-                                            <li>Product X 2 <span>222 </span></li>
+{{--                                            @if (Session::has('Cart') != null)--}}
+                                                @foreach(Session::get('Cart')->products as $value)
+                                                <li>{{$value['productInfo']->ProductName}} X {{$value['quantity']}}<span>{{number_format($value['price'])}}</span></li>
+                                                    @endforeach
                                         </ul>
                                     </div>
                                     <div class="your-order-info order-subtotal">
                                         <ul>
-                                            <li>Tổng tiền hóa đơn <span>123 </span></li>
+                                            <li>Tổng tiền hóa đơn <span>{{number_format(Session::get('Cart')->totalPrice)}}</span></li>
+                                            <input type="number" id="total-before-shipfee" hidden value="{{Session::get('Cart')->totalPrice}}">
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="payment-method">
                                     <div class="pay-top sin-payment">
                                         <input id="payment-method-3" class="input-radio" type="radio" value="after"
-                                               name="payment_method">
+                                               name="payment_method" required>
                                         <label for="payment-method-3">Thanh toán khi nhận hàng</label>
                                         <div class="payment-box" id="after">
-                                            <p>Quãng đường vận chuyển: <span id="shipping-km">chọn địa chỉ giao</span></p>
-                                            <p>Phí vận chuyển: 1.000.000vnđ</p>
+                                            <p>Quãng đường vận chuyển: <span id="shipping-km">0</span></p>
+{{--                                            $data from shipping option--}}
+                                            <p>Phí vận chuyển: <span id="shipfee-km">{{$data}}</span> vnd/km</p>
+{{--                                            <p>Phí vận chuyển: <span id="shipfee-km">{{(Session::get('Cart')->products)}}</span> vnd/km</p>--}}
+                                            <p>Tổng tiền ship: <span id="totalship-fee">0</span> vnd</p>
+                                            <input type="number" id="totalship" hidden value="">
                                             <hr>
                                             <p>Hàng sẽ được giao trong vòng 48h(3-5 ngày đối với giao hàng ở tỉnh), quý
                                                 khách vui lòng giữ điện thoại trong thời gian này.</p>
@@ -128,16 +135,16 @@
                                     </div>
                                     <div class="pay-top sin-payment sin-payment-3">
                                         <input id="payment-method-4" class="input-radio" type="radio" value="before"
-                                               name="payment_method">
+                                               name="payment_method" required>
                                         <label for="payment-method-4">Thanh toán trả trước <img alt=""
-                                                                                   src="assets/images/icon-img/payment.png"></label>
+                                                                                   src=""></label>
                                         <div class="payment-box" id="before">
                                             <p>Miễn phí tiền ship khi thanh toán bằng hình thức trả trước.</p>
                                         </div>
                                     </div>
                                     <div class="your-order-info order-total">
                                         <ul>
-                                            <li>Tổng số tiền phải thanh toán <span>1.111.000</span></li>
+                                            <li>Tổng số tiền phải thanh toán <span id="total-order">{{number_format(Session::get('Cart')->totalPrice)}}</span></li>
                                         </ul>
                                     </div>
                                 </div>
