@@ -74,13 +74,20 @@
                             @endforeach
                         </ul>
                     </div>
+                    <div class="product-color product-color-active product-details-color">
+                        <span>Khối lượng : {{$data[0]->Weight}} Kg</span>
+                    </div>
                     {{-- Thêm Sản Phẩm vào giỏ hàng --}}
                     <div class="product-details-action-wrap">
                         <div class="product-quality">
-                            <input class="cart-plus-minus-box input-text qty text" name="qtybutton" value="1">
+                            <input class="cart-plus-minus-box input-text qty text quantity-add-cart" name="qtybutton" value="1">
                         </div>
                         <div class="single-product-cart btn-hover">
-                            <a href="" slug="{{$data[0]->Slug}}" class="product-action-btn-2">Thêm vào giỏ hàng</a>
+                            @if (Session::has('LoggedUser'))
+                            <a style="cursor: pointer;" slug="{{$data[0]->Slug}}" onclick="AddToCart('{{$data[0]->Slug}}')" class="product-action-btn-2">Thêm vào giỏ hàng</a>
+                            @else
+                                <a href="/buyer/login" class="product-action-btn-2">Thêm vào giỏ hàng</a>
+                            @endif
                         </div>
                     </div>
                     {{-- Danh mục của Sản Phẩm--}}
@@ -89,6 +96,11 @@
                             <li><span class="title">Danh mục:</span>
                                 <ul>
                                     <li><a href="{{asset('/category/'.$data[0]->CategorySlug)}}">{{$data[0]->CategoryName}}</a></li>
+                                </ul>
+                            </li>
+                            <li><span class="title">Nhà phân phối:</span>
+                                <ul>
+                                    <li><a href="">{{$data[0]->SupplierName}}</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -219,9 +231,15 @@
                                             @endif
                                         </div>
                                         <div class="product-action-2-wrap">
-                                            <button slug='{{$item->Slug}}' class="product-action-btn-2" title="Thêm vào giỏ hàng"><i
-                                                    class="pe-7s-cart"></i> Thêm vào giỏ hàng
-                                            </button>
+                                            @if (Session::has('LoggedUser'))
+                                                <button slug="{{$item->Slug}}" onclick="AddToCart('{{$item->Slug}}')" class="product-action-btn-2" title="Thêm vào giỏ hàng"><i
+                                                        class="pe-7s-cart"></i> Thêm vào giỏ hàng
+                                                </button>
+                                            @else
+                                                <a href="/buyer/login" class="product-action-btn-2" title="Thêm vào giỏ hàng"><i
+                                                        class="pe-7s-cart"></i> Thêm vào giỏ hàng
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="product-content">

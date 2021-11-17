@@ -88,9 +88,15 @@
                                             @endif
                                         </div>
                                         <div class="product-action-2-wrap">
-                                            <button slug='{{$item->Slug}}' class="product-action-btn-2" title="Thêm vào giỏ hàng"><i
-                                                    class="pe-7s-cart"></i> Thêm vào giỏ hàng
-                                            </button>
+                                            @if (Session::has('LoggedUser'))
+                                                <button slug="{{$item->Slug}}" onclick="AddToCart('{{$item->Slug}}')" class="product-action-btn-2" title="Thêm vào giỏ hàng"><i
+                                                        class="pe-7s-cart"></i> Thêm vào giỏ hàng
+                                                </button>
+                                            @else
+                                                <a href="/buyer/login" class="product-action-btn-2" title="Thêm vào giỏ hàng"><i
+                                                        class="pe-7s-cart"></i> Thêm vào giỏ hàng
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="product-content">
@@ -125,9 +131,15 @@
                                             @endif
                                         </div>
                                         <div class="product-action-2-wrap">
-                                            <button class="product-action-btn-2" title="Add To Cart"><i
+                                            @if (Session::has('LoggedUser'))
+                                            <button slug="{{$item->Slug}}" onclick="AddToCart('{{$item->Slug}}')" class="product-action-btn-2" title="Thêm vào giỏ hàng"><i
                                                     class="pe-7s-cart"></i> Thêm vào giỏ hàng
                                             </button>
+                                            @else
+                                                <a href="/buyer/login" class="product-action-btn-2" title="Thêm vào giỏ hàng"><i
+                                                        class="pe-7s-cart"></i> Thêm vào giỏ hàng
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="product-content">
@@ -149,7 +161,7 @@
                 {{-- Sản Phẩm Giảm Giá--}}
                 <div id="pro-3" class="tab-pane">
                     <div class="row">
-                        @foreach($data as $item)
+                        @foreach($discount as $item)
                             @if($item->Discount !=0)
                             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                                 <div class="product-wrap mb-35" data-aos="fade-up" data-aos-delay="200">
@@ -161,9 +173,15 @@
                                             <span>-{{$item->Discount*100}}%</span>
                                         </div>
                                         <div class="product-action-2-wrap">
-                                            <button class="product-action-btn-2" title="Add To Cart"><i
+                                            @if (Session::has('LoggedUser'))
+                                            <button slug="{{$item->Slug}}" onclick="AddToCart('{{$item->Slug}}')" class="product-action-btn-2" title="Thêm vào giỏ hàng"><i
                                                     class="pe-7s-cart"></i> Thêm vào giỏ hàng
                                             </button>
+                                            @else
+                                                <a href="/buyer/login" class="product-action-btn-2" title="Thêm vào giỏ hàng"><i
+                                                        class="pe-7s-cart"></i> Thêm vào giỏ hàng
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="product-content">

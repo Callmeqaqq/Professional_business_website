@@ -1,11 +1,12 @@
 @extends('layouts.site')
 @section('main')
+    <div id="list-cart-main">
     @if (Session::has('Cart') != null)
     <div class="cart-area pt-100 pb-100">
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <form action="#">
+{{--                    <form action="#">--}}
                         <div class="cart-table-content">
                             <div class="table-content table-responsive">
                                 <table>
@@ -16,6 +17,7 @@
                                         <th class="width-price">Giá</th>
                                         <th class="width-quantity">Số lượng</th>
                                         <th class="width-subtotal">Thành tiền</th>
+                                        <th class="width-save"></th>
                                         <th class="width-remove"></th>
                                     </tr>
                                     </thead>
@@ -28,14 +30,15 @@
                                         <td class="product-name">
                                             <h5><a slug="{{$value['productInfo']->Slug}}" href="/products/{{$value['productInfo']->Slug}}">{{$value['productInfo']->ProductName}}</a></h5>
                                         </td>
-                                        <td class="product-cart-price"><span class="amount">{{number_format($value['price'])}}</span></td>
+                                        <td class="product-cart-price"><span class="amount">{{number_format($value['productInfo']->Price)}}</span></td>
                                         <td class="cart-quality">
                                             <div class="product-quality"><div class="dec qtybutton">-</div>
-                                                <input class="cart-plus-minus-box input-text qty text" name="qtybutton" value="{{$value['quantity']}}">
+                                                <input class="cart-plus-minus-box input-text qty text" name="qtybutton" data-slug="{{$value['productInfo']->Slug}}" id="quantity-item-{{$value['productInfo']->Slug}}" value="{{$value['quantity']}}">
                                                 <div class="inc qtybutton">+</div></div>
-                                        </td>0
-                                        <td class="product-total"><span>{{number_format($value['quantity']*$value['price'])}}</span></td>
-                                        <td class="product-remove"><a href=""><i class="ti-trash"></i></a></td>
+                                        </td>
+                                        <td class="product-total"><span>{{number_format($value['quantity']*$value['productInfo']->Price)}}</span></td>
+                                        <td class="product-save"><a style="cursor: pointer;"><i class="ti-save" data-slug="{{$value['productInfo']->Slug}}" onclick="SaveItemListCart('{{$value['productInfo']->Slug}}')" slug="{{$value['productInfo']->Slug}}"></i></a></td>
+                                        <td class="product-remove"><a style="cursor: pointer;"><i class="btn-delete-item-list-cart ti-trash" onclick="DeleteItemListCart('{{$value['productInfo']->Slug}}')" slug="{{$value['productInfo']->Slug}}"></i></a></td>
                                     </tr>
                                     @endforeach
                                     </tbody>
@@ -46,20 +49,20 @@
                                 <div class="col-lg-12">
                                     <div class="cart-shiping-update-wrapper">
                                         <div class="cart-shiping-update btn-hover">
-                                            <a href="">Tiếp tục mua hàng</a>
+                                            <a href="/shop">Tiếp tục mua hàng</a>
                                         </div>
                                         <div class="cart-clear-wrap">
                                             <div class="cart-clear btn-hover">
-                                                <button>Cập nhật giỏ hàng</button>
+                                                <button class="btn-update-all-cart">Cập nhật giỏ hàng</button>
                                             </div>
                                             <div class="cart-clear btn-hover">
-                                                <a href="" class="btn-delete-cart">Xóa tất cả</a>
+                                                <button class="btn-delete-all-cart">Xóa tất cả</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                    </form>
+{{--                    </form>--}}
                 </div>
             </div>
             <div class="row">
@@ -116,22 +119,23 @@
                         <div class="grand-total-content">
                             <h3>Tiền sản phẩm<span>{{number_format(Session::get('Cart')->totalPrice)}} đ</span></h3>
                             <div class="grand-shipping">
-                                <span>Vận chuyển</span>
-                                <ul>
-                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Free shipping</label></li>
-                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Flat rate: <span>$100.00</span></label></li>
-                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Local pickup: <span>$120.00</span></label></li>
-                                </ul>
+                                <span>Tổng số lượng: <b>{{number_format(Session::get('Cart')->totalQuantity)}}</b> sản phẩm</span>
+{{--                                <span>Vận chuyển</span>--}}
+{{--                                <ul>--}}
+{{--                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Free shipping</label></li>--}}
+{{--                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Flat rate: <span>$100.00</span></label></li>--}}
+{{--                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Local pickup: <span>$120.00</span></label></li>--}}
+{{--                                </ul>--}}
                             </div>
                             <div class="shipping-country">
-                                <p>Shipping to Bangladesh</p>
+                                <p>Mua hàng tại MetaH</p>
                             </div>
                             <div class="grand-total">
-                                <h4>Tổng tiền <span>$185.00</span></h4>
+                                <h4>Tổng tiền <span>{{number_format(Session::get('Cart')->totalPrice)}} Vnđ</span></h4>
                             </div>
                         </div>
                         <div class="grand-total-btn btn-hover">
-                            <a class="btn theme-color" href="checkout.html">Proceed to checkout</a>
+                            <a class="btn theme-color" href="/checkout">Tiến hành thanh toán</a>
                         </div>
                     </div>
                 </div>
@@ -141,4 +145,80 @@
     @else
         <p style="text-align: center">Giỏ hàng hiện đang trống</p>
     @endif
+    </div>
+    <script type="text/javascript">
+        function DeleteItemListCart(slug) {
+            $.ajax({
+                type : 'GET',
+                url  : 'delete-item-list-cart/'+slug,
+            }).done(function (response) {
+                RenderListCart(response)
+            });
+        }
+
+        function SaveItemListCart(slug) {
+            $.ajax({
+                type : 'GET',
+                url  : 'save-item-list-cart/'+slug+'/'+$('#quantity-item-'+slug).val(),
+            }).done(function (response) {
+                RenderListCart(response);
+                alertify.success('Cập nhật thành công!');
+            })
+        }
+
+        $(".btn-update-all-cart").on("click", function (){
+            var lists = [];
+            $("table tbody tr td").each(function() {
+                $(this).find("input").each(function() {
+                    var element = {key: $(this).data('slug'), value: $(this).val()};
+                    lists.push(element);
+                })
+            });
+            $.ajax({
+                type : 'GET',
+                url  : 'save-all-list-cart',
+                data : {
+                    "_token" : "{{csrf_token()}}",
+                    "data" : lists
+                },
+            }).done(function (response) {
+                RenderListCart(response);
+                alertify.success('Cập nhật thành công!');
+            })
+        });
+
+        $(".btn-delete-all-cart").on("click", function (){
+            $.ajax({
+                type : 'GET',
+                url  : 'delete-all-list-cart',
+            }).done(function (response) {
+                RenderListCart(response);
+                alertify.success('Xóa thành công!');
+            })
+        });
+
+        function RenderListCart(response) {
+            $("#list-cart-main").empty();
+            $("#list-cart-main").html(response);
+
+            var CartPlusMinus = $('.product-quality');
+            CartPlusMinus.prepend('<div class="dec qtybutton">-</div>');
+            CartPlusMinus.append('<div class="inc qtybutton">+</div>');
+            $(".qtybutton").on("click", function() {
+                var $button = $(this);
+                var oldValue = $button.parent().find("input").val();
+                if ($button.text() === "+") {
+                    var newVal = parseFloat(oldValue) + 1;
+                } else {
+                    // Don't allow decrementing below zero
+                    if (oldValue > 1) {
+                        var newVal = parseFloat(oldValue) - 1;
+                    } else {
+                        newVal = 1;
+                    }
+                }
+                $button.parent().find("input").val(newVal);
+            });
+        }
+    </script>
 @stop()

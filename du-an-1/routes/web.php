@@ -65,10 +65,12 @@ Route::get('/about-us', 'AboutController@index');
 
 // ---------------------------Cart----------------------------------
 Route::get('/cart', 'CartController@index')->name('cart');
-Route::get('/add-cart/{slug}', 'CartController@AddCart')->name('cart.add');
-
-Route::get('/delete-item-cart/{slug}', 'CartController@DeleteItemCart')->name('cart.deleteItemCart');
-Route::get('/delete-all-cart', 'CartController@DeleteAllCart')->name('cart.deleteAllCart');
+Route::get('/add-cart/{slug}/{quantity}', 'CartController@AddCart');
+Route::get('/delete-item-cart/{slug}', 'CartController@DeleteItemCart');
+Route::get('/delete-item-list-cart/{slug}', 'CartController@DeleteItemListCart');
+Route::get('/save-item-list-cart/{slug}/{quantity}', 'CartController@SaveItemListCart');
+Route::get('/save-all-list-cart', 'CartController@SaveAllListCart');
+Route::get('/delete-all-list-cart', 'CartController@DeleteAllListCart');
 
 Route::get('/checkout', 'CheckoutController@index')->name('cart.checkout')->middleware('isLogged');
 
@@ -76,3 +78,15 @@ Route::get('/checkout', 'CheckoutController@index')->name('cart.checkout')->midd
 //--------------------------search----------------------------
 Route::get('/search{keyword?}', 'SearchController@action')->name('search');
 
+// API routes
+Route::prefix('api')->group(function () {
+    Route::post('comment/{id}/insert', 'BlogController@insertComment')->name('api.comment.insert');
+});
+//----------------------- login google -------------------------------
+Route::get('/buyer/login/google/redirect', 'SocialController@googleRedirect')->name('login.google');
+Route::get('/buyer/login/google/back', 'SocialController@googleBack');
+//----------------------- login facebook -------------------------------
+Route::get('/buyer/login/facebook/redirect','App\Http\Controllers\Socialite\LoginController@redirectToProvider')->name('login.facebook');
+Route::get('/buyer/login/facebook/back','App\Http\Controllers\Socialite\LoginController@handleProviderCallback');
+Route::get('/buyer/login/facebook/redirect', 'SocialController@facebookRedirect')->name('facebook.google');
+Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');

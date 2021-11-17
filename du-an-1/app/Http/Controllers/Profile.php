@@ -11,7 +11,6 @@ class Profile extends Controller
 {
 
     function index($page = 'info'){
-        echo Session('LoggedUser');
         $user = DB::table('users')->select('Email','Fullname','Address','Phone')->where('UserId','=', Session('LoggedUser'))->get()->first();
         return view('profile',compact('user','page'));
     }
