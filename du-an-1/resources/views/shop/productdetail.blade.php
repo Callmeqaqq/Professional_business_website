@@ -69,19 +69,27 @@
                     <div class="product-color product-color-active product-details-color">
                         <span>Màu :</span>
                         <ul>
-                            @foreach($variant as $color)
-                                <li><a class='pd_img_color' href="#"><img src="{{asset('images/product/'.$color->Color)}}" alt=""></a></li>
-                            @endforeach
+
+                                <select name="" class="pd_img_color">
+                                    <option selected="selected">Màu sắc</option>
+                                    @foreach($variant as $color)
+                                        <option value="{{$color->VariantId}}">{{$color->VariantName}}</option>
+                                    @endforeach
+                                </select>
+{{--                                <button class='pd_img_color' value="{{$color->VariantId}}"><img title="{{$color->VariantName}}" src="{{asset('images/product/'.$color->Color)}}" alt=""></button>--}}
+
                         </ul>
                     </div>
                     <div class="product-color product-color-active product-details-color">
                         <span>Khối lượng : {{$data[0]->Weight}} Kg</span>
                     </div>
+                    <div class="product-color product-color-active product-details-color" id="quantityhere"><span>Số lượng còn lại: {{$quantity}}</span></div>
                     {{-- Thêm Sản Phẩm vào giỏ hàng --}}
                     <div class="product-details-action-wrap">
                         <div class="product-quality">
                             <input class="cart-plus-minus-box input-text qty text quantity-add-cart" name="qtybutton" value="1">
                         </div>
+
                         <div class="single-product-cart btn-hover">
                             @if (Session::has('LoggedUser'))
                             <a style="cursor: pointer;" slug="{{$data[0]->Slug}}" onclick="AddToCart('{{$data[0]->Slug}}')" class="product-action-btn-2">Thêm vào giỏ hàng</a>

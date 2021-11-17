@@ -402,6 +402,22 @@
             });
         });
     });
+    $('.pd_img_color').click(function(){
+        let variantId = $('.pd_img_color').val();
+        var _token = $('input[name="_token"]').val();
+        // alert(variantId);
+        $.ajax({
+            url:"{{url("/quantity")}}",
+            method:"POST",
+            data:{
+                variantId:variantId,
+                _token:_token
+            },
+            success:function(data){
+                $('#quantityhere').html(data);
+            }
+        });
+    });
 </script>
     @yield('scripts')
 </body>
