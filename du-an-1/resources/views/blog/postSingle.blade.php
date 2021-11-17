@@ -141,7 +141,7 @@
                                         </div>
                                         <div class="col-lg-12 col-md-12">
                                             <div class="comment-submit-btn btn-hover" data-aos="fade-up" data-aos-delay="700">
-                                                <button id="submit" onclick="pushComment()" class="submit">Gửi bình luận <i class=" ti-arrow-right"></i></button>
+                                                <button id="submit" class="submit">Gửi bình luận <i class=" ti-arrow-right"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -193,14 +193,16 @@
                 type: 'POST',
                 data: {
                     messages: $('#messages').val(),
-                    _token: "{{csrf_token()}}",
+                    _token: "{{csrf_token()}}"
                 }
             }).done(function(res) {
                 Notiflix.Block.Remove('#commentBox');
                 var data = $.parseJSON(res);
                 if(data.success == true){
                     Notiflix.Notify.Success(data.message);
-
+                    setTimeout(function () { 
+                        location.reload(true); 
+                    }, 3000);
                 }else{
                     Notiflix.Notify.Warning(data.message);
                 }
