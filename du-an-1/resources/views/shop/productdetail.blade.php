@@ -76,9 +76,9 @@
                     </div>
                     {{-- Thêm Sản Phẩm vào giỏ hàng --}}
                     <div class="product-details-action-wrap">
-{{--                        <div class="product-quality">--}}
-{{--                            <input class="cart-plus-minus-box input-text qty text" name="qtybutton" value="1">--}}
-{{--                        </div>--}}
+                        <div class="product-quality">
+                            <input class="cart-plus-minus-box input-text qty text quantity-add-cart" name="qtybutton" value="1">
+                        </div>
                         <div class="single-product-cart btn-hover">
                             @if (Session::has('LoggedUser'))
                             <a style="cursor: pointer;" slug="{{$data[0]->Slug}}" onclick="AddToCart('{{$data[0]->Slug}}')" class="product-action-btn-2">Thêm vào giỏ hàng</a>

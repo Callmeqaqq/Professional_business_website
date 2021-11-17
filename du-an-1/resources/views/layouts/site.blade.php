@@ -24,10 +24,10 @@
     />
     <!--- JQuery --->
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    
+
     <!--- Notilfix --->
     <script src="{{asset('js/notiflix/notiflix-aio.js')}}"></script>
-    
+
     <!-- All CSS is here -->
     <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/vendor/pe-icon-7-stroke.css')}}"/>
@@ -323,9 +323,11 @@
 {{--JS Cart--}}
 <script type="text/javascript">
     function AddToCart(slug) {
+        var quantity = $(".quantity-add-cart").val() || 1;
+
         $.ajax({
             type : 'GET',
-            url  : '../add-cart/'+slug,
+            url  : '../add-cart/'+slug+'/'+quantity,
         }).done(function (response) {
             console.log(response);
             RenderCart(response);

@@ -14,28 +14,25 @@ class Cart {
         }
     }
 
-    public function AddCart($product, $slug) {
+    public function AddCart($product, $slug, $quantity) {
         $newProduct = ['quantity' => 0, 'price' => $product->Price, 'productInfo' => $product];
         if ($this->products) {
             if (array_key_exists($slug, $this->products)) {
                 $newProduct = $this->products[$slug];
             }
         }
-        $newProduct['quantity']++;
+        $quantity > 1 ? $newProduct['quantity'] += $quantity : $newProduct['quantity']++;;
+
         $newProduct['price'] = $newProduct['quantity'] * $product->Price;
         $this->products[$slug] = $newProduct;
         $this->totalPrice += $product->Price;
-        $this->totalQuantity++;
+        $quantity > 1 ? $this->totalQuantity += $quantity : $this->totalQuantity++;
     }
 
     public function DeleteItemCart($slug) {
         $this->totalQuantity -= $this->products[$slug]['quantity'];
         $this->totalPrice -= $this->products[$slug]['price'];
         unset($this->products[$slug]);
-    }
-
-    public function DeleteAllCart() {
-        unset($this->products);
     }
 
     public function UpdateItemCart($slug, $quantity) {

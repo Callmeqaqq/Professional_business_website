@@ -15,12 +15,12 @@ class CartController extends Controller
         return view('cart/cart');
     }
 
-    public function AddCart(Request $request, $slug) {
+    public function AddCart(Request $request, $slug, $quantity) {
         $product = DB::table('product')->where('Slug', $slug)->first();
         if ($product != null) {
             $oldCart = Session('Cart') ? Session('Cart') : null;
             $newCart = new Cart($oldCart);
-            $newCart->AddCart($product, $slug);
+            $newCart->AddCart($product, $slug, $quantity);
 
             $request->Session()->put('Cart', $newCart);
     //           dd($newCart);
@@ -54,20 +54,27 @@ class CartController extends Controller
         return view('cart/cartlist');
     }
 
-    public function DeleteAllCart(Request $request) {
-        $oldCart = Session('Cart') ? Session('Cart') : null;
-        $newCart = new Cart($oldCart);
-        $newCart->DeleteAllCart();
-
-        $request->Session()->put('Cart', $newCart);
-    }
-
     public function SaveItemListCart(Request $request, $slug, $quantity) {
         $oldCart = Session('Cart') ? Session('Cart') : null;
         $newCart = new Cart($oldCart);
         $newCart->UpdateItemCart($slug, $quantity);
 
         $request->Session()->put('Cart', $newCart);
+        return view('cart/cartlist');
+    }
+
+    public function SaveAllListCart(Request $request) {
+        foreach ($request->data as $item) {
+            $oldCart = Session('Cart') ? Session('Cart') : null;
+            $newCart = new Cart($oldCart);
+            $newCart->UpdateItemCart($item['key'], $item['value']);
+            $request->Session()->put('Cart', $newCart);
+        }
+        return view('cart/cartlist');
+    }
+
+    public function DeleteAllListCart(Request $request) {
+        $request->Session()->forget('Cart');
         return view('cart/cartlist');
     }
 

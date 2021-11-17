@@ -3,63 +3,63 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <form action="#">
-                        <div class="cart-table-content">
-                            <div class="table-content table-responsive">
-                                <table>
-                                    <thead>
+                    {{--                    <form action="#">--}}
+                    <div class="cart-table-content">
+                        <div class="table-content table-responsive">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th class="width-thumbnail"></th>
+                                    <th class="width-name">Tên sản phẩm</th>
+                                    <th class="width-price">Giá</th>
+                                    <th class="width-quantity">Số lượng</th>
+                                    <th class="width-subtotal">Thành tiền</th>
+                                    <th class="width-save"></th>
+                                    <th class="width-remove"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach(Session::get('Cart')->products as $value)
                                     <tr>
-                                        <th class="width-thumbnail"></th>
-                                        <th class="width-name">Tên sản phẩm</th>
-                                        <th class="width-price">Giá</th>
-                                        <th class="width-quantity">Số lượng</th>
-                                        <th class="width-subtotal">Thành tiền</th>
-                                        <th class="width-save"></th>
-                                        <th class="width-remove"></th>
+                                        <td class="product-thumbnail">
+                                            <a href="/products/{{$value['productInfo']->Slug}}"><img src="{{'images/product/'.$value['productInfo']->Images}}" alt=""></a>
+                                        </td>
+                                        <td class="product-name">
+                                            <h5><a slug="{{$value['productInfo']->Slug}}" href="/products/{{$value['productInfo']->Slug}}">{{$value['productInfo']->ProductName}}</a></h5>
+                                        </td>
+                                        <td class="product-cart-price"><span class="amount">{{number_format($value['price'])}}</span></td>
+                                        <td class="cart-quality">
+                                            <div class="product-quality"><div class="dec qtybutton">-</div>
+                                                <input class="cart-plus-minus-box input-text qty text" name="qtybutton" data-slug="{{$value['productInfo']->Slug}}" id="quantity-item-{{$value['productInfo']->Slug}}" value="{{$value['quantity']}}">
+                                                <div class="inc qtybutton">+</div></div>
+                                        </td>
+                                        <td class="product-total"><span>{{number_format($value['quantity']*$value['price'])}}</span></td>
+                                        <td class="product-save"><a style="cursor: pointer;"><i class="ti-save" data-slug="{{$value['productInfo']->Slug}}" onclick="SaveItemListCart('{{$value['productInfo']->Slug}}')" slug="{{$value['productInfo']->Slug}}"></i></a></td>
+                                        <td class="product-remove"><a style="cursor: pointer;"><i class="btn-delete-item-list-cart ti-trash" onclick="DeleteItemListCart('{{$value['productInfo']->Slug}}')" slug="{{$value['productInfo']->Slug}}"></i></a></td>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach(Session::get('Cart')->products as $value)
-                                        <tr>
-                                            <td class="product-thumbnail">
-                                                <a href="/products/{{$value['productInfo']->Slug}}"><img src="{{'images/product/'.$value['productInfo']->Images}}" alt=""></a>
-                                            </td>
-                                            <td class="product-name">
-                                                <h5><a slug="{{$value['productInfo']->Slug}}" href="/products/{{$value['productInfo']->Slug}}">{{$value['productInfo']->ProductName}}</a></h5>
-                                            </td>
-                                            <td class="product-cart-price"><span class="amount">{{number_format($value['price'])}}</span></td>
-                                            <td class="cart-quality">
-                                                <div class="product-quality"><div class="dec qtybutton">-</div>
-                                                    <input class="cart-plus-minus-box input-text qty text" name="qtybutton" id="quantity-item-{{$value['productInfo']->Slug}}" value="{{$value['quantity']}}">
-                                                    <div class="inc qtybutton">+</div></div>
-                                            </td>0
-                                            <td class="product-total"><span>{{number_format($value['quantity']*$value['price'])}}</span></td>
-                                            <td class="product-save"><a style="cursor: pointer;"><i class="ti-save" data-slug="{{$value['productInfo']->Slug}}" onclick="SaveItemListCart('{{$value['productInfo']->Slug}}')" slug="{{$value['productInfo']->Slug}}"></i></a></td>
-                                            <td class="product-remove"><a style="cursor: pointer;"><i class="btn-delete-item-list-cart ti-trash" onclick="DeleteItemListCart('{{$value['productInfo']->Slug}}')" slug="{{$value['productInfo']->Slug}}"></i></a></td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="cart-shiping-update-wrapper">
-                                    <div class="cart-shiping-update btn-hover">
-                                        <a href="/shop">Tiếp tục mua hàng</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="cart-shiping-update-wrapper">
+                                <div class="cart-shiping-update btn-hover">
+                                    <a href="/shop">Tiếp tục mua hàng</a>
+                                </div>
+                                <div class="cart-clear-wrap">
+                                    <div class="cart-clear btn-hover">
+                                        <button class="btn-update-all-cart">Cập nhật giỏ hàng</button>
                                     </div>
-                                    <div class="cart-clear-wrap">
-                                        <div class="cart-clear btn-hover">
-                                            <button>Cập nhật giỏ hàng</button>
-                                        </div>
-                                        <div class="cart-clear btn-hover">
-                                            <a href="" class="btn-delete-cart">Xóa tất cả</a>
-                                        </div>
+                                    <div class="cart-clear btn-hover">
+                                        <button class="btn-delete-all-cart">Xóa tất cả</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    {{--                    </form>--}}
                 </div>
             </div>
             <div class="row">
@@ -142,3 +142,35 @@
 @else
     <p style="text-align: center">Giỏ hàng hiện đang trống</p>
 @endif
+<script type="text/javascript">
+    $(".btn-update-all-cart").on("click", function (){
+        var lists = [];
+        $("table tbody tr td").each(function() {
+            $(this).find("input").each(function() {
+                var element = {key: $(this).data('slug'), value: $(this).val()};
+                lists.push(element);
+            })
+        });
+        $.ajax({
+            type : 'GET',
+            url  : 'save-all-list-cart',
+            data : {
+                "_token" : "{{csrf_token()}}",
+                "data" : lists
+            },
+        }).done(function (response) {
+            RenderListCart(response);
+            alertify.success('Cập nhật thành công!');
+        })
+    });
+
+    $(".btn-delete-all-cart").on("click", function (){
+        $.ajax({
+            type : 'GET',
+            url  : 'delete-all-list-cart',
+        }).done(function (response) {
+            RenderListCart(response);
+            alertify.success('Xóa thành công!');
+        })
+    });
+</script>

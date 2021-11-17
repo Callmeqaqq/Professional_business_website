@@ -1,12 +1,12 @@
 @extends('layouts.site')
 @section('main')
-    <div  id="list-cart-main">
+    <div id="list-cart-main">
     @if (Session::has('Cart') != null)
     <div class="cart-area pt-100 pb-100">
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <form action="#">
+{{--                    <form action="#">--}}
                         <div class="cart-table-content">
                             <div class="table-content table-responsive">
                                 <table>
@@ -33,9 +33,9 @@
                                         <td class="product-cart-price"><span class="amount">{{number_format($value['price'])}}</span></td>
                                         <td class="cart-quality">
                                             <div class="product-quality"><div class="dec qtybutton">-</div>
-                                                <input class="cart-plus-minus-box input-text qty text" name="qtybutton" id="quantity-item-{{$value['productInfo']->Slug}}" value="{{$value['quantity']}}">
+                                                <input class="cart-plus-minus-box input-text qty text" name="qtybutton" data-slug="{{$value['productInfo']->Slug}}" id="quantity-item-{{$value['productInfo']->Slug}}" value="{{$value['quantity']}}">
                                                 <div class="inc qtybutton">+</div></div>
-                                        </td>0
+                                        </td>
                                         <td class="product-total"><span>{{number_format($value['quantity']*$value['price'])}}</span></td>
                                         <td class="product-save"><a style="cursor: pointer;"><i class="ti-save" data-slug="{{$value['productInfo']->Slug}}" onclick="SaveItemListCart('{{$value['productInfo']->Slug}}')" slug="{{$value['productInfo']->Slug}}"></i></a></td>
                                         <td class="product-remove"><a style="cursor: pointer;"><i class="btn-delete-item-list-cart ti-trash" onclick="DeleteItemListCart('{{$value['productInfo']->Slug}}')" slug="{{$value['productInfo']->Slug}}"></i></a></td>
@@ -53,16 +53,16 @@
                                         </div>
                                         <div class="cart-clear-wrap">
                                             <div class="cart-clear btn-hover">
-                                                <button>Cập nhật giỏ hàng</button>
+                                                <button class="btn-update-all-cart">Cập nhật giỏ hàng</button>
                                             </div>
                                             <div class="cart-clear btn-hover">
-                                                <a href="" class="btn-delete-cart">Xóa tất cả</a>
+                                                <button class="btn-delete-all-cart">Xóa tất cả</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                    </form>
+{{--                    </form>--}}
                 </div>
             </div>
             <div class="row">
@@ -165,6 +165,37 @@
                 alertify.success('Cập nhật thành công!');
             })
         }
+
+        $(".btn-update-all-cart").on("click", function (){
+            var lists = [];
+            $("table tbody tr td").each(function() {
+                $(this).find("input").each(function() {
+                    var element = {key: $(this).data('slug'), value: $(this).val()};
+                    lists.push(element);
+                })
+            });
+            $.ajax({
+                type : 'GET',
+                url  : 'save-all-list-cart',
+                data : {
+                    "_token" : "{{csrf_token()}}",
+                    "data" : lists
+                },
+            }).done(function (response) {
+                RenderListCart(response);
+                alertify.success('Cập nhật thành công!');
+            })
+        });
+
+        $(".btn-delete-all-cart").on("click", function (){
+            $.ajax({
+                type : 'GET',
+                url  : 'delete-all-list-cart',
+            }).done(function (response) {
+                RenderListCart(response);
+                alertify.success('Xóa thành công!');
+            })
+        });
 
         function RenderListCart(response) {
             $("#list-cart-main").empty();
