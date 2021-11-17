@@ -149,7 +149,7 @@
                 {{-- Sản Phẩm Giảm Giá--}}
                 <div id="pro-3" class="tab-pane">
                     <div class="row">
-                        @foreach($data as $item)
+                        @foreach($discount as $item)
                             @if($item->Discount !=0)
                             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                                 <div class="product-wrap mb-35" data-aos="fade-up" data-aos-delay="200">

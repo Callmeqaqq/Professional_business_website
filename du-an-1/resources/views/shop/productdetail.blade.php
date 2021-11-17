@@ -74,6 +74,9 @@
                             @endforeach
                         </ul>
                     </div>
+                    <div class="product-color product-color-active product-details-color">
+                        <span>Khối lượng : {{$data[0]->Weight}} Kg</span>
+                    </div>
                     {{-- Thêm Sản Phẩm vào giỏ hàng --}}
                     <div class="product-details-action-wrap">
                         <div class="product-quality">
@@ -89,6 +92,11 @@
                             <li><span class="title">Danh mục:</span>
                                 <ul>
                                     <li><a href="{{asset('/category/'.$data[0]->CategorySlug)}}">{{$data[0]->CategoryName}}</a></li>
+                                </ul>
+                            </li>
+                            <li><span class="title">Nhà phân phối:</span>
+                                <ul>
+                                    <li><a href="">{{$data[0]->SupplierName}}</a></li>
                                 </ul>
                             </li>
                         </ul>
