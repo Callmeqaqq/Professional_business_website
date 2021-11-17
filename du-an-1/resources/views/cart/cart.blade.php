@@ -33,7 +33,7 @@
                                             <div class="product-quality"><div class="dec qtybutton">-</div>
                                                 <input class="cart-plus-minus-box input-text qty text" name="qtybutton" value="{{$value['quantity']}}">
                                                 <div class="inc qtybutton">+</div></div>
-                                        </td>0
+                                        </td>
                                         <td class="product-total"><span>{{number_format($value['quantity']*$value['price'])}}</span></td>
                                         <td class="product-remove"><a href=""><i class="ti-trash"></i></a></td>
                                     </tr>
@@ -118,16 +118,16 @@
                             <div class="grand-shipping">
                                 <span>Vận chuyển</span>
                                 <ul>
-                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Free shipping</label></li>
-                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Flat rate: <span>$100.00</span></label></li>
-                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Local pickup: <span>$120.00</span></label></li>
+                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Ship thông thường</label></li>
+                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Hỏa tốc: <span>+ 200.000vnđ</span></label></li>
+{{--                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Quốc tế: <span>$120.00</span></label></li>--}}
                                 </ul>
                             </div>
-                            <div class="shipping-country">
-                                <p>Shipping to Bangladesh</p>
-                            </div>
+{{--                            <div class="shipping-country">--}}
+{{--                                <p>Shipping to Bangladesh</p>--}}
+{{--                            </div>--}}
                             <div class="grand-total">
-                                <h4>Tổng tiền <span>$185.00</span></h4>
+                                <h4>Tổng tiền <span>{{number_format(Session::get('Cart')->totalPrice)}}</span></h4>
                             </div>
                         </div>
                         <div class="grand-total-btn btn-hover">
