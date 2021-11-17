@@ -25,7 +25,7 @@ class Cart {
 
         $newProduct['price'] = $newProduct['quantity'] * $product->Price;
         $this->products[$slug] = $newProduct;
-        $this->totalPrice += $product->Price;
+        $quantity > 1 ? $this->totalPrice += $product->Price : $this->totalPrice += $product->Price * $quantity;
         $quantity > 1 ? $this->totalQuantity += $quantity : $this->totalQuantity++;
     }
 
