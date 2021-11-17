@@ -30,13 +30,13 @@
                                         <td class="product-name">
                                             <h5><a slug="{{$value['productInfo']->Slug}}" href="/products/{{$value['productInfo']->Slug}}">{{$value['productInfo']->ProductName}}</a></h5>
                                         </td>
-                                        <td class="product-cart-price"><span class="amount">{{number_format($value['price'])}}</span></td>
+                                        <td class="product-cart-price"><span class="amount">{{number_format($value['productInfo']->Price)}}</span></td>
                                         <td class="cart-quality">
                                             <div class="product-quality"><div class="dec qtybutton">-</div>
                                                 <input class="cart-plus-minus-box input-text qty text" name="qtybutton" data-slug="{{$value['productInfo']->Slug}}" id="quantity-item-{{$value['productInfo']->Slug}}" value="{{$value['quantity']}}">
                                                 <div class="inc qtybutton">+</div></div>
                                         </td>
-                                        <td class="product-total"><span>{{number_format($value['quantity']*$value['price'])}}</span></td>
+                                        <td class="product-total"><span>{{number_format($value['quantity']*$value['productInfo']->Price)}}</span></td>
                                         <td class="product-save"><a style="cursor: pointer;"><i class="ti-save" data-slug="{{$value['productInfo']->Slug}}" onclick="SaveItemListCart('{{$value['productInfo']->Slug}}')" slug="{{$value['productInfo']->Slug}}"></i></a></td>
                                         <td class="product-remove"><a style="cursor: pointer;"><i class="btn-delete-item-list-cart ti-trash" onclick="DeleteItemListCart('{{$value['productInfo']->Slug}}')" slug="{{$value['productInfo']->Slug}}"></i></a></td>
                                     </tr>
