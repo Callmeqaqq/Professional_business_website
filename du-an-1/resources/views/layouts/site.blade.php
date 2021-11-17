@@ -22,12 +22,7 @@
         href="{{asset('images/favicon/cropped-favicon-32x32.png')}}"
         sizes="32x32"
     />
-    <!--- JQuery --->
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    
-    <!--- Notilfix --->
-    <script src="{{asset('js/notiflix/notiflix-aio.js')}}"></script>
-    
+
     <!-- All CSS is here -->
     <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/vendor/pe-icon-7-stroke.css')}}"/>
@@ -369,6 +364,5 @@
         });
     });
 </script>
-    @yield('scripts')
 </body>
 </html>
