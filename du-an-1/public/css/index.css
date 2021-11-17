@@ -450,6 +450,7 @@ textarea {
 
 .btn-hover a,
 .btn-hover button {
+
   position: relative;
   -webkit-transition: all 0.5s ease-in-out 0s;
   -o-transition: all 0.5s ease-in-out 0s;
@@ -479,6 +480,7 @@ textarea {
 
 .btn-hover a::after,
 .btn-hover button::after {
+    color: #fff;
   width: 0;
   left: auto;
   right: 0;
@@ -499,6 +501,7 @@ textarea {
 
 .btn-hover a:hover::after,
 .btn-hover button:hover::after {
+    color: #fff;
   width: 100%;
   left: 0;
   right: auto;
@@ -2906,7 +2909,6 @@ form
 .button-box
 button {
     background-color: #e97730;
-    color: #fff;
     border: medium none;
     cursor: pointer;
     font-size: 14px;
@@ -2918,7 +2920,67 @@ button {
     -o-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
     z-index: 1;
-    margin-top: 15px
+    margin-top: 15px;
+    height: 50px;
+}
+/*.login-register-wrapper .login-form-container .login-register-form form .button-box .text-black{*/
+/*    color: black;*/
+/*}*/
+
+/*.login-register-wrapper .login-form-container .login-register-form form .button-box .google-login {*/
+/*    color: #000000;*/
+/*    background-color: #ffffff !important;*/
+/*    border:1px solid #cccccc;*/
+/*    width:47% ;*/
+/*    margin-left:2.5%;*/
+/*}*/
+/*.login-register-wrapper .login-form-container .login-register-form form .button-box .google-login::after {*/
+/*    background-color: black;*/
+/*}*/
+/*.login-register-wrapper .login-form-container .login-register-form form .button-box .text-white{*/
+/*    color: #ffffff;*/
+/*background-color: #1877f2; width:47%;margin-right:2.5%*/
+/*}*/
+.login-register-wrapper .login-form-container .login-register-form form .button-box .google-login:hover{
+    color: #ffffff;
+}
+.login-register-wrapper .login-form-container .login-register-form form .button-box .google-login{
+    background-color: #ffffff;
+    color: #000000;
+    border: medium none;
+    border: 1px solid #cccccc;
+    cursor: pointer;
+    font-size: 14px;
+    /*line-height: 1;*/
+    /*padding: 14px 30px 13px;*/
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    -webkit-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+    z-index: 1;
+    height: 50px;
+    width:47%;
+    margin-left:2.5%;
+    display: inline-block;
+}
+.login-register-wrapper .login-form-container .login-register-form form .button-box .face-login{
+    background-color: #1877f2;
+    color: #fff;
+    border: medium none;
+    cursor: pointer;
+    font-size: 14px;
+    /*line-height: 1;*/
+    /*padding: 14px 30px 13px;*/
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    -webkit-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+    z-index: 1;
+    height: 50px;
+    width:47%;
+    margin-right:2.5%;
 }
 
 /*-------- 23. My account style ---------*/
@@ -3074,4 +3136,12 @@ button {
     padding: 20px 0;
     color: #333;
 }
-/*viet fix css*/
+.login-form-container .line{
+    height: 1px;
+    margin: 1rem 0;
+    color: #cccccc;
+}
+.login-form-container .line .hr{
+    width: 100%;
+    border-top: 1px solid #cccccc;
+}
