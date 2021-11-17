@@ -18,7 +18,7 @@ class ProductDetailController extends Controller
                         -> Get();
         $variant = DB::table('product')
                         ->join('variant', 'product.ProductId', '=', 'variant.ProductId')
-                        ->select('variant.Color')
+                        ->select('variant.Color','variant.VariantName','variant.Quantity','variant.VariantId')
                         ->where('Slug','=', $slug)
                         ->Get();
         $comment = DB::table('comment')
@@ -54,8 +54,13 @@ class ProductDetailController extends Controller
         if(session()->has("LoggedUser")){
             $accept = true;
         }
+        $quantity =0;
+        foreach ($variant as $var){
+            $quantity = $quantity + $var->Quantity;
+        }
+
 //         dd($comment);
-        return view('shop/productdetail', compact('data','variant','comment','relative','accept','star'));
+        return view('shop/productdetail', compact('data','variant','comment','relative','accept','star','quantity'));
     }
 
     function load_comment(Request $request){
@@ -125,5 +130,18 @@ class ProductDetailController extends Controller
                 'Rating' => $rating
             ]);
 
+    }
+
+    function quantity(Request $request){
+        $variantId = $request->variantId;
+        $quantity = DB::table('variant')->where('variantId','=', $variantId)->get();
+        foreach ($quantity as $qua){
+            session()->put('quantity',$qua->Quantity);
+        }
+
+        $output = '
+            <span>Số lượng còn lại: '.session('quantity').'</span>
+        ';
+        echo $output;
     }
 }
