@@ -24,10 +24,10 @@
     />
     <!--- JQuery --->
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    
+
     <!--- Notilfix --->
     <script src="{{asset('js/notiflix/notiflix-aio.js')}}"></script>
-    
+
     <!-- All CSS is here -->
     <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/vendor/pe-icon-7-stroke.css')}}"/>
@@ -128,6 +128,7 @@
                                     "><i class="pe-7s-user"></i></a>
                             </div>
                             <div class="header-action-style header-action-cart">
+                                @if (!strpos(url()->current(), '/cart'))
                                 <a class="cart-active" href="#"><i class="pe-7s-shopbag"></i>
                                     <span class="product-count bg-black">
                                         @if (Session::has('Cart') != null)
@@ -137,6 +138,7 @@
                                         @endif
                                     </span>
                                 </a>
+                                @endif
                             </div>
                             <div class="header-action-style d-block d-lg-none">
                                 <a class="mobile-menu-active-button" href="#"><i class="pe-7s-menu"></i></a>
@@ -165,7 +167,7 @@
                                         <span> {{number_format($item['productInfo']->Price)}} × {{$item['quantity']}} </span>
                                     </div>
                                     <div class="cart-delete">
-                                        <a style="display: block; cursor: pointer;" slug="{{$item['productInfo']->Slug}}" class="btn-delete-item-cart">x</a>
+                                        <a style="display: block; cursor: pointer;" data-id="{{$item['productInfo']->ProductId}}" data-slug="{{$item['productInfo']->Slug}}" slug="{{$item['productInfo']->Slug}}" class="btn-delete-item-cart">x</a>
                                     </div>
                                 </li>
                             @endforeach
@@ -308,14 +310,46 @@
 <script src="{{asset('js/plugins/counterup.min.js')}}"></script>
 <script src="{{asset('js/plugins/select2.min.js')}}"></script>
 <script src="{{asset('js/plugins/easyzoom.js')}}"></script>
-{{--JS AddToCart--}}
-<script src="{{asset('js/add-to-cart.js')}}"></script>
-<script type="text/javascript">
-</script>
+{{--JS Plugins--}}
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 <!-- JS chính -->
 <script src="{{asset('js/main.js')}}"></script>
 <script src="{{asset('js/checkout.js')}}"></script>
 <script src="{{asset('js/plugins/search.js')}}"></script>
+{{--JS Cart--}}
+<script type="text/javascript">
+    function AddToCart(slug) {
+        var quantity = $(".quantity-add-cart").val() || 1;
+
+        $.ajax({
+            type : 'GET',
+            url  : '../add-cart/'+slug+'/'+quantity,
+        }).done(function (response) {
+            console.log(response);
+            RenderCart(response);
+            alertify.success('Thêm thành công!');
+        });
+    }
+
+    $('#list-cart').on("click", ".btn-delete-item-cart", function() {
+        $.ajax({
+            type : 'GET',
+            url  : '../delete-item-cart/'+$(this).data('slug'),
+        }).done(function (response) {
+            RenderCart(response);
+        });
+    });
+
+    function RenderCart(response) {
+        $('#list-cart').empty();
+        $('#list-cart').html(response)
+        $('#total-quantity-show').text($('#total-quantity-cart').val());
+    }
+</script>
 {{--Ajax bình luận sản phẩm--}}
 <script type="text/javascript">
     $(document).ready(function(){
