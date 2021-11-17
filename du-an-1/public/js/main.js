@@ -310,7 +310,7 @@
     });
 
     /*-------------------------------
-	   Header Search Toggle
+	   Header SearchController Toggle
     -----------------------------------*/
     var searchToggle = $('.search-toggle');
     searchToggle.on('click', function(e){
@@ -608,5 +608,4 @@
     });
 
 })(jQuery);
-
 
