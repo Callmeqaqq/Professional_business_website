@@ -31,7 +31,7 @@
     <!-- All CSS is here -->
     <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/vendor/pe-icon-7-stroke.css')}}"/>
-    <link rel="stylesheet" href="{{ asset('css/vendor/themify-icons.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('css/vendor/sthemify-icon.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/vendor/font-awesome.min.css')}}"/>
 
     <link rel="stylesheet" href="{{ asset('css/index.css')}}"/>
