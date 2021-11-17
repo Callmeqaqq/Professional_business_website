@@ -16,22 +16,16 @@ class CartController extends Controller
     }
 
     public function AddCart(Request $request, $slug) {
-            if ($request->session()->has('LoggedUser')) {
-                $product = DB::table('product')->where('Slug', $slug)->first();
-                if ($product != null) {
-                    $oldCart = Session('Cart') ? Session('Cart') : null;
-                    $newCart = new Cart($oldCart);
-                    $newCart->AddCart($product, $slug);
+        $product = DB::table('product')->where('Slug', $slug)->first();
+        if ($product != null) {
+            $oldCart = Session('Cart') ? Session('Cart') : null;
+            $newCart = new Cart($oldCart);
+            $newCart->AddCart($product, $slug);
 
-                    $request->Session()->put('Cart', $newCart);
-    //            dd($newCart);
-                }
-                return view('cart/minicart');
-            } else {
-                return null;
-//                return redirect('buyer/login')->with('hasLoginUser', 'Vui lòng đăng nhập để tiếp tục mua hàng!');
-//                return redirect()->route('buyer.login');
-            }
+            $request->Session()->put('Cart', $newCart);
+    //           dd($newCart);
+        }
+        return view('cart/minicart');
     }
 
     public function DeleteItemCart(Request $request, $slug) {

@@ -46,7 +46,7 @@
                             <div class="col-lg-12">
                                 <div class="cart-shiping-update-wrapper">
                                     <div class="cart-shiping-update btn-hover">
-                                        <a href="/">Tiếp tục mua hàng</a>
+                                        <a href="/shop">Tiếp tục mua hàng</a>
                                     </div>
                                     <div class="cart-clear-wrap">
                                         <div class="cart-clear btn-hover">
@@ -116,22 +116,23 @@
                         <div class="grand-total-content">
                             <h3>Tiền sản phẩm<span>{{number_format(Session::get('Cart')->totalPrice)}} đ</span></h3>
                             <div class="grand-shipping">
-                                <span>Vận chuyển</span>
-                                <ul>
-                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Free shipping</label></li>
-                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Flat rate: <span>$100.00</span></label></li>
-                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Local pickup: <span>$120.00</span></label></li>
-                                </ul>
+                                <span>Tổng số lượng: <b>{{number_format(Session::get('Cart')->totalQuantity)}}</b> sản phẩm</span>
+                                {{--                                <span>Vận chuyển</span>--}}
+                                {{--                                <ul>--}}
+                                {{--                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Free shipping</label></li>--}}
+                                {{--                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Flat rate: <span>$100.00</span></label></li>--}}
+                                {{--                                    <li><input type="radio" name="shipping" value="info" checked="checked"><label>Local pickup: <span>$120.00</span></label></li>--}}
+                                {{--                                </ul>--}}
                             </div>
                             <div class="shipping-country">
-                                <p>Shipping to Bangladesh</p>
+                                <p>Mua hàng tại MetaH</p>
                             </div>
                             <div class="grand-total">
-                                <h4>Tổng tiền <span>$185.00</span></h4>
+                                <h4>Tổng tiền <span>{{number_format(Session::get('Cart')->totalPrice)}} Vnđ</span></h4>
                             </div>
                         </div>
                         <div class="grand-total-btn btn-hover">
-                            <a class="btn theme-color" href="/checkout">Proceed to checkout</a>
+                            <a class="btn theme-color" href="/checkout">Tiến hành thanh toán</a>
                         </div>
                     </div>
                 </div>

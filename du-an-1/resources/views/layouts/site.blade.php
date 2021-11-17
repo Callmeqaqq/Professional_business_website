@@ -322,13 +322,9 @@
             type : 'GET',
             url  : '../add-cart/'+slug,
         }).done(function (response) {
-            if (response) {
-                console.log(response);
-                RenderCart(response);
-                alertify.success('Thêm thành công!');
-            } else {
-                alertify.error('Vui lòng đăng nhập để tiếp tục mua hàng!');
-            }
+            console.log(response);
+            RenderCart(response);
+            alertify.success('Thêm thành công!');
         });
     }
 
