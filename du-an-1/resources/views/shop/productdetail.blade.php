@@ -43,12 +43,12 @@
             <div class="col-lg-6">
                 <div class="product-details-content" data-aos="fade-up" data-aos-delay="400">
                     {{-- Tên Chi tiết sản phẩm--}}
-                    <h2>{{$data[0]->ProductName}}</h2>
+                    <h2>{{$data[0]->ProductName}} &ensp;<sup style="color:#e97730">- {{$data[0]->Discount*100}}%</sup></h2>
                     {{-- Giá sản phẩm--}}
                     <div class="product-details-price">
                         {{-- Nếu ko có giảm giá thì không cần in giá cũ--}}
                         @if($data[0]->Discount != 0)
-                        <span class="old-price">{{number_format((100*$data[0]->Price)/((1-$data[0]->Discount)*100))}} <sup>vnđ</sup></span>
+                        <span class="old-price">{{number_format((100*$data[0]->Price)/((1-$data[0]->Discount)*100))}} </span>
                         @endif
                         {{-- Giá mới--}}
                         <span class="new-price">{{number_format($data[0]->Price)}} <sup>vnđ</sup></span>
@@ -69,15 +69,23 @@
                     <div class="product-color product-color-active product-details-color">
                         <span>Màu :</span>
                         <ul>
-
-                                <select name="" class="pd_img_color">
-                                    <option selected="selected">Màu sắc</option>
-                                    @foreach($variant as $color)
-                                        <option value="{{$color->VariantId}}">{{$color->VariantName}}</option>
-                                    @endforeach
-                                </select>
-{{--                                <button class='pd_img_color' value="{{$color->VariantId}}"><img title="{{$color->VariantName}}" src="{{asset('images/product/'.$color->Color)}}" alt=""></button>--}}
-
+                            <div class='pd_img_color'>
+                                @foreach($variant as $color)
+                                    @if($color->Quantity !=0)
+                                        <input class="price_var" type="hidden" value="{{$color->Price}}">
+                                        <input type="radio" name="emotion" id="{{$color->VariantId}}" class="input-hidden" value="{{$color->VariantId}}"/>
+                                        <label for="{{$color->VariantId}}">
+                                            <img title="{{$color->VariantName}}" src="{{asset('./images/product/'.$color->Color)}}" alt="{{$color->VariantName}}"/>
+                                        </label>
+                                    @else
+                                        <input type="radio" name="emotion" id="{{$color->VariantId}}" class="input-hidden" value="{{$color->VariantId}}"/>
+                                        <label class="sold-out" for="{{$color->VariantId}}">
+                                            <img class="sold-out-img" title="{{$color->VariantName}}" src="{{asset('./images/product/'.$color->Color)}}" alt="{{$color->VariantName}}"/>
+                                            <img style="opacity: 0.8" class="sold-out-img" src="{{asset('./images/icon-img/sold.png')}}" alt="">
+                                        </label>
+                                    @endif
+                                @endforeach
+                            </div>
                         </ul>
                     </div>
                     <div class="product-color product-color-active product-details-color">

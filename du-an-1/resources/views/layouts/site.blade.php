@@ -403,7 +403,7 @@
         });
     });
     $('.pd_img_color').click(function(){
-        let variantId = $('.pd_img_color').val();
+        let variantId = $('input[name="emotion"]:checked').val();
         var _token = $('input[name="_token"]').val();
         // alert(variantId);
         $.ajax({
