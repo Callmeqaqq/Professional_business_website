@@ -91,3 +91,5 @@ Route::get('/buyer/login/facebook/redirect','App\Http\Controllers\Socialite\Logi
 Route::get('/buyer/login/facebook/back','App\Http\Controllers\Socialite\LoginController@handleProviderCallback');
 Route::get('/buyer/login/facebook/redirect', 'SocialController@facebookRedirect')->name('facebook.google');
 Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
+
+Route::get('/admin','admin\DemoController@index');
