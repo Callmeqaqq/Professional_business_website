@@ -15,10 +15,7 @@
     <!-- ============================================================== -->
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" style="color: aqua" href="index.html"
-            >Metah</a
-            >
-
+            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}">Metah</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
                     <li class="nav-item dropdown nav-user">
@@ -30,7 +27,8 @@
                             aria-haspopup="true"
                             aria-expanded="false"
                         ><img
-                                src="assets/images/avatar-1.jpg"
+                                title="Tên người dùng"
+                                src="{{asset('/images/users/default.jpg')}}"
                                 alt=""
                                 class="user-avatar-md rounded-circle"
                             /></a>
@@ -89,7 +87,7 @@
                             <div id="submenu-10" class="collapse submenu" style="">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Danh mục sản phẩm</a>
+                                        <a class="nav-link" href="{{asset('/admin/category')}}">Danh mục sản phẩm</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{asset('/admin/product')}}">Tất cả sản phẩm</a>
@@ -141,7 +139,7 @@
 <script src="{{asset('vendor/jquery/jquery-3.3.1.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.js')}}"></script>
 <!-- <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script> -->
-<script src="../assets/libs/js/main-js.js"></script>
+{{--<script src="../assets/libs/js/main-js.js"></script>--}}
 
 <div class="dashboard-wrapper">
     <div class="container-fluid dashboard-content">
