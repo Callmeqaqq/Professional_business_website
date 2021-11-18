@@ -132,7 +132,6 @@
                                 <li><a class="blue" href="#">Xanh <span>9</span></a></li>
                                 <li><a class="brown" href="#">Xám <span>5</span></a></li>
                                 <li><a class="red" href="#">Đỏ <span>3</span></a></li>
-                                <li><a class="orange" href="#">Cam <span>4</span></a></li>
                             </ul>
                         </div>
                     </div>

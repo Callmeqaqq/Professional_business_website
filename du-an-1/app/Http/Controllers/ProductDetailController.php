@@ -18,7 +18,7 @@ class ProductDetailController extends Controller
                         -> Get();
         $variant = DB::table('product')
                         ->join('variant', 'product.ProductId', '=', 'variant.ProductId')
-                        ->select('variant.Color','variant.VariantName','variant.Quantity','variant.VariantId')
+                        ->select('variant.*')
                         ->where('Slug','=', $slug)
                         ->Get();
         $comment = DB::table('comment')
