@@ -1,7 +1,9 @@
+#crumbs {
+    margin: 0 10% 0 10%;
+}
+
 #crumbs ul {
     margin: 0;
-    display: flex;
-    justify-content: center;
     padding: 0;
     overflow: hidden;
     width: 100%;
@@ -21,6 +23,7 @@
     color: #444;
     text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
     position: relative;
+    transition: all 0s ease 0s;
 }
 
 #crumbs li:first-child a {
@@ -51,6 +54,7 @@
 
 #crumbs li:not(:first-child)>a:hover::before {
     border-color: #e97730 #e97730 #e97730 transparent;
+    transition-delay: 0s;
 }
 
 #crumbs li:not(:last-child)>a::after {
