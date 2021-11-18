@@ -25,14 +25,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $category = DB::table('category')->where('CatActive','=',1)->Get();
-//        $countpd = DB::table('category')
-//            ->join('product', 'category.CategoryId','=','product.CategoryId')
-//            ->select('product.*','category.CategoryId')
-//            ->where('CatActive','=',1)
-//            ->where('Active','=',1)
-//            ->Get();
-//        dd($countpd);
-        view()->share(compact('category'));
+        $categoryAll = DB::table('category')->get();
+        view()->share(compact('category','categoryAll'));
         Paginator::useBootstrap();
 
     }
