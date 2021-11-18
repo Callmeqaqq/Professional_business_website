@@ -92,6 +92,8 @@ Route::get('/buyer/login/facebook/back','App\Http\Controllers\Socialite\LoginCon
 Route::get('/buyer/login/facebook/redirect', 'SocialController@facebookRedirect')->name('facebook.google');
 Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
 
+Route::get('/admin','admin\DemoController@index');
+
 //------------admin Product-----------------------
 //Route::get('/admin/product',function(){
 //    return view('adminproduct');
