@@ -32,7 +32,8 @@ class SocialController extends Controller
                 'google_id'=> $user_google->id,
                 'password' => Hash::make('123456')
             ]);
-            $request->session()->put('LoggedUser',$newUser->UserId);
+            $userNew = DB::table('users')->select('UserId')->where('email','=',$user_google->email )->first();
+            $request->session()->put('LoggedUser',$userNew->UserId);
             return redirect('/profile');
         } catch (Exception $e) {
             dd($e->getMessage());
