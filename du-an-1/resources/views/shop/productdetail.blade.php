@@ -133,39 +133,13 @@
                                 <form>
                                     @csrf
                                     <input type="hidden" name="comment_productId" class="comment_productId" value="{{$data[0]->ProductId}}">
-
-
                                     <div id="comment_show">
-
                                     </div>
-
                                 </form>
-{{--                                    @foreach($comment as $com)--}}
-{{--                                    <div class="single-review">--}}
-{{--                                        <div class="review-img">--}}
-{{--                                            <img src="{{asset('/images/product/bluedot1.jpg')}}" alt="">--}}
-{{--                                        </div>--}}
-{{--                                        <div class="review-content">--}}
-{{--                                            <div class="review-rating">--}}
-{{--                                                @for($i=1;$i <= $com->Rating;$i++)--}}
-{{--                                                    <i style="color:#e97730" class="fas fa-star"></i>--}}
-{{--                                                @endfor--}}
-{{--                                                @for($i=1;$i<= (5-$com->Rating);$i++)--}}
-{{--                                                    <i style="color:#e97730" class="far fa-star"></i>--}}
-{{--                                                @endfor--}}
-{{--                                            </div>--}}
-{{--                                            <h5><span>@ {{$com->Fullname}}</span> - Ngày {{date('d-m-Y', strtotime($com->CreateAt))}}</h5>--}}
-{{--                                            <p>{{$com->Content}}</p>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    @endforeach--}}
-
                             @if($accept == true)
                             <div class="ratting-form-wrapper">
                                 <h3>Thêm đánh giá và bình luận của bạn</h3>
                                 <p>Hãy thêm đánh giá và bình luận của bạn về sản phẩm nào >.< <span>*</span></p>
-
-
                                 <div class="ratting-form">
                                     <form>
                                     @csrf
