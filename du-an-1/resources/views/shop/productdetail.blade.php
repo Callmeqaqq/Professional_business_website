@@ -83,7 +83,7 @@
                     <div class="product-color product-color-active product-details-color">
                         <span>Khối lượng : {{$data[0]->Weight}} Kg</span>
                     </div>
-                    <div class="product-color product-color-active product-details-color" id="quantityhere"><span>Số lượng còn lại: {{$quantity}}</span></div>
+                    <div class="product-color product-color-active product-details-color" id="quantityhere"><span>Số lượng còn lại: 0</span></div>
                     {{-- Thêm Sản Phẩm vào giỏ hàng --}}
                     <div class="product-details-action-wrap">
                         <div class="product-quality">

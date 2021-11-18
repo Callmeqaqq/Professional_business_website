@@ -21,17 +21,17 @@ class Cart {
                 $newProduct = $this->products[$slug];
             }
         }
-        $quantity > 1 ? $newProduct['quantity'] += $quantity : $newProduct['quantity']++;;
+        $quantity > 1 ? $newProduct['quantity'] += $quantity : $newProduct['quantity']++;
 
         $newProduct['price'] = $newProduct['quantity'] * $product->Price;
         $this->products[$slug] = $newProduct;
-        $quantity > 1 ? $this->totalPrice += $product->Price : $this->totalPrice += $product->Price * $quantity;
+        $quantity > 1 ? $this->totalPrice += $product->Price * $quantity : $this->totalPrice += $product->Price;
         $quantity > 1 ? $this->totalQuantity += $quantity : $this->totalQuantity++;
     }
 
     public function DeleteItemCart($slug) {
-        abs($this->totalQuantity -= $this->products[$slug]['quantity']);
-        abs($this->totalPrice -= $this->products[$slug]['price']);
+        $this->totalQuantity = abs($this->totalQuantity -= $this->products[$slug]['quantity']);
+        $this->totalPrice = abs($this->totalPrice -= $this->products[$slug]['price']);
         unset($this->products[$slug]);
     }
 

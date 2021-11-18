@@ -1,5 +1,6 @@
 @extends('layouts.site')
 @section('main')
+    {{ Breadcrumbs::render('cart') }}
     <div id="list-cart-main">
     @if (Session::has('Cart') != null)
     <div class="cart-area pt-100 pb-100">
