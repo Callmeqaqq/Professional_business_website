@@ -8429,7 +8429,11 @@ textarea {
 
 /*checkout*/
 .checkout-main-area{
-    padding-bottom: 5px;
+    /*padding-bottom: 5px;*/
+}
+
+.checkout-submit{
+    /*background-color: #e97730;*/
 }
 
 .billing-info-wrap h3 {
@@ -8944,7 +8948,7 @@ textarea {
     }
 }
 
-.your-order-area .Place-order a {
+.your-order-area .Place-order button {
     background-color: #e97730;
     display: block;
     cursor: pointer;
@@ -8956,6 +8960,7 @@ textarea {
     font-weight: 600;
     text-align: center;
     z-index: 1;
+    border:none;
 }
 
 /*-------- Cart style ---------*/

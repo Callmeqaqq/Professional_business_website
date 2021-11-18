@@ -60,4 +60,6 @@ $(document).ready(function () {
 
     //search map options
     $('.mapboxgl-ctrl-geocoder--input').attr("placeholder", "Nhập địa chỉ của bạn");
+    $('.mapboxgl-ctrl-geocoder--input').attr('name', 'Address');
+    $('.mapboxgl-ctrl-geocoder--input').attr('required', '');
 });
