@@ -282,7 +282,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="{{rul('blog')}}">Tin tức</a>
+{{--                            <a href="{{rul('blog')}}">Tin tức</a>--}}
                         </li>
                         <li>
                             <a href="{{url('about-us')}}">Giới Thiệu</a>
