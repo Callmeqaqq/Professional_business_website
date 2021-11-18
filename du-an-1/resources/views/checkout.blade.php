@@ -36,6 +36,8 @@
         }
 
     </style>
+    {{--                                            @if (Session::has('Cart') != null)--}}
+
     {{ Breadcrumbs::render('checkout') }}
     <div class="checkout-main-area pb-100 pt-100">
         <div class="container">
@@ -103,7 +105,6 @@
                                     </div>
                                     <div class="your-order-middle">
                                         <ul>
-{{--                                            @if (Session::has('Cart') != null)--}}
                                                 @foreach(Session::get('Cart')->products as $value)
                                                 <li>{{$value['productInfo']->ProductName}} X {{$value['quantity']}}<span>{{number_format($value['price'])}}</span></li>
                                                     @endforeach
