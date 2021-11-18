@@ -30,8 +30,8 @@ class Cart {
     }
 
     public function DeleteItemCart($slug) {
-        $this->totalQuantity -= $this->products[$slug]['quantity'];
-        $this->totalPrice -= $this->products[$slug]['price'];
+        abs($this->totalQuantity -= $this->products[$slug]['quantity']);
+        abs($this->totalPrice -= $this->products[$slug]['price']);
         unset($this->products[$slug]);
     }
 
