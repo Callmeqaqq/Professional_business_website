@@ -36,7 +36,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/index.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/plugins/swiper.min.css')}} "/>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 </head>
 
@@ -400,6 +400,22 @@
                     load_comment();
                 }
             });
+        });
+    });
+    $('.pd_img_color').click(function(){
+        let variantId = $('.pd_img_color').val();
+        var _token = $('input[name="_token"]').val();
+        // alert(variantId);
+        $.ajax({
+            url:"{{url("/quantity")}}",
+            method:"POST",
+            data:{
+                variantId:variantId,
+                _token:_token
+            },
+            success:function(data){
+                $('#quantityhere').html(data);
+            }
         });
     });
 </script>

@@ -198,4 +198,35 @@
             </div>
         </div>
     </div>
+    <script>
+
+        $('.alertdemo').on('click', function(e){
+
+            e.preventDefault();
+
+            theme = "blue";
+
+
+
+            $.jAlert({
+
+                'title': 'jAlert Demo',
+
+                'content': 'This is a simple jAlert that is based at jQuery!',
+
+                'theme': theme,
+
+                'backgroundColor': 'white',
+
+                'btns': [
+
+                    {'text':'OK', 'theme':theme}
+
+                ]
+
+            });
+
+        });
+
+    </script>
 @stop()
