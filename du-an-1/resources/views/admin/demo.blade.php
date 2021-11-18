@@ -121,8 +121,7 @@
                     <div class="table-responsive">
                         <table
                             id="table"
-                            class="table table-striped table-bordered first"
-                        >
+                            class="table table-striped table-bordered first">
                             <thead style="background-color: rgb(0, 248, 248)">
                             <tr>
                                 <th>Name</th>
