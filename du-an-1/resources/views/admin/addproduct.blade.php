@@ -63,6 +63,16 @@
                     </div>
                 </div>
                 <div style="display: flex" class="card-body col-12">
+                    <div class="form-group col-4">
+                        <label for="inputText4" class="col-form-label">Màu:</label>
+                        <input name="Color" type="text" class="form-control" placeholder="Màu sản phẩm" required/>
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="inputText4" class="col-form-label">Số lượng <small>(Cái)</small></label>
+                        <input required name="Quantity" id="inputText4" type="number" step="1" min="0" class="form-control" placeholder="Nhập số lượng"/>
+                    </div>
+                </div>
+                <div style="display: flex" class="card-body col-12">
                     <div class="form-group col-8">
                         <label for="formFile" class="form-label">Chọn Ảnh mặc định (1 Ảnh)</label>
                         <input name="Images" class="form-control" type="file" id="formFile">
