@@ -89,12 +89,12 @@ class ProductDetailController extends Controller
             $star2='';
             for($i = 1; $i <= $comm->Rating; $i++){
                 $star1 .='
-                <i style="color:#e97730" class="fas fa-star"></i>
+                <i style="color:#d0011b" class="fas fa-star"></i>
             ';
             }
             for($i = 1; $i <= 5-($comm->Rating); $i++){
                 $star2 .='
-                <i style="color:#e97730" class="far fa-star"></i>
+                <i style="color:#d0011b" class="far fa-star"></i>
             ';
             }
             $output.='

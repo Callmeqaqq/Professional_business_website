@@ -42,25 +42,7 @@
 
 <body>
 <div class="main-wrapper main-wrapper-2">
-    <header class="header-area header-responsive-padding header-height-1">
-        <div class="header-top d-none d-lg-block bg-gray ">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-6">
-                        <div class="welcome-text">
-                            <p>Chào Mừng đến MetaH</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-6">
-                        <div class="language-currency-wrap">
-                            <div class="language-wrap">
-                                <a class="language-active" href="#">Tiếng Việt</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <header class="header-area header-responsive-padding">
         <div class="header-bottom sticky-bar">
             <div class="container">
                 <div class="row align-items-center">
@@ -202,7 +184,7 @@
                                         /></a>
                                 </div>
                                 <p>
-                                    Mơ ước của mọi nhà
+                                    Lựa chọn của gia đình
                                 </p>
                                 <div class="payment-img">
                                     <a href="#"><img src="{{asset('/images/icon-img/payment.png')}}" alt="logo"/></a>

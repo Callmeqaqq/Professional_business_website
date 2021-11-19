@@ -6,18 +6,18 @@
         justify-content: center;
     }
     .page-item.active .page-link {
-        background-color: #ff6347;
-        border-color: #ff6347;
+        background-color: #d0011b;
+        border-color: #d0011b;
     }
     .page-link {
         color: black;
     }
     .page-link:hover {
-        color: #ff6347;
+        color: #d0011b;
     }
     .pagination a:focus {
         color: black;
-        box-shadow: 0 0 5px #ff6347;
+        box-shadow: 0 0 5px #d0011b;
     }
 </style>
 
@@ -27,7 +27,7 @@
 @else
     {{Breadcrumbs::render('shop')}}
 @endif
-<div class="shop-area shop-page-responsive pt-100 pb-100">
+<div class="shop-area shop-page-responsive pb-100">
     <div class="container">
         <div class="row flex-row-reverse">
             <div class="col-lg-9">
