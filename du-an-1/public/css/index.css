@@ -30,7 +30,7 @@
 }
 
 .row>* {
-    padding-right: 15px;
+    padding-right: 20px;
     padding-left: 15px;
 }
 
@@ -2899,7 +2899,7 @@ input[type=radio] + label>img {
 }
 
 .product-details-content .product-details-price span.new-price {
-    color: #e97730;
+    color: #d0011b;
     font-size: 30px;
 }
 
@@ -3108,7 +3108,7 @@ input[type=radio] + label>img {
 
 .pd-small-img-style .product-details-small-img img {
     width: 100%;
-    opacity: 0.5;
+    opacity: 1;
     cursor: pointer;
 }
 
