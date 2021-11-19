@@ -3,12 +3,12 @@
     {{Breadcrumbs::render('post',$data->BlogName, $data->categorySlug, $data->Title, $data->slug)}}
     <div class="blog-details-area pt-100 pb-100">
         <div class="container">
-            <div class="row" style="justify-content: center">
+            <div class="row">
                 <div class="col-lg-8">
                     <div class="blog-details-wrapper">
                         <div class="blog-details-img-date-wrap mb-35" data-aos="fade-up" data-aos-delay="200">
                             <div class="blog-details-img">
-                                <img src="{{asset('/images/blog/blog-details.png')}}" alt="">
+                                <img src="{{asset('/images/blog')}}/{{$data->thumbnail}}" alt="">
                             </div>
                         </div>
                         <div class="blog-meta-2" data-aos="fade-up" data-aos-delay="200">
@@ -25,9 +25,9 @@
                             <div class="social-comment-digit-wrap" data-aos="fade-up" data-aos-delay="400">
                                 <div class="social-icon-style-2">
                                     <a target="_blank" href="https://facebook.com/sharer.php?u={{url()->full()}}""><i
-                                        class="fa fa-facebook"></i></a>
+                                        class="fab fa-facebook-f"></i></a>
                                     <a target="_blank" href="https://twitter.com/intent/tweet?url={{url()->full()}}"><i
-                                            class="fa fa-twitter"></i></a>
+                                            class="fab fa-twitter"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -41,8 +41,8 @@
                                     ut lab et dolore magna aliqua. Ut enim ad minikl veniam, quis nostrud
                                     exercitatio.</p>
                                 <div class="social-icon-style-3">
-                                    <a target="_blank" href="#"><i class="fa fa-facebook"></i></a>
-                                    <a target="_blank" href="#"><i class="fa fa-instagram"></i></a>
+                                    <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -151,6 +151,24 @@
                         @else
                         <center>Bạn cần <a href="{{url('buyer/login')}}" target="_blank">đăng nhập</a> để có thể bình luận</center>
                         @endif
+                    </div>
+                </div>
+                <div class="col-lg-4" style="min-height: 100vh">
+                    <div class="sidebar-wrapper blog-sidebar-mt">
+                        <div class="sidebar-widget mb-50 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                            <div class="blog-author-content text-center sticky">
+                                <a href="blog-details.html"><img src="{{asset('/images/blog/blog-author.png')}}" alt=""></a>
+                                <h2>{{$data->Fullname}}</h2>
+                                <h4>Content</h4>
+                                <div class="social-icon-style-1">
+                                    <a href="#"><i class="fab fa-facebook"></i></a>
+                                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-glide-g"></i></a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

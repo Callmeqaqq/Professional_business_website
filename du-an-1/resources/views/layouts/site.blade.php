@@ -31,36 +31,18 @@
     <!-- All CSS is here -->
     <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/vendor/pe-icon-7-stroke.css')}}"/>
-    <link rel="stylesheet" href="{{ asset('css/vendor/sthemify-icon.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('css/vendor/themify-icons.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/vendor/font-awesome.min.css')}}"/>
 
     <link rel="stylesheet" href="{{ asset('css/index.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/plugins/swiper.min.css')}} "/>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 </head>
 
 <body>
 <div class="main-wrapper main-wrapper-2">
-    <header class="header-area header-responsive-padding header-height-1">
-        <div class="header-top d-none d-lg-block bg-gray ">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-6">
-                        <div class="welcome-text">
-                            <p>Chào Mừng đến MetaH</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-6">
-                        <div class="language-currency-wrap">
-                            <div class="language-wrap">
-                                <a class="language-active" href="#">Tiếng Việt</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <header class="header-area header-responsive-padding">
         <div class="header-bottom sticky-bar">
             <div class="container">
                 <div class="row align-items-center">
@@ -202,7 +184,7 @@
                                         /></a>
                                 </div>
                                 <p>
-                                    Mơ ước của mọi nhà
+                                    Lựa chọn của gia đình
                                 </p>
                                 <div class="payment-img">
                                     <a href="#"><img src="{{asset('/images/icon-img/payment.png')}}" alt="logo"/></a>
@@ -400,6 +382,22 @@
                     load_comment();
                 }
             });
+        });
+    });
+    $('.pd_img_color').click(function(){
+        let variantId = $('input[name="emotion"]:checked').val();
+        var _token = $('input[name="_token"]').val();
+        // alert(variantId);
+        $.ajax({
+            url:"{{url("/quantity")}}",
+            method:"POST",
+            data:{
+                variantId:variantId,
+                _token:_token
+            },
+            success:function(data){
+                $('#quantityhere').html(data);
+            }
         });
     });
 </script>

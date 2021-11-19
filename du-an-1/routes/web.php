@@ -53,6 +53,7 @@ Route::get('/category/{slug}','ShopController@category');
 Route::get('/products/{slug}','ProductDetailController@index');
 Route::post('/load-comment','ProductDetailController@load_comment');
 Route::post('/send-comment','ProductDetailController@send_comment');
+Route::post('/quantity','ProductDetailController@quantity');
 
 
 // ---------------------------Blog----------------------------------
@@ -91,3 +92,14 @@ Route::get('/buyer/login/facebook/redirect','App\Http\Controllers\Socialite\Logi
 Route::get('/buyer/login/facebook/back','App\Http\Controllers\Socialite\LoginController@handleProviderCallback');
 Route::get('/buyer/login/facebook/redirect', 'SocialController@facebookRedirect')->name('facebook.google');
 Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
+//------------admin Product-----------------------
+Route::get('/admin','admin\DemoController@index');
+
+Route::get('/admin/product','admin\AdminProductController@index');
+Route::get('/admin/product/add-product','admin\AdminProductController@add')->name('add-product');
+Route::post('/admin/product/add-product','admin\AdminProductController@create');
+
+Route::get('/admin/category',function(){
+    return view('admin/adminCategory');
+});
+

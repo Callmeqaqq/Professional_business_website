@@ -40,15 +40,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div style="padding-left:80px" class="col-lg-6">
                 <div class="product-details-content" data-aos="fade-up" data-aos-delay="400">
                     {{-- Tên Chi tiết sản phẩm--}}
-                    <h2>{{$data[0]->ProductName}}</h2>
+                    <h2>{{$data[0]->ProductName}} &ensp;@if($data[0]->Discount !=0)<sup style="padding: 2px; border-radius:10px; Background-color:#d0011b; color:white">GIẢM {{$data[0]->Discount*100}}%</sup>@endif</h2>
                     {{-- Giá sản phẩm--}}
                     <div class="product-details-price">
                         {{-- Nếu ko có giảm giá thì không cần in giá cũ--}}
                         @if($data[0]->Discount != 0)
-                        <span class="old-price">{{number_format((100*$data[0]->Price)/((1-$data[0]->Discount)*100))}} <sup>vnđ</sup></span>
+                        <span class="old-price">{{number_format((100*$data[0]->Price)/((1-$data[0]->Discount)*100))}} </span>
                         @endif
                         {{-- Giá mới--}}
                         <span class="new-price">{{number_format($data[0]->Price)}} <sup>vnđ</sup></span>
@@ -57,7 +57,7 @@
                     <div class="product-details-review">
                         <h3>{{round($star,1)}}/ <h4>5</h4></h3>
                         <div class="product-rating">
-                            <i class=" ti-star"></i>
+                            <i style="color:#d0011b" class="fas fa-star"></i>
                         </div>
                         @if(count($comment)==0)
                             <span>( Chưa có khách hàng đánh giá )</span>
@@ -69,19 +69,36 @@
                     <div class="product-color product-color-active product-details-color">
                         <span>Màu :</span>
                         <ul>
-                            @foreach($variant as $color)
-                                <li><a class='pd_img_color' href="#"><img src="{{asset('images/product/'.$color->Color)}}" alt=""></a></li>
-                            @endforeach
+                            <div class='pd_img_color'>
+                                @foreach($variant as $color)
+                                    @if($color->Quantity !=0)
+                                        <input class="price_var" type="hidden" value="{{$color->Price}}">
+                                        <input type="radio" name="emotion" id="{{$color->VariantId}}" class="input-hidden" value="{{$color->VariantId}}"/>
+                                        <label for="{{$color->VariantId}}">
+                                            <img title="{{$color->VariantName}}" src="{{asset('./images/product/'.$color->Color)}}" alt="{{$color->VariantName}}"/>
+                                        </label>
+                                    @else
+                                        <input type="radio" name="emotion" id="{{$color->VariantId}}" class="input-hidden" value="{{$color->VariantId}}"/>
+                                        <label class="sold-out" for="{{$color->VariantId}}">
+                                            <img class="sold-out-img" title="{{$color->VariantName}}" src="{{asset('./images/product/'.$color->Color)}}" alt="{{$color->VariantName}}"/>
+                                            <img style="opacity: 0.8" class="sold-out-img" src="{{asset('./images/icon-img/sold.png')}}" alt="">
+                                        </label>
+                                    @endif
+                                @endforeach
+                            </div>
                         </ul>
                     </div>
+                    <br>
                     <div class="product-color product-color-active product-details-color">
                         <span>Khối lượng : {{$data[0]->Weight}} Kg</span>
                     </div>
+                    <div class="product-color product-color-active product-details-color" id="quantityhere"><span>Số lượng còn lại: {{$quantity}}</span></div>
                     {{-- Thêm Sản Phẩm vào giỏ hàng --}}
                     <div class="product-details-action-wrap">
                         <div class="product-quality">
                             <input class="cart-plus-minus-box input-text qty text quantity-add-cart" name="qtybutton" value="1">
                         </div>
+
                         <div class="single-product-cart btn-hover">
                             @if (Session::has('LoggedUser'))
                             <a style="cursor: pointer;" slug="{{$data[0]->Slug}}" onclick="AddToCart('{{$data[0]->Slug}}')" class="product-action-btn-2">Thêm vào giỏ hàng</a>
@@ -125,39 +142,13 @@
                                 <form>
                                     @csrf
                                     <input type="hidden" name="comment_productId" class="comment_productId" value="{{$data[0]->ProductId}}">
-
-
                                     <div id="comment_show">
-
                                     </div>
-
                                 </form>
-{{--                                    @foreach($comment as $com)--}}
-{{--                                    <div class="single-review">--}}
-{{--                                        <div class="review-img">--}}
-{{--                                            <img src="{{asset('/images/product/bluedot1.jpg')}}" alt="">--}}
-{{--                                        </div>--}}
-{{--                                        <div class="review-content">--}}
-{{--                                            <div class="review-rating">--}}
-{{--                                                @for($i=1;$i <= $com->Rating;$i++)--}}
-{{--                                                    <i style="color:#e97730" class="fas fa-star"></i>--}}
-{{--                                                @endfor--}}
-{{--                                                @for($i=1;$i<= (5-$com->Rating);$i++)--}}
-{{--                                                    <i style="color:#e97730" class="far fa-star"></i>--}}
-{{--                                                @endfor--}}
-{{--                                            </div>--}}
-{{--                                            <h5><span>@ {{$com->Fullname}}</span> - Ngày {{date('d-m-Y', strtotime($com->CreateAt))}}</h5>--}}
-{{--                                            <p>{{$com->Content}}</p>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    @endforeach--}}
-
                             @if($accept == true)
                             <div class="ratting-form-wrapper">
                                 <h3>Thêm đánh giá và bình luận của bạn</h3>
                                 <p>Hãy thêm đánh giá và bình luận của bạn về sản phẩm nào >.< <span>*</span></p>
-
-
                                 <div class="ratting-form">
                                     <form>
                                     @csrf

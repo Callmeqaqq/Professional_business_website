@@ -18,7 +18,7 @@ class ProductDetailController extends Controller
                         -> Get();
         $variant = DB::table('product')
                         ->join('variant', 'product.ProductId', '=', 'variant.ProductId')
-                        ->select('variant.Color')
+                        ->select('variant.*')
                         ->where('Slug','=', $slug)
                         ->Get();
         $comment = DB::table('comment')
@@ -54,8 +54,13 @@ class ProductDetailController extends Controller
         if(session()->has("LoggedUser")){
             $accept = true;
         }
+        $quantity =0;
+        foreach ($variant as $var){
+            $quantity = $quantity + $var->Quantity;
+        }
+
 //         dd($comment);
-        return view('shop/productdetail', compact('data','variant','comment','relative','accept','star'));
+        return view('shop/productdetail', compact('data','variant','comment','relative','accept','star','quantity'));
     }
 
     function load_comment(Request $request){
@@ -84,12 +89,12 @@ class ProductDetailController extends Controller
             $star2='';
             for($i = 1; $i <= $comm->Rating; $i++){
                 $star1 .='
-                <i style="color:#e97730" class="fas fa-star"></i>
+                <i style="color:#d0011b" class="fas fa-star"></i>
             ';
             }
             for($i = 1; $i <= 5-($comm->Rating); $i++){
                 $star2 .='
-                <i style="color:#e97730" class="far fa-star"></i>
+                <i style="color:#d0011b" class="far fa-star"></i>
             ';
             }
             $output.='
@@ -125,5 +130,18 @@ class ProductDetailController extends Controller
                 'Rating' => $rating
             ]);
 
+    }
+
+    function quantity(Request $request){
+        $variantId = $request->variantId;
+        $quantity = DB::table('variant')->where('variantId','=', $variantId)->get();
+        foreach ($quantity as $qua){
+            session()->put('quantity',$qua->Quantity);
+        }
+
+        $output = '
+            <span>Số lượng còn lại: '.session('quantity').'</span>
+        ';
+        echo $output;
     }
 }
