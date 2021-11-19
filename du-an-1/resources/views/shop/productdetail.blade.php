@@ -57,7 +57,7 @@
                     <div class="product-details-review">
                         <h3>{{round($star,1)}}/ <h4>5</h4></h3>
                         <div class="product-rating">
-                            <i style="color:#e97730" class="fas fa-star"></i>
+                            <i style="color:#d0011b" class="fas fa-star"></i>
                         </div>
                         @if(count($comment)==0)
                             <span>( Chưa có khách hàng đánh giá )</span>
