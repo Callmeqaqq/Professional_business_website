@@ -202,7 +202,7 @@
                                         /></a>
                                 </div>
                                 <p>
-                                    Mơ ước của mọi nhà
+                                    Lựa chọn của gia đình
                                 </p>
                                 <div class="payment-img">
                                     <a href="#"><img src="{{asset('/images/icon-img/payment.png')}}" alt="logo"/></a>
