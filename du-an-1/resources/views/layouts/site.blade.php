@@ -66,7 +66,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-6 col-6">
                         <div class="logo">
-                            <a href="{{url('/')}}"><img src="{{asset('/images/logo/logoMetah.png')}}" alt="logo"/></a>
+                            <a href="{{url('/')}}"><img src="{{asset('/images/logo/logo.png')}}" alt="logo"/></a>
                         </div>
                     </div>
                     <div class="col-lg-6 d-none d-lg-block d-flex justify-content-center">
@@ -202,7 +202,7 @@
                                         /></a>
                                 </div>
                                 <p>
-                                    Mơ ước của mọi nhà
+                                    Lựa chọn của gia đình
                                 </p>
                                 <div class="payment-img">
                                     <a href="#"><img src="{{asset('/images/icon-img/payment.png')}}" alt="logo"/></a>
