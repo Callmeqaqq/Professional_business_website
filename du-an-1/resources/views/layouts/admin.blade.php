@@ -93,7 +93,7 @@
                                         <a class="nav-link" href="{{asset('/admin/product')}}">Tất cả sản phẩm</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Thêm sản phẩm</a>
+                                        <a class="nav-link" href="{{asset('/admin/product/add-product')}}">Thêm sản phẩm</a>
                                     </li>
                                 </ul>
                             </div>

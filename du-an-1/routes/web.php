@@ -95,6 +95,9 @@ Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
 Route::get('/admin','admin\DemoController@index');
 
 Route::get('/admin/product','admin\AdminProductController@index');
+Route::get('/admin/product/add-product','admin\AdminProductController@add')->name('add-product');
+Route::post('/admin/product/add-product','admin\AdminProductController@create');
+
 Route::get('/admin/category',function(){
     return view('admin/adminCategory');
 });
