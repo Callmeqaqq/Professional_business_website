@@ -40,10 +40,10 @@
                     </div>
                 </div>
             </div>
-            <div style="padding-left:80px" class="col-lg-6">
+            <div class="col-lg-6">
                 <div class="product-details-content" data-aos="fade-up" data-aos-delay="400">
                     {{-- Tên Chi tiết sản phẩm--}}
-                    <h2>{{$data[0]->ProductName}} &ensp;<sup style="Background-color:#d0011b; color:white">GIẢM {{$data[0]->Discount*100}}%</sup></h2>
+                    <h2>{{$data[0]->ProductName}} &ensp;<sup style="color:#e97730">- {{$data[0]->Discount*100}}%</sup></h2>
                     {{-- Giá sản phẩm--}}
                     <div class="product-details-price">
                         {{-- Nếu ko có giảm giá thì không cần in giá cũ--}}
@@ -57,7 +57,7 @@
                     <div class="product-details-review">
                         <h3>{{round($star,1)}}/ <h4>5</h4></h3>
                         <div class="product-rating">
-                            <i style="color:#e97730" class="fas fa-star"></i>
+                            <i class=" ti-star"></i>
                         </div>
                         @if(count($comment)==0)
                             <span>( Chưa có khách hàng đánh giá )</span>
@@ -88,7 +88,6 @@
                             </div>
                         </ul>
                     </div>
-                    <br>
                     <div class="product-color product-color-active product-details-color">
                         <span>Khối lượng : {{$data[0]->Weight}} Kg</span>
                     </div>
