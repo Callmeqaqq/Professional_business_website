@@ -16,7 +16,8 @@ class AdminProductController extends Controller
     }
     public function add(){
         $supplier = DB::table('supplier')->select('supplier.SupplierId','supplier.SupplierName')->get();
-        return view('admin/addproduct',compact('supplier'));
+        $product = DB::table('product')->select('product.ProductId','product.ProductName')->get();
+        return view('admin/addproduct',compact('supplier','product'));
     }
     public function create(Request $request){
         $name_color='';
@@ -74,6 +75,58 @@ class AdminProductController extends Controller
                 'Quantity'=>$request->Quantity
             ]);
         session()->put('add-success', $request->ProductName);
+        Return redirect()->route('add-product');
+    }
+
+    public function add_category(){
+        return view('admin/addcategory');
+    }
+    public function create_category(Request $request){
+//        dd($request->All());
+//        exit();
+        $file = $request->CategoryImage;
+        $file_name = $file->getClientOriginalName();
+        $file->move(base_path('public/images/product'),$file_name);
+
+        DB::table('category')
+            ->insert([
+                'CategoryName'=> $request->CategoryName,
+                'CategoryImage'=> $file_name,
+                'CatActive'=>$request->CatActive,
+                'CategorySlug'=>$request->CategorySlug
+            ]);
+
+        session()->put('add-success', $request->CategoryName);
+        Return redirect()->route('add-category');
+    }
+
+    public function create_variant(Request $request){
+//        dd($request->All());
+//        exit();
+        $file = $request->Images;
+        $file_name = $file->getClientOriginalName();
+        $file->move(base_path('public/images/product'),$file_name);
+
+        $name = DB::table('product')
+            ->where('ProductId','=',$request->ProductId)
+            ->select('ProductName')
+            ->first();
+
+        $name_color = $name->ProductName;
+        $name_color.=' ';
+        $name_color.=$request->Color;
+
+        DB::table('variant')
+            ->insert([
+                'VariantName'=>$name_color,
+                'Price'=>($request->Price_variant)/100,
+                'Description' =>$request->Description,
+                'Active'=>$request->Active,
+                'Color'=>$file_name,
+                'ProductId'=>$request->ProductId,
+                'Quantity'=>$request->Quantity
+            ]);
+        session()->put('add-success-v',$name_color);
         Return redirect()->route('add-product');
     }
 }
