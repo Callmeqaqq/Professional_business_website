@@ -43,6 +43,7 @@
             <div style="padding-left:80px" class="col-lg-6">
                 <div class="product-details-content" data-aos="fade-up" data-aos-delay="400">
                     {{-- Tên Chi tiết sản phẩm--}}
+                    <input class='price' type="hidden" value="{{number_format((100*$data[0]->Price)/((1-$data[0]->Discount)*100))}}">
                     <h2>{{$data[0]->ProductName}} &ensp;@if($data[0]->Discount !=0)<sup style="padding: 2px; border-radius:10px; Background-color:#d0011b; color:white">GIẢM {{$data[0]->Discount*100}}%</sup>@endif</h2>
                     {{-- Giá sản phẩm--}}
                     <div class="product-details-price">
