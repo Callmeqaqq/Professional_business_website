@@ -47,7 +47,7 @@
                                     </td>
                                     <td>{{date('d-m-Y', strtotime($pd->CreateAt))}}</td>
                                     <td>
-                                        <button class="btn btn-outline-primary">Sửa</button>
+                                        <a href="{{asset('admin/product/edit-product/'.$pd->Slug)}}"><button class="btn btn-outline-primary">Sửa</button></a>
                                         <button class="btn btn-outline-danger">Xóa</button>
                                     </td>
                                 </tr>
