@@ -91,7 +91,7 @@
                 @if(session()->has('add-success-v'))
                     <div style="display: flex" class="card-body col-12">
                         <div class="alert alert-success col3">
-                            <strong>Bạn đã thêm thành công biến thể " {{session()->pull('add-success-v')}} " vào danh sách biến thể. </strong>
+                            <strong>Bạn đã cập nhật thành công biến thể có ID: " {{session()->pull('add-success-v')}} "</strong>
                         </div>
                     </div>
                 @endif
@@ -144,9 +144,7 @@
                             <label for="formFile" class="form-label">Chọn Ảnh mặc định (1 Ảnh)</label>
                             <input name="Images" class="form-control" type="file" id="upload" onchange="ImagesFileAsURL()" value="{{$item->Images}}">
                         </div>
-                    </div>
-                    <div style="display: flex" class="card-body col-12">
-                        <div class="form-group col-4">
+                        <div class="form-group col-3">
                             <div id="displayImg">
                                 <img style="width:100%" src="{{asset('/images/product/'.$item->Images)}}" alt="">
                             </div>
@@ -196,6 +194,7 @@
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-3">
                             <button type="submit" class="btn btn-primary">Cập Nhật </button>
+                            <button type="submit" class="btn btn-danger">Xóa Sản Phẩm </button>
                         </div>
                     </div>
                     @endforeach
@@ -203,68 +202,74 @@
             </div>
 
             <div id="Addvariant" class="tabcontent card">
-                <form action="{{route('add-variant')}}" method="POST" enctype="multipart/form-data">
+                @php $stt=0; @endphp
+                @foreach($variant as $var)
+
+                <form action="{{route('edit-variant')}}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div style="display: flex" class="card-body col-12">
-                        <div class="form-group col-6">
-                            <label for="inputText4" class="col-form-label">Tên Sản Phẩm:</label>
-                            <select class="form-control" name="ProductId" id="" required>
-                                <option no value>Chọn</option>
-                                @foreach($product as $prod)
-                                    <option value="{{$prod->ProductId}}">{{$prod->ProductId}} - {{$prod->ProductName}}</option>
-                                @endforeach
-                            </select>
+                    <div style="display: flex; padding-bottom: 0" class="card-body col-12">
+                        <div class="form-group col-4">
+                            <h3 style="color:red;">Biến thể {{$stt=$stt+1}} - ID biến thể: {{$var->VariantId}}</h3>
                         </div>
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-4">
-                            <label for="inputText4" class="col-form-label">Giá (tăng bao nhiêu % so với giá cũ)</label>
-                            <input required name="Price_variant" id="inputText4" type="number" step="1" max="500" min="1" class="form-control" placeholder="Nhập giá biến thể"/>
+                            <label class="col-form-label">Tên biến thể:</label>
+                            <input name="VariantName" type="text" class="form-control date-inputmask" id="date-mask" placeholder="-mask" placeholder="" value="{{$var->VariantName}}" required/>
+                            <input hidden name="VariantId" value="{{$var->VariantId}}">
+                            <input hidden name="Slug" value="{{$item->Slug}}">
                         </div>
-                    </div>
-                    <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-4">
-                            <label for="inputText4" class="col-form-label">Màu:</label>
-                            <input name="Color" type="text" class="form-control" placeholder="Màu sản phẩm" required/>
+                            <label for="inputText4" class="col-form-label">Giá (tăng bao nhiêu % so với giá sản phẩm)</label>
+                            <input required name="Price_variant" id="inputText4" type="number" step="1" max="100" min="0" class="form-control" value="{{$var->Price*100}}" placeholder="Nhập giá biến thể"/>
                         </div>
                         <div class="form-group col-4">
                             <label for="inputText4" class="col-form-label">Số lượng <small>(Cái)</small></label>
-                            <input required name="Quantity" id="inputText4" type="number" step="1" min="0" class="form-control" placeholder="Nhập số lượng"/>
+                            <input required name="Quantity" id="inputText4" type="number" step="1" min="0" class="form-control" value="{{$var->Quantity}}" placeholder="Nhập số lượng"/>
                         </div>
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-8">
                             <label for="formFile" class="form-label">Chọn Ảnh mặc định (1 Ảnh)</label>
-                            <input name="Images" class="form-control" type="file" id="formFile">
+                            <input name="Images" class="form-control" type="file" id="upload" onchange="ImagesFileAsURL()" value="">
+                        </div>
+                        <div class="form-group col-2">
+                            <div id="displayImg2">
+                                <img style="width:100%" src="{{asset('/images/product/'.$var->Color)}}" alt="">
+                            </div>
                         </div>
                     </div>
-                    <div style="display: flex" class="card-body col-12">
+                    <div style="padding-top:0;display: flex" class="card-body col-12">
                         <div class="form-group col-12">
-                            <label for="exampleFormControlTextarea1">Mô Tả Biến thể</label>
-                            <textarea required name="Description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <label for="exampleFormControlTextarea1">Mô tả biến thể</label>
+                            <textarea required name="Description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$var->Description}}</textarea>
                         </div>
                     </div>
-                    <div style="display: flex"class="card-body col-12">
+                    <div style="padding-top:0; padding-bottom:0;display: flex"class="card-body col-12">
                         <label class='col-2' for="">Hoạt Động</label>
                         <div class="form-check col-1">
-                            <input class="form-check-input" type="radio" name="Active" id="flexRadioDefault1" value="0">
+                            <input class="form-check-input" type="radio" name="Active" id="flexRadioDefault1" value="0" @if($var->Active ==0) checked @endif>
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Ẩn
                             </label>
                         </div>
                         <div class="form-check col-1">
-                            <input class="form-check-input" type="radio" name="Active" id="flexRadioDefault1" value="1">
+                            <input class="form-check-input" type="radio" name="Active" id="flexRadioDefault1" value="1" @if($var->Active ==1) checked @endif>
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Hiện
                             </label>
                         </div>
                     </div>
                     <div style="display: flex" class="card-body col-12">
-                        <div class="form-group col-3">
-                            <button type="submit" class="btn btn-primary">Thêm mới biến thể </button>
+                        <div class="form-group col-1">
+                            <button type="submit" class="btn btn-primary">Cập Nhật </button>
+                        </div>
+                        <div class="form-group col-1">
+                            <button class="btn btn-danger">Xóa Biến Thể</button>
                         </div>
                     </div>
                 </form>
+                @endforeach
             </div>
         </div>
     </div>

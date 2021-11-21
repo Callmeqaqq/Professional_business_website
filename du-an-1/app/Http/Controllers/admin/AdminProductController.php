@@ -75,7 +75,7 @@ class AdminProductController extends Controller
 //        Chèn Biến thể mặc định cho Sản phẩm mới tạo
             DB::table('variant')
                 ->insert([
-                    'VariantName' => $name_color,
+                    'VariantName' => $request->Color,
                     'Price' => 0,
                     'Description' => $name_color,
                     'Active' => 1,
@@ -130,7 +130,7 @@ class AdminProductController extends Controller
 
         DB::table('variant')
             ->insert([
-                'VariantName'=>$name_color,
+                'VariantName'=>$request->Color,
                 'Price'=>($request->Price_variant)/100,
                 'Description' =>$request->Description,
                 'Active'=>$request->Active,
@@ -150,8 +150,8 @@ class AdminProductController extends Controller
             $ProductId = $gd->ProductId;
         }
         $image  = DB::table('product_image')->where('ProductId','=',$ProductId)->get();
-
-        return view('admin/product/editproduct',compact('supplier','product','get_product','image'));
+        $variant = DB::table('variant')->where('ProductId','=',$ProductId)->get();
+        return view('admin/product/editproduct',compact('supplier','product','get_product','image','variant'));
     }
 
     public function createedit(Request $request){
@@ -214,6 +214,27 @@ class AdminProductController extends Controller
 
     }
 
+    public function edit_variant(Request $request){
+//        dd($request->All());
+        DB::table('variant')->where('VariantId',$request->VariantId)->update([
+            'VariantName' => $request->VariantName,
+            'Price'=>$request->Price_variant/100,
+            'Description'=>$request->Description,
+            'Active'=>$request->Active,
+            'Quantity'=>$request->Quantity
+        ]);
+        if(isset($request->Images)){
+            $file = $request->Images;
+            $file_name = $file->getClientOriginalName();
+            $file->move(base_path('public/images/product'),$file_name);
+
+            DB::table('variant')->where('VariantId',$request->VariantId)->update([
+                'Color'=>$file_name
+            ]);
+        }
+        session()->put('add-success-v',$request->VariantId);
+        Return redirect()->route('admin.edit',[$request->Slug]);
+    }
     public function load_img(Request $request){
 //        dd($request->All());
         $img = DB::table('product_image')->where('ProductId',$request->productId)->get();

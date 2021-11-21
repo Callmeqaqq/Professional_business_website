@@ -103,6 +103,7 @@ Route::get('/admin/product/add-category','admin\AdminProductController@add_categ
 Route::post('/admin/product/add-category','admin\AdminProductController@create_category');
 
 Route::post('/admin/product/add-variant','admin\AdminProductController@create_variant')->name('add-variant');
+Route::post('/admin/product/edit-variant','admin\AdminProductController@edit_variant')->name('edit-variant');
 
 Route::get('admin/product/edit-product/{slug}','admin\AdminProductController@edit')->name('admin.edit');
 Route::post('admin/product/edit-product/{slug}','admin\AdminProductController@createedit');
