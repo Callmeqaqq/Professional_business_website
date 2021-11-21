@@ -206,7 +206,12 @@ class AdminProductController extends Controller
             session()->put('duoc',$success);
         }
         session()->put('edit-success',$request->ProductId);
-        Return redirect()->back();
+        if(isset($request->Slug)){
+            Return redirect()->route('admin.edit',[$request->Slug]);
+        }else{
+            Return redirect()->back();
+        }
+
     }
 
     public function load_img(Request $request){
