@@ -400,6 +400,27 @@
             }
         });
     });
+
+    $('.pd_img_color').click(function(){
+        let productId = $('.comment_productId').val();
+        let variantId = $('input[name="emotion"]:checked').val();
+        let price = $('.price').val();
+        var _token = $('input[name="_token"]').val();
+        // alert(productId);
+        $.ajax({
+            url:"{{url("/price")}}",
+            method:"POST",
+            data:{
+                productId:productId,
+                variantId:variantId,
+                _token:_token,
+                price:price
+            },
+            success:function(data){
+                $('.product-details-price').html(data);
+            }
+        });
+    });
 </script>
     @yield('scripts')
 </body>

@@ -144,4 +144,31 @@ class ProductDetailController extends Controller
         ';
         echo $output;
     }
+
+    function price(Request $request){
+        $variantId = $request->variantId;
+
+        $discount = DB::table('product')->where('ProductId','=', $request->productId)->get();
+
+        foreach ($discount as $dis){
+            $discount = $dis->Discount;
+            $new_price = $dis->Price;
+        }
+
+        $price_variant = DB::table('variant')->where('VariantId','=', $variantId)->select('Price')->get();
+        foreach ($price_variant as $prv){
+            $price_variant = $prv->Price;
+        }
+
+        $new_price = $new_price+($price_variant*$new_price);
+        $output = '';
+        if($discount != 0){
+            $output .='<span class="old-price">'.number_format(($new_price)*100/((1-$discount)*100)).'</span>';
+        }
+        $output .= '
+            <span class="new-price">'.number_format($new_price).'<sup>vnđ</sup></span>
+        ';
+//        dd($output);
+        echo $output;
+    }
 }
