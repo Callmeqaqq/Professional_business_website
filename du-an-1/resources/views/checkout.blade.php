@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/@goongmaps/goong-geocoder/dist/goong-geocoder.css" rel="stylesheet"
           type="text/css"/>
 
-    <!-- Promise polyfill script is required -->
+    <!-- Promise polyfill script is  -->
     <!-- to use Goong Geocoder in IE 11. -->
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
@@ -51,15 +51,15 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="billing-info mb-20">
-                                            <label>Họ & Tên <abbr class="required"
+                                            <label>Họ & Tên <abbr class=""
                                                                   title="Thông tin bắt buộc">*</abbr></label>
                                             <input type="text" placeholder="Nhập họ và tên người nhận" name="Fullname"
-                                                   required>
+                                                    >
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="billing-info mb-20">
-                                            <label>Địa chỉ <abbr class="required"
+                                            <label>Địa chỉ <abbr class=""
                                                                  title="Thông tin bắt buộc">*</abbr></label>
                                             {{--Company address--}}
                                             <input id="latt" type="number" name="latt" value="10.854252599999999"
@@ -74,17 +74,17 @@
                                     </div>
                                     <div class="col-lg-12 col-md-12">
                                         <div class="billing-info mb-20">
-                                            <label>SĐT <abbr class="required"
+                                            <label>SĐT <abbr class=""
                                                              title="Thông tin bắt buộc">*</abbr></label>
                                             <input type="text" placeholder="Nhập số điện thoại người nhận" name="Phone"
-                                                   required>
+                                                   >
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12">
                                         <div class="billing-info mb-20">
-                                            <label>Email <abbr class="required"
+                                            <label>Email <abbr class=""
                                                                title="Thông tin bắt buộc">*</abbr></label>
-                                            <input type="text" placeholder="Email người nhận" name="Email" required>
+                                            <input type="email" placeholder="Email người nhận" name="Email" >
                                             @error('Email')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
@@ -92,10 +92,10 @@
                                     </div>
                                 </div>
                                 <div class="checkout-account-toggle open-toggle2 mb-30">
-                                    <label>Xác nhận tạo đơn <abbr class="required"
+                                    <label>Xác nhận tạo đơn <abbr class=""
                                                                   title="Thông tin bắt buộc">*</abbr></label>
                                     <input placeholder="Password" type="password" autocomplete="off" name="Password"
-                                           required>
+                                           >
                                 </div>
                                 <div class="additional-info-wrap">
                                     <label>Ghi chú</label>
@@ -135,7 +135,7 @@
                                     <div class="payment-method">
                                         <div class="pay-top sin-payment">
                                             <input id="payment-method-3" class="input-radio" type="radio" value="after"
-                                                   name="payment_method" required>
+                                                   name="payment_method" >
                                             <label for="payment-method-3">Thanh toán khi nhận hàng</label>
                                             <div class="payment-box" id="after">
                                                 <p>Quãng đường vận chuyển: <span id="shipping-km">0</span></p>
@@ -152,7 +152,7 @@
                                         </div>
                                         <div class="pay-top sin-payment sin-payment-3">
                                             <input id="payment-method-4" class="input-radio" type="radio" value="before"
-                                                   name="payment_method" required>
+                                                   name="payment_method" >
                                             <label for="payment-method-4">Thanh toán trả trước <img alt=""
                                                                                                     src=""></label>
                                             <div class="payment-box" id="before">

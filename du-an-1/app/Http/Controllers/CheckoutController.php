@@ -16,14 +16,14 @@ class CheckoutController extends Controller
     public function checkoutSubmit(Request $request)
     {
         $validatedDate = $request->validate([
-            'Email' => 'required|email',
-            'Password' => 'required|min:6|max:50',
+//            'Email' => 'required|email',
         ]);
         $fullname = $request->input('Fullname');
         $address = $request->input('Address');
         $phone = $request->input('Phone');
         $email = $request->input('Email');
+        $time = now();
         $message = $request->input('Message');
-        return 'Fullname:'.$fullname.'Email:'.$email.'message:'.$message;
+        return 'Fullname: '.$fullname.' Phone: '.$phone.' Email: '.$email.' Time: '.$time.' Message: '.$message;
     }
 }

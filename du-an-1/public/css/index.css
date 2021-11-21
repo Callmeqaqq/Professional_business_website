@@ -8479,3 +8479,7 @@ screen and (min-resolution: 192dpi) {
     width: 100%;
     border-top: 1px solid #cccccc;
 }
+
+.ti-arrow-up{
+    background-color: #d0011b;
+}
