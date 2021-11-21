@@ -180,23 +180,53 @@ class AdminProductController extends Controller
                'Images'=>$file_name
             ]);
         }
-
+        $count = DB::table('product_image')->where('ProductId','=',$request->ProductId)->count();
+        $thua = 0;
+        $success=0;
         if(isset($request->images_multiple)){
             foreach ($request->images_multiple as $img){
-                $file = $img;
-                $file_name1 = $file->getClientOriginalName();
-                $file->move(base_path('public/images/product'),$file_name1);
-                DB::table('product_image')
-                    ->insert([
-                        'images'=>$file_name1,
-                        'ProductId'=>$request->ProductId
-                    ]);
+                $count++;
+                if($count <= 8){
+                    $file = $img;
+                    $file_name1 = $file->getClientOriginalName();
+                    $file->move(base_path('public/images/product'),$file_name1);
+                    DB::table('product_image')
+                        ->insert([
+                            'images'=>$file_name1,
+                            'ProductId'=>$request->ProductId
+                        ]);
+                    $success++;
+                }else{
+                    $thua++;
+                }
             }
         }
+        if($thua!=0){
+            session()->put('thua',$thua);
+            session()->put('duoc',$success);
+        }
+        session()->put('edit-success',$request->ProductId);
+        Return redirect()->back();
     }
 
-    public function deleteimg($id){
-        DB::table('product_image')->where('ImageId',$id)->delete();
-        return redirect()->back();
+    public function load_img(Request $request){
+//        dd($request->All());
+        $img = DB::table('product_image')->where('ProductId',$request->productId)->get();
+        $output = '<div class="select-img col-12" onclick="getIdimg();">';
+        foreach($img as $i){
+            $output .= '
+                <input style="display:none; position: absolute" type="radio" name="emotion" class="input-hidden" id="a'.$i->ImageId.'" value="'.$i->ImageId.'"/>
+                <label style="cursor: pointer; position:absolute; top:-5px; color:red;" for="a'.$i->ImageId.'">
+                    <i style="font-size: 20px;" class="fas fa-times-circle"></i>
+                </label>
+                <img style="margin-right:10px; width:10%" title="" src="'.asset('/images/product/'.$i->images).'"/>
+            ';
+        }
+        $output .= '</div>';
+        echo $output;
+    }
+
+    public function deleteimg(Request $request){
+        DB::table('product_image')->where('ImageId',$request->idimg)->delete();
     }
 }

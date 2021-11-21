@@ -106,7 +106,8 @@ Route::post('/admin/product/add-variant','admin\AdminProductController@create_va
 
 Route::get('admin/product/edit-product/{slug}','admin\AdminProductController@edit')->name('admin.edit');
 Route::post('admin/product/edit-product/{slug}','admin\AdminProductController@createedit');
-Route::get('admin/product/delete-img/{id}','admin\AdminProductController@deleteimg');
+Route::post('/delete-img','admin\AdminProductController@deleteimg');
+Route::post('/load-img','admin\AdminProductController@load_img');
 
 Route::get('/admin/category',function(){
     return view('admin/product/adminCategory');

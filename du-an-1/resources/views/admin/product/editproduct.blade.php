@@ -69,10 +69,22 @@
                 <button class="tablinks" onclick="openCity(event,'Addvariant')">Sửa biến thể sản phẩm</button>
             </div>
             <div id="Addproduct" class="tabcontent card">
-                @if(session()->has('add-success'))
+                @if(session()->has('edit-success'))
                     <div style="display: flex" class="card-body col-12">
                         <div class="alert alert-success col3">
-                            <strong>Bạn đã thêm thành công " {{session()->pull('add-success')}} " vào danh sách sản phẩm. </strong>
+                            <strong>Bạn đã cập nhật thành công sản phẩm có ID: " {{session()->pull('edit-success')}}".</strong>
+                        </div>
+                    </div>
+                @endif
+                @if(session()->has('thua'))
+                    <div style="display: flex" class="card-body col-12">
+                        @if(session('duoc')!=0)
+                        <div class="alert alert-success col2">
+                            <strong>{{session()->pull('duoc')}} hình được thêm vào.</strong>
+                        </div>
+                        @endif
+                        <div class="alert alert-danger col2">
+                            <strong>***Chú ý: Có {{session()->pull('thua')}} hình chưa được thêm vì quá số lượng tối đa là 8 hình.</strong>
                         </div>
                     </div>
                 @endif
@@ -91,7 +103,7 @@
                             <label>Tên Sản Phẩm:</label>
                             <input name="ProductName" type="text" class="form-control date-inputmask" id="date-mask" placeholder="" value="{{$item->ProductName}}" required/>
                             <input hidden type="text" id="slug_here" name="Slug" value="">
-                            <input hidden name="ProductId" value="{{$item->ProductId}}">
+                            <input hidden id = 'proid' name="ProductId" value="{{$item->ProductId}}">
                         </div>
                         <div class="form-group col-4" >
                             <label>Danh Mục sản phẩm </label>
@@ -142,20 +154,21 @@
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-12">
-                            <label for="inputText4" class="col-form-label">Ảnh hiện có của sản phẩm: </label>
+                            <label for="inputText4" class="col-form-label">Ảnh hiện có của sản phẩm: (Tối đa số lượng hình là 8)</label>
                         </div>
                     </div>
-                    <div style="display: flex" class="card-body col-12">
-                        @foreach($image as $img)
-                            <div class="form-group col-2">
-                                <img style="width:100%" src="{{asset('/images/product/'.$img->images)}}" alt="">
-                                <a href="/admin/product/delete-img/{{$img->ImageId}}">Xóa Ảnh</a>
-                            </div>
-                        @endforeach
+
+                    <div style="display: flex" class="card-body col-12" id="load-img-details">
+{{--                        @foreach($image as $img)--}}
+{{--                            <div class="form-group col-2">--}}
+{{--                                <img style="width:100%" src="{{asset('/images/product/'.$img->images)}}" alt="">--}}
+{{--                                <a href="/admin/product/delete-img/{{$img->ImageId}}">Xóa Ảnh</a>--}}
+{{--                            </div>--}}
+{{--                        @endforeach--}}
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-8">
-                            <label for="formFileMultiple" class="form-label">Chọn thêm ảnh chi tiết sản phẩm</label>
+                            <label for="formFileMultiple" class="form-label">Chọn thêm ảnh chi tiết sản phẩm </label>
                             <input name="images_multiple[]" class="form-control" type="file" id="formFileMultiple" multiple>
                         </div>
                     </div>
@@ -256,6 +269,41 @@
         </div>
     </div>
     <script>
+        function load_img() {
+            let productId = $("input[name='ProductId']").val();
+            // alert(productId);
+            var _token = $('input[name="_token"]').val();
+            // alert(_token);
+            $.ajax({
+                url:"{{url("/load-img")}}",
+                method:"POST",
+                data:{
+                    productId:productId,
+                    _token:_token
+                },
+                success:function(data){
+                    $('#load-img-details').html(data);
+                }
+            });
+        }
+        $(document).ready(function(){
+            load_img();
+        });
+        function getIdimg(){
+            let idimg= $('input[name="emotion"]:checked').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:"{{url("/delete-img")}}",
+                method:"POST",
+                data:{
+                    idimg:idimg,
+                    _token:_token
+                },
+                success:function(data){
+                    load_img();
+                }
+            });
+        }
         $('#date-mask').on('keyup', function(){
             // alert('được');
             let title = $(this).val();
