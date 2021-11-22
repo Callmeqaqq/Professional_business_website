@@ -19,7 +19,7 @@
                 @if(session()->has('e-failed'))
                     <div style="display: flex" class="card-body col-12">
                         <div class="alert alert-danger col3">
-                            <strong>Bạn đã cập nhật không thành công do trùng tên danh mục nào đó hoặc tên cũ của sản phẩm. {{session()->forget('e-failed')}}</strong>
+                            <strong>Cập nhật thất bại do trùng tên danh mục khác hoặc danh mục hiện tại. {{session()->forget('e-failed')}}</strong>
                         </div>
                     </div>
                 @endif

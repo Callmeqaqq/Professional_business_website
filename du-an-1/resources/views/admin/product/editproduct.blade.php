@@ -76,6 +76,16 @@
                         </div>
                     </div>
                 @endif
+                @if(session()->has('add-success-f'))
+                @else
+                    @if(session()->has('edit-failed'))
+                        <div style="display: flex" class="card-body col-12">
+                            <div class="alert alert-danger col3">
+                                <strong>Cập nhật thất bại do bị trùng tên sản phẩm khác hoặc sản phẩm hiện tại {{session()->forget('edit-failed')}}.</strong>
+                            </div>
+                        </div>
+                    @endif
+                @endif
                 @if(session()->has('thua'))
                     <div style="display: flex" class="card-body col-12">
                         @if(session('duoc')!=0)
@@ -98,7 +108,7 @@
                 @if(session()->has('add-success-f'))
                     <div style="display: flex" class="card-body col-12">
                         <div class="alert alert-danger col3">
-                            <strong>Bạn đã cập nhật không thành công biến thể có ID: " {{session()->pull('add-success-f')}} "</strong>
+                            <strong>Cập nhật thất bại do trùng tên biến thể khác hoặc tên hiện tại của biến thể{{session()->forget('add-success-f')}}.</strong>
                         </div>
                     </div>
                 @endif

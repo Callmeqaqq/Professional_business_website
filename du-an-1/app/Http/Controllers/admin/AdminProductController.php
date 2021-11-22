@@ -241,57 +241,68 @@ class AdminProductController extends Controller
     }
 
     public function createedit(Request $request){
-//        dd($request->all());
-        if($request->Slug != null){
-            DB::table('product')->where('ProductId','=',$request->ProductId)->update([
-                'ProductName'=>$request->ProductName,
-                'Slug'=>$request->Slug
-            ]);
-        }
-        DB::table('product')->where('ProductId','=',$request->ProductId)->update([
-            'CategoryId'=>$request->CategoryId,
-            'SupplierId'=>$request->SupplierId,
-            'Price'=>$request->price_new,
-            'Discount' => $request->Discount,
-            'Weight' =>$request->Weight,
-            'Descreption' =>$request->Descreption,
-            'Active' =>$request->Active,
-        ]);
-        if(isset($request->Images)){
-            $file = $request->Images;
-            $file_name = $file->getClientOriginalName();
-            $file->move(base_path('public/images/product'),$file_name);
-
-            DB::table('product')->where('ProductId','=',$request->ProductId)->update([
-               'Images'=>$file_name
-            ]);
-        }
-        $count = DB::table('product_image')->where('ProductId','=',$request->ProductId)->count();
-        $thua = 0;
-        $success=0;
-        if(isset($request->images_multiple)){
-            foreach ($request->images_multiple as $img){
-                $count++;
-                if($count <= 8){
-                    $file = $img;
-                    $file_name1 = $file->getClientOriginalName();
-                    $file->move(base_path('public/images/product'),$file_name1);
-                    DB::table('product_image')
-                        ->insert([
-                            'images'=>$file_name1,
-                            'ProductId'=>$request->ProductId
-                        ]);
-                    $success++;
-                }else{
-                    $thua++;
-                }
+        $check=0;
+        if($request->Slug!=null){
+            $check_name = DB::table('product')->where('ProductName',$request->ProductName)->get();
+            foreach($check_name as $item){
+                $check++;
             }
         }
-        if($thua!=0){
-            session()->put('thua',$thua);
-            session()->put('duoc',$success);
+        if($check==0){
+            if($request->Slug != null){
+                DB::table('product')->where('ProductId','=',$request->ProductId)->update([
+                    'ProductName'=>$request->ProductName,
+                    'Slug'=>$request->Slug
+                ]);
+            }
+            DB::table('product')->where('ProductId','=',$request->ProductId)->update([
+                'CategoryId'=>$request->CategoryId,
+                'SupplierId'=>$request->SupplierId,
+                'Price'=>$request->price_new,
+                'Discount' => $request->Discount,
+                'Weight' =>$request->Weight,
+                'Descreption' =>$request->Descreption,
+                'Active' =>$request->Active,
+            ]);
+            if(isset($request->Images)){
+                $file = $request->Images;
+                $file_name = $file->getClientOriginalName();
+                $file->move(base_path('public/images/product'),$file_name);
+
+                DB::table('product')->where('ProductId','=',$request->ProductId)->update([
+                    'Images'=>$file_name
+                ]);
+            }
+
+            $count = DB::table('product_image')->where('ProductId','=',$request->ProductId)->count();
+            $thua = 0;
+            $success=0;
+            if(isset($request->images_multiple)){
+                foreach ($request->images_multiple as $img){
+                    $count++;
+                    if($count <= 8){
+                        $file = $img;
+                        $file_name1 = $file->getClientOriginalName();
+                        $file->move(base_path('public/images/product'),$file_name1);
+                        DB::table('product_image')
+                            ->insert([
+                                'images'=>$file_name1,
+                                'ProductId'=>$request->ProductId
+                            ]);
+                        $success++;
+                    }else{
+                        $thua++;
+                    }
+                }
+            }
+            if($thua!=0){
+                session()->put('thua',$thua);
+                session()->put('duoc',$success);
+            }
+            session()->put('edit-success',$request->ProductId);
+        }else{
+            session()->put('edit-failed','a');
         }
-        session()->put('edit-success',$request->ProductId);
         if(isset($request->Slug)){
             Return redirect()->route('admin.edit',[$request->Slug]);
         }else{
