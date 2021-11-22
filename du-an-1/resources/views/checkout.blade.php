@@ -42,7 +42,7 @@
     <div class="checkout-main-area pt-100">
         <div class="container">
             <div class="checkout-wrap pt-30">
-                <form method="post" action="{{route('checkout.submit')}}">
+                <form method="post" id="checkout-form" action="{{route('checkout.submit')}}">
                     @csrf
                     <div class="row">
                         <div class="col-lg-7 billing-block">
@@ -68,7 +68,6 @@
 
                                             {{--autocomplete & place info--}}
                                             <div id="geocoder" class="billing-address"></div>
-
                                             <span id="kilo" class="text-warnings"></span>
                                         </div>
                                     </div>
@@ -117,8 +116,10 @@
                                         <div class="your-order-middle">
                                             <ul>
                                                 @foreach(Session::get('Cart')->products as $value)
-                                                    <li>{{$value['productInfo']->ProductName}} X {{$value['quantity']}}
-                                                        <span>{{number_format($value['price'])}}</span></li>
+                                                    <li>
+                                                        {{$value['productInfo']->ProductName}} X {{$value['quantity']}}
+                                                        <span>{{number_format($value['price'])}}</span>
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -143,7 +144,7 @@
                                                 <p>Phí vận chuyển: <span id="shipfee-km">{{$data}}</span> vnd/km</p>
                                                 {{--                                            <p>Phí vận chuyển: <span id="shipfee-km">{{(Session::get('Cart')->products)}}</span> vnd/km</p>--}}
                                                 <p>Tổng tiền ship: <span id="totalship-fee">0</span> vnd</p>
-                                                <input type="number" id="totalship" hidden value="">
+                                                <input id="totalship" name="totalship" value="" hidden>
                                                 <hr>
                                                 <p>Hàng sẽ được giao trong vòng 48h(3-5 ngày đối với giao hàng ở tỉnh),
                                                     quý

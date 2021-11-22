@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
 {
@@ -15,15 +17,15 @@ class CheckoutController extends Controller
 
     public function checkoutSubmit(Request $request)
     {
-        $validatedDate = $request->validate([
-//            'Email' => 'required|email',
-        ]);
+//        $validatedDate = $request->validate([
+//        ]);
         $fullname = $request->input('Fullname');
         $address = $request->input('Address');
         $phone = $request->input('Phone');
         $email = $request->input('Email');
-        $time = now();
         $message = $request->input('Message');
-        return 'Fullname: '.$fullname.' Phone: '.$phone.' Email: '.$email.' Time: '.$time.' Message: '.$message;
+        $shipfee = Session::get('Ship');
+        $create_time = Carbon::now();
+        return 'Fullname: ' . $fullname . 'Adress:' . $address . ' Phone: ' . $phone . ' Email: ' . $email . ' Message: ' . $message . ' Phí vc :' . $shipfee . ' Time: ' . $create_time.' Delivery Time: ' . $create_time->addDays(3)->toDateString();
     }
 }

@@ -76,6 +76,9 @@ Route::get('/delete-all-list-cart', 'CartController@DeleteAllListCart');
 // ---------------------------Checkout----------------------------------
 Route::get('/checkout', 'CheckoutController@index')->name('cart.checkout')->middleware('isLogged');
 Route::post('/checkout', 'CheckoutController@checkoutSubmit')->name('checkout.submit');
+Route::post('/set_session', 'SessionController@createsession');
+Route::get('/allsession', 'SessionController@getsession');
+
 
 //--------------------------search----------------------------
 Route::get('/search{keyword?}', 'SearchController@action')->name('search');
