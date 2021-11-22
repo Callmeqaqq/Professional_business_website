@@ -73,6 +73,7 @@
         </div>
     </div>
     <script>
+        //Thiết lập Slug
         $('#date-mask').on('keyup', function(){
             // alert('được');
             let title = $(this).val();
@@ -104,6 +105,7 @@
             // alert(slug);
             $('#slug_here').val(slug);
         });
+        //Load ảnh xem trước
         function ImagesFileAsURL() {
             var fileSelected = document.getElementById('upload').files;
             if(fileSelected.length > 0) {
