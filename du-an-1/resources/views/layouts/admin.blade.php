@@ -156,11 +156,11 @@
 <script>
     $(document).ready(function () {
         $("#table").DataTable({
-            lengthMenu: [5, 10, 20, 30],
+            lengthMenu: [10, 20, 30],
             language: {
                 processing: "Đang tải dữ liệu",
                 search: "Tìm kiếm: ",
-                lengthMenu: "Lượng hiển thị " + " _MENU_ ",
+                lengthMenu: "Lượng hiển thị:  " + " _MENU_ ",
                 info: "_START_ - _END_ / _TOTAL_",
                 infoEmpty: "Không có dữ liệu",
                 infoFiltered: "(Trên tổng _MAX_ mục)",

@@ -95,15 +95,20 @@ Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
 //------------admin Product-----------------------
 Route::get('/admin','admin\DemoController@index');
 
-Route::get('/admin/product','admin\AdminProductController@index');
+Route::get('/admin/product','admin\AdminProductController@index')->name('admin.product');
 Route::get('/admin/product/add-product','admin\AdminProductController@add')->name('add-product');
 Route::post('/admin/product/add-product','admin\AdminProductController@create');
+Route::get('/admin/product/delete-product/{id}','admin\AdminProductController@delete_product');
 
 Route::get('/admin/product/add-category','admin\AdminProductController@add_category')->name('add-category');
 Route::post('/admin/product/add-category','admin\AdminProductController@create_category');
+Route::get('/admin/product/edit-category/{slug}','admin\AdminProductController@edit_category')->name('edit.category');
+Route::post('/admin/product/edit-category/{slug}','admin\AdminProductController@createedit_category');
+Route::get('/admin/product/delete-category/{slug}','admin\AdminProductController@delete_category');
 
 Route::post('/admin/product/add-variant','admin\AdminProductController@create_variant')->name('add-variant');
 Route::post('/admin/product/edit-variant','admin\AdminProductController@edit_variant')->name('edit-variant');
+Route::get('/admin/product/delete-variant/{id}','admin\AdminProductController@delete_variant');
 
 Route::get('admin/product/edit-product/{slug}','admin\AdminProductController@edit')->name('admin.edit');
 Route::post('admin/product/edit-product/{slug}','admin\AdminProductController@createedit');
@@ -112,5 +117,5 @@ Route::post('/load-img','admin\AdminProductController@load_img');
 
 Route::get('/admin/category',function(){
     return view('admin/product/adminCategory');
-});
+})->name('admin.category');
 

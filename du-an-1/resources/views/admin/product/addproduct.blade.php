@@ -89,6 +89,13 @@
                         </div>
                     </div>
                 @endif
+                @if(session()->has('add-success-f'))
+                    <div style="display: flex" class="card-body col-12">
+                        <div class="alert alert-danger col3">
+                            <strong>Thêm thất bại do trùng tên biến thể {{session()->pull('add-success-f')}} </strong>
+                        </div>
+                    </div>
+                @endif
                 <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
                 <div style="display: flex" class="card-body col-12">

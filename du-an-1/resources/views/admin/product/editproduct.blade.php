@@ -95,6 +95,21 @@
                         </div>
                     </div>
                 @endif
+                @if(session()->has('add-success-f'))
+                    <div style="display: flex" class="card-body col-12">
+                        <div class="alert alert-danger col3">
+                            <strong>Bạn đã cập nhật không thành công biến thể có ID: " {{session()->pull('add-success-f')}} "</strong>
+                        </div>
+                    </div>
+                @endif
+                @if(session()->has('del-success-v'))
+                        <div style="display: flex" class="card-body col-12">
+                            <div class="alert alert-danger col3">
+                                <strong>Bạn đã xóa thành công biến thể có ID: " {{session()->pull('del-success-v')}} "</strong>
+                            </div>
+                        </div>
+                @endif
+
                 <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     @foreach($get_product as $item)
@@ -194,7 +209,7 @@
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-3">
                             <button type="submit" class="btn btn-primary">Cập Nhật </button>
-                            <button type="submit" class="btn btn-danger">Xóa Sản Phẩm </button>
+                            <a href="{{asset('admin/product/delete-product/'.$item->Slug)}}" class="btn btn-danger">Xóa Sản Phẩm</a>
                         </div>
                     </div>
                     @endforeach
@@ -215,9 +230,10 @@
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-4">
                             <label class="col-form-label">Tên biến thể:</label>
-                            <input name="VariantName" type="text" class="form-control date-inputmask" id="date-mask" placeholder="-mask" placeholder="" value="{{$var->VariantName}}" required/>
+                            <input name="VariantName" type="text" class="form-control date-inputmask" id="date-mask" placeholder="{{$var->VariantName}}"/>
                             <input hidden name="VariantId" value="{{$var->VariantId}}">
                             <input hidden name="Slug" value="{{$item->Slug}}">
+                            <input hidden name="ProductId" value="{{$item->ProductId}}">
                         </div>
                         <div class="form-group col-4">
                             <label for="inputText4" class="col-form-label">Giá (tăng bao nhiêu % so với giá sản phẩm)</label>
@@ -265,7 +281,7 @@
                             <button type="submit" class="btn btn-primary">Cập Nhật </button>
                         </div>
                         <div class="form-group col-1">
-                            <button class="btn btn-danger">Xóa Biến Thể</button>
+                            <a href="{{asset('admin/product/delete-variant/'.$var->VariantId)}}" class="btn btn-danger">Xóa Biến Thể</a>
                         </div>
                     </div>
                 </form>

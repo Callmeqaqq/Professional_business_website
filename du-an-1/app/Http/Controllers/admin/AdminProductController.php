@@ -111,6 +111,80 @@ class AdminProductController extends Controller
         session()->put('add-success', $request->CategoryName);
         Return redirect()->route('add-category');
     }
+    public function edit_category($slug){
+        $category = DB::table('category')->where('CategorySlug', $slug)->get();
+        return view('admin/product/editcategory',compact('category'));
+    }
+
+    public function createedit_category(Request $request){
+//        dd($request->All());
+        $check=0;
+        if($request->CategoryName != null){
+            $check_name = DB::table('category')->where('CategorySlug',$request->CategorySlug)->get();
+            foreach($check_name as $item){
+                $check++;
+            }
+            if($check==0){
+                DB::table('category')->where('CategoryId',$request->CategoryId)->update([
+                   'CategoryName'=>$request->CategoryName,
+                   'CategorySlug'=>$request->CategorySlug,
+                   'CatActive'=>$request->CatActive
+                ]);
+                if(isset($request->Images)){
+                    $file = $request->Images;
+                    $file_name = $file->getClientOriginalName();
+                    $file->move(base_path('public/images/product'),$file_name);
+
+                    DB::table('category')->where('CategoryId','=',$request->CategoryId)->update([
+                        'CategoryImage' => $file_name
+                    ]);
+                };
+            }
+        }else{
+            if(isset($request->Images)){
+                $file = $request->Images;
+                $file_name = $file->getClientOriginalName();
+                $file->move(base_path('public/images/product'),$file_name);
+
+                DB::table('category')->where('CategoryId','=',$request->CategoryId)->update([
+                    'CategoryImage' => $file_name
+                ]);
+            };
+            DB::table('category')->where('CategoryId',$request->CategoryId)->update([
+               'CatActive'=>$request->CatActive
+            ]);
+        }
+//        echo $check;
+//        exit();
+        if($check==0){
+            session()->put('e-success',$request->CategoryId);
+        }else{
+            session()->put('e-failed','a');
+        }
+        if($request->CategorySlug!=null && $check==0){
+            Return redirect()->route('edit.category',[$request->CategorySlug]);
+        }else{
+            Return redirect()->back();
+        }
+
+    }
+
+    public function delete_category($slug){
+        $cat_id=DB::table('category')->select('CategoryId','CategoryName')->where('CategorySlug',$slug)->get();
+        foreach($cat_id as $cat){
+            $id=$cat->CategoryId;
+            $name=$cat->CategoryName;
+        }
+        $pro_id=DB::table('product')->select('ProductId')->where('CategoryId',$id)->get();
+        foreach($pro_id as $pd){
+            DB::table('variant')->where('ProductId',$pd->ProductId)->delete();
+            DB::table('product_image')->where('ProductId',$pd->ProductId)->delete();
+            DB::table('product')->where('ProductId',$pd->ProductId)->delete();
+        }
+        DB::table('category')->where('CategoryId',$id)->delete();
+        session()->put('del-success',$name);
+        Return redirect()->route('admin.category');
+    }
 
     public function create_variant(Request $request){
 //        dd($request->All());
@@ -123,22 +197,34 @@ class AdminProductController extends Controller
             ->where('ProductId','=',$request->ProductId)
             ->select('ProductName')
             ->first();
+        $check_name = DB::table('variant')->where('ProductId','=',$request->ProductId)->get();
+        $check=0;
+        foreach ($check_name as $item){
+            if($item->VariantName == $request->Color){
+                $check = 1;
+                break;
+            }
+        }
+        if($check == 0){
+            $name_color = $name->ProductName;
+            $name_color.=' ';
+            $name_color.=$request->Color;
 
-        $name_color = $name->ProductName;
-        $name_color.=' ';
-        $name_color.=$request->Color;
 
-        DB::table('variant')
-            ->insert([
-                'VariantName'=>$request->Color,
-                'Price'=>($request->Price_variant)/100,
-                'Description' =>$request->Description,
-                'Active'=>$request->Active,
-                'Color'=>$file_name,
-                'ProductId'=>$request->ProductId,
-                'Quantity'=>$request->Quantity
-            ]);
-        session()->put('add-success-v',$name_color);
+            DB::table('variant')
+                ->insert([
+                    'VariantName'=>$request->Color,
+                    'Price'=>($request->Price_variant)/100,
+                    'Description' =>$request->Description,
+                    'Active'=>$request->Active,
+                    'Color'=>$file_name,
+                    'ProductId'=>$request->ProductId,
+                    'Quantity'=>$request->Quantity
+                ]);
+            session()->put('add-success-v',$name_color);
+        }else{
+            session()->put('add-success-f',$request->Color);
+        }
         Return redirect()->route('add-product');
     }
 
@@ -216,25 +302,68 @@ class AdminProductController extends Controller
 
     public function edit_variant(Request $request){
 //        dd($request->All());
-        DB::table('variant')->where('VariantId',$request->VariantId)->update([
-            'VariantName' => $request->VariantName,
-            'Price'=>$request->Price_variant/100,
-            'Description'=>$request->Description,
-            'Active'=>$request->Active,
-            'Quantity'=>$request->Quantity
-        ]);
-        if(isset($request->Images)){
-            $file = $request->Images;
-            $file_name = $file->getClientOriginalName();
-            $file->move(base_path('public/images/product'),$file_name);
+        $check=0;
+        $check_null=0;
+        if($request->VariantName!=null){
+            $check_name=DB::table('variant')->where('VariantName',$request->VariantName)->where('ProductId',$request->ProductId)->get();
+            foreach($check_name as $item){
+                $check++;
+            }
+        }else{
+            $check_null++;
+        }
+
+        if($check==0){
+            if($check_null==0) {
+                DB::table('variant')->where('VariantId', $request->VariantId)->update([
+                    'VariantName' => $request->VariantName
+                ]);
+            }
 
             DB::table('variant')->where('VariantId',$request->VariantId)->update([
-                'Color'=>$file_name
+
+                'Price'=>$request->Price_variant/100,
+                'Description'=>$request->Description,
+                'Active'=>$request->Active,
+                'Quantity'=>$request->Quantity
             ]);
+            if(isset($request->Images)){
+                $file = $request->Images;
+                $file_name = $file->getClientOriginalName();
+                $file->move(base_path('public/images/product'),$file_name);
+
+                DB::table('variant')->where('VariantId',$request->VariantId)->update([
+                    'Color'=>$file_name
+                ]);
+            }
+            session()->put('add-success-v',$request->VariantId);
+        }else{
+            session()->put('add-success-f',$request->VariantId);
         }
-        session()->put('add-success-v',$request->VariantId);
+
         Return redirect()->route('admin.edit',[$request->Slug]);
     }
+
+    public function delete_product($slug){
+        echo $slug;
+        $ProductId = DB::table('product')->select('ProductId','ProductName')->where('Slug',$slug)->get();
+        foreach ($ProductId as $item){
+            $id = $item->ProductId;
+            $name = $item->ProductName;
+        }
+        DB::table('variant')->where('ProductId',$id)->delete();
+        DB::table('product_image')->where('ProductId',$id)->delete();
+        DB::table('product')->where('Slug',$slug)->delete();
+
+        session()->put('del-success',$name);
+        Return redirect()->route('admin.product');
+    }
+    public function delete_variant($id){
+        DB::table('variant')->where('VariantId',$id)->delete();
+        session()->put('del-success-v',$id);
+        Return redirect()->back();
+    }
+
     public function load_img(Request $request){
 //        dd($request->All());
         $img = DB::table('product_image')->where('ProductId',$request->productId)->get();
