@@ -46,6 +46,12 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+
+        'admin' => [
+            'isLogged' => \App\Http\Middleware\AuthCheck::class,
+            'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
+            'check_role' => \App\Http\Middleware\StaffMiddleware::class,
+        ]
     ];
 
     /**
@@ -59,6 +65,7 @@ class Kernel extends HttpKernel
         // custom middleware
         'isLogged' => \App\Http\Middleware\AuthCheck::class,
         'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
+        'check_role' => \App\Http\Middleware\StaffMiddleware::class,
 
         // default
         'auth' => \App\Http\Middleware\Authenticate::class,
@@ -70,5 +77,9 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+    ];
+
+    //ưu tiên
+    protected $middlewarePriority = [
     ];
 }
