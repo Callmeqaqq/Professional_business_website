@@ -106,7 +106,7 @@ class ProductDetailController extends Controller
                         <div class="review-rating">
                               '.$star1.''.$star2.'
                         </div>
-                        <h5><span>'.$comm->Fullname.'</span> - Ngày '.date('d-m-Y', strtotime($comm->CreateAt)).'</h5>
+                        <h5><span style="font-weight: bold;">'.$comm->Fullname.'</span> - Ngày '.date('d-m-Y', strtotime($comm->CreateAt)).'</h5>
                         <p>'.$comm->Content.'</p>
                     </div>
                 </div>
@@ -162,12 +162,14 @@ class ProductDetailController extends Controller
 
         $new_price = $new_price+($price_variant*$new_price);
         $output = '';
-        if($discount != 0){
-            $output .='<span class="old-price">'.number_format(($new_price)*100/((1-$discount)*100)).'</span>';
-        }
         $output .= '
-            <span class="new-price">'.number_format($new_price).'<sup>vnđ</sup></span>
+            <span class="new-price">'.number_format($new_price).'<sup>đ</sup></span> <br>
         ';
+        if($discount != 0){
+            $output .='<span class="old-price">'.number_format(($new_price)*100/((1-$discount)*100)).'<sup>đ</sup></span>
+                        <span class="dis-c">-'.$discount*100 .'%</span>
+        ';
+        }
 //        dd($output);
         echo $output;
     }

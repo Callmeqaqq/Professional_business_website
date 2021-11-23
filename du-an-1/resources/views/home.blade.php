@@ -84,7 +84,7 @@
                                         </a>
                                         <div class="product-badge badge-top badge-right badge-pink">
                                             @if ($item->Discount != 0)
-                                                <span>-{{$item->Discount*100}}%</span>
+                                                <span style="padding:5px; background-color: #d0011b; color:white; border-radius: 10px;">-{{$item->Discount*100}}%</span>
                                             @endif
                                         </div>
                                         <div class="product-action-2-wrap">
@@ -127,7 +127,7 @@
                                         </a>
                                         <div class="product-badge badge-top badge-right badge-pink">
                                             @if ($item->Discount != 0)
-                                                <span>-{{$item->Discount*100}}%</span>
+                                                <span style="padding:5px; background-color: #d0011b; color:white; border-radius: 10px;">-{{$item->Discount*100}}%</span>
                                             @endif
                                         </div>
                                         <div class="product-action-2-wrap">
@@ -170,7 +170,7 @@
                                             <img src="{{asset('images/product/'.$item->Images)}}" alt="">
                                         </a>
                                         <div class="product-badge badge-top badge-right badge-pink">
-                                            <span>-{{$item->Discount*100}}%</span>
+                                            <span style="padding:5px; background-color: #d0011b; color:white; border-radius: 10px;">-{{$item->Discount*100}}%</span>
                                         </div>
                                         <div class="product-action-2-wrap">
                                             @if (Session::has('LoggedUser'))
