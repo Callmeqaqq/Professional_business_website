@@ -162,12 +162,14 @@ class ProductDetailController extends Controller
 
         $new_price = $new_price+($price_variant*$new_price);
         $output = '';
-        if($discount != 0){
-            $output .='<span class="old-price">'.number_format(($new_price)*100/((1-$discount)*100)).'</span>';
-        }
         $output .= '
-            <span class="new-price">'.number_format($new_price).'<sup>vnđ</sup></span>
+            <span class="new-price">'.number_format($new_price).'<sup>đ</sup></span> <br>
         ';
+        if($discount != 0){
+            $output .='<span class="old-price">'.number_format(($new_price)*100/((1-$discount)*100)).'<sup>đ</sup></span>
+                        <span class="dis-c">-'.$discount*100 .'%</span>
+        ';
+        }
 //        dd($output);
         echo $output;
     }

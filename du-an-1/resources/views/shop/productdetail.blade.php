@@ -5,11 +5,11 @@
 
 {{Breadcrumbs::render('products',$data[0]->CategoryName, $data[0]->CategorySlug, $data[0]->ProductName, $data[0]->Slug)}}
 
-<div class="product-details-area pb-100 pt-100">
+<div class="product-details-area pb-100 pt-30">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6">
-                <div class="product-details-img-wrap product-details-vertical-wrap" data-aos="fade-up" data-aos-delay="200">
+            <div style="" class="col-lg-6">
+                <div style="height:520px" class="product-details-img-wrap product-details-vertical-wrap" data-aos="fade-up" data-aos-delay="200">
                     <div class="product-details-small-img-wrap">
                         <div class="swiper-container product-details-small-img-slider-1 pd-small-img-style">
                             <div class="swiper-wrapper">
@@ -40,22 +40,14 @@
                     </div>
                 </div>
             </div>
-            <div style="padding-left:80px" class="col-lg-6">
+            <div style="padding-left:10px;" class="col-lg-6">
                 <div class="product-details-content" data-aos="fade-up" data-aos-delay="400">
                     {{-- Tên Chi tiết sản phẩm--}}
                     <input class='price' type="hidden" value="{{number_format((100*$data[0]->Price)/((1-$data[0]->Discount)*100))}}">
-                    <h2>{{$data[0]->ProductName}} &ensp;@if($data[0]->Discount !=0)<sup style="padding: 2px; border-radius:10px; Background-color:#d0011b; color:white">GIẢM {{$data[0]->Discount*100}}%</sup>@endif</h2>
-                    {{-- Giá sản phẩm--}}
-                    <div class="product-details-price">
-                        {{-- Nếu ko có giảm giá thì không cần in giá cũ--}}
-                        @if($data[0]->Discount != 0)
-                        <span class="old-price">{{number_format((100*$data[0]->Price)/((1-$data[0]->Discount)*100))}} </span>
-                        @endif
-                        {{-- Giá mới--}}
-                        <span class="new-price">{{number_format($data[0]->Price)}} <sup>vnđ</sup></span>
-                    </div>
+                    <h2 class="pt-15 pl-10">{{$data[0]->ProductName}}
+                    </h2>
                     {{-- Đánh giá sản phẩm theo sao--}}
-                    <div class="product-details-review">
+                    <div class="product-details-review pl-10 pt-15">
                         <h3>{{round($star,1)}}/ <h4>5</h4></h3>
                         <div class="product-rating">
                             <i style="color:#d0011b" class="fas fa-star"></i>
@@ -66,21 +58,34 @@
                             <span>( {{count($comment)}} Khách hàng đánh giá )</span>
                         @endif
                     </div>
+                    {{-- Giá sản phẩm--}}
+                    <div class="product-details-price">
+
+                        {{-- Giá mới--}}
+                        <span class="new-price">{{number_format($data[0]->Price)}}<sup>đ</sup></span> <br>
+                        {{-- Nếu ko có giảm giá thì không cần in giá cũ--}}
+                        @if($data[0]->Discount != 0)
+                        <span class="old-price">{{number_format((100*$data[0]->Price)/((1-$data[0]->Discount)*100))}}<sup>đ</sup> </span>
+                        <span class="dis-c">-{{$data[0]->Discount*100}}%</span>
+                        @endif
+
+                    </div>
+
                     {{-- Biến thể màu của sản phẩm--}}
-                    <div class="product-color product-color-active product-details-color">
-                        <span>Màu :</span>
+                    <div class="product-color product-color-active product-details-color pl-10">
+                        <span class="title">Màu :</span>
                         <ul>
                             <div class='pd_img_color'>
                                 @foreach($variant as $color)
                                     @if($color->Quantity !=0)
                                         <input class="price_var" type="hidden" value="{{$color->Price}}">
                                         <input type="radio" name="emotion" id="{{$color->VariantId}}" class="input-hidden" value="{{$color->VariantId}}"/>
-                                        <label for="{{$color->VariantId}}">
+                                        <label class="mr-5" for="{{$color->VariantId}}">
                                             <img title="{{$color->VariantName}}" src="{{asset('./images/product/'.$color->Color)}}" alt="{{$color->VariantName}}"/>
                                         </label>
                                     @else
                                         <input type="radio" name="emotion" id="{{$color->VariantId}}" class="input-hidden" value="{{$color->VariantId}}"/>
-                                        <label class="sold-out" for="{{$color->VariantId}}">
+                                        <label class="mr-5" class="sold-out" for="{{$color->VariantId}}">
                                             <img class="sold-out-img" title="{{$color->VariantName}}" src="{{asset('./images/product/'.$color->Color)}}" alt="{{$color->VariantName}}"/>
                                             <img style="opacity: 0.8" class="sold-out-img" src="{{asset('./images/icon-img/sold.png')}}" alt="">
                                         </label>
@@ -89,18 +94,17 @@
                             </div>
                         </ul>
                     </div>
-                    <br>
-                    <div class="product-color product-color-active product-details-color">
-                        <span>Khối lượng : {{$data[0]->Weight}} Kg</span>
+                    <div class="product-color product-color-active product-details-color pl-10">
+                        <span class="title">Khối lượng : {{$data[0]->Weight}} Kg</span>
                     </div>
-                    <div class="product-color product-color-active product-details-color" id="quantityhere"><span>Số lượng còn lại: {{$quantity}}</span></div>
+                    <div class="pl-10 product-color product-color-active product-details-color" id="quantityhere"><span class="title">Số lượng còn lại: {{$quantity}}</span></div>
                     {{-- Thêm Sản Phẩm vào giỏ hàng --}}
-                    <div class="product-details-action-wrap">
+                    <div class="product-details-action-wrap pl-10 pt-15">
                         <div class="product-quality">
                             <input class="cart-plus-minus-box input-text qty text quantity-add-cart" name="qtybutton" value="1">
                         </div>
 
-                        <div class="single-product-cart btn-hover">
+                        <div class="single-product-cart btn-hover pl-10">
                             @if (Session::has('LoggedUser'))
                             <a style="cursor: pointer;" slug="{{$data[0]->Slug}}" onclick="AddToCart('{{$data[0]->Slug}}')" class="product-action-btn-2">Thêm vào giỏ hàng</a>
                             @else
@@ -109,7 +113,7 @@
                         </div>
                     </div>
                     {{-- Danh mục của Sản Phẩm--}}
-                    <div class="product-details-meta">
+                    <div class="product-details-meta pl-10">
                         <ul>
                             <li><span class="title">Danh mục:</span>
                                 <ul>
@@ -219,7 +223,7 @@
                                         </a>
                                         <div class="product-badge badge-top badge-right badge-pink">
                                             @if ($item->Discount != 0)
-                                                <span>-{{$item->Discount*100}}%</span>
+                                                <span style="padding:5px; background-color: #d0011b; color:white; border-radius: 10px;">-{{$item->Discount*100}}%</span>
                                             @endif
                                         </div>
                                         <div class="product-action-2-wrap">
