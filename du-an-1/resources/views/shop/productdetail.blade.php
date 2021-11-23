@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div style="padding-left:10px;" class="col-lg-6">
+            <div style="padding-left:10px; padding-right:30px;" class="col-lg-6">
                 <div class="product-details-content" data-aos="fade-up" data-aos-delay="400">
                     {{-- Tên Chi tiết sản phẩm--}}
                     <input class='price' type="hidden" value="{{number_format((100*$data[0]->Price)/((1-$data[0]->Discount)*100))}}">
@@ -153,15 +153,16 @@
                             @if($accept == true)
                             <div class="ratting-form-wrapper">
                                 <h3>Thêm đánh giá và bình luận của bạn</h3>
-                                <p>Hãy thêm đánh giá và bình luận của bạn về sản phẩm nào >.< <span>*</span></p>
+                                <p>Hãy thêm đánh giá và bình luận của bạn về sản phẩm nào >.<</p>
                                 <div class="ratting-form">
+                                    <img style="width:50px;" src="{{asset('./images/users/default.jpg')}}" alt=""> {{session()->get('LoggedUserName')}}
                                     <form>
                                     @csrf
 {{--                                        <input type="hidden" name="comment_productId" class="comment_productId" value="{{$data[0]->ProductId}}">--}}
                                         <input type="hidden" name="comment_userId" class="comment_userId" value="{{session()->get('LoggedUser')}}">
                                         <input type="hidden" name="comment_createAt" class="comment_createAt" value="{{date('Y-m-d')}}">
                                         <div class="your-rating-wrap">
-                                            <span>Đánh giá:*</span>
+                                            <span>Đánh giá:<span style="color:red">*</span></span>
                                                 <fieldset class="starability-basic">
                                                     <input type="radio" id="rate1" name="rating" value="1"/>
                                                     <label for="rate1" title="Kinh khủng">1 star</label>
@@ -175,14 +176,14 @@
                                                     <input type="radio" id="rate4" name="rating" value="4"/>
                                                     <label for="rate4" title="Quá Tốt">4 stars</label>
 
-                                                    <input type="radio" id="rate5" name="rating" value="5"/>
+                                                    <input type="radio" id="rate5" name="rating" value="5" checked/>
                                                     <label for="rate5" title="Tuyệt vời">5 stars</label>
                                                 </fieldset>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="rating-form-style mb-15">
-                                                    <label>Bình luận của bạn: <span>*</span></label>
+                                                    <span style="font-size:16px">Bình luận của bạn: <span style="color:red">*</span></span>
                                                     <textarea class="comment_content" name="comment_content"></textarea>
                                                 </div>
                                             </div>

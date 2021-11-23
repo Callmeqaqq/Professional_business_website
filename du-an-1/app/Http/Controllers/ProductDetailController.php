@@ -106,7 +106,7 @@ class ProductDetailController extends Controller
                         <div class="review-rating">
                               '.$star1.''.$star2.'
                         </div>
-                        <h5><span>'.$comm->Fullname.'</span> - Ngày '.date('d-m-Y', strtotime($comm->CreateAt)).'</h5>
+                        <h5><span style="font-weight: bold;">'.$comm->Fullname.'</span> - Ngày '.date('d-m-Y', strtotime($comm->CreateAt)).'</h5>
                         <p>'.$comm->Content.'</p>
                     </div>
                 </div>

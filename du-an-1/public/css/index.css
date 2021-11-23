@@ -131,7 +131,7 @@ a:focus {
 
 a:hover {
     text-decoration: none;
-    color: #e97730;
+    color: #d0011b;
 }
 
 button,
@@ -635,7 +635,7 @@ textarea {
 }
 
 .main-menu>nav>ul>li>ul li:hover>a {
-    color: #e97730;
+    color: #d0011b;
 }
 
 .main-menu>nav>ul>li>ul.sub-menu-style {
