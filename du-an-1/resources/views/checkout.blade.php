@@ -54,7 +54,7 @@
                                             <label>Họ & Tên <abbr class=""
                                                                   title="Thông tin bắt buộc">*</abbr></label>
                                             <input type="text" placeholder="Nhập họ và tên người nhận" name="Fullname"
-                                                    >
+                                            >
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -76,14 +76,14 @@
                                             <label>SĐT <abbr class=""
                                                              title="Thông tin bắt buộc">*</abbr></label>
                                             <input type="text" placeholder="Nhập số điện thoại người nhận" name="Phone"
-                                                   >
+                                            >
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12">
                                         <div class="billing-info mb-20">
                                             <label>Email <abbr class=""
                                                                title="Thông tin bắt buộc">*</abbr></label>
-                                            <input type="email" placeholder="Email người nhận" name="Email" >
+                                            <input type="email" placeholder="Email người nhận" name="Email">
                                             @error('Email')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
@@ -94,7 +94,7 @@
                                     <label>Xác nhận tạo đơn <abbr class=""
                                                                   title="Thông tin bắt buộc">*</abbr></label>
                                     <input placeholder="Password" type="password" autocomplete="off" name="Password"
-                                           >
+                                    >
                                 </div>
                                 <div class="additional-info-wrap">
                                     <label>Ghi chú</label>
@@ -136,7 +136,7 @@
                                     <div class="payment-method">
                                         <div class="pay-top sin-payment">
                                             <input id="payment-method-3" class="input-radio" type="radio" value="after"
-                                                   name="payment_method" >
+                                                   name="payment_method">
                                             <label for="payment-method-3">Thanh toán khi nhận hàng</label>
                                             <div class="payment-box" id="after">
                                                 <p>Quãng đường vận chuyển: <span id="shipping-km">0</span></p>
@@ -153,11 +153,13 @@
                                         </div>
                                         <div class="pay-top sin-payment sin-payment-3">
                                             <input id="payment-method-4" class="input-radio" type="radio" value="before"
-                                                   name="payment_method" >
-                                            <label for="payment-method-4">Thanh toán trả trước <img alt=""
-                                                                                                    src=""></label>
+                                                   name="payment_method">
+                                            <label for="payment-method-4">
+                                                <img alt="" src="{{asset('images/paypal.png')}}">
+                                                Thanh toán trả trước
+                                            </label>
                                             <div class="payment-box" id="before">
-                                                <p>Miễn phí tiền ship khi thanh toán bằng hình thức trả trước.</p>
+                                                <p>Giảm <span style="color:#d0011b">80%</span> tiền ship(tối đa 150k) đối với thanh toán trả trước.</p>
                                             </div>
                                         </div>
                                         <div class="your-order-info order-total">
@@ -169,10 +171,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p align="justify" style="font-size: 10.5px; margin-top: 8px">Nhấn "Đặt hàng" đồng nghĩa
-                                    với
-                                    việc bạn đồng ý với <a href="#" class="rules">Điều khoản
-                                        MetaH</a></p>
+                                <p align="justify" style="font-size: 13px; margin-top: 8px">Nhấn
+                                    <span style="color:#d0011b">"ĐẶT HÀNG"</span>
+                                    đồng nghĩa với việc bạn đồng ý với
+                                    <a href="#" class="rules">Điều khoản MetaH</a>
+                                </p>
                                 <div class="Place-order btn-hover">
                                     <button type="submit">Đặt hàng</button>
                                 </div>

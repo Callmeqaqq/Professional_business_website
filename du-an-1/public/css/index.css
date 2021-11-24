@@ -2836,7 +2836,7 @@ textarea {
 }
 input[type=radio]:checked + label>img {
     border: 1px solid #fff;
-    box-shadow: 0 0 3px 3px #c69500;
+    box-shadow: 0 0 3px 3px #ffc1c8;
 }
 .product-details-content {
     background-color: white;
@@ -2845,7 +2845,6 @@ input[type=radio]:checked + label>img {
     padding-left: 10px;
 }
 input[type=radio] + label>img {
-    border: 1px solid #444;
     width: 50px;
     height: 50px;
     transition: 500ms all;
@@ -7251,7 +7250,7 @@ input[type=radio] + label>img {
     content: "";
     left: 0;
     bottom: -12px;
-    background-color: #e97730;
+    background-color: #d0011b;
     width: 50px;
     height: 2px;
 }
@@ -7265,7 +7264,7 @@ input[type=radio] + label>img {
 }
 
 .billing-info-wrap .billing-info label abbr {
-    color: red;
+    color: #d0011b;
 }
 
 .billing-info-wrap .billing-info input {
@@ -7332,26 +7331,12 @@ input[type=radio] + label>img {
     }
 }
 
-.billing-info-wrap h3:before {
-    position: absolute;
-    content: "";
-    left: 0;
-    bottom: -12px;
-    background-color: #e97730;
-    width: 50px;
-    height: 2px;
-}
-
 .billing-info-wrap .billing-info label {
     font-size: 14px;
     text-transform: capitalize;
     display: block;
     margin: 0 0 5px;
     font-weight: 500;
-}
-
-.billing-info-wrap .billing-info label abbr {
-    color: red;
 }
 
 .billing-info-wrap .billing-info input {
@@ -7388,10 +7373,6 @@ input[type=radio] + label>img {
     display: block;
     margin: 0 0 5px;
     font-weight: 500;
-}
-
-.billing-info-wrap .billing-select label abbr {
-    color: red;
 }
 
 .billing-info-wrap .checkout-account input {
@@ -7431,7 +7412,7 @@ input[type=radio] + label>img {
 }
 
 .billing-info-wrap .checkout-account-toggle label abbr {
-    color: red;
+    color: #d0011b;
 }
 
 .billing-info-wrap .checkout-account-toggle input {
@@ -7600,7 +7581,7 @@ input[type=radio] + label>img {
     content: "";
     left: 0;
     bottom: -12px;
-    background-color: #e97730;
+    background-color: #d0011b;
     width: 50px;
     height: 2px;
 }
@@ -7618,7 +7599,7 @@ input[type=radio] + label>img {
 
 .your-order-area .your-order-wrap .your-order-info ul li span {
     float: right;
-    color: #e97730;
+    color: #d0011b;
 }
 
 .your-order-area .your-order-wrap .your-order-info.order-subtotal {
@@ -7736,7 +7717,7 @@ input[type=radio] + label>img {
 }
 
 .rules {
-    color: #e97730;
+    color: #d0011b;
 }
 
 @media only screen and (max-width: 767px) {
@@ -7746,7 +7727,7 @@ input[type=radio] + label>img {
 }
 
 .your-order-area .Place-order button {
-    background-color: #e97730;
+    background-color: #d0011b;
     display: block;
     cursor: pointer;
     padding: 16px 50px 17px;
