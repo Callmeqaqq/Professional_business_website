@@ -20,7 +20,9 @@
         box-shadow: 0 0 5px #d0011b;
     }
 </style>
-
+<div class="banner">
+    <img style="width:100%;" src="{{asset('./images/banner/banner_shop.jpg')}}" alt="">
+</div>
 {{--{{ Breadcrumbs::render('shop') }}--}}
 @if(isset($data[0]->CategoryName))
     {{Breadcrumbs::render('productCategory',$data[0]->CategoryName, $data[0]->CategorySlug)}}
@@ -51,7 +53,7 @@
                                         </a>
                                         <div class="product-badge badge-top badge-right badge-pink">
                                                 @if ($item->Discount != 0)
-                                                <span>-{{$item->Discount*100}}%</span>
+                                                <span style="padding:5px; background-color: #d0011b; color:white; border-radius: 10px;">-{{$item->Discount*100}}%</span>
                                                 @endif
                                         </div>
                                         <div class="product-action-2-wrap">
@@ -76,7 +78,7 @@
                                 @endforeach
                             </div>
 
-                            <div  class="paginate" style="">
+                            <div  class="paginate mb-40">
                                 {{$data -> links()}}
                             </div>
                         </div>

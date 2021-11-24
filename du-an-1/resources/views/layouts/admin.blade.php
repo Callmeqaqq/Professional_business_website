@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('css/style.css')}}"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 </head>
 <body>
 <div class="dashboard-main-wrapper">
@@ -15,7 +16,7 @@
     <!-- ============================================================== -->
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}">Metah</a>
+            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}"><img src="{{asset('images/logo/logo1.png')}}" alt=""></a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
                     <li class="nav-item dropdown nav-user">
@@ -93,6 +94,9 @@
                                         <a class="nav-link" href="{{asset('/admin/product')}}">Tất cả sản phẩm</a>
                                     </li>
                                     <li class="nav-item">
+                                        <a class="nav-link" href="{{asset('/admin/product/add-category')}}">Thêm danh mục</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link" href="{{asset('/admin/product/add-product')}}">Thêm sản phẩm</a>
                                     </li>
                                 </ul>
@@ -152,11 +156,11 @@
 <script>
     $(document).ready(function () {
         $("#table").DataTable({
-            lengthMenu: [5, 10, 20, 30],
+            lengthMenu: [10, 20, 30],
             language: {
                 processing: "Đang tải dữ liệu",
                 search: "Tìm kiếm: ",
-                lengthMenu: "Lượng hiển thị " + " _MENU_ ",
+                lengthMenu: "Lượng hiển thị:  " + " _MENU_ ",
                 info: "_START_ - _END_ / _TOTAL_",
                 infoEmpty: "Không có dữ liệu",
                 infoFiltered: "(Trên tổng _MAX_ mục)",

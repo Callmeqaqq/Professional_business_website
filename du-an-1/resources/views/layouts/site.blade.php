@@ -40,7 +40,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-6 col-6">
                         <div class="logo">
-                            <a href="{{url('/')}}"><img src="{{asset('/images/logo/logo.png')}}" alt="logo"/></a>
+                            <a href="{{url('/')}}"><img src="{{asset('/images/logo/logo3.png')}}" alt="logo"/></a>
                         </div>
                     </div>
                     <div class="col-lg-6 d-none d-lg-block d-flex justify-content-center">
@@ -389,6 +389,27 @@
             },
             success:function(data){
                 $('#quantityhere').html(data);
+            }
+        });
+    });
+
+    $('.pd_img_color').click(function(){
+        let productId = $('.comment_productId').val();
+        let variantId = $('input[name="emotion"]:checked').val();
+        let price = $('.price').val();
+        var _token = $('input[name="_token"]').val();
+        // alert(productId);
+        $.ajax({
+            url:"{{url("/price")}}",
+            method:"POST",
+            data:{
+                productId:productId,
+                variantId:variantId,
+                _token:_token,
+                price:price
+            },
+            success:function(data){
+                $('.product-details-price').html(data);
             }
         });
     });
