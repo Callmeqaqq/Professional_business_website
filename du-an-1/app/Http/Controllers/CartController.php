@@ -77,9 +77,4 @@ class CartController extends Controller
         $request->Session()->forget('Cart');
         return view('cart/cartlist');
     }
-
-    protected function Checkout()
-    {
-        return view('cart/checkout');
-    }
 }

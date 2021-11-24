@@ -7225,7 +7225,11 @@ input[type=radio] + label>img {
 /*checkout*/
 
 .checkout-main-area {
-    padding-bottom: 5px;
+    /*padding-bottom: 5px;*/
+}
+
+.checkout-submit{
+    /*background-color: #e97730;*/
 }
 
 .billing-info-wrap h3 {
@@ -7741,7 +7745,7 @@ input[type=radio] + label>img {
     }
 }
 
-.your-order-area .Place-order a {
+.your-order-area .Place-order button {
     background-color: #e97730;
     display: block;
     cursor: pointer;
@@ -7753,6 +7757,7 @@ input[type=radio] + label>img {
     font-weight: 600;
     text-align: center;
     z-index: 1;
+    border:none;
 }
 
 
@@ -8487,4 +8492,8 @@ screen and (min-resolution: 192dpi) {
 .login-form-container .line .hr {
     width: 100%;
     border-top: 1px solid #cccccc;
+}
+
+.ti-arrow-up{
+    background-color: #d0011b;
 }

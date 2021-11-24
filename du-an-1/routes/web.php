@@ -74,7 +74,11 @@ Route::get('/save-item-list-cart/{slug}/{quantity}', 'CartController@SaveItemLis
 Route::get('/save-all-list-cart', 'CartController@SaveAllListCart');
 Route::get('/delete-all-list-cart', 'CartController@DeleteAllListCart');
 
+// ---------------------------Checkout----------------------------------
 Route::get('/checkout', 'CheckoutController@index')->name('cart.checkout')->middleware('isLogged');
+Route::post('/checkout', 'CheckoutController@checkoutSubmit')->name('checkout.submit');
+Route::post('/set_session', 'SessionController@createsession');
+Route::get('/allsession', 'SessionController@getsession');
 
 
 //--------------------------search----------------------------
