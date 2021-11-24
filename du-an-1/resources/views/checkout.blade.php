@@ -38,9 +38,9 @@
     </style>
     {{--                                            @if (Session::has('Cart') != null)--}}
 
-    {{ Breadcrumbs::render('checkout') }}
-    <div class="checkout-main-area pt-100">
+    <div class="checkout-main-area">
         <div class="container">
+            {{ Breadcrumbs::render('checkout') }}
             <div class="checkout-wrap pt-30">
                 <form method="post" id="checkout-form" action="{{route('checkout.submit')}}">
                     @csrf
