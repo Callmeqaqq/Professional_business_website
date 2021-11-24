@@ -29,7 +29,7 @@
         }
 
         .text h1 {
-            color: #011718;
+            color: #009ba3;
             margin-top: -200px;
             font-size: 15em;
             text-align: center;
@@ -39,7 +39,7 @@
         }
 
         .text h2 {
-            color: black;
+            color: #9df2fc;
             font-size: 5em;
             text-shadow: -5px 5px 0px rgba(0, 0, 0, 0.7);
             text-align: center;
@@ -106,7 +106,7 @@
 
 <div class="text">
     <h1>404</h1>
-    <h2>Ôi không!!</h2>
+    <h2>Oops!!</h2>
     <h3>Chúng tôi không tìm thấy thứ bạn đang tìm </h3>
     <br>
     <h3>Nơi đây tối và đáng sợ quá 😱!!</h3>
