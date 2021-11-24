@@ -23,14 +23,15 @@
 <div class="banner">
     <img style="width:100%;" src="{{asset('./images/banner/banner_shop.jpg')}}" alt="">
 </div>
-{{--{{ Breadcrumbs::render('shop') }}--}}
-@if(isset($data[0]->CategoryName))
-    {{Breadcrumbs::render('productCategory',$data[0]->CategoryName, $data[0]->CategorySlug)}}
-@else
-    {{Breadcrumbs::render('shop')}}
-@endif
+
 <div class="shop-area shop-page-responsive pb-100">
     <div class="container">
+        {{--{{ Breadcrumbs::render('shop') }}--}}
+        @if(isset($data[0]->CategoryName))
+            {{Breadcrumbs::render('productCategory',$data[0]->CategoryName, $data[0]->CategorySlug)}}
+        @else
+            {{Breadcrumbs::render('shop')}}
+        @endif
         <div class="row flex-row-reverse">
             <div class="col-lg-9">
                 <div class="shop-topbar-wrapper mb-40">

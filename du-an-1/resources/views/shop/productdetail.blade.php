@@ -3,10 +3,11 @@
 
 {{--{{Breadcrumbs::render('products', $data[0]->ProductName, $data[0]->Slug)}}--}}
 
-{{Breadcrumbs::render('products',$data[0]->CategoryName, $data[0]->CategorySlug, $data[0]->ProductName, $data[0]->Slug)}}
+
 
 <div class="product-details-area pb-100 pt-30">
     <div class="container">
+        {{Breadcrumbs::render('products',$data[0]->CategoryName, $data[0]->CategorySlug, $data[0]->ProductName, $data[0]->Slug)}}
         <div class="row">
             <div style="" class="col-lg-6">
                 <div style="height:520px" class="product-details-img-wrap product-details-vertical-wrap" data-aos="fade-up" data-aos-delay="200">
