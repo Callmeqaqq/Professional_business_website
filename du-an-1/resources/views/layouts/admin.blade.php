@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('css/style.css')}}"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 </head>
 <body>
 <div class="dashboard-main-wrapper">
@@ -93,7 +94,10 @@
                                         <a class="nav-link" href="{{asset('/admin/product')}}">Tất cả sản phẩm</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Thêm sản phẩm</a>
+                                        <a class="nav-link" href="{{asset('/admin/product/add-category')}}">Thêm danh mục</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{asset('/admin/product/add-product')}}">Thêm sản phẩm</a>
                                     </li>
                                 </ul>
                             </div>

@@ -89,20 +89,22 @@ class CartController extends Controller
     }
 
     public function CheckQuantity(Request $request) {
-        $product = DB::table('product')->Join('variant', 'product.ProductId', '=','variant.ProductId')
-            ->Where('product.Slug', $request->data['slug'])
-            ->Where('variant.VariantId', $request->data['variant'])
-            ->Select('product.*','variant.*', 'product.Price as ProductPrice', 'product.Active as ProductActive', 'variant.Price as VariantPrice', 'variant.Active as VariantActive')
-            ->first();
-
-        if ($request->Session()->has('Cart')) {
-            if (($request->Session()->get('Cart')->products[$request->data['slug'].'&'.$request->data['variant']]['quantity'] + $request->data['quantity']) > $product->Quantity) {
-                return 1;
-            } else {
-                return 0;
-            }
+//
+//        if ($request->Session()->has('Cart')) {
+//            if (($request->Session()->get('Cart')->products[$request->data['slug'].'&'.$request->data['variant']]['quantity'] + $request->data['quantity']) > $product->Quantity) {
+//                return 1;
+//            } else {
+//                return 0;
+//            }
+//        } else {
+//            return 0;
+//        }
+        $quantt = $request->Session()->get('quantity');
+//        $request->Session()->has('Cart')->products[$request->data['slug'].'&'.$request->data['variant'] ?? $request->Session()->put('Cart')->products[$request->data['slug'].'&'.$request->data['variant']]['quantity']] = 0;
+        if (($request->Session()->get('Cart')->products[$request->data['slug'].'&'.$request->data['variant']]['quantity'] + $request->data['quantity']) > $quantt) {
+            return true;
         } else {
-            return 0;
+            return false;
         }
     }
 

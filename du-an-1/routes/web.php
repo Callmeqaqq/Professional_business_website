@@ -54,6 +54,7 @@ Route::get('/products/{slug}','ProductDetailController@index');
 Route::post('/load-comment','ProductDetailController@load_comment');
 Route::post('/send-comment','ProductDetailController@send_comment');
 Route::post('/quantity','ProductDetailController@quantity');
+Route::post('/price','ProductDetailController@price');
 
 
 // ---------------------------Blog----------------------------------
@@ -96,7 +97,20 @@ Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
 Route::get('/admin','admin\DemoController@index');
 
 Route::get('/admin/product','admin\AdminProductController@index');
+Route::get('/admin/product/add-product','admin\AdminProductController@add')->name('add-product');
+Route::post('/admin/product/add-product','admin\AdminProductController@create');
+
+Route::get('/admin/product/add-category','admin\AdminProductController@add_category')->name('add-category');
+Route::post('/admin/product/add-category','admin\AdminProductController@create_category');
+
+Route::post('/admin/product/add-variant','admin\AdminProductController@create_variant')->name('add-variant');
+
+Route::get('admin/product/edit-product/{slug}','admin\AdminProductController@edit')->name('admin.edit');
+Route::post('admin/product/edit-product/{slug}','admin\AdminProductController@createedit');
+Route::post('/delete-img','admin\AdminProductController@deleteimg');
+Route::post('/load-img','admin\AdminProductController@load_img');
+
 Route::get('/admin/category',function(){
-    return view('admin/adminCategory');
+    return view('admin/product/adminCategory');
 });
 
