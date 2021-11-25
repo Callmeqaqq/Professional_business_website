@@ -76,16 +76,6 @@
                         </div>
                     </div>
                 @endif
-                @if(session()->has('add-success-f'))
-                @else
-                    @if(session()->has('edit-failed'))
-                        <div style="display: flex" class="card-body col-12">
-                            <div class="alert alert-danger col3">
-                                <strong>Cập nhật thất bại do bị trùng tên sản phẩm khác hoặc sản phẩm hiện tại {{session()->forget('edit-failed')}}.</strong>
-                            </div>
-                        </div>
-                    @endif
-                @endif
                 @if(session()->has('thua'))
                     <div style="display: flex" class="card-body col-12">
                         @if(session('duoc')!=0)
@@ -101,25 +91,10 @@
                 @if(session()->has('add-success-v'))
                     <div style="display: flex" class="card-body col-12">
                         <div class="alert alert-success col3">
-                            <strong>Bạn đã cập nhật thành công biến thể có ID: " {{session()->pull('add-success-v')}} "</strong>
+                            <strong>Bạn đã thêm thành công biến thể " {{session()->pull('add-success-v')}} " vào danh sách biến thể. </strong>
                         </div>
                     </div>
                 @endif
-                @if(session()->has('add-success-f'))
-                    <div style="display: flex" class="card-body col-12">
-                        <div class="alert alert-danger col3">
-                            <strong>Cập nhật thất bại do trùng tên biến thể khác hoặc tên hiện tại của biến thể{{session()->forget('add-success-f')}}.</strong>
-                        </div>
-                    </div>
-                @endif
-                @if(session()->has('del-success-v'))
-                        <div style="display: flex" class="card-body col-12">
-                            <div class="alert alert-danger col3">
-                                <strong>Bạn đã xóa thành công biến thể có ID: " {{session()->pull('del-success-v')}} "</strong>
-                            </div>
-                        </div>
-                @endif
-
                 <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     @foreach($get_product as $item)
@@ -169,7 +144,9 @@
                             <label for="formFile" class="form-label">Chọn Ảnh mặc định (1 Ảnh)</label>
                             <input name="Images" class="form-control" type="file" id="upload" onchange="ImagesFileAsURL()" value="{{$item->Images}}">
                         </div>
-                        <div class="form-group col-3">
+                    </div>
+                    <div style="display: flex" class="card-body col-12">
+                        <div class="form-group col-4">
                             <div id="displayImg">
                                 <img style="width:100%" src="{{asset('/images/product/'.$item->Images)}}" alt="">
                             </div>
@@ -219,7 +196,6 @@
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-3">
                             <button type="submit" class="btn btn-primary">Cập Nhật </button>
-                            <a href="{{asset('admin/product/delete-product/'.$item->Slug)}}" class="btn btn-danger">Xóa Sản Phẩm</a>
                         </div>
                     </div>
                     @endforeach
@@ -227,84 +203,77 @@
             </div>
 
             <div id="Addvariant" class="tabcontent card">
-                @php $stt=0; @endphp
-                @foreach($variant as $var)
-
-                <form action="{{route('edit-variant')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('add-variant')}}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div style="display: flex; padding-bottom: 0" class="card-body col-12">
-                        <div class="form-group col-4">
-                            <h3 style="color:red;">Biến thể {{$stt=$stt+1}} - ID biến thể: {{$var->VariantId}}</h3>
+                    <div style="display: flex" class="card-body col-12">
+                        <div class="form-group col-6">
+                            <label for="inputText4" class="col-form-label">Tên Sản Phẩm:</label>
+                            <select class="form-control" name="ProductId" id="" required>
+                                <option no value>Chọn</option>
+                                @foreach($product as $prod)
+                                    <option value="{{$prod->ProductId}}">{{$prod->ProductId}} - {{$prod->ProductName}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-4">
-                            <label class="col-form-label">Tên biến thể:</label>
-                            <input name="VariantName" type="text" class="form-control date-inputmask" id="date-mask" placeholder="{{$var->VariantName}}"/>
-                            <input hidden name="VariantId" value="{{$var->VariantId}}">
-                            <input hidden name="Slug" value="{{$item->Slug}}">
-                            <input hidden name="ProductId" value="{{$item->ProductId}}">
+                            <label for="inputText4" class="col-form-label">Giá (tăng bao nhiêu % so với giá cũ)</label>
+                            <input required name="Price_variant" id="inputText4" type="number" step="1" max="500" min="1" class="form-control" placeholder="Nhập giá biến thể"/>
                         </div>
+                    </div>
+                    <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-4">
-                            <label for="inputText4" class="col-form-label">Giá (tăng bao nhiêu % so với giá sản phẩm)</label>
-                            <input required name="Price_variant" id="inputText4" type="number" step="1" max="100" min="0" class="form-control" value="{{$var->Price*100}}" placeholder="Nhập giá biến thể"/>
+                            <label for="inputText4" class="col-form-label">Màu:</label>
+                            <input name="Color" type="text" class="form-control" placeholder="Màu sản phẩm" required/>
                         </div>
                         <div class="form-group col-4">
                             <label for="inputText4" class="col-form-label">Số lượng <small>(Cái)</small></label>
-                            <input required name="Quantity" id="inputText4" type="number" step="1" min="0" class="form-control" value="{{$var->Quantity}}" placeholder="Nhập số lượng"/>
+                            <input required name="Quantity" id="inputText4" type="number" step="1" min="0" class="form-control" placeholder="Nhập số lượng"/>
                         </div>
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-8">
                             <label for="formFile" class="form-label">Chọn Ảnh mặc định (1 Ảnh)</label>
-                            <input name="Images" class="form-control" type="file" id="upload" onchange="ImagesFileAsURL()" value="">
-                        </div>
-                        <div class="form-group col-2">
-                            <div id="displayImg2">
-                                <img style="width:100%" src="{{asset('/images/product/'.$var->Color)}}" alt="">
-                            </div>
+                            <input name="Images" class="form-control" type="file" id="formFile">
                         </div>
                     </div>
-                    <div style="padding-top:0;display: flex" class="card-body col-12">
+                    <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-12">
-                            <label for="exampleFormControlTextarea1">Mô tả biến thể</label>
-                            <textarea required name="Description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$var->Description}}</textarea>
+                            <label for="exampleFormControlTextarea1">Mô Tả Biến thể</label>
+                            <textarea required name="Description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
                     </div>
-                    <div style="padding-top:0; padding-bottom:0;display: flex"class="card-body col-12">
+                    <div style="display: flex"class="card-body col-12">
                         <label class='col-2' for="">Hoạt Động</label>
                         <div class="form-check col-1">
-                            <input class="form-check-input" type="radio" name="Active" id="flexRadioDefault1" value="0" @if($var->Active ==0) checked @endif>
+                            <input class="form-check-input" type="radio" name="Active" id="flexRadioDefault1" value="0">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Ẩn
                             </label>
                         </div>
                         <div class="form-check col-1">
-                            <input class="form-check-input" type="radio" name="Active" id="flexRadioDefault1" value="1" @if($var->Active ==1) checked @endif>
+                            <input class="form-check-input" type="radio" name="Active" id="flexRadioDefault1" value="1">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Hiện
                             </label>
                         </div>
                     </div>
                     <div style="display: flex" class="card-body col-12">
-                        <div class="form-group col-1">
-                            <button type="submit" class="btn btn-primary">Cập Nhật </button>
-                        </div>
-                        <div class="form-group col-1">
-                            <a href="{{asset('admin/product/delete-variant/'.$var->VariantId)}}" class="btn btn-danger">Xóa Biến Thể</a>
+                        <div class="form-group col-3">
+                            <button type="submit" class="btn btn-primary">Thêm mới biến thể </button>
                         </div>
                     </div>
                 </form>
-                @endforeach
             </div>
         </div>
     </div>
     <script>
-        //Hàm Load Ajax
         function load_img() {
-            //Lấy Id sản phẩm và token
             let productId = $("input[name='ProductId']").val();
+            // alert(productId);
             var _token = $('input[name="_token"]').val();
+            // alert(_token);
             $.ajax({
                 url:"{{url("/load-img")}}",
                 method:"POST",
@@ -317,11 +286,9 @@
                 }
             });
         }
-        //Gọi hàm load ảnh
         $(document).ready(function(){
             load_img();
         });
-        //Lấy id Ảnh để xử lí ajax và xóa ảnh
         function getIdimg(){
             let idimg= $('input[name="emotion"]:checked').val();
             var _token = $('input[name="_token"]').val();
@@ -337,8 +304,8 @@
                 }
             });
         }
-        //Thiết lập Slug
         $('#date-mask').on('keyup', function(){
+            // alert('được');
             let title = $(this).val();
             //Đổi chữ hoa thành chữ thường
             let slug = title.toLowerCase();
@@ -367,8 +334,6 @@
             //In slug ra textbox có id “slug”
             $('#slug_here').val(slug);
         });
-
-        //Định dạng input giá
         {{--Định dạng 10000000 thành 10,000,000 mất vài tiếng để nghiên cứu ra được 10 dòng code (Khóc)--}}
         $("#price").on('keyup', function(){
             var n = parseInt($(this).val().replace(/\D/g,''),10);
@@ -380,28 +345,28 @@
                 $('#price').val('');
             }
         });
-
-        //Xử lí tab
         document.getElementById("defaultOpen").click();
         function openCity(evt, cityName) {
             //Tạo biến
             var i, tabcontent, tablinks;
+
             // Lấy tất cả thành phần của tabcontent
             tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
             }
-            // Nhận tất cả các phần tử với class = "tablinks" và xóa class "active"
+
+            // Get all elements with class="tablinks" and remove the class "active"
             tablinks = document.getElementsByClassName("tablinks");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
 
-            // Hiển thị tab hiện tại và thêm một lớp class "active" vào nút đã mở tab
+            // Show the current tab, and add an "active" class to the button that opened the tab
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-        // Hàm load ảnh xem trước
+
         function ImagesFileAsURL() {
             var fileSelected = document.getElementById('upload').files;
             if(fileSelected.length > 0) {

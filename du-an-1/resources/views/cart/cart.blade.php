@@ -1,5 +1,6 @@
 @extends('layouts.site')
 @section('main')
+    {{ Breadcrumbs::render('cart') }}
     <div id="list-cart-main">
     @if (Session::has('Cart') != null)
     <div class="cart-area pt-100 pb-100">
@@ -25,20 +26,20 @@
                                     @foreach(Session::get('Cart')->products as $value)
                                     <tr>
                                         <td class="product-thumbnail">
-                                            <a href="/products/{{$value['productInfo']->Slug}}"><img src="{{'images/product/'.$value['productInfo']->Images}}" alt=""></a>
+                                            <a href="/products/{{$value['productInfo']->Slug}}"><img src="{{'images/product/'.$value['productInfo']->Color}}" alt=""></a>
                                         </td>
                                         <td class="product-name">
-                                            <h5><a slug="{{$value['productInfo']->Slug}}" href="/products/{{$value['productInfo']->Slug}}">{{$value['productInfo']->ProductName}}</a></h5>
+                                            <h5><a slug="{{$value['productInfo']->Slug}}" href="/products/{{$value['productInfo']->Slug}}">{{$value['productInfo']->VariantName}}</a></h5>
                                         </td>
-                                        <td class="product-cart-price"><span class="amount">{{number_format($value['productInfo']->Price)}}</span></td>
+                                        <td class="product-cart-price"><span class="amount">{{number_format($value['productInfo']->ProductPrice + ($value['productInfo']->ProductPrice * $value['productInfo']->VariantPrice))}}</span></td>
                                         <td class="cart-quality">
                                             <div class="product-quality"><div class="dec qtybutton">-</div>
-                                                <input class="cart-plus-minus-box input-text qty text" name="qtybutton" data-slug="{{$value['productInfo']->Slug}}" id="quantity-item-{{$value['productInfo']->Slug}}" value="{{$value['quantity']}}">
+                                                <input class="cart-plus-minus-box input-text qty text" name="qtybutton" data-slug="{{$value['productInfo']->Slug}}" data-variant="{{$value['productInfo']->VariantId}}" id="quantity-item-{{$value['productInfo']->Slug}}" value="{{$value['quantity']}}">
                                                 <div class="inc qtybutton">+</div></div>
                                         </td>
-                                        <td class="product-total"><span>{{number_format($value['quantity']*$value['productInfo']->Price)}}</span></td>
-                                        <td class="product-save"><a style="cursor: pointer;"><i class="ti-save" data-slug="{{$value['productInfo']->Slug}}" onclick="SaveItemListCart('{{$value['productInfo']->Slug}}')" slug="{{$value['productInfo']->Slug}}"></i></a></td>
-                                        <td class="product-remove"><a style="cursor: pointer;"><i class="btn-delete-item-list-cart ti-trash" onclick="DeleteItemListCart('{{$value['productInfo']->Slug}}')" slug="{{$value['productInfo']->Slug}}"></i></a></td>
+                                        <td class="product-total"><span>{{number_format($value['quantity'] * ($value['productInfo']->ProductPrice + ($value['productInfo']->ProductPrice * $value['productInfo']->VariantPrice)))}}</span></td>
+                                        <td class="product-save"><a style="cursor: pointer;"><i class="ti-save" data-slug="{{$value['productInfo']->Slug}}" onclick="SaveItemListCart('{{$value['productInfo']->Slug}}', {{$value['productInfo']->VariantId}})" slug="{{$value['productInfo']->Slug}}"></i></a></td>
+                                        <td class="product-remove"><a style="cursor: pointer;"><i class="btn-delete-item-list-cart ti-trash" onclick="DeleteItemListCart('{{$value['productInfo']->Slug}}', {{$value['productInfo']->VariantId}})" slug="{{$value['productInfo']->Slug}}"></i></a></td>
                                     </tr>
                                     @endforeach
                                     </tbody>
@@ -147,19 +148,19 @@
     @endif
     </div>
     <script type="text/javascript">
-        function DeleteItemListCart(slug) {
+        function DeleteItemListCart(slug, variantId) {
             $.ajax({
                 type : 'GET',
-                url  : 'delete-item-list-cart/'+slug,
+                url  : 'cart/delete-item-list-cart/'+slug+'/'+variantId,
             }).done(function (response) {
                 RenderListCart(response)
             });
         }
 
-        function SaveItemListCart(slug) {
+        function SaveItemListCart(slug, variantId) {
             $.ajax({
                 type : 'GET',
-                url  : 'save-item-list-cart/'+slug+'/'+$('#quantity-item-'+slug).val(),
+                url  : 'cart/save-item-list-cart/'+slug+'/'+variantId+'/'+$('#quantity-item-'+slug).val(),
             }).done(function (response) {
                 RenderListCart(response);
                 alertify.success('Cập nhật thành công!');
@@ -170,13 +171,13 @@
             var lists = [];
             $("table tbody tr td").each(function() {
                 $(this).find("input").each(function() {
-                    var element = {key: $(this).data('slug'), value: $(this).val()};
+                    var element = {slug: $(this).data('slug'), variant: $(this).data('variant'), quantity: $(this).val()};
                     lists.push(element);
                 })
             });
             $.ajax({
                 type : 'GET',
-                url  : 'save-all-list-cart',
+                url  : 'cart/save-all-list-cart',
                 data : {
                     "_token" : "{{csrf_token()}}",
                     "data" : lists
@@ -190,7 +191,7 @@
         $(".btn-delete-all-cart").on("click", function (){
             $.ajax({
                 type : 'GET',
-                url  : 'delete-all-list-cart',
+                url  : 'cart/delete-all-list-cart',
             }).done(function (response) {
                 RenderListCart(response);
                 alertify.success('Xóa thành công!');

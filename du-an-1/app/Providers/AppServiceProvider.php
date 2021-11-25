@@ -28,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
         $categoryAll = DB::table('category')->get();
         view()->share(compact('category','categoryAll'));
         Paginator::useBootstrap();
+
     }
 }

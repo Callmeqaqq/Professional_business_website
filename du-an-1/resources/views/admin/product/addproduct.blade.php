@@ -89,13 +89,6 @@
                         </div>
                     </div>
                 @endif
-                @if(session()->has('add-success-f'))
-                    <div style="display: flex" class="card-body col-12">
-                        <div class="alert alert-danger col3">
-                            <strong>Thêm thất bại do trùng tên biến thể {{session()->pull('add-success-f')}} </strong>
-                        </div>
-                    </div>
-                @endif
                 <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
                 <div style="display: flex" class="card-body col-12">
@@ -265,7 +258,6 @@
         </div>
     </div>
     <script>
-        //Thiết lập Slug
         $('#date-mask').on('keyup', function(){
             // alert('được');
             let title = $(this).val();
@@ -296,7 +288,6 @@
             //In slug ra textbox có id “slug”
             $('#slug_here').val(slug);
         });
-        //Định dạng Input giá
 {{--Định dạng 10000000 thành 10,000,000 mất vài tiếng để nghiên cứu ra được 10 dòng code (Khóc)--}}
         $("#price").on('keyup', function(){
             var n = parseInt($(this).val().replace(/\D/g,''),10);
@@ -308,7 +299,6 @@
                 $('#price').val('');
             }
         });
-        //Thiết lập tab
         document.getElementById("defaultOpen").click();
         function openCity(evt, cityName) {
             //Tạo biến
@@ -320,17 +310,17 @@
                 tabcontent[i].style.display = "none";
             }
 
-            // Nhận tất cả các phần tử với class = "tablinks" và xóa class "active"
+            // Get all elements with class="tablinks" and remove the class "active"
             tablinks = document.getElementsByClassName("tablinks");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
 
-            // Hiển thị tab hiện tại và thêm một lớp class "active" vào nút đã mở tab
+            // Show the current tab, and add an "active" class to the button that opened the tab
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-        //Load ảnh xem trước
+
         function ImagesFileAsURL() {
             var fileSelected = document.getElementById('upload').files;
             if(fileSelected.length > 0) {

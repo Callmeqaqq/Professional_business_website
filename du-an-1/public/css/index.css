@@ -131,7 +131,7 @@ a:focus {
 
 a:hover {
     text-decoration: none;
-    color: #d0011b;
+    color: #e97730;
 }
 
 button,
@@ -184,9 +184,6 @@ textarea {
     font-size: 14px;
 }
 
-.mr-5{
-    margin-right: 5px;
-}
 .mt-60 {
     margin-top: 60px;
 }
@@ -426,7 +423,7 @@ textarea {
 }
 
 #scrollUp:hover {
-    background-color: #d0011b;
+    background-color: #e97730;
 }
 
 .bg-gray {
@@ -635,7 +632,7 @@ textarea {
 }
 
 .main-menu>nav>ul>li>ul li:hover>a {
-    color: #d0011b;
+    color: #e97730;
 }
 
 .main-menu>nav>ul>li>ul.sub-menu-style {
@@ -2143,8 +2140,8 @@ textarea {
 .cat-img a img {
     width: 100px;
     height: 100px;
-    border-radius: 10px;
-    box-shadow: 2px 3px 8px #282828;
+    border-radius: 50%;
+    border: 4px solid white;
 }
 
 .cat-name {
@@ -2836,17 +2833,15 @@ textarea {
 }
 input[type=radio]:checked + label>img {
     border: 1px solid #fff;
-    box-shadow: 0 0 3px 3px #ffc1c8;
+    box-shadow: 0 0 3px 3px #c69500;
 }
 .product-details-content {
-    background-color: white;
-}
-.pl-10{
-    padding-left: 10px;
+    padding: 0 0 0 20px;
 }
 input[type=radio] + label>img {
-    width: 50px;
-    height: 50px;
+    border: 1px solid #444;
+    width: 80px;
+    height: 80px;
     transition: 500ms all;
 }
 
@@ -2889,9 +2884,6 @@ input[type=radio] + label>img {
 
 .product-details-content .product-details-price {
     margin: 14px 0 23px;
-    padding:5px;
-    border-radius: 5px;
-    background-image: linear-gradient(100deg, #d0011b, rgb(253, 130, 10));
 }
 
 .product-details-content .product-details-price span {
@@ -2900,20 +2892,15 @@ input[type=radio] + label>img {
 }
 
 .product-details-content .product-details-price span.old-price {
-    color: #cbcbcb;
-    font-size: 15px;
-    text-decoration: line-through white;
-    margin-left: 10px;
-}
-.dis-c{
-    color: white;
-    font-size:19px;
+    color: #555252;
+    font-size: 18px;
+    text-decoration: line-through;
+    margin-right: 12px;
 }
 
 .product-details-content .product-details-price span.new-price {
-    color: white;
+    color: #d0011b;
     font-size: 30px;
-    margin-left:10px;
 }
 
 .product-details-content .product-details-review {
@@ -2969,7 +2956,7 @@ input[type=radio] + label>img {
 
 .product-details-content .product-details-meta {
     border-bottom: 1px solid #f2f2f2;
-    margin: 15px 0 40px;
+    margin: 34px 0 40px;
     padding-bottom: 33px;
 }
 
@@ -6136,9 +6123,9 @@ input[type=radio] + label>img {
 }
 
 .product-color span {
-    color: #5f5f5f;
+    color: #303030;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     display: inline-block;
     margin: 0 20px 0 0;
 }
@@ -6184,7 +6171,7 @@ input[type=radio] + label>img {
 }
 
 .product-color.product-details-color {
-    margin: 20px 0 0px;
+    margin: 22px 0 32px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -6870,10 +6857,10 @@ input[type=radio] + label>img {
 }
 
 .sidebar-widget .sidebar-list-style ul li a {
+    color: #575757;
     font-weight: 300;
-    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-family: "Poppins", sans-serif;
     color: #818181;
-    font-size: 16px;
 }
 
 .sidebar-widget .search-wrap-3 .search-3-form .button-search:before {
@@ -6956,7 +6943,7 @@ input[type=radio] + label>img {
 }
 
 .sidebar-widget .sidebar-list-style ul li a:hover {
-    color: #d0011b;
+    color: #e97730;
 }
 
 .sidebar-widget .sidebar-list-style.sidebar-widget-color ul li a {
@@ -7224,11 +7211,7 @@ input[type=radio] + label>img {
 /*checkout*/
 
 .checkout-main-area {
-    /*padding-bottom: 5px;*/
-}
-
-.checkout-submit{
-    /*background-color: #e97730;*/
+    padding-bottom: 5px;
 }
 
 .billing-info-wrap h3 {
@@ -7250,7 +7233,7 @@ input[type=radio] + label>img {
     content: "";
     left: 0;
     bottom: -12px;
-    background-color: #d0011b;
+    background-color: #e97730;
     width: 50px;
     height: 2px;
 }
@@ -7264,7 +7247,7 @@ input[type=radio] + label>img {
 }
 
 .billing-info-wrap .billing-info label abbr {
-    color: #d0011b;
+    color: red;
 }
 
 .billing-info-wrap .billing-info input {
@@ -7331,12 +7314,26 @@ input[type=radio] + label>img {
     }
 }
 
+.billing-info-wrap h3:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: -12px;
+    background-color: #e97730;
+    width: 50px;
+    height: 2px;
+}
+
 .billing-info-wrap .billing-info label {
     font-size: 14px;
     text-transform: capitalize;
     display: block;
     margin: 0 0 5px;
     font-weight: 500;
+}
+
+.billing-info-wrap .billing-info label abbr {
+    color: red;
 }
 
 .billing-info-wrap .billing-info input {
@@ -7373,6 +7370,10 @@ input[type=radio] + label>img {
     display: block;
     margin: 0 0 5px;
     font-weight: 500;
+}
+
+.billing-info-wrap .billing-select label abbr {
+    color: red;
 }
 
 .billing-info-wrap .checkout-account input {
@@ -7412,7 +7413,7 @@ input[type=radio] + label>img {
 }
 
 .billing-info-wrap .checkout-account-toggle label abbr {
-    color: #d0011b;
+    color: red;
 }
 
 .billing-info-wrap .checkout-account-toggle input {
@@ -7581,7 +7582,7 @@ input[type=radio] + label>img {
     content: "";
     left: 0;
     bottom: -12px;
-    background-color: #d0011b;
+    background-color: #e97730;
     width: 50px;
     height: 2px;
 }
@@ -7599,7 +7600,7 @@ input[type=radio] + label>img {
 
 .your-order-area .your-order-wrap .your-order-info ul li span {
     float: right;
-    color: #d0011b;
+    color: #e97730;
 }
 
 .your-order-area .your-order-wrap .your-order-info.order-subtotal {
@@ -7717,7 +7718,7 @@ input[type=radio] + label>img {
 }
 
 .rules {
-    color: #d0011b;
+    color: #e97730;
 }
 
 @media only screen and (max-width: 767px) {
@@ -7726,8 +7727,8 @@ input[type=radio] + label>img {
     }
 }
 
-.your-order-area .Place-order button {
-    background-color: #d0011b;
+.your-order-area .Place-order a {
+    background-color: #e97730;
     display: block;
     cursor: pointer;
     padding: 16px 50px 17px;
@@ -7738,7 +7739,6 @@ input[type=radio] + label>img {
     font-weight: 600;
     text-align: center;
     z-index: 1;
-    border:none;
 }
 
 
@@ -8459,9 +8459,9 @@ screen and (min-resolution: 192dpi) {
 .pd_img_color {
     width: 300px;
     height: 50px;
+    margin-right: 5px;
     padding: 0;
     border: none;
-    display: flex;
 }
 
 .login-form-container .line {
@@ -8473,8 +8473,4 @@ screen and (min-resolution: 192dpi) {
 .login-form-container .line .hr {
     width: 100%;
     border-top: 1px solid #cccccc;
-}
-
-.ti-arrow-up{
-    background-color: #d0011b;
 }

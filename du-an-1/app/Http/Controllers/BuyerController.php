@@ -121,7 +121,6 @@ class BuyerController extends Controller
         if ($user) {
             if (Hash::check($request->loginPassword, $user->Password)) {
                 $request->session()->put('LoggedUser', $user->UserId);
-                $request->session()->put('LoggedUserName', $user->Fullname);
                 return redirect('/profile');
             } else {
                 return redirect('/buyer/login')->with('status', 'Mật khẩu không chính xác');
