@@ -2764,7 +2764,7 @@ textarea {
 }
 
 .login-register-wrapper .login-form-container .login-register-form form .login-toggle-btn {
-    padding: 10px 0 19px;
+
 }
 
 .login-register-wrapper .login-form-container .login-register-form form .login-toggle-btn label {
@@ -2781,7 +2781,7 @@ textarea {
 .login-register-wrapper .login-form-container .login-register-form form .login-toggle-btn a {
     float: right;
     font-size: 15px;
-    color: #000000;
+    color: rgba(27, 37, 186, 0.94);
     -webkit-transition: all 0.3s ease 0s;
     -o-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
@@ -2810,6 +2810,7 @@ textarea {
     -o-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
     z-index: 1;
+    height: 50px;
 }
 
 .sticky {

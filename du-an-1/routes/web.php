@@ -93,3 +93,11 @@ Route::get('/buyer/login/facebook/redirect', 'SocialController@facebookRedirect'
 Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
 
 Route::get('/admin','admin\DemoController@index');
+Route::get('/admin/administrator','admin\AdministratorController@index')->name('admin.administrator');
+Route::get('/admin/addAdministrator','admin\AdministratorController@add')->name('admin.addAdministrator');
+
+Route::get('/admin/comment/{slug}','admin\CommentController@index')->name('comment');
+Route::get('/admin/listComment','admin\CommentController@list')->name('comment.list');
+Route::get('/admin/deleteComment/{id}','admin\CommentController@deleteComment')->name('comment.delete');
+
+

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Document</title>
-    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="{{ asset('css/vendor/font-awesome.min.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('css/style.css')}}"/>
 </head>
 <body>
 <div class="dashboard-main-wrapper">
@@ -64,6 +66,15 @@
     <!-- ============================================================== -->
     <!-- left sidebar -->
     <!-- ============================================================== -->
+
+    <?php
+    $array = explode('/', request()->path());
+    $url_active = $array[1]??'';
+    ?>
+
+
+
+
     <div class="nav-left-sidebar sidebar-dark">
         <div class="menu-list">
             <nav class="navbar navbar-expand-lg navbar-light">
@@ -83,10 +94,19 @@
                     <ul class="navbar-nav flex-column">
                         <li class="nav-divider">Menu</li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#" aria-expanded="false"
+                            <a class="nav-link " href="#" aria-expanded="false"
                             ><i class="fa fa-fw fa-user-circle"></i>Dashboard
-                                <span class="badge badge-success">6</span></a
-                            >
+                                </a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a class="nav-link {{'administrator' ===   $url_active   ? 'active':''}}" href="{{route('admin.administrator')}}" aria-expanded="false"
+                            ><i class="fab fa-unlock-alt "></i>Quản trị viên
+                            </a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a class="nav-link {{ 'listComment' ===   $url_active ||'comment' ===   $url_active  ? 'active':''}}" href="{{route('comment.list')}}" aria-expanded="false"
+                            ><i class="fab fa-comment "></i>Quản lí bính luận
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a
@@ -113,16 +133,7 @@
                                             aria-controls="submenu-11"
                                         >Level 2</a
                                         >
-                                        <div id="submenu-11" class="collapse submenu" style="">
-                                            <ul class="nav flex-column">
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#">Level 1</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#">Level 2</a>
-                                                </li>
-                                            </ul>
-                                        </div>
+
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">Level 3</a>
@@ -130,14 +141,15 @@
                                 </ul>
                             </div>
                         </li>
+
                     </ul>
                 </div>
             </nav>
         </div>
     </div>
 </div>
-<script src="vendor/jquery/jquery-3.3.1.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="{{asset( 'vendor/jquery/jquery-3.3.1.min.js')}}"></script>
+<script src="{{asset( 'vendor/bootstrap/js/bootstrap.bundle.js')}}"></script>
 <!-- <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script> -->
 <script src="../assets/libs/js/main-js.js"></script>
 
