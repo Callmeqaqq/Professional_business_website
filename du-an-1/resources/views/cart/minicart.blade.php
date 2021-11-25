@@ -3,14 +3,14 @@
         @foreach(Session::get('Cart')->products as $item)
             <li>
                 <div class="cart-img">
-                    <a href="/products/{{$item['productInfo']->Slug}}"><img src="{{asset('images/product/'.$item['productInfo']->Color)}}" alt=""/></a>
+                    <a href="/products/{{$item['productInfo']->Slug}}"><img src="{{asset('images/product/'.$item['productInfo']->Images)}}" alt=""/></a>
                 </div>
                 <div class="cart-title">
-                    <h4><a href="/products/{{$item['productInfo']->Slug}}">{{$item['productInfo']->VariantName}}</a></h4>
-                    <span> {{number_format($item['productInfo']->ProductPrice + ($item['productInfo']->ProductPrice * $item['productInfo']->VariantPrice))}} × {{$item['quantity']}} </span>
+                    <h4><a href="/products/{{$item['productInfo']->Slug}}">{{$item['productInfo']->ProductName}}</a></h4>
+                    <span> {{number_format($item['productInfo']->Price)}} × {{$item['quantity']}} </span>
                 </div>
                 <div class="cart-delete">
-                    <a style="display: block; cursor: pointer;" data-id="{{$item['productInfo']->ProductId}}" data-variant="{{$item['productInfo']->VariantId}}" data-slug="{{$item['productInfo']->Slug}}" slug="{{$item['productInfo']->Slug}}" class="btn-delete-item-cart">x</a>
+                    <a style="display: block; cursor: pointer;" data-id="{{$item['productInfo']->ProductId}}" data-slug="{{$item['productInfo']->Slug}}" slug="{{$item['productInfo']->Slug}}" class="btn-delete-item-cart">x</a>
                 </div>
             </li>
         @endforeach

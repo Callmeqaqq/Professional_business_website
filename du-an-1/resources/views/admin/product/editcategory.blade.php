@@ -9,38 +9,54 @@
                 </p>
             </div>
             <div class="card">
-                @if(session()->has('add-success'))
+                @if(session()->has('e-success'))
                     <div style="display: flex" class="card-body col-12">
                         <div class="alert alert-success col3">
-                            <strong>Bạn đã thêm thành công " {{session()->pull('add-success')}} " vào danh sách danh mục. </strong>
+                            <strong>Bạn đã cập nhật thành công danh mục có ID: " {{session()->pull('e-success')}} "</strong>
                         </div>
                     </div>
                 @endif
+                @if(session()->has('e-failed'))
+                    <div style="display: flex" class="card-body col-12">
+                        <div class="alert alert-danger col3">
+                            <strong>Cập nhật thất bại do trùng tên danh mục khác hoặc danh mục hiện tại. {{session()->forget('e-failed')}}</strong>
+                        </div>
+                    </div>
+                @endif
+                @foreach($category as $item)
                 <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-4">
                             <label>Tên Danh mục:</label>
-                            <input name="CategoryName" type="text" class="form-control date-inputmask" id="date-mask" placeholder="" required/>
+                            <input name="CategoryName" type="text" class="form-control date-inputmask" id="date-mask" placeholder="{{$item->CategoryName}}"/>
                             <input hidden type="text" id="slug_here" name="CategorySlug" value="">
+                            <input hidden type="text" name="CategoryId" value="{{$item->CategoryId}}">
                         </div>
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-8">
-                            <label for="formFile" class="form-label">Chọn Ảnh danh mục(1 ảnh)</label>
-                            <input name="CategoryImage" class="form-control" type="file" id="formFile">
+                            <label for="formFile" class="form-label">Chọn Ảnh mặc định (1 Ảnh)</label>
+                            <input name="Images" class="form-control" type="file" id="upload" onchange="ImagesFileAsURL()">
+                        </div>
+                    </div>
+                    <div style="display: flex" class="card-body col-12">
+                        <div class="form-group col-4">
+                            <div id="displayImg">
+                                <img src="{{asset('./images/product/'.$item->CategoryImage)}}" alt="">
+                            </div>
                         </div>
                     </div>
                     <div style="display: flex"class="card-body col-12">
                         <label class='col-2' for="">Hoạt Động</label>
                         <div class="form-check col-1">
-                            <input class="form-check-input" type="radio" name="CatActive" id="flexRadioDefault1" value="0">
+                            <input class="form-check-input" type="radio" name="CatActive" id="flexRadioDefault1" value="0" @if($item->CatActive == 0) checked @endif >
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Ẩn
                             </label>
                         </div>
                         <div class="form-check col-1">
-                            <input class="form-check-input" type="radio" name="CatActive" id="flexRadioDefault1" value="1">
+                            <input class="form-check-input" type="radio" name="CatActive" id="flexRadioDefault1" value="1" @if($item->CatActive == 1) checked @endif>
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Hiện
                             </label>
@@ -48,10 +64,11 @@
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-3">
-                            <button type="submit" class="btn btn-primary">Thêm mới danh mục </button>
+                            <button type="submit" class="btn btn-primary">Cập nhật </button>
                         </div>
                     </div>
                 </form>
+                @endforeach
             </div>
         </div>
     </div>
@@ -88,5 +105,20 @@
             // alert(slug);
             $('#slug_here').val(slug);
         });
+        //Load ảnh xem trước
+        function ImagesFileAsURL() {
+            var fileSelected = document.getElementById('upload').files;
+            if(fileSelected.length > 0) {
+                var fileToLoad = fileSelected[0];
+                var fileReader = new FileReader();
+                fileReader.onload = function(fileLoaderEvent) {
+                    var scrData = fileLoaderEvent.target.result;
+                    var newImage = document.createElement("img");
+                    newImage.src = scrData;
+                    document.getElementById('displayImg').innerHTML = newImage.outerHTML;
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        }
     </script>
 @stop()

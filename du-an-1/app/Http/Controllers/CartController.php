@@ -15,33 +15,23 @@ class CartController extends Controller
         return view('cart/cart');
     }
 
-    public function AddCart(Request $request, $slug, $variantId, $quantity) {
-        $product = DB::table('product')->Join('variant', 'product.ProductId', '=','variant.ProductId')
-            ->Where('product.Slug', $slug)
-            ->Where('variant.VariantId', $variantId)
-            ->Select('product.*','variant.*', 'product.Price as ProductPrice', 'product.Active as ProductActive', 'variant.Price as VariantPrice', 'variant.Active as VariantActive')
-            ->first();
-
-//        if ($request->session()->has('Cart')) {
-//            if (($request->Session()->get('Cart')->products[$slug.'&'.$variantId]['quantity'] + $quantity) > $product->Quantity) {
-//            }
-//        }
-
+    public function AddCart(Request $request, $slug, $quantity) {
+        $product = DB::table('product')->where('Slug', $slug)->first();
         if ($product != null) {
             $oldCart = Session('Cart') ? Session('Cart') : null;
             $newCart = new Cart($oldCart);
-            $newCart->AddCart($product, $slug, $variantId, $quantity);
+            $newCart->AddCart($product, $slug, $quantity);
 
             $request->Session()->put('Cart', $newCart);
-//               dd($newCart);
+    //           dd($newCart);
         }
         return view('cart/minicart');
     }
 
-    public function DeleteItemCart(Request $request, $slug, $variantId) {
+    public function DeleteItemCart(Request $request, $slug) {
         $oldCart = Session('Cart') ? Session('Cart') : null;
         $newCart = new Cart($oldCart);
-        $newCart->DeleteItemCart($slug, $variantId);
+        $newCart->DeleteItemCart($slug);
 
         if (Count($newCart->products) > 0) {
             $request->Session()->put('Cart', $newCart);
@@ -51,10 +41,10 @@ class CartController extends Controller
         return view('cart/minicart');
     }
 
-    public function DeleteItemListCart(Request $request, $slug, $variantId) {
+    public function DeleteItemListCart(Request $request, $slug) {
         $oldCart = Session('Cart') ? Session('Cart') : null;
         $newCart = new Cart($oldCart);
-        $newCart->DeleteItemCart($slug, $variantId);
+        $newCart->DeleteItemCart($slug);
 
         if (Count($newCart->products) > 0) {
             $request->Session()->put('Cart', $newCart);
@@ -64,10 +54,10 @@ class CartController extends Controller
         return view('cart/cartlist');
     }
 
-    public function SaveItemListCart(Request $request, $slug, $variantId, $quantity) {
+    public function SaveItemListCart(Request $request, $slug, $quantity) {
         $oldCart = Session('Cart') ? Session('Cart') : null;
         $newCart = new Cart($oldCart);
-        $newCart->UpdateItemCart($slug, $variantId, $quantity);
+        $newCart->UpdateItemCart($slug, $quantity);
 
         $request->Session()->put('Cart', $newCart);
         return view('cart/cartlist');
@@ -77,7 +67,7 @@ class CartController extends Controller
         foreach ($request->data as $item) {
             $oldCart = Session('Cart') ? Session('Cart') : null;
             $newCart = new Cart($oldCart);
-            $newCart->UpdateItemCart($item['slug'], $item['variant'], $item['quantity']);
+            $newCart->UpdateItemCart($item['key'], $item['value']);
             $request->Session()->put('Cart', $newCart);
         }
         return view('cart/cartlist');
@@ -89,7 +79,6 @@ class CartController extends Controller
     }
 
     public function CheckQuantity(Request $request) {
-//
 //        if ($request->Session()->has('Cart')) {
 //            if (($request->Session()->get('Cart')->products[$request->data['slug'].'&'.$request->data['variant']]['quantity'] + $request->data['quantity']) > $product->Quantity) {
 //                return 1;
