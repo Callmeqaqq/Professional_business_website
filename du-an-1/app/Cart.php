@@ -14,36 +14,36 @@ class Cart {
         }
     }
 
-    public function AddCart($product, $slug, $variantId, $quantity) {
-        $price = $product->ProductPrice + ($product->ProductPrice * $product->VariantPrice);
-        $newProduct = ['quantity' => 0, 'price' => $price, 'productInfo' => $product];
+    public function AddCart($product, $slug, $quantity) {
+        $newProduct = ['quantity' => 0, 'price' => $product->Price, 'productInfo' => $product];
         if ($this->products) {
-            if (array_key_exists($slug.'&'.$variantId, $this->products)) {
-                $newProduct = $this->products[$slug.'&'.$variantId];
+            if (array_key_exists($slug, $this->products)) {
+                $newProduct = $this->products[$slug];
             }
         }
-        $quantity > 1 ? $newProduct['quantity'] += $quantity : $newProduct['quantity']++;
+        $quantity > 1 ? $newProduct['quantity'] += $quantity : $newProduct['quantity']++;;
 
-        $newProduct['price'] = $newProduct['quantity'] * $price;
-        $this->products[$slug.'&'.$variantId] = $newProduct;
-        $quantity > 1 ? $this->totalPrice += $price * $quantity : $this->totalPrice += $price;
+        $newProduct['price'] = $newProduct['quantity'] * $product->Price;
+        $this->products[$slug] = $newProduct;
+        $this->totalPrice += $product->Price;
+        $quantity > 1 ? $this->totalPrice += $product->Price : $this->totalPrice += $product->Price * $quantity;
         $quantity > 1 ? $this->totalQuantity += $quantity : $this->totalQuantity++;
     }
 
-    public function DeleteItemCart($slug, $variantId) {
-        $this->totalQuantity = abs($this->totalQuantity -= $this->products[$slug.'&'.$variantId]['quantity']);
-        $this->totalPrice = abs($this->totalPrice -= $this->products[$slug.'&'.$variantId]['price']);
-        unset($this->products[$slug.'&'.$variantId]);
+    public function DeleteItemCart($slug) {
+        $this->totalQuantity -= $this->products[$slug]['quantity'];
+        $this->totalPrice -= $this->products[$slug]['price'];
+        unset($this->products[$slug]);
     }
 
-    public function UpdateItemCart($slug, $variantId, $quantity) {
-        $this->totalQuantity -= $this->products[$slug.'&'.$variantId]['quantity'];
-        $this->totalPrice -= $this->products[$slug.'&'.$variantId]['price'];
+    public function UpdateItemCart($slug, $quantity) {
+        $this->totalQuantity -= $this->products[$slug]['quantity'];
+        $this->totalPrice -= $this->products[$slug]['price'];
 
-        $this->products[$slug.'&'.$variantId]['quantity'] = $quantity;
-        $this->products[$slug.'&'.$variantId]['price'] = $quantity * $this->products[$slug.'&'.$variantId]['productInfo']->Price;
+        $this->products[$slug]['quantity'] = $quantity;
+        $this->products[$slug]['price'] = $quantity * $this->products[$slug]['productInfo']->Price;
 
-        $this->totalQuantity += $this->products[$slug.'&'.$variantId]['quantity'];
-        $this->totalPrice += $this->products[$slug.'&'.$variantId]['price'];
+        $this->totalQuantity += $this->products[$slug]['quantity'];
+        $this->totalPrice += $this->products[$slug]['price'];
     }
 }
