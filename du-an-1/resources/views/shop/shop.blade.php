@@ -20,18 +20,15 @@
         box-shadow: 0 0 5px #d0011b;
     }
 </style>
-<div class="banner">
-    <img style="width:100%;" src="{{asset('./images/banner/banner_shop.jpg')}}" alt="">
-</div>
 
+{{--{{ Breadcrumbs::render('shop') }}--}}
+@if(isset($data[0]->CategoryName))
+    {{Breadcrumbs::render('productCategory',$data[0]->CategoryName, $data[0]->CategorySlug)}}
+@else
+    {{Breadcrumbs::render('shop')}}
+@endif
 <div class="shop-area shop-page-responsive pb-100">
     <div class="container">
-        {{--{{ Breadcrumbs::render('shop') }}--}}
-        @if(isset($data[0]->CategoryName))
-            {{Breadcrumbs::render('productCategory',$data[0]->CategoryName, $data[0]->CategorySlug)}}
-        @else
-            {{Breadcrumbs::render('shop')}}
-        @endif
         <div class="row flex-row-reverse">
             <div class="col-lg-9">
                 <div class="shop-topbar-wrapper mb-40">
@@ -54,15 +51,13 @@
                                         </a>
                                         <div class="product-badge badge-top badge-right badge-pink">
                                                 @if ($item->Discount != 0)
-                                                <span style="padding:5px; background-color: #d0011b; color:white; border-radius: 10px;">-{{$item->Discount*100}}%</span>
+                                                <span>-{{$item->Discount*100}}%</span>
                                                 @endif
                                         </div>
                                         <div class="product-action-2-wrap">
-                                            @if (Session::has('LoggedUser'))
-                                            <button slug="{{$item->Slug}}" onclick="AddToCart('{{$item->Slug}}')" class="product-action-btn-2" title="Add To Cart"><i class="pe-7s-cart"></i> Thêm vào giỏ hàng</button>
-                                            @else
-                                                <a href="/buyer/login" class="product-action-btn-2" title="Add To Cart"><i class="pe-7s-cart"></i> Thêm vào giỏ hàng</a>
-                                            @endif
+                                            <a href="/products/{{$item->Slug}}" class="product-action-btn-2" title="Mua Ngay"><i
+                                                    class="pe-7s-cart"></i> Mua Ngay
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="product-content">
@@ -79,7 +74,7 @@
                                 @endforeach
                             </div>
 
-                            <div  class="paginate mb-40">
+                            <div  class="paginate" style="">
                                 {{$data -> links()}}
                             </div>
                         </div>

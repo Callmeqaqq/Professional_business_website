@@ -56,7 +56,6 @@
         </div>
     </div>
     <script>
-        //Thiết lập Slug
         $('#date-mask').on('keyup', function(){
             // alert('được');
             let title = $(this).val();

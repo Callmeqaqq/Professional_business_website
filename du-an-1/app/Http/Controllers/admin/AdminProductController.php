@@ -12,9 +12,8 @@ class AdminProductController extends Controller
     public function index(){
         $product = DB::table('product')->get();
         return view('admin/product/adminproduct',compact('product'));
+
     }
-//Sản Phẩm
-    //Thêm Sản Phẩm
     public function add(){
         $supplier = DB::table('supplier')->select('supplier.SupplierId','supplier.SupplierName')->get();
         $product = DB::table('product')->select('product.ProductId','product.ProductName')->get();
@@ -34,6 +33,7 @@ class AdminProductController extends Controller
             $name_color .= $request->ProductName;
             $name_color .= ' ';
             $name_color .= $request->Color;
+//        dd($request->All());
 //        Up ảnh mặc định lên nà
             $file = $request->Images;
             $file_name = $file->getClientOriginalName();
@@ -75,7 +75,7 @@ class AdminProductController extends Controller
 //        Chèn Biến thể mặc định cho Sản phẩm mới tạo
             DB::table('variant')
                 ->insert([
-                    'VariantName' => $request->Color,
+                    'VariantName' => $name_color,
                     'Price' => 0,
                     'Description' => $name_color,
                     'Active' => 1,
@@ -89,7 +89,59 @@ class AdminProductController extends Controller
         }
         Return redirect()->route('add-product');
     }
-    //Sửa Sản Phẩm
+
+    public function add_category(){
+        return view('admin/product/addcategory');
+    }
+    public function create_category(Request $request){
+//        dd($request->All());
+//        exit();
+        $file = $request->CategoryImage;
+        $file_name = $file->getClientOriginalName();
+        $file->move(base_path('public/images/product'),$file_name);
+
+        DB::table('category')
+            ->insert([
+                'CategoryName'=> $request->CategoryName,
+                'CategoryImage'=> $file_name,
+                'CatActive'=>$request->CatActive,
+                'CategorySlug'=>$request->CategorySlug
+            ]);
+
+        session()->put('add-success', $request->CategoryName);
+        Return redirect()->route('add-category');
+    }
+
+    public function create_variant(Request $request){
+//        dd($request->All());
+//        exit();
+        $file = $request->Images;
+        $file_name = $file->getClientOriginalName();
+        $file->move(base_path('public/images/product'),$file_name);
+
+        $name = DB::table('product')
+            ->where('ProductId','=',$request->ProductId)
+            ->select('ProductName')
+            ->first();
+
+        $name_color = $name->ProductName;
+        $name_color.=' ';
+        $name_color.=$request->Color;
+
+        DB::table('variant')
+            ->insert([
+                'VariantName'=>$name_color,
+                'Price'=>($request->Price_variant)/100,
+                'Description' =>$request->Description,
+                'Active'=>$request->Active,
+                'Color'=>$file_name,
+                'ProductId'=>$request->ProductId,
+                'Quantity'=>$request->Quantity
+            ]);
+        session()->put('add-success-v',$name_color);
+        Return redirect()->route('add-product');
+    }
+
     public function edit($slug){
         $supplier = DB::table('supplier')->select('supplier.SupplierId','supplier.SupplierName')->get();
         $product = DB::table('product')->select('product.ProductId','product.ProductName')->get();
@@ -98,317 +150,65 @@ class AdminProductController extends Controller
             $ProductId = $gd->ProductId;
         }
         $image  = DB::table('product_image')->where('ProductId','=',$ProductId)->get();
-        $variant = DB::table('variant')->where('ProductId','=',$ProductId)->get();
-        return view('admin/product/editproduct',compact('supplier','product','get_product','image','variant'));
+
+        return view('admin/product/editproduct',compact('supplier','product','get_product','image'));
     }
+
     public function createedit(Request $request){
-//        Check trùng tên
-        $check=0;
-        if($request->Slug!=null){
-            $check_name = DB::table('product')->where('ProductName',$request->ProductName)->get();
-            foreach($check_name as $item){
-                $check++;
-            }
-        }
-//        Xử lí update
-        if($check==0){
-//            Nếu không chỉnh sửa tên không cần update tên
-            if($request->Slug != null){
-                DB::table('product')->where('ProductId','=',$request->ProductId)->update([
-                    'ProductName'=>$request->ProductName,
-                    'Slug'=>$request->Slug
-                ]);
-            }
+//        dd($request->all());
+        if($request->Slug != null){
             DB::table('product')->where('ProductId','=',$request->ProductId)->update([
-                'CategoryId'=>$request->CategoryId,
-                'SupplierId'=>$request->SupplierId,
-                'Price'=>$request->price_new,
-                'Discount' => $request->Discount,
-                'Weight' =>$request->Weight,
-                'Descreption' =>$request->Descreption,
-                'Active' =>$request->Active,
-            ]);
-//            Update Ảnh
-            if(isset($request->Images)){
-                $file = $request->Images;
-                $file_name = $file->getClientOriginalName();
-                $file->move(base_path('public/images/product'),$file_name);
-
-                DB::table('product')->where('ProductId','=',$request->ProductId)->update([
-                    'Images'=>$file_name
-                ]);
-            }
-//            Check số lượng ảnh và xử lí trả dữ liệu sai về cho admin biết
-            $count = DB::table('product_image')->where('ProductId','=',$request->ProductId)->count();
-            $thua = 0;
-            $success=0;
-            if(isset($request->images_multiple)){
-                foreach ($request->images_multiple as $img){
-                    $count++;
-                    if($count <= 8){
-                        $file = $img;
-                        $file_name1 = $file->getClientOriginalName();
-                        $file->move(base_path('public/images/product'),$file_name1);
-                        DB::table('product_image')
-                            ->insert([
-                                'images'=>$file_name1,
-                                'ProductId'=>$request->ProductId
-                            ]);
-                        $success++;
-                    }else{
-                        $thua++;
-                    }
-                }
-            }
-            if($thua!=0){
-                session()->put('thua',$thua);
-                session()->put('duoc',$success);
-            }
-            session()->put('edit-success',$request->ProductId);
-        }else{
-            session()->put('edit-failed','a');
-        }
-//        Nếu chỉnh sửa tên sản phẩm thành công sẽ trả về route có Slug mới được cập nhật. Trả về trang trước nếu không cập nhật Tên
-        if(isset($request->Slug)){
-            Return redirect()->route('admin.edit',[$request->Slug]);
-        }else{
-            Return redirect()->back();
-        }
-
-    }
-    //Xóa Sản Phẩm
-    public function delete_product($slug){
-//        Lấy id sản phẩm từ slug
-        $ProductId = DB::table('product')->select('ProductId','ProductName')->where('Slug',$slug)->get();
-        foreach ($ProductId as $item){
-            $id = $item->ProductId;
-            $name = $item->ProductName;
-        }
-//        Xử lí khi xóa sản phẩm sẽ xóa tất cả hình ảnh sản phẩm biến thể sản phẩm liên quan
-        DB::table('variant')->where('ProductId',$id)->delete();
-        DB::table('product_image')->where('ProductId',$id)->delete();
-        DB::table('product')->where('Slug',$slug)->delete();
-//      Trả session thông báo thành công
-        session()->put('del-success',$name);
-        Return redirect()->route('admin.product');
-    }
-
-//Danh Mục
-    //Thêm Danh Mục
-    public function add_category(){
-        return view('admin/product/addcategory');
-    }
-    public function create_category(Request $request){
-
-//        Xử lí ảnh
-        $file = $request->CategoryImage;
-        $file_name = $file->getClientOriginalName();
-        $file->move(base_path('public/images/product'),$file_name);
-//      Xử lí thêm danh mục mới
-        DB::table('category')
-            ->insert([
-                'CategoryName'=> $request->CategoryName,
-                'CategoryImage'=> $file_name,
-                'CatActive'=>$request->CatActive,
-                'CategorySlug'=>$request->CategorySlug
-            ]);
-//      Trả session thông báo thành công
-        session()->put('add-success', $request->CategoryName);
-        Return redirect()->route('add-category');
-    }
-    //Sửa Danh Mục
-    public function edit_category($slug){
-        $category = DB::table('category')->where('CategorySlug', $slug)->get();
-        return view('admin/product/editcategory',compact('category'));
-    }
-    public function createedit_category(Request $request){
-//        Xử lí khi update trùng tên sản danh mục khác hoặc danh mục hiện tại
-        $check=0;
-        if($request->CategoryName != null){
-//            Xử lí khi update có update tên
-            $check_name = DB::table('category')->where('CategorySlug',$request->CategorySlug)->get();
-            foreach($check_name as $item){
-                $check++;
-            }
-//            Nếu không trùng xử lí update danh mục lên DB
-            if($check==0){
-                DB::table('category')->where('CategoryId',$request->CategoryId)->update([
-                   'CategoryName'=>$request->CategoryName,
-                   'CategorySlug'=>$request->CategorySlug,
-                   'CatActive'=>$request->CatActive
-                ]);
-//                Nếu tồn tại ảnh thì update ảnh
-                if(isset($request->Images)){
-                    $file = $request->Images;
-                    $file_name = $file->getClientOriginalName();
-                    $file->move(base_path('public/images/product'),$file_name);
-
-                    DB::table('category')->where('CategoryId','=',$request->CategoryId)->update([
-                        'CategoryImage' => $file_name
-                    ]);
-                };
-            }
-        }else{
-//            Xử lí khi ko update tên
-            if(isset($request->Images)){
-                $file = $request->Images;
-                $file_name = $file->getClientOriginalName();
-                $file->move(base_path('public/images/product'),$file_name);
-
-                DB::table('category')->where('CategoryId','=',$request->CategoryId)->update([
-                    'CategoryImage' => $file_name
-                ]);
-            };
-            DB::table('category')->where('CategoryId',$request->CategoryId)->update([
-               'CatActive'=>$request->CatActive
+                'ProductName'=>$request->ProductName,
+                'Slug'=>$request->Slug
             ]);
         }
-        if($check==0){
-//            Nếu update thành công
-            session()->put('e-success',$request->CategoryId);
-        }else{
-//            Nếu update thất bại
-            session()->put('e-failed','a');
-        }
-//        Return khi có update tên và thêm thành công. Ngược lại sẽ là return về khi thất bại và các trường hợp khác
-        if($request->CategorySlug!=null && $check==0){
-            Return redirect()->route('edit.category',[$request->CategorySlug]);
-        }else{
-            Return redirect()->back();
-        }
-
-    }
-    //Xóa Sản Phẩm
-    public function delete_category($slug){
-//        Xử lí lấy id và tên Danh mục khi có Slug
-        $cat_id=DB::table('category')->select('CategoryId','CategoryName')->where('CategorySlug',$slug)->get();
-        foreach($cat_id as $cat){
-            $id=$cat->CategoryId;
-            $name=$cat->CategoryName;
-        }
-//        Dựa vào id ta lấy được tất cả các id sản phẩm có trong danh mục.
-        $pro_id=DB::table('product')->select('ProductId')->where('CategoryId',$id)->get();
-//        Xử lí xóa tất cả sản phẩm biến thể sản phẩm hình sản phẩm có liên quan đến danh mục bị xóa trước để ko bị lỗi khóa ngoại
-        foreach($pro_id as $pd){
-//            Xóa Biến thể và hình ảnh sản phẩm trước
-            DB::table('variant')->where('ProductId',$pd->ProductId)->delete();
-            DB::table('product_image')->where('ProductId',$pd->ProductId)->delete();
-//            Xóa Sản Phẩm tiếp theo
-            DB::table('product')->where('ProductId',$pd->ProductId)->delete();
-        }
-//        Sau đó xử lí xóa danh mục sau cùng
-        DB::table('category')->where('CategoryId',$id)->delete();
-//        Trả session thông báo thành công
-        session()->put('del-success',$name);
-        Return redirect()->route('admin.category');
-    }
-
-//Biến thể
-    //Thêm Biến Thể
-    public function create_variant(Request $request){
-
-
-        $name = DB::table('product')
-            ->where('ProductId','=',$request->ProductId)
-            ->select('ProductName')
-            ->first();
-        $check_name = DB::table('variant')->where('ProductId','=',$request->ProductId)->get();
-        $check=0;
-        foreach ($check_name as $item){
-            if($item->VariantName == $request->Color){
-                $check = 1;
-                break;
-            }
-        }
-        if($check == 0){
-
-//        Update Ảnh biến thể
+        DB::table('product')->where('ProductId','=',$request->ProductId)->update([
+            'CategoryId'=>$request->CategoryId,
+            'SupplierId'=>$request->SupplierId,
+            'Price'=>$request->price_new,
+            'Discount' => $request->Discount,
+            'Weight' =>$request->Weight,
+            'Descreption' =>$request->Descreption,
+            'Active' =>$request->Active,
+        ]);
+        if(isset($request->Images)){
             $file = $request->Images;
             $file_name = $file->getClientOriginalName();
             $file->move(base_path('public/images/product'),$file_name);
-//        Lấy tên sản phẩm và màu để thông báo
-            $name_color = $name->ProductName;
-            $name_color.=' ';
-            $name_color.=$request->Color;
-//            Tiến hành thêm biến thể
-            DB::table('variant')
-                ->insert([
-                    'VariantName'=>$request->Color,
-                    'Price'=>($request->Price_variant)/100,
-                    'Description' =>$request->Description,
-                    'Active'=>$request->Active,
-                    'Color'=>$file_name,
-                    'ProductId'=>$request->ProductId,
-                    'Quantity'=>$request->Quantity
-                ]);
-//            Trả về session thành công
-            session()->put('add-success-v',$name_color);
-        }else{
-//            Trả về session thất bại khi trùng tên
-            session()->put('add-success-f',$request->Color);
-        }
 
-        Return redirect()->route('add-product');
-    }
-    //Sửa Biến Thẻ
-    public function edit_variant(Request $request){
-//      Kiểm tra trùng tên
-        $check=0;
-        $check_null=0;
-        if($request->VariantName!=null){
-//            Kiểm tra có trùng tên biến thể khác hay biến thể hiện tại không
-            $check_name=DB::table('variant')->where('VariantName',$request->VariantName)->where('ProductId',$request->ProductId)->get();
-            foreach($check_name as $item){
-                $check++;
-            }
-        }else{
-//            Kiểm tra tên có rỗng hay không
-            $check_null++;
-        }
-//      Nếu không trùng thì tiếp tục
-        if($check==0){
-//            Nếu không rỗng thì update Tên biến thể
-            if($check_null==0) {
-                DB::table('variant')->where('VariantId', $request->VariantId)->update([
-                    'VariantName' => $request->VariantName
-                ]);
-            }
-//           Update các thông tin khác
-            DB::table('variant')->where('VariantId',$request->VariantId)->update([
-
-                'Price'=>$request->Price_variant/100,
-                'Description'=>$request->Description,
-                'Active'=>$request->Active,
-                'Quantity'=>$request->Quantity
+            DB::table('product')->where('ProductId','=',$request->ProductId)->update([
+               'Images'=>$file_name
             ]);
-//            Nếu có hình ảnh thì update hình ảnh mới
-            if(isset($request->Images)){
-                $file = $request->Images;
-                $file_name = $file->getClientOriginalName();
-                $file->move(base_path('public/images/product'),$file_name);
-
-                DB::table('variant')->where('VariantId',$request->VariantId)->update([
-                    'Color'=>$file_name
-                ]);
-            }
-//            Trả về thông báo khi thành công
-            session()->put('add-success-v',$request->VariantId);
-        }else{
-//            Trả về thông báo lỗi khi thất bại
-            session()->put('add-success-f',$request->VariantId);
         }
-
-        Return redirect()->route('admin.edit',[$request->Slug]);
-    }
-    //Xóa Biến Thể
-    public function delete_variant($id){
-        DB::table('variant')->where('VariantId',$id)->delete();
-        session()->put('del-success-v',$id);
+        $count = DB::table('product_image')->where('ProductId','=',$request->ProductId)->count();
+        $thua = 0;
+        $success=0;
+        if(isset($request->images_multiple)){
+            foreach ($request->images_multiple as $img){
+                $count++;
+                if($count <= 8){
+                    $file = $img;
+                    $file_name1 = $file->getClientOriginalName();
+                    $file->move(base_path('public/images/product'),$file_name1);
+                    DB::table('product_image')
+                        ->insert([
+                            'images'=>$file_name1,
+                            'ProductId'=>$request->ProductId
+                        ]);
+                    $success++;
+                }else{
+                    $thua++;
+                }
+            }
+        }
+        if($thua!=0){
+            session()->put('thua',$thua);
+            session()->put('duoc',$success);
+        }
+        session()->put('edit-success',$request->ProductId);
         Return redirect()->back();
     }
 
-//Hình Ảnh Sản phẩm
-    //Load hình ảnh update sản phẩm bằng hàm Ajax
     public function load_img(Request $request){
 //        dd($request->All());
         $img = DB::table('product_image')->where('ProductId',$request->productId)->get();
@@ -425,7 +225,7 @@ class AdminProductController extends Controller
         $output .= '</div>';
         echo $output;
     }
-    //Xóa hình ảnh update sản phẩm bằng Ajax
+
     public function deleteimg(Request $request){
         DB::table('product_image')->where('ImageId',$request->idimg)->delete();
     }

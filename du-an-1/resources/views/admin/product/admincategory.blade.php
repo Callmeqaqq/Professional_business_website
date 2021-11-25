@@ -1,14 +1,12 @@
 @extends('layouts.admin')
 @section('main')
     <div class="row">
+        <!-- ============================================================== -->
+        <!-- basic table  -->
+        <!-- ============================================================== -->
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <h3 class="card-header">Danh mục sản phẩm</h3>
-                @if(session()->has('del-success'))
-                    <div class="alert alert-danger col3">
-                        <strong>Bạn đã xóa thành công danh mục "{{session()->pull('del-success')}}"</strong>
-                    </div>
-                @endif
                 <div class="card-body">
                     <div class="table-responsive">
                         <table
@@ -41,8 +39,8 @@
                                     </td>
 {{--                                    <td>{{date('d-m-Y', strtotime($pd->CreateAt))}}</td>--}}
                                     <td>
-                                        <a href="{{asset('admin/product/edit-category/'.$cat->CategorySlug)}}"><button class="btn btn-outline-primary">Sửa</button></a>
-                                        <a href="{{asset('admin/product/delete-category/'.$cat->CategorySlug)}}"><button class="btn btn-outline-danger">Xóa</button></a>
+                                        <button class="btn btn-outline-primary">Sửa</button>
+                                        <button class="btn btn-outline-danger">Xóa</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -52,5 +50,8 @@
                 </div>
             </div>
         </div>
+        <!-- ============================================================== -->
+        <!-- end basic table  -->
+        <!-- ============================================================== -->
     </div>
 @stop()

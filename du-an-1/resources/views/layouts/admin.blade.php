@@ -16,7 +16,7 @@
     <!-- ============================================================== -->
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}"><img src="{{asset('images/logo/logo1.png')}}" alt=""></a>
+            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}">Metah</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
                     <li class="nav-item dropdown nav-user">
@@ -156,11 +156,11 @@
 <script>
     $(document).ready(function () {
         $("#table").DataTable({
-            lengthMenu: [10, 20, 30],
+            lengthMenu: [5, 10, 20, 30],
             language: {
                 processing: "Đang tải dữ liệu",
                 search: "Tìm kiếm: ",
-                lengthMenu: "Lượng hiển thị:  " + " _MENU_ ",
+                lengthMenu: "Lượng hiển thị " + " _MENU_ ",
                 info: "_START_ - _END_ / _TOTAL_",
                 infoEmpty: "Không có dữ liệu",
                 infoFiltered: "(Trên tổng _MAX_ mục)",
