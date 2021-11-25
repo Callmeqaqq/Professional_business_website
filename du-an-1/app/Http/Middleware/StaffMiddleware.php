@@ -17,7 +17,7 @@ class StaffMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $user_role = DB::table('users')->where('UserId', '=', Session('LoggedUser'))->value('role');
+        $user_role = DB::table('users')->where('UserId', '=', Session('LoggedUser'))->value('UserRole');
         $sale = 1;
         $warehouse = 2;
         $hr = 3;
@@ -25,7 +25,7 @@ class StaffMiddleware
         $sup_admin = 5;
         $staff_check = array($sale, $warehouse, $hr, $mng, $sup_admin);
         if (!in_array($user_role, $staff_check)) {
-            return redirect('/Somethingwentwrong');
+            return redirect('/SoMeThInGwEnTwRoNg');
         }
         return $next($request);
     }

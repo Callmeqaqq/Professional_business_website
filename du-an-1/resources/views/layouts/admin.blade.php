@@ -75,7 +75,7 @@
                     <ul class="navbar-nav flex-column">
                         <li class="nav-divider">Menu</li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" aria-expanded="false"
+                            <a class="nav-link" href="{{route('admin.index')}}" aria-expanded="false"
                             ><i class="fa fa-fw fa-user-circle"></i>Dashboard
                                 <span class="badge badge-success">6</span></a
                             >

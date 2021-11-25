@@ -51,6 +51,20 @@ class Kernel extends HttpKernel
             'isLogged' => \App\Http\Middleware\AuthCheck::class,
             'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
             'check_role' => \App\Http\Middleware\StaffMiddleware::class,
+        ],
+
+        'check_view_permissions' => [
+            'isLogged' => \App\Http\Middleware\AuthCheck::class,
+            'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
+            'check_role' => \App\Http\Middleware\StaffMiddleware::class,
+            'check_view_permissions' => \App\Http\Middleware\ViewPermission::class,
+        ],
+
+        'check_create_permissions' => [
+            'isLogged' => \App\Http\Middleware\AuthCheck::class,
+            'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
+            'check_role' => \App\Http\Middleware\StaffMiddleware::class,
+            'check_create_permissions' => \App\Http\Middleware\CreatePermission::class,
         ]
     ];
 
@@ -65,7 +79,7 @@ class Kernel extends HttpKernel
         // custom middleware
         'isLogged' => \App\Http\Middleware\AuthCheck::class,
         'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
-        'check_role' => \App\Http\Middleware\StaffMiddleware::class,
+        'role' => \App\Http\Middleware\RoleCheck::class,
 
         // default
         'auth' => \App\Http\Middleware\Authenticate::class,

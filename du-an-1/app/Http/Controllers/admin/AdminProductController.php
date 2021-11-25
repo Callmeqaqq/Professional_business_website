@@ -5,19 +5,19 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
 
 class AdminProductController extends Controller
 {
     public function index()
     {
-
         $product = DB::table('product')->get();
         return view('admin/product/adminproduct', compact('product'));
     }
 
-//Sản Phẩm
-    //Thêm Sản Phẩm    public function add()
+    //Thêm Sản Phẩm
+    public function add()
     {
         $supplier = DB::table('supplier')->select('supplier.SupplierId', 'supplier.SupplierName')->get();
         $product = DB::table('product')->select('product.ProductId', 'product.ProductName')->get();
@@ -144,7 +144,8 @@ class AdminProductController extends Controller
                 'Images' => $file_name
             ]);
         }
-//            Check số lượng ảnh và xử lí trả dữ liệu sai về cho admin biết        $count = DB::table('product_image')->where('ProductId', '=', $request->ProductId)->count();
+//            Check số lượng ảnh và xử lí trả dữ liệu sai về cho admin biết
+        $count = DB::table('product_image')->where('ProductId', '=', $request->ProductId)->count();
         $thua = 0;
         $success = 0;
         if (isset($request->images_multiple)) {
@@ -411,7 +412,6 @@ class AdminProductController extends Controller
         Return redirect()->back();
     }
 
-//Hình Ảnh Sản phẩm
     //Load hình ảnh update sản phẩm bằng hàm Ajax
     public function load_img(Request $request)
     {
