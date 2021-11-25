@@ -22,12 +22,15 @@ class Cart {
                 $newProduct = $this->products[$slug.'&'.$variantId];
             }
         }
-        $quantity > 1 ? $newProduct['quantity'] += $quantity : $newProduct['quantity']++;
+//        $quantity > 1 ? $newProduct['quantity'] += $quantity : $newProduct['quantity']++;
+        $newProduct['quantity'] += $quantity;
 
         $newProduct['price'] = $newProduct['quantity'] * $price;
         $this->products[$slug.'&'.$variantId] = $newProduct;
-        $quantity > 1 ? $this->totalPrice += $price * $quantity : $this->totalPrice += $price;
-        $quantity > 1 ? $this->totalQuantity += $quantity : $this->totalQuantity++;
+//        $quantity > 1 ? $this->totalPrice += $price * $quantity : $this->totalPrice += $price;
+//        $quantity > 1 ? $this->totalQuantity += $quantity : $this->totalQuantity++;
+        $this->totalPrice += $price * $quantity;
+        $this->totalQuantity += $quantity;
     }
 
     public function DeleteItemCart($slug, $variantId) {

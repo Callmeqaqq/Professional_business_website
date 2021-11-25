@@ -26,7 +26,7 @@ class CartController extends Controller
 //            if (($request->Session()->get('Cart')->products[$slug.'&'.$variantId]['quantity'] + $quantity) > $product->Quantity) {
 //            }
 //        }
-
+//        dd($product);
         if ($product != null) {
             $oldCart = Session('Cart') ? Session('Cart') : null;
             $newCart = new Cart($oldCart);
