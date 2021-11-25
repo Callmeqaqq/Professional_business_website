@@ -6,14 +6,6 @@
     <title>MetaH - Mơ ước của mọi nhà</title>
     <meta name="robots" content="noindex, follow"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <!-- Jquery -->
-{{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--}}
-<!-- Add site Favicon -->
-<!-- Add site Favicon -->
-    {{--    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB_AA5smsg2IRTnjdq6d93fPvbLJDZKTA&libraries=places"></script>--}}
-    {{--        // AIzaSyCB_AA5smsg2IRTnjdq6d93fPvbLJDZKTA--}}
-    {{--        // &callback=initMap--}}
-
     {{--    GoongMap--}}
     <script src="https://cdn.jsdelivr.net/npm/@goongmaps/goong-js@1.0.9/dist/goong-js.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/@goongmaps/goong-js@1.0.9/dist/goong-js.css" rel="stylesheet" />
@@ -48,7 +40,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-6 col-6">
                         <div class="logo">
-                            <a href="{{url('/')}}"><img src="{{asset('/images/logo/logo.png')}}" alt="logo"/></a>
+                            <a href="{{url('/')}}"><img src="{{asset('/images/logo/logo3.png')}}" alt="logo"/></a>
                         </div>
                     </div>
                     <div class="col-lg-6 d-none d-lg-block d-flex justify-content-center">
