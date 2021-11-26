@@ -20,14 +20,16 @@ class ViewPermission
     {
         $userID = Session::get('LoggedUser');
         $action = 'VIEW';
+        $permission_view = 2; //database set
         $test = DB::table('users')
             ->join('user_per','users.UserID','=','user_per.id_user')
             ->join('permission','user_per.id_per','=','permission.id_per')
             ->join('permission_detail','permission.id_per','=','permission_detail.id_per')
             ->where('users.UserID','=', $userID)
+            ->where('user_per.id_per', '=' , $permission_view)
             ->where('user_per.licenced', '=',  '1')//giấy phép: 1 = true, 0 = false
             ->where('action_code', '=', $action)//chi tiết quyền
-            ->value('check_action');//return 1 || 0
+            ->value('check_action');
         ;
         if($test != 1){
             return redirect('/SoMeThInGwEnTwRoNg');

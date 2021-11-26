@@ -57,28 +57,28 @@ class Kernel extends HttpKernel
             'isLogged' => \App\Http\Middleware\AuthCheck::class,
             'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
             'check_role' => \App\Http\Middleware\StaffMiddleware::class,
-            'check_view_permissions' => \App\Http\Middleware\ViewPermission::class,
+            'check_view' => \App\Http\Middleware\ViewPermission::class,
         ],
 
         'check_create_permissions' => [
             'isLogged' => \App\Http\Middleware\AuthCheck::class,
             'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
             'check_role' => \App\Http\Middleware\StaffMiddleware::class,
-            'check_create_permissions' => \App\Http\Middleware\CreatePermission::class,
+            'check_create' => \App\Http\Middleware\CreatePermission::class,
         ],
 
         'check_edit_permissions' => [
             'isLogged' => \App\Http\Middleware\AuthCheck::class,
             'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
             'check_role' => \App\Http\Middleware\StaffMiddleware::class,
-            'check_edit_permissions' => \App\Http\Middleware\EditPermission::class,
+            'check_edit' => \App\Http\Middleware\EditPermission::class,
         ],
 
         'check_delete_permissions' => [
             'isLogged' => \App\Http\Middleware\AuthCheck::class,
             'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
             'check_role' => \App\Http\Middleware\StaffMiddleware::class,
-            'check_delete_permissions' => \App\Http\Middleware\DeletePermission::class,
+            'check_delete' => \App\Http\Middleware\DeletePermission::class,
         ]
     ];
 
