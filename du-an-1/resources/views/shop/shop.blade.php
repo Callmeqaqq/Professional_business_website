@@ -6,29 +6,32 @@
         justify-content: center;
     }
     .page-item.active .page-link {
-        background-color: #ff6347;
-        border-color: #ff6347;
+        background-color: #d0011b;
+        border-color: #d0011b;
     }
     .page-link {
         color: black;
     }
     .page-link:hover {
-        color: #ff6347;
+        color: #d0011b;
     }
     .pagination a:focus {
         color: black;
-        box-shadow: 0 0 5px #ff6347;
+        box-shadow: 0 0 5px #d0011b;
     }
 </style>
+<div class="banner">
+    <img style="width:100%;" src="{{asset('./images/banner/banner_shop.jpg')}}" alt="">
+</div>
 
-{{--{{ Breadcrumbs::render('shop') }}--}}
-@if(isset($data[0]->CategoryName))
-    {{Breadcrumbs::render('productCategory',$data[0]->CategoryName, $data[0]->CategorySlug)}}
-@else
-    {{Breadcrumbs::render('shop')}}
-@endif
-<div class="shop-area shop-page-responsive pt-100 pb-100">
+<div class="shop-area shop-page-responsive pb-100">
     <div class="container">
+        {{--{{ Breadcrumbs::render('shop') }}--}}
+        @if(isset($data[0]->CategoryName))
+            {{Breadcrumbs::render('productCategory',$data[0]->CategoryName, $data[0]->CategorySlug)}}
+        @else
+            {{Breadcrumbs::render('shop')}}
+        @endif
         <div class="row flex-row-reverse">
             <div class="col-lg-9">
                 <div class="shop-topbar-wrapper mb-40">
@@ -51,15 +54,13 @@
                                         </a>
                                         <div class="product-badge badge-top badge-right badge-pink">
                                                 @if ($item->Discount != 0)
-                                                <span>-{{$item->Discount*100}}%</span>
+                                                <span style="padding:5px; background-color: #d0011b; color:white; border-radius: 10px;">-{{$item->Discount*100}}%</span>
                                                 @endif
                                         </div>
                                         <div class="product-action-2-wrap">
-                                            @if (Session::has('LoggedUser'))
-                                            <button slug="{{$item->Slug}}" onclick="AddToCart('{{$item->Slug}}')" class="product-action-btn-2" title="Add To Cart"><i class="pe-7s-cart"></i> Thêm vào giỏ hàng</button>
-                                            @else
-                                                <a href="/buyer/login" class="product-action-btn-2" title="Add To Cart"><i class="pe-7s-cart"></i> Thêm vào giỏ hàng</a>
-                                            @endif
+                                            <a href="/products/{{$item->Slug}}" class="product-action-btn-2" title="Mua Ngay"><i
+                                                    class="pe-7s-cart"></i> Mua Ngay
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="product-content">
@@ -76,7 +77,7 @@
                                 @endforeach
                             </div>
 
-                            <div  class="paginate" style="">
+                            <div  class="paginate mb-40">
                                 {{$data -> links()}}
                             </div>
                         </div>
@@ -132,7 +133,6 @@
                                 <li><a class="blue" href="#">Xanh <span>9</span></a></li>
                                 <li><a class="brown" href="#">Xám <span>5</span></a></li>
                                 <li><a class="red" href="#">Đỏ <span>3</span></a></li>
-                                <li><a class="orange" href="#">Cam <span>4</span></a></li>
                             </ul>
                         </div>
                     </div>

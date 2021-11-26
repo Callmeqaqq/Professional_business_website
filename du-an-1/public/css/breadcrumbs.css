@@ -1,5 +1,5 @@
 #crumbs {
-    margin: 0 10% 0 10%;
+    margin:10px -10px;
 }
 
 #crumbs ul {
@@ -16,11 +16,11 @@
 }
 
 #crumbs a {
-    background: #ddd;
+    background: black;
     padding: .7em 1em;
     float: left;
     text-decoration: none;
-    color: #444;
+    color: white;
     text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
     position: relative;
     transition: all 0s ease 0s;
@@ -37,8 +37,8 @@
 }
 
 #crumbs a:hover {
-    background: #e97730;
-    color: #ddd;
+    background: #d0011b;
+    color: white;
 }
 
 #crumbs li:not(:first-child)>a::before {
@@ -48,12 +48,12 @@
     margin-top: -1.5em;
     border-width: 1.5em 0 1.5em 1em;
     border-style: solid;
-    border-color: #ddd #ddd #ddd transparent;
+    border-color: black black black transparent;
     left: -1em;
 }
 
 #crumbs li:not(:first-child)>a:hover::before {
-    border-color: #e97730 #e97730 #e97730 transparent;
+    border-color: #d0011b #d0011b #d0011b transparent;
     transition-delay: 0s;
 }
 
@@ -64,10 +64,10 @@
     margin-top: -1.5em;
     border-top: 1.5em solid transparent;
     border-bottom: 1.5em solid transparent;
-    border-left: 1em solid #ddd;
+    border-left: 1em solid black;
     right: -1em;
 }
 
 #crumbs li:not(:last-child)>a:hover::after {
-    border-left-color: #e97730;
+    border-left-color: #d0011b;
 }

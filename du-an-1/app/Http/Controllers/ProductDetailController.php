@@ -18,7 +18,7 @@ class ProductDetailController extends Controller
                         -> Get();
         $variant = DB::table('product')
                         ->join('variant', 'product.ProductId', '=', 'variant.ProductId')
-                        ->select('variant.Color','variant.VariantName','variant.Quantity','variant.VariantId')
+                        ->select('variant.*')
                         ->where('Slug','=', $slug)
                         ->Get();
         $comment = DB::table('comment')
@@ -89,12 +89,12 @@ class ProductDetailController extends Controller
             $star2='';
             for($i = 1; $i <= $comm->Rating; $i++){
                 $star1 .='
-                <i style="color:#e97730" class="fas fa-star"></i>
+                <i style="color:#d0011b" class="fas fa-star"></i>
             ';
             }
             for($i = 1; $i <= 5-($comm->Rating); $i++){
                 $star2 .='
-                <i style="color:#e97730" class="far fa-star"></i>
+                <i style="color:#d0011b" class="far fa-star"></i>
             ';
             }
             $output.='
@@ -106,7 +106,7 @@ class ProductDetailController extends Controller
                         <div class="review-rating">
                               '.$star1.''.$star2.'
                         </div>
-                        <h5><span>'.$comm->Fullname.'</span> - Ngày '.date('d-m-Y', strtotime($comm->CreateAt)).'</h5>
+                        <h5><span style="font-weight: bold;">'.$comm->Fullname.'</span> - Ngày '.date('d-m-Y', strtotime($comm->CreateAt)).'</h5>
                         <p>'.$comm->Content.'</p>
                     </div>
                 </div>
@@ -142,6 +142,35 @@ class ProductDetailController extends Controller
         $output = '
             <span>Số lượng còn lại: '.session('quantity').'</span>
         ';
+        echo $output;
+    }
+
+    function price(Request $request){
+        $variantId = $request->variantId;
+
+        $discount = DB::table('product')->where('ProductId','=', $request->productId)->get();
+
+        foreach ($discount as $dis){
+            $discount = $dis->Discount;
+            $new_price = $dis->Price;
+        }
+
+        $price_variant = DB::table('variant')->where('VariantId','=', $variantId)->select('Price')->get();
+        foreach ($price_variant as $prv){
+            $price_variant = $prv->Price;
+        }
+
+        $new_price = $new_price+($price_variant*$new_price);
+        $output = '';
+        $output .= '
+            <span class="new-price">'.number_format($new_price).'<sup>đ</sup></span> <br>
+        ';
+        if($discount != 0){
+            $output .='<span class="old-price">'.number_format(($new_price)*100/((1-$discount)*100)).'<sup>đ</sup></span>
+                        <span class="dis-c">-'.$discount*100 .'%</span>
+        ';
+        }
+//        dd($output);
         echo $output;
     }
 }

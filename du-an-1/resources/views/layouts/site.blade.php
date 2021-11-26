@@ -6,14 +6,6 @@
     <title>MetaH - Mơ ước của mọi nhà</title>
     <meta name="robots" content="noindex, follow"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <!-- Jquery -->
-{{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--}}
-<!-- Add site Favicon -->
-<!-- Add site Favicon -->
-    {{--    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB_AA5smsg2IRTnjdq6d93fPvbLJDZKTA&libraries=places"></script>--}}
-    {{--        // AIzaSyCB_AA5smsg2IRTnjdq6d93fPvbLJDZKTA--}}
-    {{--        // &callback=initMap--}}
-
     {{--    GoongMap--}}
     <script src="https://cdn.jsdelivr.net/npm/@goongmaps/goong-js@1.0.9/dist/goong-js.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/@goongmaps/goong-js@1.0.9/dist/goong-js.css" rel="stylesheet" />
@@ -42,31 +34,13 @@
 
 <body>
 <div class="main-wrapper main-wrapper-2">
-    <header class="header-area header-responsive-padding header-height-1">
-        <div class="header-top d-none d-lg-block bg-gray ">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-6">
-                        <div class="welcome-text">
-                            <p>Chào Mừng đến MetaH</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-6">
-                        <div class="language-currency-wrap">
-                            <div class="language-wrap">
-                                <a class="language-active" href="#">Tiếng Việt</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <header class="header-area header-responsive-padding">
         <div class="header-bottom sticky-bar">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-6 col-6">
                         <div class="logo">
-                            <a href="{{url('/')}}"><img src="{{asset('/images/logo/logo.png')}}" alt="logo"/></a>
+                            <a href="{{url('/')}}"><img src="{{asset('/images/logo/logo3.png')}}" alt="logo"/></a>
                         </div>
                     </div>
                     <div class="col-lg-6 d-none d-lg-block d-flex justify-content-center">
@@ -160,14 +134,14 @@
                             @foreach(Session::get('Cart')->products as $item)
                                 <li>
                                     <div class="cart-img">
-                                        <a href="/products/{{$item['productInfo']->Slug}}"><img src="{{asset('images/product/'.$item['productInfo']->Images)}}" alt=""/></a>
+                                        <a href="/products/{{$item['productInfo']->Slug}}"><img src="{{asset('images/product/'.$item['productInfo']->Color)}}" alt=""/></a>
                                     </div>
                                     <div class="cart-title">
-                                        <h4><a href="/products/{{$item['productInfo']->Slug}}">{{$item['productInfo']->ProductName}}</a></h4>
-                                        <span> {{number_format($item['productInfo']->Price)}} × {{$item['quantity']}} </span>
+                                        <h4><a href="/products/{{$item['productInfo']->Slug}}">{{$item['productInfo']->VariantName}}</a></h4>
+                                        <span> {{number_format($item['productInfo']->ProductPrice + ($item['productInfo']->ProductPrice * $item['productInfo']->VariantPrice))}} × {{$item['quantity']}} </span>
                                     </div>
                                     <div class="cart-delete">
-                                        <a style="display: block; cursor: pointer;" data-id="{{$item['productInfo']->ProductId}}" data-slug="{{$item['productInfo']->Slug}}" slug="{{$item['productInfo']->Slug}}" class="btn-delete-item-cart">x</a>
+                                        <a style="display: block; cursor: pointer;" data-id="{{$item['productInfo']->ProductId}}" data-variant="{{$item['productInfo']->VariantId}}" data-slug="{{$item['productInfo']->Slug}}" slug="{{$item['productInfo']->Slug}}" class="btn-delete-item-cart">x</a>
                                     </div>
                                 </li>
                             @endforeach
@@ -202,7 +176,7 @@
                                         /></a>
                                 </div>
                                 <p>
-                                    Mơ ước của mọi nhà
+                                    Lựa chọn của gia đình
                                 </p>
                                 <div class="payment-img">
                                     <a href="#"><img src="{{asset('/images/icon-img/payment.png')}}" alt="logo"/></a>
@@ -310,12 +284,28 @@
 <script src="{{asset('js/plugins/counterup.min.js')}}"></script>
 <script src="{{asset('js/plugins/select2.min.js')}}"></script>
 <script src="{{asset('js/plugins/easyzoom.js')}}"></script>
-{{--JS Plugins--}}
+{{--Alertify--}}
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+{{--Craftpip--}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<style>
+    .alertify-notifier .ajs-message.ajs-success {
+        background-color: #d0011b;
+    }
+
+    .jconfirm.jconfirm-my-theme .jconfirm-box .jconfirm-title-c{
+        font-size: 15px;
+    }
+
+    .jconfirm.jconfirm-my-theme .jconfirm-box .jconfirm-buttons button{
+        background-color: #d0011b;
+    }
+</style>
 <!-- JS chính -->
 <script src="{{asset('js/main.js')}}"></script>
 <script src="{{asset('js/checkout.js')}}"></script>
@@ -323,22 +313,49 @@
 {{--JS Cart--}}
 <script type="text/javascript">
     function AddToCart(slug) {
-        var quantity = $(".quantity-add-cart").val() || 1;
+        var quantity = Math.round($(".quantity-add-cart").val());
+        var variant = $('input[name="emotion"]:checked');
 
-        $.ajax({
-            type : 'GET',
-            url  : '../add-cart/'+slug+'/'+quantity,
-        }).done(function (response) {
-            console.log(response);
-            RenderCart(response);
-            alertify.success('Thêm thành công!');
-        });
+        if (variant.val()) {
+            // var data = {slug: slug, variant: variant.data('id'), quantity: quantity};
+            if (quantity && Number.isInteger(quantity) && Number && quantity > 0) {
+                $.ajax({
+                    type : 'GET',
+                    url  : '../cart/check-quantity'+'/'+slug+'/'+variant.data('id')+'/'+quantity,
+                }).done(function (res) {
+                    if (res) {
+                        $.alert({
+                            title: 'Thông báo!',
+                            content: 'Số lượng sản phẩm không đủ!',
+                        });
+                    } else {
+                        $.ajax({
+                            type : 'GET',
+                            url  : '../cart/add-cart/'+slug+'/'+variant.data('id')+'/'+quantity,
+                        }).done(function (response) {
+                            RenderCart(response);
+                            alertify.success('Thêm thành công!');
+                        });
+                    }
+                })
+            } else {
+                $.alert({
+                    title: 'Lỗi!',
+                    content: 'Vui lòng nhập vào số và lớn hơn 0!',
+                });
+            }
+        } else {
+            $.alert({
+                title: 'Thông báo!',
+                content: 'Vui lòng chọn "màu"',
+            });
+        }
     }
 
     $('#list-cart').on("click", ".btn-delete-item-cart", function() {
         $.ajax({
             type : 'GET',
-            url  : '../delete-item-cart/'+$(this).data('slug'),
+            url  : '../cart/delete-item-cart/'+$(this).data('slug')+'/'+$(this).data('variant'),
         }).done(function (response) {
             RenderCart(response);
         });
@@ -403,7 +420,7 @@
         });
     });
     $('.pd_img_color').click(function(){
-        let variantId = $('.pd_img_color').val();
+        let variantId = $('input[name="emotion"]:checked').val();
         var _token = $('input[name="_token"]').val();
         // alert(variantId);
         $.ajax({
@@ -415,6 +432,27 @@
             },
             success:function(data){
                 $('#quantityhere').html(data);
+            }
+        });
+    });
+
+    $('.pd_img_color').click(function(){
+        let productId = $('.comment_productId').val();
+        let variantId = $('input[name="emotion"]:checked').val();
+        let price = $('.price').val();
+        var _token = $('input[name="_token"]').val();
+        // alert(productId);
+        $.ajax({
+            url:"{{url("/price")}}",
+            method:"POST",
+            data:{
+                productId:productId,
+                variantId:variantId,
+                _token:_token,
+                price:price
+            },
+            success:function(data){
+                $('.product-details-price').html(data);
             }
         });
     });
