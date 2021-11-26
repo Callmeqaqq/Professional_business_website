@@ -98,7 +98,21 @@ Route::get('/buyer/login/facebook/back','App\Http\Controllers\Socialite\LoginCon
 Route::get('/buyer/login/facebook/redirect', 'SocialController@facebookRedirect')->name('facebook.google');
 Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
 //------------admin Product-----------------------
+//---------------------- administrator -------------------------------
 Route::get('/admin','admin\DemoController@index');
+Route::get('/admin/administrator','admin\AdministratorController@index')->name('admin.administrator');
+Route::get('/admin/addAdministrator','admin\AdministratorController@add')->name('admin.addAdministrator');
+Route::get('/admin/updateAdministrator/{id}','admin\AdministratorController@update')->name('admin.updateAdministrator');
+Route::get('/admin/deleteAdministrator/{id}','admin\AdministratorController@delete')->name('admin.updateAdministrator');
+
+Route::post('/admin/post/addAdministrator','admin\AdministratorController@postAdd')->name('admin.Administrator.add');
+Route::post('/admin/post/updateAdministrator','admin\AdministratorController@postUpdate')->name('admin.Administrator.update');
+//-----------------------comment admin -------------------------------
+Route::get('/admin/comment/{slug}','admin\CommentController@index')->name('comment');
+Route::get('/admin/listComment','admin\CommentController@list')->name('comment.list');
+Route::get('/admin/deleteComment/{id}','admin\CommentController@deleteComment')->name('comment.delete');
+
+
 
 Route::get('/admin/product','admin\AdminProductController@index')->name('admin.product');
 Route::get('/admin/product/add-product','admin\AdminProductController@add')->name('add-product');

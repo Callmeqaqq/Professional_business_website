@@ -198,6 +198,7 @@
             </div>
         </div>
     </div>
+</div>
     <script>
 
         $('.alertdemo').on('click', function(e){
