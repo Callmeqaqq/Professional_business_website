@@ -116,7 +116,7 @@ class BuyerController extends Controller
 
         //if form validate successfully, process login
 //        $user = User::where('email' ,'=',$request->loginEmail )->first();
-        $user = DB::table('users')->where('email', $request->loginEmail)->first();
+        $user = DB::table('users')->where('email', $request->loginEmail)->where('active','=','1')->first();
 
         if ($user) {
             if (Hash::check($request->loginPassword, $user->Password)) {

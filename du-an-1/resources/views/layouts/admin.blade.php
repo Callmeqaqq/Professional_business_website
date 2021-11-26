@@ -17,7 +17,7 @@
     <!-- ============================================================== -->
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" style="color: aqua" href="index.html"
+            <a class="navbar-brand" style="color: var(--danger)" href="index.html"
             >Metah</a
             >
 
@@ -94,12 +94,12 @@
                     <ul class="navbar-nav flex-column">
                         <li class="nav-divider">Menu</li>
                         <li class="nav-item">
-                            <a class="nav-link " href="#" aria-expanded="false"
-                            ><i class="fa fa-fw fa-user-circle"></i>Dashboard
+                            <a class="nav-link  {{ '' ===   $url_active  ? 'active':''}}" href="#" aria-expanded="false"
+                            ><i class="fab fa-briefcase"></i>Dashboard
                                 </a>
                         </li>
                         <li class="nav-item  ">
-                            <a class="nav-link {{'administrator' ===   $url_active   ? 'active':''}}" href="{{route('admin.administrator')}}" aria-expanded="false"
+                            <a class="nav-link {{'administrator' ===   $url_active ||'updateAdministrator' ===   $url_active||'addAdministrator' ===   $url_active  ? 'active':''}}" href="{{route('admin.administrator')}}" aria-expanded="false"
                             ><i class="fab fa-unlock-alt "></i>Quản trị viên
                             </a>
                         </li>

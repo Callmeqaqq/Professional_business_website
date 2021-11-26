@@ -13,7 +13,7 @@
                             id="table"
                             class="table table-striped table-bordered first"
                         >
-                            <thead style="background-color: rgb(0, 248, 248)">
+                            <thead style="background-color: var(--cyan)">
                             <tr>
                                 <th>HÀNG HÓA</th>
                                 <th>SỐ BÌNH LUẬN</th>

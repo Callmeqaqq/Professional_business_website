@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-body">
                 <h4>Nhập thông tin người quảng trị</h4>
-                <form action="{{route('admin.Administrator.add')}}" method="post">
+                <form action="{{route('admin.Administrator.update')}}" method="post">
                     @csrf
                     <div class="card-body row">
                         <div class="form-group col-6">
@@ -16,19 +16,26 @@
                                 id="date-mask"
                                 placeholder="Nhập họ và tên"
                                 name="Fullname"
-                                value="{{old('Fullname')}}"
+                                value="{{$user->Fullname ??old('Fullname')}}"
                             />
                             <span class="text-danger">@error('Fullname') {{$message}}@enderror</span>
                         </div>
                         <div class="form-group col-6">
                             <label>Email</label>
                             <input
-                                id="inputText4"
                                 type="email"
+                                disabled
                                 name="email"
-                                class="form-control"
+                                class="form-control disabled"
                                 placeholder="Nhập email"
-                                value="{{old('email')}}"
+                                value="{{ $user->Email ?? old('email')}}"
+                            />
+                            <input
+                                type="hidden"
+                                name="email"
+                                class="form-control disabled"
+                                placeholder="Nhập email"
+                                value="{{ $user->Email ?? old('email')}}"
                             />
                             <span class="text-danger">@error('email') {{$message}}@enderror</span>
                         </div>
@@ -40,8 +47,10 @@
                             <option value="" >Chọn 1 chức vụ của user</option>
 
                             @foreach($listRole as $role)
-                                <option {{old('role')}} {{ old('role') === $role->id_role ? 'selected="selected"':''}} value="{{$role->id_role}}">{{$role->RoleName}}</option>
+                                <option {{$user->UserRole === $role->id_role || old('role') === $role->id_role   ? 'selected="selected"':''}} value="{{$role->id_role}}">{{$role->RoleName}}</option>
+
                             @endforeach
+
                         </select>
                         <span class="text-danger">@error('role') {{$message}}@enderror</span>
                     </div>
@@ -62,12 +71,13 @@
                                 class="custom-control-input"
                                 name="status"
                                 value="1"
+                                {{$user->Active === 1 ? 'checked':''}}
                             /><span class="custom-control-label">Đã kích hoạt</span>
                         </label>
                     </div>
 
                 </div>
-                    <button class="btn btn-outline-primary">Thêm nhân viên</button>
+                    <button class="btn btn-outline-primary">Cập nhật</button>
                 </form>
                 </div>
             </div>
