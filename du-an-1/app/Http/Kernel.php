@@ -65,6 +65,20 @@ class Kernel extends HttpKernel
             'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
             'check_role' => \App\Http\Middleware\StaffMiddleware::class,
             'check_create_permissions' => \App\Http\Middleware\CreatePermission::class,
+        ],
+
+        'check_edit_permissions' => [
+            'isLogged' => \App\Http\Middleware\AuthCheck::class,
+            'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
+            'check_role' => \App\Http\Middleware\StaffMiddleware::class,
+            'check_edit_permissions' => \App\Http\Middleware\EditPermission::class,
+        ],
+
+        'check_delete_permissions' => [
+            'isLogged' => \App\Http\Middleware\AuthCheck::class,
+            'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
+            'check_role' => \App\Http\Middleware\StaffMiddleware::class,
+            'check_delete_permissions' => \App\Http\Middleware\DeletePermission::class,
         ]
     ];
 

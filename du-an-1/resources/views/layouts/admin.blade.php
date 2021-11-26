@@ -4,10 +4,11 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Document</title>
+    <title>Omni Dashboard</title>
     <link rel="stylesheet" href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('css/style.css')}}"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 </head>
 <body>
 <div class="dashboard-main-wrapper">
@@ -16,7 +17,8 @@
     <!-- ============================================================== -->
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}"><img src="{{asset('images/logo/logo1.png')}}" alt=""></a>
+            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}"><img
+                    src="{{asset('images/logo/logo1.png')}}" alt=""></a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
                     <li class="nav-item dropdown nav-user">
@@ -68,7 +70,8 @@
             <nav class="navbar navbar-expand-lg navbar-light">
                 <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                        aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -80,31 +83,39 @@
                                 <span class="badge badge-success">6</span></a
                             >
                         </li>
+
+                        {{--warehouse role check end--}}
+                        @if(session('UserRole') == 'Warehouse')
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse"
+                                   aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10">
+                                    <i class="fas fa-f fa-folder"></i>Sản Phẩm
+                                </a>
+                                <div id="submenu-10" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{asset('/admin/category')}}">Danh mục sản phẩm</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{asset('/admin/product')}}">Tất cả sản phẩm</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{asset('/admin/product/add-category')}}">Thêm danh
+                                                mục</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{asset('/admin/product/add-product')}}">Thêm sản
+                                                phẩm</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        @endif
+                        {{--warehouse role check end--}}
+
                         <li class="nav-item">
-                            <a  class="nav-link" href="#" data-toggle="collapse"
-                                aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10">
-                                <i class="fas fa-f fa-folder"></i>Sản Phẩm
-                            </a>
-                            <div id="submenu-10" class="collapse submenu" style="">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{asset('/admin/category')}}">Danh mục sản phẩm</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{asset('/admin/product')}}">Tất cả sản phẩm</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{asset('/admin/product/add-category')}}">Thêm danh mục</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{asset('/admin/product/add-product')}}">Thêm sản phẩm</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a  class="nav-link" href="#" data-toggle="collapse"
-                                aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9">
+                            <a class="nav-link" href="#" data-toggle="collapse"
+                               aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9">
                                 <i class="fas fa-f fa-folder"></i>Menu Level
                             </a>
                             <div id="submenu-9" class="collapse submenu" style="">

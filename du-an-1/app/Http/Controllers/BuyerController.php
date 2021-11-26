@@ -122,6 +122,11 @@ class BuyerController extends Controller
             if (Hash::check($request->loginPassword, $user->Password)) {
                 $request->session()->put('LoggedUser', $user->UserId);
                 $request->session()->put('LoggedUserName', $user->Fullname);
+                $user_role = DB::table('users')
+                    ->join('role','users.UserRole', '=', 'role.id_role')
+                    ->where('UserId', '=', $user->UserId)
+                    ->value('RoleName');
+                $request->session()->put('UserRole', $user_role);
                 return redirect('/profile');
             } else {
                 return redirect('/buyer/login')->with('status', 'Mật khẩu không chính xác');
