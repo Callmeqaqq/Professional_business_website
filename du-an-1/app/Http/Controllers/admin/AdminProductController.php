@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 
 class AdminProductController extends Controller
@@ -26,6 +27,40 @@ class AdminProductController extends Controller
 
     public function create(Request $request)
     {
+        //        validate request
+        $message = [
+            'required' => 'Ô này đang bị trống',
+            'ProductName.max'=> 'Số kí tự vượt quá cho phép',
+            'Discount.max' => 'Chỉ được nhập giá trị từ 0 đến 1',
+            'Discount.min' => 'Chỉ được nhập giá trị từ 0 đến 1',
+            'Weight.min' => 'Nhập khối lượng lớn hơn 0',
+            'Quantity.min' => 'Nhập số lượng lớn hơn hoặc bằng 0',
+            'image'=>'Tệp không phải là hình ảnh',
+            'mimes'=> 'Hình ảnh không hợp lệ',
+            'numeric'=> 'Giá trị truyền vào không phải số',
+        ];
+        $validate = Validator::make($request->all(), [
+            "ProductName" => "required|max:255",
+            "Slug" => "required",
+            "CategoryId" => "required",
+            "SupplierId" => "required",
+            "Price" => "required",
+            "price_new" => "required",
+            "Discount" => "required|numeric|min:0|max:1",
+            "Weight" => "required|numeric|min:0",
+            "Color" => "required",
+            "Quantity" => "required|numeric|min:0",
+            "Descreption" => "required",
+            "Active" => "required",
+            "Images" => "required|image|mimes:jpg,jpeg,svg,png",
+//            Còn vướng phần thêm nhiều ảnh
+            "images_multiple"=>'required',
+            "images_multiple.*"=>'image|mimes:jpg,jpeg,svg,png',
+        ],$message);
+
+        if ($validate->fails()) {
+            return back()->withErrors($validate)->withInput();
+        }
         $check_slug = DB::table('product')->get();
         $check = 0;
         foreach ($check_slug as $slg) {
@@ -204,6 +239,25 @@ class AdminProductController extends Controller
         return view('admin/product/addcategory');
     }
     public function create_category(Request $request){
+//        dd($request->all());
+//        exit();
+        $message = [
+            'unique' => 'Tên đã tồn tại',
+            'required' => 'Ô này đang bị trống',
+            'image'=>'Tệp không phải là hình ảnh',
+            'mimes'=> 'Hình ảnh không hợp lệ',
+            'numeric'=> 'Giá trị truyền vào không phải số',
+        ];
+        $validate = Validator::make($request->all(), [
+              "CategoryName" => "required|unique:category",
+              "CategorySlug" => "required",
+              "CatActive" => "required",
+              "CategoryImage" =>"required|image|mimes:jpg,jpeg,svg,png"
+        ],$message);
+
+        if ($validate->fails()) {
+            return back()->withErrors($validate)->withInput();
+        }
 
 //        Xử lí ảnh
         $file = $request->CategoryImage;
@@ -311,7 +365,25 @@ class AdminProductController extends Controller
 //Biến thể
     //Thêm Biến Thể
     public function create_variant(Request $request){
+        $message = [
+            'required' => 'Ô này đang bị trống',
+            'image'=>'Tệp không phải là hình ảnh',
+            'mimes'=> 'Hình ảnh không hợp lệ',
+            'numeric'=> 'Giá trị truyền vào không phải số',
+        ];
+        $validate = Validator::make($request->all(), [
+              "ProductId" => "required",
+              "Price_variant" => "required|numeric",
+              "Color_v" => "required",
+              "Quantity_v" => "required|numeric",
+              "Description" => "required",
+              "Active_v" => "required",
+              "Images_v" => "required|image|mimes:jpg,jpeg,svg,png"
+        ],$message);
 
+        if ($validate->fails()) {
+            return back()->withErrors($validate)->withInput()->with('page','variant');
+        }
 
         $name = DB::table('product')
             ->where('ProductId','=',$request->ProductId)
@@ -320,7 +392,7 @@ class AdminProductController extends Controller
         $check_name = DB::table('variant')->where('ProductId','=',$request->ProductId)->get();
         $check=0;
         foreach ($check_name as $item){
-            if($item->VariantName == $request->Color){
+            if($item->VariantName == $request->Color_v){
                 $check = 1;
                 break;
             }
@@ -328,29 +400,29 @@ class AdminProductController extends Controller
         if($check == 0){
 
 //        Update Ảnh biến thể
-            $file = $request->Images;
+            $file = $request->Images_v;
             $file_name = $file->getClientOriginalName();
             $file->move(base_path('public/images/product'),$file_name);
 //        Lấy tên sản phẩm và màu để thông báo
             $name_color = $name->ProductName;
             $name_color.=' ';
-            $name_color.=$request->Color;
+            $name_color.=$request->Color_v;
 //            Tiến hành thêm biến thể
             DB::table('variant')
                 ->insert([
-                    'VariantName'=>$request->Color,
+                    'VariantName'=>$request->Color_v,
                     'Price'=>($request->Price_variant)/100,
                     'Description' =>$request->Description,
-                    'Active'=>$request->Active,
+                    'Active'=>$request->Active_v,
                     'Color'=>$file_name,
                     'ProductId'=>$request->ProductId,
-                    'Quantity'=>$request->Quantity
+                    'Quantity'=>$request->Quantity_v
                 ]);
 //            Trả về session thành công
             session()->put('add-success-v',$name_color);
         }else{
 //            Trả về session thất bại khi trùng tên
-            session()->put('add-success-f',$request->Color);
+            session()->put('add-success-f',$request->Color_v);
         }
 
         Return redirect()->route('add-product');

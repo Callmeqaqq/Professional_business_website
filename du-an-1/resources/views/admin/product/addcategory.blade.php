@@ -21,30 +21,33 @@
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-4">
                             <label>Tên Danh mục:</label>
-                            <input name="CategoryName" type="text" class="form-control date-inputmask" id="date-mask" placeholder="" required/>
+                            <input name="CategoryName" type="text" class="form-control date-inputmask" id="date-mask" placeholder="" value="{{old('CategoryName')}}" required/>
                             <input hidden type="text" id="slug_here" name="CategorySlug" value="">
+                            <span class="text-danger">@error('CategoryName') {{$message}}@enderror</span>
                         </div>
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-8">
                             <label for="formFile" class="form-label">Chọn Ảnh danh mục(1 ảnh)</label>
                             <input name="CategoryImage" class="form-control" type="file" id="formFile">
+                            <span class="text-danger">@error('CategoryImage') {{$message}}@enderror</span>
                         </div>
                     </div>
                     <div style="display: flex"class="card-body col-12">
                         <label class='col-2' for="">Hoạt Động</label>
                         <div class="form-check col-1">
-                            <input class="form-check-input" type="radio" name="CatActive" id="flexRadioDefault1" value="0">
+                            <input class="form-check-input" type="radio" name="CatActive" id="flexRadioDefault1" value="0" @if(old('CatActive')==0) checked @endif>
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Ẩn
                             </label>
                         </div>
                         <div class="form-check col-1">
-                            <input class="form-check-input" type="radio" name="CatActive" id="flexRadioDefault1" value="1">
+                            <input class="form-check-input" type="radio" name="CatActive" id="flexRadioDefault1" value="1" @if(old('CatActive')==1) checked @endif>
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Hiện
                             </label>
                         </div>
+                        <span class="text-danger">@error('CatActive') {{$message}}@enderror</span>
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-3">

@@ -17,8 +17,11 @@
     <!-- ============================================================== -->
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}"><img
-                    src="{{asset('images/logo/logo1.png')}}" alt=""></a>
+            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}"><img src="{{asset('images/logo/logo1.png')}}" alt=""></a>
+            <a class="navbar-brand" style="color: var(--danger)" href="index.html"
+            >Metah</a
+            >
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
                     <li class="nav-item dropdown nav-user">
@@ -65,6 +68,15 @@
     <!-- ============================================================== -->
     <!-- left sidebar -->
     <!-- ============================================================== -->
+
+    <?php
+    $array = explode('/', request()->path());
+    $url_active = $array[1]??'';
+    ?>
+
+
+
+
     <div class="nav-left-sidebar sidebar-dark">
         <div class="menu-list">
             <nav class="navbar navbar-expand-lg navbar-light">
@@ -78,10 +90,19 @@
                     <ul class="navbar-nav flex-column">
                         <li class="nav-divider">Menu</li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('admin.index')}}" aria-expanded="false"
-                            ><i class="fa fa-fw fa-user-circle"></i>Dashboard
-                                <span class="badge badge-success">6</span></a
-                            >
+                            <a class="nav-link  {{ '' ===   $url_active  ? 'active':''}}" href="#" aria-expanded="false"
+                            ><i class="fab fa-briefcase"></i>Dashboard
+                                </a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a class="nav-link {{'administrator' ===   $url_active ||'updateAdministrator' ===   $url_active||'addAdministrator' ===   $url_active  ? 'active':''}}" href="{{route('admin.administrator')}}" aria-expanded="false"
+                            ><i class="fab fa-unlock-alt "></i>Quản trị viên
+                            </a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a class="nav-link {{ 'listComment' ===   $url_active ||'comment' ===   $url_active  ? 'active':''}}" href="{{route('comment.list')}}" aria-expanded="false"
+                            ><i class="fab fa-comment "></i>Quản lí bính luận
+                            </a>
                         </li>
 
                         {{--warehouse role check end--}}
