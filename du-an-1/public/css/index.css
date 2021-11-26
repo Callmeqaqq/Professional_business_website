@@ -484,7 +484,7 @@ textarea {
     width: 0;
     left: auto;
     right: 0;
-    background: #000000;
+    background: #d0011b;
 }
 
 .btn-hover a.hover-border-radius::before,
@@ -496,7 +496,7 @@ textarea {
 
 .btn-hover a.theme-color::after,
 .btn-hover button.theme-color::after {
-    background: #e97730;
+    background: #d0011b;
 }
 
 .btn-hover a:hover::after,
@@ -7789,7 +7789,7 @@ input[type=radio] + label>img {
 }
 
 .cart-table-content .table-content table thead>tr th.width-name {
-    min-width: 400px;
+    min-width: 300px;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -7928,6 +7928,12 @@ input[type=radio] + label>img {
 
 .cart-table-content .table-content table tbody>tr td.product-name h5 a {
     color: #000000;
+    max-width: 250px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .cart-table-content .table-content table tbody>tr td.product-name h5 a:hover {
@@ -8264,7 +8270,7 @@ input[type=radio] + label>img {
 }
 
 .grand-total-wrap .grand-total h4 span {
-    color: #e97730;
+    color: #d0011b;
 }
 
 .grand-total-wrap .grand-total-btn {
@@ -8296,7 +8302,6 @@ input[type=radio] + label>img {
     -webkit-box-shadow: none;
     box-shadow: none;
 }
-
 
 /*StarRating*/
 
@@ -8478,3 +8483,4 @@ screen and (min-resolution: 192dpi) {
 .ti-arrow-up{
     background-color: #d0011b;
 }
+/*Khải đẹp trai*/
