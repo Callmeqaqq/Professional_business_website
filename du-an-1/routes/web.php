@@ -78,6 +78,7 @@ Route::get('/cart/check-quantity/{slug}/{variantId}/{quantity}', 'CartController
 // ---------------------------Checkout----------------------------------
 Route::get('/checkout', 'CheckoutController@index')->name('cart.checkout')->middleware('isLogged');
 Route::post('/checkout', 'CheckoutController@checkoutSubmit')->name('checkout.submit');
+Route::get('/get_shipfee/{ShipOptionId}', 'SessionController@getshipfee');
 Route::post('/set_session', 'SessionController@createsession');
 Route::get('/allsession', 'SessionController@getsession');
 
@@ -98,7 +99,6 @@ Route::get('/buyer/login/facebook/back','App\Http\Controllers\Socialite\LoginCon
 Route::get('/buyer/login/facebook/redirect', 'SocialController@facebookRedirect')->name('facebook.google');
 Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
 //------------admin Product-----------------------
-//---------------------- administrator -------------------------------
 Route::get('/admin','admin\DemoController@index');
 Route::get('/admin/administrator','admin\AdministratorController@index')->name('admin.administrator');
 Route::get('/admin/addAdministrator','admin\AdministratorController@add')->name('admin.addAdministrator');
@@ -114,27 +114,27 @@ Route::get('/admin/deleteComment/{id}','admin\CommentController@deleteComment')-
 
 
 
-Route::get('/admin/product','admin\AdminProductController@index')->name('admin.product');
-Route::get('/admin/product/add-product','admin\AdminProductController@add')->name('add-product');
+Route::get('/admin/product','admin\AdminProductController@index')->name('admin.product')->middleware('role:Warehouse','check_view_permissions');
+Route::get('/admin/product/add-product','admin\AdminProductController@add')->name('add-product')->middleware('role:Warehouse','check_create_permissions');
 Route::post('/admin/product/add-product','admin\AdminProductController@create');
-Route::get('/admin/product/delete-product/{id}','admin\AdminProductController@delete_product');
+Route::get('/admin/product/delete-product/{id}','admin\AdminProductController@delete_product')->middleware('role:Warehouse','check_delete_permissions');
 
-Route::get('/admin/product/add-category','admin\AdminProductController@add_category')->name('add-category');
-Route::post('/admin/product/add-category','admin\AdminProductController@create_category');
-Route::get('/admin/product/edit-category/{slug}','admin\AdminProductController@edit_category')->name('edit.category');
-Route::post('/admin/product/edit-category/{slug}','admin\AdminProductController@createedit_category');
-Route::get('/admin/product/delete-category/{slug}','admin\AdminProductController@delete_category');
+Route::get('/admin/product/add-category','admin\AdminProductController@add_category')->name('add-category')->middleware('role:Warehouse','check_create_permissions');
+Route::post('/admin/product/add-category','admin\AdminProductController@create_category')->middleware('role:Warehouse','check_create_permissions');
+Route::get('/admin/product/edit-category/{slug}','admin\AdminProductController@edit_category')->name('edit.category')->middleware('role:Warehouse','check_edit_permissions');
+Route::post('/admin/product/edit-category/{slug}','admin\AdminProductController@createedit_category')->middleware('role:Warehouse','check_edit_permissions');
+Route::get('/admin/product/delete-category/{slug}','admin\AdminProductController@delete_category')->middleware('role:Warehouse','check_delete_permissions');
 
-Route::post('/admin/product/add-variant','admin\AdminProductController@create_variant')->name('add-variant');
-Route::post('/admin/product/edit-variant','admin\AdminProductController@edit_variant')->name('edit-variant');
-Route::get('/admin/product/delete-variant/{id}','admin\AdminProductController@delete_variant');
+Route::post('/admin/product/add-variant','admin\AdminProductController@create_variant')->name('add-variant')->middleware('role:Warehouse','check_create_permissions');
+Route::post('/admin/product/edit-variant','admin\AdminProductController@edit_variant')->name('edit-variant')->middleware('role:Warehouse','check_edit_permissions');
+Route::get('/admin/product/delete-variant/{id}','admin\AdminProductController@delete_variant')->middleware('role:Warehouse','check_delete_permissions');
 
-Route::get('admin/product/edit-product/{slug}','admin\AdminProductController@edit')->name('admin.edit');
-Route::post('admin/product/edit-product/{slug}','admin\AdminProductController@createedit');
+Route::get('admin/product/edit-product/{slug}','admin\AdminProductController@edit')->name('admin.edit')->middleware('role:Warehouse','check_edit_permissions');
+Route::post('admin/product/edit-product/{slug}','admin\AdminProductController@createedit')->middleware('role:Warehouse','check_edit_permissions');
 Route::post('/delete-img','admin\AdminProductController@deleteimg');
 Route::post('/load-img','admin\AdminProductController@load_img');
 
 Route::get('/admin/category',function(){
     return view('admin/product/adminCategory');
-})->name('admin.category');
+})->name('admin.category')->middleware('role:Warehouse','check_view_permissions');
 

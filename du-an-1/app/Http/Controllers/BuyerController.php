@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -122,6 +123,7 @@ class BuyerController extends Controller
             if (Hash::check($request->loginPassword, $user->Password)) {
                 $request->session()->put('LoggedUser', $user->UserId);
                 $request->session()->put('LoggedUserName', $user->Fullname);
+                $request->session()->put('LoggedEmail', $request->loginEmail);
                 return redirect('/profile');
             } else {
                 return redirect('/buyer/login')->with('status', 'Mật khẩu không chính xác');

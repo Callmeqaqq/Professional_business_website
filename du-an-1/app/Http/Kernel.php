@@ -46,6 +46,40 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+
+        'admin' => [
+            'isLogged' => \App\Http\Middleware\AuthCheck::class,
+            'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
+            'check_role' => \App\Http\Middleware\StaffMiddleware::class,
+        ],
+
+        'check_view_permissions' => [
+            'isLogged' => \App\Http\Middleware\AuthCheck::class,
+            'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
+            'check_role' => \App\Http\Middleware\StaffMiddleware::class,
+            'check_view' => \App\Http\Middleware\ViewPermission::class,
+        ],
+
+        'check_create_permissions' => [
+            'isLogged' => \App\Http\Middleware\AuthCheck::class,
+            'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
+            'check_role' => \App\Http\Middleware\StaffMiddleware::class,
+            'check_create' => \App\Http\Middleware\CreatePermission::class,
+        ],
+
+        'check_edit_permissions' => [
+            'isLogged' => \App\Http\Middleware\AuthCheck::class,
+            'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
+            'check_role' => \App\Http\Middleware\StaffMiddleware::class,
+            'check_edit' => \App\Http\Middleware\EditPermission::class,
+        ],
+
+        'check_delete_permissions' => [
+            'isLogged' => \App\Http\Middleware\AuthCheck::class,
+            'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
+            'check_role' => \App\Http\Middleware\StaffMiddleware::class,
+            'check_delete' => \App\Http\Middleware\DeletePermission::class,
+        ]
     ];
 
     /**
@@ -59,6 +93,7 @@ class Kernel extends HttpKernel
         // custom middleware
         'isLogged' => \App\Http\Middleware\AuthCheck::class,
         'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
+        'role' => \App\Http\Middleware\RoleCheck::class,
 
         // default
         'auth' => \App\Http\Middleware\Authenticate::class,
@@ -70,5 +105,9 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+    ];
+
+    //ưu tiên
+    protected $middlewarePriority = [
     ];
 }

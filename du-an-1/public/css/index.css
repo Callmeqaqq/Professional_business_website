@@ -8476,4 +8476,8 @@ screen and (min-resolution: 192dpi) {
 .ti-arrow-up{
     background-color: #d0011b;
 }
+
+.payment-detail{
+    color:#d0011b;
+}
 /*Khải đẹp trai*/
