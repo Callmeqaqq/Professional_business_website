@@ -58,11 +58,9 @@
                                                 @endif
                                         </div>
                                         <div class="product-action-2-wrap">
-                                            @if (Session::has('LoggedUser'))
-                                            <button slug="{{$item->Slug}}" onclick="AddToCart('{{$item->Slug}}')" class="product-action-btn-2" title="Add To Cart"><i class="pe-7s-cart"></i> Thêm vào giỏ hàng</button>
-                                            @else
-                                                <a href="/buyer/login" class="product-action-btn-2" title="Add To Cart"><i class="pe-7s-cart"></i> Thêm vào giỏ hàng</a>
-                                            @endif
+                                            <a href="/products/{{$item->Slug}}" class="product-action-btn-2" title="Mua Ngay"><i
+                                                    class="pe-7s-cart"></i> Mua Ngay
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="product-content">

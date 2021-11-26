@@ -80,12 +80,12 @@
                                 @foreach($variant as $color)
                                     @if($color->Quantity !=0)
                                         <input class="price_var" type="hidden" value="{{$color->Price}}">
-                                        <input type="radio" name="emotion" id="{{$color->VariantId}}" class="input-hidden" value="{{$color->VariantId}}"/>
+                                        <input type="radio" name="emotion" id="{{$color->VariantId}}" data-id="{{$color->VariantId}}" class="input-hidden" value="{{$color->VariantId}}"/>
                                         <label class="mr-5" for="{{$color->VariantId}}">
                                             <img title="{{$color->VariantName}}" src="{{asset('./images/product/'.$color->Color)}}" alt="{{$color->VariantName}}"/>
                                         </label>
                                     @else
-                                        <input type="radio" name="emotion" id="{{$color->VariantId}}" class="input-hidden" value="{{$color->VariantId}}"/>
+                                        <input type="radio" name="emotion" id="{{$color->VariantId}}" data-id="{{$color->VariantId}}" class="input-hidden" value="{{$color->VariantId}}"/>
                                         <label class="mr-5" class="sold-out" for="{{$color->VariantId}}">
                                             <img class="sold-out-img" title="{{$color->VariantName}}" src="{{asset('./images/product/'.$color->Color)}}" alt="{{$color->VariantName}}"/>
                                             <img style="opacity: 0.8" class="sold-out-img" src="{{asset('./images/icon-img/sold.png')}}" alt="">
@@ -107,7 +107,7 @@
 
                         <div class="single-product-cart btn-hover pl-10">
                             @if (Session::has('LoggedUser'))
-                            <a style="cursor: pointer;" slug="{{$data[0]->Slug}}" onclick="AddToCart('{{$data[0]->Slug}}')" class="product-action-btn-2">Thêm vào giỏ hàng</a>
+                                <a style="cursor: pointer;" slug="{{$data[0]->Slug}}" onclick="AddToCart('{{$data[0]->Slug}}')" name="AddCart" class="product-action-btn-2">Thêm vào giỏ hàng</a>
                             @else
                                 <a href="/buyer/login" class="product-action-btn-2">Thêm vào giỏ hàng</a>
                             @endif
@@ -229,15 +229,9 @@
                                             @endif
                                         </div>
                                         <div class="product-action-2-wrap">
-                                            @if (Session::has('LoggedUser'))
-                                                <button slug="{{$item->Slug}}" onclick="AddToCart('{{$item->Slug}}')" class="product-action-btn-2" title="Thêm vào giỏ hàng"><i
-                                                        class="pe-7s-cart"></i> Thêm vào giỏ hàng
-                                                </button>
-                                            @else
-                                                <a href="/buyer/login" class="product-action-btn-2" title="Thêm vào giỏ hàng"><i
-                                                        class="pe-7s-cart"></i> Thêm vào giỏ hàng
-                                                </a>
-                                            @endif
+                                            <a href="/products/{{$item->Slug}}" class="product-action-btn-2" title="Mua Ngay"><i
+                                                    class="pe-7s-cart"></i> Mua Ngay
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="product-content">
