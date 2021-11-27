@@ -34,7 +34,7 @@
                                                 <td class="product-cart-price"><span class="amount">{{number_format($value['productInfo']->ProductPrice + ($value['productInfo']->ProductPrice * $value['productInfo']->VariantPrice))}}</span></td>
                                                 <td class="cart-quality">
                                                     <div class="product-quality"><div class="dec qtybutton">-</div>
-                                                        <input class="cart-plus-minus-box input-text qty text" name="qtybutton" data-slug="{{$value['productInfo']->Slug}}" data-variant="{{$value['productInfo']->VariantId}}" id="quantity-item-{{$value['productInfo']->Slug}}" value="{{$value['quantity']}}">
+                                                        <input class="cart-plus-minus-box input-text qty text" name="qtybutton" data-slug="{{$value['productInfo']->Slug}}" data-variant="{{$value['productInfo']->VariantId}}" id="quantity-item-{{$value['productInfo']->Slug}}-{{$value['productInfo']->VariantId}}" data-id="quantity-item-{{$value['productInfo']->Slug}}-{{$value['productInfo']->VariantId}}" data-name="{{$value['productInfo']->VariantName}}" data-quantity="{{$value['productInfo']->Quantity}}" value="{{$value['quantity']}}">
                                                         <div class="inc qtybutton">+</div></div>
                                                 </td>
                                                 <td class="product-total"><span>{{number_format($value['quantity'] * ($value['productInfo']->ProductPrice + ($value['productInfo']->ProductPrice * $value['productInfo']->VariantPrice)))}}</span></td>
@@ -158,44 +158,124 @@
         }
 
         function SaveItemListCart(slug, variantId) {
-            $.ajax({
-                type : 'GET',
-                url  : 'cart/save-item-list-cart/'+slug+'/'+variantId+'/'+$('#quantity-item-'+slug).val(),
-            }).done(function (response) {
-                RenderListCart(response);
-                alertify.success('Cập nhật thành công!');
-            })
+            var quantt = $('#quantity-item-'+slug+'-'+variantId);
+            var quantity = quantt.val();
+
+            if (quantity && Number(quantity) && quantity % 1 === 0 && quantity > 0) {
+                $.ajax({
+                    type : 'GET',
+                    url  : '../cart/check-quantity'+'/'+slug+'/'+variantId+'/'+quantity+'/'+2,
+                }).done(function (res) {
+                    if (res) {
+                        $.confirm({
+                            title: 'Thông báo!',
+                            content: 'Số lượng sản phẩm không đủ!',
+                            buttons: {
+                                'Ok': function () {
+                                    location.reload();
+                                },
+                            }
+                        });
+                    } else {
+                        $.ajax({
+                            type : 'GET',
+                            url  : 'cart/save-item-list-cart/'+slug+'/'+variantId+'/'+quantity,
+                        }).done(function (response) {
+                            if (response) {
+                                RenderListCart(response);
+                                alertify.success('Cập nhật thành công!');
+                            }
+                        });
+                    }
+                })
+            } else {
+                $.confirm({
+                    title: 'Lỗi!',
+                    content: 'Vui lòng nhập vào số nguyên và lớn hơn 0!',
+                    buttons: {
+                        'Ok': function () {
+                            location.reload();
+                        },
+                    }
+                });
+            }
         }
 
         $(".btn-update-all-cart").on("click", function (){
-            var lists = [];
+            var lists = [], errors = [], idProduct = [], nameProduct = [], quantityProduct = [];
             $("table tbody tr td").each(function() {
                 $(this).find("input").each(function() {
-                    var element = {slug: $(this).data('slug'), variant: $(this).data('variant'), quantity: $(this).val()};
-                    lists.push(element);
+                    if (!$(this).val() || !Number($(this).val()) || $(this).val() % 1 !== 0 && $(this).val() > 0) {
+                        errors.push(1);
+                    } else if ($(this).val() > $(this).data('quantity')) {
+                        idProduct.push($(this).data('id'));
+                        nameProduct.push($(this).data('name'));
+                        quantityProduct.push($(this).val());
+                    } else {
+                        var element = {slug: $(this).data('slug'), variant: $(this).data('variant'), quantity: $(this).val()};
+                        lists.push(element);
+                    }
                 })
             });
-            $.ajax({
-                type : 'GET',
-                url  : 'cart/save-all-list-cart',
-                data : {
-                    "_token" : "{{csrf_token()}}",
-                    "data" : lists
-                },
-            }).done(function (response) {
-                RenderListCart(response);
-                alertify.success('Cập nhật thành công!');
-            })
+
+            if (errors.length > 0) {
+                $.confirm({
+                    title: 'Lỗi!',
+                    content: 'Vui lòng nhập vào số nguyên và lớn hơn 0!',
+                    buttons: {
+                        'Ok': function () {
+                            location.reload();
+                        },
+                    }
+                });
+            } else if (idProduct.length > 0) {
+                $.confirm({
+                    title: 'Thông báo!',
+                    content: 'Sản phẩm "' + nameProduct.join(', ') + '" không đủ số lượng!',
+                    buttons: {
+                        'Ok': function () {
+                            location.reload();
+                        },
+                    }
+                });
+            } else {
+                if (lists.length > 0) {
+                    $.ajax({
+                        type : 'POST',
+                        url  : 'cart/save-all-list-cart',
+                        data : {
+                            "_token" : "{{csrf_token()}}",
+                            "data" : lists
+                        },
+                    }).done(function (response) {
+                        if (response) {
+                            RenderListCart(response);
+                            alertify.success('Cập nhật thành công!');
+                        }
+                    })
+                }
+            }
         });
 
         $(".btn-delete-all-cart").on("click", function (){
-            $.ajax({
-                type : 'GET',
-                url  : 'cart/delete-all-list-cart',
-            }).done(function (response) {
-                RenderListCart(response);
-                alertify.success('Xóa thành công!');
-            })
+            $.confirm({
+                title: 'Xác nhận xóa!',
+                content: 'Bạn có chắc muốn xóa tất cả sản phẩm khỏi giỏ hàng?',
+                buttons: {
+                    'Xác nhận': function () {
+                        $.ajax({
+                            type : 'POST',
+                            url  : 'cart/delete-all-list-cart',
+                        }).done(function (response) {
+                            if (response) {
+                                RenderListCart(response);
+                                alertify.success('Xóa thành công!');
+                            }
+                        })
+                    },
+                    'Hủy': function () {},
+                }
+            });
         });
 
         function RenderListCart(response) {

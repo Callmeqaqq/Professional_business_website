@@ -313,15 +313,15 @@
 {{--JS Cart--}}
 <script type="text/javascript">
     function AddToCart(slug) {
-        var quantity = Math.round($(".quantity-add-cart").val());
+        var quantity = $(".quantity-add-cart").val();
         var variant = $('input[name="emotion"]:checked');
 
         if (variant.val()) {
             // var data = {slug: slug, variant: variant.data('id'), quantity: quantity};
-            if (quantity && Number.isInteger(quantity) && Number && quantity > 0) {
+            if (quantity && Number(quantity) && quantity % 1 === 0 && quantity > 0) {
                 $.ajax({
                     type : 'GET',
-                    url  : '../cart/check-quantity'+'/'+slug+'/'+variant.data('id')+'/'+quantity,
+                    url  : '../cart/check-quantity'+'/'+slug+'/'+variant.data('id')+'/'+quantity+'/'+1,
                 }).done(function (res) {
                     if (res) {
                         $.alert({
@@ -333,15 +333,17 @@
                             type : 'GET',
                             url  : '../cart/add-cart/'+slug+'/'+variant.data('id')+'/'+quantity,
                         }).done(function (response) {
-                            RenderCart(response);
-                            alertify.success('Thêm thành công!');
+                            if (response) {
+                                RenderCart(response);
+                                alertify.success('Thêm thành công!');
+                            }
                         });
                     }
                 })
             } else {
                 $.alert({
                     title: 'Lỗi!',
-                    content: 'Vui lòng nhập vào số và lớn hơn 0!',
+                    content: 'Vui lòng nhập vào số nguyên và lớn hơn 0!',
                 });
             }
         } else {
@@ -357,7 +359,9 @@
             type : 'GET',
             url  : '../cart/delete-item-cart/'+$(this).data('slug')+'/'+$(this).data('variant'),
         }).done(function (response) {
-            RenderCart(response);
+            if (response) {
+                RenderCart(response);
+            }
         });
     });
 
