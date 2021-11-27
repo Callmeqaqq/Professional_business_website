@@ -19,14 +19,8 @@ class StaffMiddleware
     public function handle(Request $request, Closure $next)
     {
         $user_role = DB::table('users')->where('UserId', '=', Session('LoggedUser'))->value('UserRole');
-        $sale = 1;
-        $warehouse = 2;
-        $hr = 3;
-        $mng = 4;
-        $sup_admin = 5;
-        $staff_check = array($sale, $warehouse, $hr, $mng, $sup_admin);
-        //neu co chuc nang them role thi if !=6
-        if (!in_array($user_role, $staff_check)) {
+        $not_staff = 6; //RoleID of customer
+        if ($user_role == $not_staff) {
             return redirect('/SoMeThInGwEnTwRoNg');
         }
         $logged_role = DB::table('users')
