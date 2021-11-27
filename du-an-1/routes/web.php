@@ -71,9 +71,9 @@ Route::get('/cart/add-cart/{slug}/{variantId}/{quantity}', 'CartController@AddCa
 Route::get('/cart/delete-item-cart/{slug}/{variantId}', 'CartController@DeleteItemCart');
 Route::get('/cart/delete-item-list-cart/{slug}/{variantId}', 'CartController@DeleteItemListCart');
 Route::get('/cart/save-item-list-cart/{slug}/{variantId}/{quantity}', 'CartController@SaveItemListCart');
-Route::get('/cart/save-all-list-cart', 'CartController@SaveAllListCart');
-Route::get('/cart/delete-all-list-cart', 'CartController@DeleteAllListCart');
-Route::get('/cart/check-quantity/{slug}/{variantId}/{quantity}', 'CartController@CheckQuantity');
+Route::post('/cart/save-all-list-cart', 'CartController@SaveAllListCart');
+Route::post('/cart/delete-all-list-cart', 'CartController@DeleteAllListCart');
+Route::get('/cart/check-quantity/{slug}/{variantId}/{quantity}/{check}', 'CartController@CheckQuantity');
 
 // ---------------------------Checkout----------------------------------
 Route::get('/checkout', 'CheckoutController@index')->name('cart.checkout')->middleware('isLogged');

@@ -82,12 +82,17 @@ class CartController extends Controller
         return view('cart/cartlist');
     }
 
-    public function CheckQuantity(Request $request, $slug, $variantId, $quantity) {
-        $quantt = $request->Session()->get('quantity');
-        if (Session()->has('Cart') && array_key_exists($slug.'&'.$variantId, Session()->get('Cart')->products) && ($request->Session()->get('Cart')->products[$slug.'&'.$variantId]['quantity'] + $quantity) > $quantt) {
+    public function CheckQuantity(Request $request, $slug, $variantId, $quantity, $check) {
+        $quantt = DB::table('product')->Join('variant', 'product.ProductId', '=','variant.ProductId')
+            ->Where('product.Slug', $slug)
+            ->Where('variant.VariantId', $variantId)
+            ->Select('variant.Quantity')
+            ->first();
+
+        if (Session()->has('Cart') && array_key_exists($slug.'&'.$variantId, Session()->get('Cart')->products) && ($request->Session()->get('Cart')->products[$slug.'&'.$variantId]['quantity'] + $quantity) > $quantt->Quantity && $check == 1) {
             return true;
         } else {
-            return $quantity > $quantt ? true : false;
+            return $quantity > $quantt->Quantity ? true : false;
         }
     }
 
