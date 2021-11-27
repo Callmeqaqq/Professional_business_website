@@ -62,10 +62,9 @@
                     Thêm đầy đủ các thông tin sản phẩm vào các ô bên dưới để thêm sản phẩm mới
                 </p>
             </div>
-
             <div class="tab">
-                <button class="tablinks" id="defaultOpen" onclick="openCity(event,'Addproduct')">Thêm sản phẩm</button>
-                <button class="tablinks" onclick="openCity(event,'Addvariant')">Thêm biến thể</button>
+                <button class="tablinks" @if(!session()->has('page')) id="defaultOpen" @endif onclick="openCity(event,'Addproduct')">Thêm sản phẩm</button>
+                <button  @if(session()->has('page')) class="tablinks active" @else class="tablinks" @endif onclick="openCity(event,'Addvariant')">Thêm biến thể</button>
             </div>
             <div id="Addproduct" class="tabcontent card">
                 @if(session()->has('add-success'))
@@ -101,26 +100,29 @@
                 <div style="display: flex" class="card-body col-12">
                     <div class="form-group col-4">
                         <label>Tên Sản Phẩm:</label>
-                        <input name="ProductName" type="text" class="form-control date-inputmask" id="date-mask" placeholder="" required/>
-                        <input hidden type="text" id="slug_here" name="Slug" value="">
+                        <input name="ProductName" type="text" class="form-control date-inputmask" id="date-mask" placeholder="Nhập tên sản phẩm" value="{{old('ProductName')}}" />
+                        <input hidden type="text" id="slug_here" name="Slug" value="{{old('Slug')}}">
+                        <span class="text-danger">@error('ProductName') {{$message}}@enderror</span>
                     </div>
                     <div class="form-group col-4" >
                         <label>Danh Mục sản phẩm </label>
-                        <select class="form-control" name="CategoryId" id="" required>
+                        <select class="form-control" name="CategoryId" id="">
                             <option no value>Chọn</option>
                             @foreach($categoryAll as $cat)
-                            <option value="{{$cat->CategoryId}}">{{$cat->CategoryName}}</option>
+                            <option value="{{$cat->CategoryId}}" @if($cat->CategoryId == old('CategoryId')) selected @endif>{{$cat->CategoryName}} </option>
                             @endforeach
                         </select>
+                        <span class="text-danger">@error('CategoryId') {{$message}}@enderror</span>
                     </div>
                     <div class="form-group col-4">
                         <label>Nhà Phân Phối </label>
-                        <select class="form-control" name="SupplierId" id="" required>
+                        <select class="form-control" name="SupplierId" id="" >
                             <option no value>Chọn</option>
                             @foreach($supplier as $sup)
-                                <option value="{{$sup->SupplierId}}">{{$sup->SupplierName}}</option>
+                                <option value="{{$sup->SupplierId}}" @if($sup->SupplierId == old('SupplierId')) selected @endif>{{$sup->SupplierName}}</option>
                             @endforeach
                         </select>
+                        <span class="text-danger">@error('SupplierId') {{$message}}@enderror</span>
                     </div>
                 </div>
                 <div style="display: flex" class="card-body col-12">
@@ -130,65 +132,75 @@
 {{--                    </div>--}}
                     <div class="form-group col-4">
                         <label for="inputText4" class="col-form-label">Giá (VNĐ)</label>
-                        <input required name="Price" id="price" type="text" class="form-control" placeholder="Nhập giá sản phẩm"/>
-                        <input hidden type="number" id="price_new" name="price_new">
+                        <input name="Price" id="price" type="text" class="form-control" placeholder="Nhập giá sản phẩm" value = '{{old('Price')}}'/>
+                        <input hidden type="number" id="price_new" name="price_new" value = '{{old('price_new')}}'>
+                        <span class="text-danger">@error('price_new') {{$message}}@enderror</span>
                     </div>
                     <div class="form-group col-4">
                         <label for="inputText4" class="col-form-label">Giảm giá <small>(Từ 0-1)</small></label>
-                        <input required name="Discount" id="inputText4" type="number" step="0.01" max="1" min="0" class="form-control" placeholder="Nhập giảm giá"/>
+                        <input  name="Discount" id="inputText4" type="number" step="0.01"  class="form-control" placeholder="Nhập giảm giá" value="{{old('Discount')}}"/>
+                        <span class="text-danger">@error('Discount') {{$message}}@enderror</span>
                     </div>
                     <div class="form-group col-4">
                         <label for="inputText4" class="col-form-label">Khối lượng <small>(Kilogram)</small></label>
-                        <input required name="Weight" id="inputText4" type="number" step="0.01" min="0" class="form-control" placeholder="Nhập Khối lượng"/>
+                        <input  name="Weight" id="inputText4" type="number" step="0.01" class="form-control" placeholder="Nhập Khối lượng" value="{{old('Weight')}}"/>
+                        <span class="text-danger">@error('Weight') {{$message}}@enderror</span>
                     </div>
                 </div>
                 <div style="display: flex" class="card-body col-12">
                     <div class="form-group col-4">
                         <label for="inputText4" class="col-form-label">Màu:</label>
-                        <input name="Color" type="text" class="form-control" placeholder="Màu sản phẩm" required/>
+                        <input name="Color" type="text" class="form-control" placeholder="Màu sản phẩm" value="{{old('Color')}}"/>
+                        <span class="text-danger">@error('Color') {{$message}}@enderror</span>
                     </div>
                     <div class="form-group col-4">
                         <label for="inputText4" class="col-form-label">Số lượng <small>(Cái)</small></label>
-                        <input required name="Quantity" id="inputText4" type="number" step="1" min="0" class="form-control" placeholder="Nhập số lượng"/>
+                        <input  name="Quantity" id="inputText4" type="number" step="1" class="form-control" placeholder="Nhập số lượng" value="{{old('Quantity')}}"/>
+                        <span class="text-danger">@error('Quantity') {{$message}}@enderror</span>
                     </div>
                 </div>
                 <div style="display: flex" class="card-body col-12">
                     <div class="form-group col-8">
                         <label for="formFile" class="form-label">Chọn Ảnh mặc định (1 Ảnh)</label>
                         <input name="Images" class="form-control" type="file" id="upload" onchange="ImagesFileAsURL()">
+                        <span class="text-danger">@error('Images') {{$message}}@enderror</span>
                     </div>
                 </div>
                 <div style="display: flex" class="card-body col-12">
                     <div class="form-group col-4">
-                        <div id="displayImg"></div>
+                        <div id="displayImg">
+                        </div>
                     </div>
                 </div>
                 <div style="display: flex" class="card-body col-12">
                     <div class="form-group col-8">
                         <label for="formFileMultiple" class="form-label">Chọn tất cả Ảnh của Sản phẩm ( > 5 ảnh)</label>
                         <input name="images_multiple[]" class="form-control" type="file" id="formFileMultiple" multiple>
+                        <span class="text-danger">@error('images_multiple') {{$message}}@enderror</span>
                     </div>
                 </div>
                 <div style="display: flex" class="card-body col-12">
                     <div class="form-group col-12">
                         <label for="exampleFormControlTextarea1">Mô Tả sản phẩm</label>
-                        <textarea required name="Descreption" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea  name="Descreption" class="form-control" id="exampleFormControlTextarea1" rows="3">{{old('Descreption')}}</textarea>
+                        <span class="text-danger">@error('Descreption') {{$message}}@enderror</span>
                     </div>
                 </div>
-                <div style="display: flex"class="card-body col-12">
+                <div style="display: flex" class="card-body col-12">
                     <label class='col-2' for="">Hoạt Động</label>
                     <div class="form-check col-1">
-                        <input class="form-check-input" type="radio" name="Active" id="flexRadioDefault1" value="0">
+                        <input class="form-check-input" type="radio" name="Active" id="flexRadioDefault1" value="0" @if(old('Active')==0) checked @endif>
                         <label class="form-check-label" for="flexRadioDefault1">
                             Ẩn
                         </label>
                     </div>
                     <div class="form-check col-1">
-                        <input class="form-check-input" type="radio" name="Active" id="flexRadioDefault1" value="1">
+                        <input class="form-check-input" type="radio" name="Active" id="flexRadioDefault1" value="1" @if(old('Active')==1) checked @endif>
                         <label class="form-check-label" for="flexRadioDefault1">
                             Hiện
                         </label>
                     </div>
+                    <span class="text-danger">@error('Active') {{$message}}@enderror</span>
                 </div>
                 <div style="display: flex" class="card-body col-12">
                     <div class="form-group col-3">
@@ -198,62 +210,70 @@
                 </form>
             </div>
 
-            <div id="Addvariant" class="tabcontent card">
+            <div id="Addvariant" class="tabcontent card" @if(session()->has('page')) style="display:block"@endif>
                 <form action="{{route('add-variant')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-6">
                             <label for="inputText4" class="col-form-label">Tên Sản Phẩm:</label>
-                            <select class="form-control" name="ProductId" id="" required>
+                            <select class="form-control" name="ProductId" id="" >
                                 <option no value>Chọn</option>
                                 @foreach($product as $prod)
-                                    <option value="{{$prod->ProductId}}">{{$prod->ProductId}} - {{$prod->ProductName}}</option>
+                                    <option value="{{$prod->ProductId}}" @if($prod->ProductId == old('ProductId')) selected @endif>{{$prod->ProductId}} - {{$prod->ProductName}}</option>
                                 @endforeach
                             </select>
+                            <span class="text-danger">@error('ProductId') {{$message}}@enderror</span>
                         </div>
+
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-4">
                             <label for="inputText4" class="col-form-label">Giá (tăng bao nhiêu % so với giá cũ)</label>
-                            <input required name="Price_variant" id="inputText4" type="number" step="1" max="500" min="1" class="form-control" placeholder="Nhập giá biến thể"/>
+                            <input  name="Price_variant" id="inputText4" type="number" step="1" max="500" min="1" class="form-control" placeholder="Nhập giá biến thể" value="{{old('Price_variant')}}"/>
+                            <span class="text-danger">@error('Price_variant') {{$message}}@enderror</span>
                         </div>
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-4">
                             <label for="inputText4" class="col-form-label">Màu:</label>
-                            <input name="Color" type="text" class="form-control" placeholder="Màu sản phẩm" required/>
+                            <input name="Color_v" type="text" class="form-control" placeholder="Màu sản phẩm" value="{{old('Color_v')}}"/>
+                            <span class="text-danger">@error('Color_v') {{$message}}@enderror</span>
                         </div>
                         <div class="form-group col-4">
                             <label for="inputText4" class="col-form-label">Số lượng <small>(Cái)</small></label>
-                            <input required name="Quantity" id="inputText4" type="number" step="1" min="0" class="form-control" placeholder="Nhập số lượng"/>
+                            <input  name="Quantity_v" id="inputText4" type="number" step="1" min="0" class="form-control" placeholder="Nhập số lượng" value="{{old('Quantity_v')}}"/>
+                            <span class="text-danger">@error('Quantity_v') {{$message}}@enderror</span>
                         </div>
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-8">
                             <label for="formFile" class="form-label">Chọn Ảnh biến thể (1 ảnh)</label>
-                            <input name="Images" class="form-control" type="file" id="formFile">
+                            <input name="Images_v" class="form-control" type="file" id="formFile">
+                            <span class="text-danger">@error('Images_v') {{$message}}@enderror</span>
                         </div>
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-12">
                             <label for="exampleFormControlTextarea1">Mô Tả Biến thể</label>
-                            <textarea required name="Description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <textarea  name="Description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{old('Description')}}</textarea>
+                            <span class="text-danger">@error('Description') {{$message}}@enderror</span>
                         </div>
                     </div>
                     <div style="display: flex"class="card-body col-12">
                         <label class='col-2' for="">Hoạt Động</label>
                         <div class="form-check col-1">
-                            <input class="form-check-input" type="radio" name="Active" id="flexRadioDefault1" value="0">
+                            <input class="form-check-input" type="radio" name="Active_v" id="flexRadioDefault1" value="0" @if(old('Active_v')==0) checked @endif>
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Ẩn
                             </label>
                         </div>
                         <div class="form-check col-1">
-                            <input class="form-check-input" type="radio" name="Active" id="flexRadioDefault1" value="1">
+                            <input class="form-check-input" type="radio" name="Active_v" id="flexRadioDefault1" value="1" @if(old('Active_v')==1) checked @endif>
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Hiện
                             </label>
                         </div>
+                        <span class="text-danger">@error('Active_v') {{$message}}@enderror</span>
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-3">

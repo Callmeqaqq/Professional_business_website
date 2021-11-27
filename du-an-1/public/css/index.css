@@ -710,7 +710,7 @@ textarea {
     -webkit-transition: all 0.4s ease 0s;
     -o-transition: all 0.4s ease 0s;
     transition: all 0.4s ease 0s;
-    background-color: #e97730;
+    background-color: #d0011b;
 }
 
 .main-menu>nav>ul>li:hover>a {
@@ -2767,7 +2767,7 @@ textarea {
 }
 
 .login-register-wrapper .login-form-container .login-register-form form .login-toggle-btn {
-    padding: 10px 0 19px;
+
 }
 
 .login-register-wrapper .login-form-container .login-register-form form .login-toggle-btn label {
@@ -2784,7 +2784,7 @@ textarea {
 .login-register-wrapper .login-form-container .login-register-form form .login-toggle-btn a {
     float: right;
     font-size: 15px;
-    color: #000000;
+    color: rgba(27, 37, 186, 0.94);
     -webkit-transition: all 0.3s ease 0s;
     -o-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
@@ -2813,6 +2813,7 @@ textarea {
     -o-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
     z-index: 1;
+    height: 50px;
 }
 
 .sticky {
@@ -3868,14 +3869,6 @@ input[type=radio] + label>img {
     }
 }
 
-.single-product-cart>a {
-    display: inline-block;
-    font-weight: 600;
-    color: #ffffff;
-    background-color: #e97730;
-    padding: 20px 37px;
-    z-index: 1;
-}
 
 @media only screen and (max-width: 767px) {
     .single-product-cart>a {
@@ -7121,8 +7114,8 @@ input[type=radio] + label>img {
 
 .myaccount-tab-menu a:hover,
 .myaccount-tab-menu a.active {
-    background-color: #e97730;
-    border-color: #e97730;
+    background-color: #d0011b;
+    border-color: #d0011b;
     color: #ffffff;
 }
 
@@ -7211,7 +7204,7 @@ input[type=radio] + label>img {
 
 .myaccount-content .account-details-form .single-input-item button {
     border: none;
-    background-color: #e97730;
+    background-color: #d0011b;
     text-transform: capitalize;
     padding: 9px 25px 10px;
     color: #fff;
@@ -8482,5 +8475,9 @@ screen and (min-resolution: 192dpi) {
 
 .ti-arrow-up{
     background-color: #d0011b;
+}
+
+.payment-detail{
+    color:#d0011b;
 }
 /*Khải đẹp trai*/

@@ -5,31 +5,71 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 
 class AdminProductController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $product = DB::table('product')->get();
-        return view('admin/product/adminproduct',compact('product'));
+        return view('admin/product/adminproduct', compact('product'));
     }
-//Sản Phẩm
+
     //Thêm Sản Phẩm
-    public function add(){
-        $supplier = DB::table('supplier')->select('supplier.SupplierId','supplier.SupplierName')->get();
-        $product = DB::table('product')->select('product.ProductId','product.ProductName')->get();
-        return view('admin/product/addproduct',compact('supplier','product'));
+    public function add()
+    {
+        $supplier = DB::table('supplier')->select('supplier.SupplierId', 'supplier.SupplierName')->get();
+        $product = DB::table('product')->select('product.ProductId', 'product.ProductName')->get();
+        return view('admin/product/addproduct', compact('supplier', 'product'));
     }
-    public function create(Request $request){
+
+    public function create(Request $request)
+    {
+        //        validate request
+        $message = [
+            'required' => 'Ô này đang bị trống',
+            'ProductName.max'=> 'Số kí tự vượt quá cho phép',
+            'Discount.max' => 'Chỉ được nhập giá trị từ 0 đến 1',
+            'Discount.min' => 'Chỉ được nhập giá trị từ 0 đến 1',
+            'Weight.min' => 'Nhập khối lượng lớn hơn 0',
+            'Quantity.min' => 'Nhập số lượng lớn hơn hoặc bằng 0',
+            'image'=>'Tệp không phải là hình ảnh',
+            'mimes'=> 'Hình ảnh không hợp lệ',
+            'numeric'=> 'Giá trị truyền vào không phải số',
+        ];
+        $validate = Validator::make($request->all(), [
+            "ProductName" => "required|max:255",
+            "Slug" => "required",
+            "CategoryId" => "required",
+            "SupplierId" => "required",
+            "Price" => "required",
+            "price_new" => "required",
+            "Discount" => "required|numeric|min:0|max:1",
+            "Weight" => "required|numeric|min:0",
+            "Color" => "required",
+            "Quantity" => "required|numeric|min:0",
+            "Descreption" => "required",
+            "Active" => "required",
+            "Images" => "required|image|mimes:jpg,jpeg,svg,png",
+//            Còn vướng phần thêm nhiều ảnh
+            "images_multiple"=>'required',
+            "images_multiple.*"=>'image|mimes:jpg,jpeg,svg,png',
+        ],$message);
+
+        if ($validate->fails()) {
+            return back()->withErrors($validate)->withInput();
+        }
         $check_slug = DB::table('product')->get();
-        $check=0;
-        foreach ($check_slug as $slg){
-            if($slg->Slug == $request->Slug){
+        $check = 0;
+        foreach ($check_slug as $slg) {
+            if ($slg->Slug == $request->Slug) {
                 $check = 1;
                 break;
             }
         }
-        if($check != 1) {
+        if ($check != 1) {
             $name_color = '';
             $name_color .= $request->ProductName;
             $name_color .= ' ';
@@ -84,10 +124,10 @@ class AdminProductController extends Controller
                     'Quantity' => $request->Quantity
                 ]);
             session()->put('add-success', $request->ProductName);
-        }else{
+        } else {
             session()->put('add-success-fail', 'Tên sản phẩm đã tồn tại');
         }
-        Return redirect()->route('add-product');
+        return redirect()->route('add-product');
     }
     //Sửa Sản Phẩm
     public function edit($slug){
@@ -97,11 +137,12 @@ class AdminProductController extends Controller
         foreach($get_product as $gd){
             $ProductId = $gd->ProductId;
         }
-        $image  = DB::table('product_image')->where('ProductId','=',$ProductId)->get();
+        $image = DB::table('product_image')->where('ProductId', '=', $ProductId)->get();
         $variant = DB::table('variant')->where('ProductId','=',$ProductId)->get();
-        return view('admin/product/editproduct',compact('supplier','product','get_product','image','variant'));
+        return view('admin/product/editproduct', compact('supplier', 'product', 'get_product', 'image','variant'));
     }
-    public function createedit(Request $request){
+    public function createedit(Request $request)
+    {
 //        Check trùng tên
         $check=0;
         if($request->Slug!=null){
@@ -113,59 +154,58 @@ class AdminProductController extends Controller
 //        Xử lí update
         if($check==0){
 //            Nếu không chỉnh sửa tên không cần update tên
-            if($request->Slug != null){
-                DB::table('product')->where('ProductId','=',$request->ProductId)->update([
-                    'ProductName'=>$request->ProductName,
-                    'Slug'=>$request->Slug
+            if ($request->Slug != null) {
+                DB::table('product')->where('ProductId', '=', $request->ProductId)->update([
+                    'ProductName' => $request->ProductName,
+                    'Slug' => $request->Slug
                 ]);
             }
-            DB::table('product')->where('ProductId','=',$request->ProductId)->update([
-                'CategoryId'=>$request->CategoryId,
-                'SupplierId'=>$request->SupplierId,
-                'Price'=>$request->price_new,
+            DB::table('product')->where('ProductId', '=', $request->ProductId)->update([
+                'CategoryId' => $request->CategoryId,
+                'SupplierId' => $request->SupplierId,
+                'Price' => $request->price_new,
                 'Discount' => $request->Discount,
-                'Weight' =>$request->Weight,
-                'Descreption' =>$request->Descreption,
-                'Active' =>$request->Active,
+                'Weight' => $request->Weight,
+                'Descreption' => $request->Descreption,
+                'Active' => $request->Active,
             ]);
 //            Update Ảnh
-            if(isset($request->Images)){
+            if (isset($request->Images)) {
                 $file = $request->Images;
                 $file_name = $file->getClientOriginalName();
-                $file->move(base_path('public/images/product'),$file_name);
+                $file->move(base_path('public/images/product'), $file_name);
 
-                DB::table('product')->where('ProductId','=',$request->ProductId)->update([
-                    'Images'=>$file_name
-                ]);
-            }
+            DB::table('product')->where('ProductId', '=', $request->ProductId)->update([
+                'Images' => $file_name
+            ]);
+        }
 //            Check số lượng ảnh và xử lí trả dữ liệu sai về cho admin biết
-            $count = DB::table('product_image')->where('ProductId','=',$request->ProductId)->count();
-            $thua = 0;
-            $success=0;
-            if(isset($request->images_multiple)){
-                foreach ($request->images_multiple as $img){
-                    $count++;
-                    if($count <= 8){
-                        $file = $img;
-                        $file_name1 = $file->getClientOriginalName();
-                        $file->move(base_path('public/images/product'),$file_name1);
-                        DB::table('product_image')
-                            ->insert([
-                                'images'=>$file_name1,
-                                'ProductId'=>$request->ProductId
-                            ]);
-                        $success++;
-                    }else{
-                        $thua++;
-                    }
+        $count = DB::table('product_image')->where('ProductId', '=', $request->ProductId)->count();
+        $thua = 0;
+        $success = 0;
+        if (isset($request->images_multiple)) {
+            foreach ($request->images_multiple as $img) {
+                $count++;
+                if ($count <= 8) {
+                    $file = $img;
+                    $file_name1 = $file->getClientOriginalName();
+                    $file->move(base_path('public/images/product'), $file_name1);
+                    DB::table('product_image')
+                        ->insert([
+                            'images' => $file_name1,
+                            'ProductId' => $request->ProductId
+                        ]);
+                    $success++;
+                } else {
+                    $thua++;
                 }
             }
-            if($thua!=0){
-                session()->put('thua',$thua);
-                session()->put('duoc',$success);
-            }
-            session()->put('edit-success',$request->ProductId);
-        }else{
+        }
+        if ($thua != 0) {
+            session()->put('thua', $thua);
+            session()->put('duoc', $success);
+        }
+        session()->put('edit-success', $request->ProductId);}else{
             session()->put('edit-failed','a');
         }
 //        Nếu chỉnh sửa tên sản phẩm thành công sẽ trả về route có Slug mới được cập nhật. Trả về trang trước nếu không cập nhật Tên
@@ -199,6 +239,25 @@ class AdminProductController extends Controller
         return view('admin/product/addcategory');
     }
     public function create_category(Request $request){
+//        dd($request->all());
+//        exit();
+        $message = [
+            'unique' => 'Tên đã tồn tại',
+            'required' => 'Ô này đang bị trống',
+            'image'=>'Tệp không phải là hình ảnh',
+            'mimes'=> 'Hình ảnh không hợp lệ',
+            'numeric'=> 'Giá trị truyền vào không phải số',
+        ];
+        $validate = Validator::make($request->all(), [
+              "CategoryName" => "required|unique:category",
+              "CategorySlug" => "required",
+              "CatActive" => "required",
+              "CategoryImage" =>"required|image|mimes:jpg,jpeg,svg,png"
+        ],$message);
+
+        if ($validate->fails()) {
+            return back()->withErrors($validate)->withInput();
+        }
 
 //        Xử lí ảnh
         $file = $request->CategoryImage;
@@ -274,7 +333,7 @@ class AdminProductController extends Controller
         if($request->CategorySlug!=null && $check==0){
             Return redirect()->route('edit.category',[$request->CategorySlug]);
         }else{
-            Return redirect()->back();
+            return redirect()->back();
         }
 
     }
@@ -306,7 +365,25 @@ class AdminProductController extends Controller
 //Biến thể
     //Thêm Biến Thể
     public function create_variant(Request $request){
+        $message = [
+            'required' => 'Ô này đang bị trống',
+            'image'=>'Tệp không phải là hình ảnh',
+            'mimes'=> 'Hình ảnh không hợp lệ',
+            'numeric'=> 'Giá trị truyền vào không phải số',
+        ];
+        $validate = Validator::make($request->all(), [
+              "ProductId" => "required",
+              "Price_variant" => "required|numeric",
+              "Color_v" => "required",
+              "Quantity_v" => "required|numeric",
+              "Description" => "required",
+              "Active_v" => "required",
+              "Images_v" => "required|image|mimes:jpg,jpeg,svg,png"
+        ],$message);
 
+        if ($validate->fails()) {
+            return back()->withErrors($validate)->withInput()->with('page','variant');
+        }
 
         $name = DB::table('product')
             ->where('ProductId','=',$request->ProductId)
@@ -315,7 +392,7 @@ class AdminProductController extends Controller
         $check_name = DB::table('variant')->where('ProductId','=',$request->ProductId)->get();
         $check=0;
         foreach ($check_name as $item){
-            if($item->VariantName == $request->Color){
+            if($item->VariantName == $request->Color_v){
                 $check = 1;
                 break;
             }
@@ -323,29 +400,29 @@ class AdminProductController extends Controller
         if($check == 0){
 
 //        Update Ảnh biến thể
-            $file = $request->Images;
+            $file = $request->Images_v;
             $file_name = $file->getClientOriginalName();
             $file->move(base_path('public/images/product'),$file_name);
 //        Lấy tên sản phẩm và màu để thông báo
             $name_color = $name->ProductName;
             $name_color.=' ';
-            $name_color.=$request->Color;
+            $name_color.=$request->Color_v;
 //            Tiến hành thêm biến thể
             DB::table('variant')
                 ->insert([
-                    'VariantName'=>$request->Color,
+                    'VariantName'=>$request->Color_v,
                     'Price'=>($request->Price_variant)/100,
                     'Description' =>$request->Description,
-                    'Active'=>$request->Active,
+                    'Active'=>$request->Active_v,
                     'Color'=>$file_name,
                     'ProductId'=>$request->ProductId,
-                    'Quantity'=>$request->Quantity
+                    'Quantity'=>$request->Quantity_v
                 ]);
 //            Trả về session thành công
             session()->put('add-success-v',$name_color);
         }else{
 //            Trả về session thất bại khi trùng tên
-            session()->put('add-success-f',$request->Color);
+            session()->put('add-success-f',$request->Color_v);
         }
 
         Return redirect()->route('add-product');
@@ -407,26 +484,27 @@ class AdminProductController extends Controller
         Return redirect()->back();
     }
 
-//Hình Ảnh Sản phẩm
     //Load hình ảnh update sản phẩm bằng hàm Ajax
-    public function load_img(Request $request){
+    public function load_img(Request $request)
+    {
 //        dd($request->All());
-        $img = DB::table('product_image')->where('ProductId',$request->productId)->get();
+        $img = DB::table('product_image')->where('ProductId', $request->productId)->get();
         $output = '<div class="select-img col-12" onclick="getIdimg();">';
-        foreach($img as $i){
+        foreach ($img as $i) {
             $output .= '
-                <input style="display:none; position: absolute" type="radio" name="emotion" class="input-hidden" id="a'.$i->ImageId.'" value="'.$i->ImageId.'"/>
-                <label style="cursor: pointer; position:absolute; top:-5px; color:red;" for="a'.$i->ImageId.'">
+                <input style="display:none; position: absolute" type="radio" name="emotion" class="input-hidden" id="a' . $i->ImageId . '" value="' . $i->ImageId . '"/>
+                <label style="cursor: pointer; position:absolute; top:-5px; color:red;" for="a' . $i->ImageId . '">
                     <i style="font-size: 20px;" class="fas fa-times-circle"></i>
                 </label>
-                <img style="margin-right:10px; width:10%" title="" src="'.asset('/images/product/'.$i->images).'"/>
+                <img style="margin-right:10px; width:10%" title="" src="' . asset('/images/product/' . $i->images) . '"/>
             ';
         }
         $output .= '</div>';
         echo $output;
     }
     //Xóa hình ảnh update sản phẩm bằng Ajax
-    public function deleteimg(Request $request){
-        DB::table('product_image')->where('ImageId',$request->idimg)->delete();
+    public function deleteimg(Request $request)
+    {
+        DB::table('product_image')->where('ImageId', $request->idimg)->delete();
     }
 }
