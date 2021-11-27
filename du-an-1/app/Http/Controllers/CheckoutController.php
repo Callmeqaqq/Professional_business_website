@@ -43,7 +43,7 @@ class CheckoutController extends Controller
         $create_time = Carbon::now();
         $create_by = Session::get('LoggedUser');
         $status = 1; // 1 = Processing order, before it change to 2 for delivering
-        $ship_option = Session::get('city_check');//return 1 || 2; 1 == inside the hcm city
+        $ship_option = Session::get('city_check');//return 1 || 2; value = 1 mean inside hcm city
         if ($ship_option == 1) {
             $delivery_time = 2;// 2 days since checkout
         } else {
@@ -51,7 +51,7 @@ class CheckoutController extends Controller
         }
 
         //product & variant detail
-        
+
 
         return 'Fullname: ' . $full_name .
             ' Adress: ' . $address .
