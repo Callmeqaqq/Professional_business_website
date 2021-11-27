@@ -99,7 +99,7 @@ Route::get('/buyer/login/facebook/back','App\Http\Controllers\Socialite\LoginCon
 Route::get('/buyer/login/facebook/redirect', 'SocialController@facebookRedirect')->name('facebook.google');
 Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
 //------------admin Product-----------------------
-Route::get('/admin','admin\DemoController@index');
+Route::get('/admin','admin\DemoController@index')->middleware('admin');
 Route::get('/admin/administrator','admin\AdministratorController@index')->name('admin.administrator');
 Route::get('/admin/addAdministrator','admin\AdministratorController@add')->name('admin.addAdministrator');
 Route::get('/admin/updateAdministrator/{id}','admin\AdministratorController@update')->name('admin.updateAdministrator');

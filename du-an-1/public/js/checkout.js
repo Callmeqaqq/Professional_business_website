@@ -42,7 +42,6 @@ $(document).ready(function () {
                         $('#city_check').html(city_check);
                         let latt = obj["result"]["geometry"]["location"]["lat"];
                         let long = obj["result"]["geometry"]["location"]["lng"];
-
                         let lattCompany = $('#latt').val();
                         let longCompany = $('#long').val();
                         let Url = "https://rsapi.goong.io/DistanceMatrix?origins=" + lattCompany + "," + longCompany + "&destinations=" + latt + "," + long + "&vehicle=car&api_key=6Em1syIO2rI54vIEhIqaXDR69cXg7QW4jaPc2BS1"
@@ -57,12 +56,11 @@ $(document).ready(function () {
                                 $('#shipping-km').html(kilometers);
                                 kilometers = kilometers.slice(0, -2);
                                 let shipfee = $('#shipfee-km').html();
-
                                 shipfee = shipfee * kilometers;
-
                                 $('#totalship').val(shipfee);
                                 let formatter = new Intl.NumberFormat().format(shipfee);
                                 $('#totalship-fee').html(formatter);
+
                                 //session value
                                 $.ajax({
                                     type: 'POST',
@@ -102,7 +100,6 @@ $(document).ready(function () {
                         $('#city_check').html(city_check);
                         let latt = obj["result"]["geometry"]["location"]["lat"];
                         let long = obj["result"]["geometry"]["location"]["lng"];
-
                         let lattCompany = $('#latt').val();
                         let longCompany = $('#long').val();
                         let Url = "https://rsapi.goong.io/DistanceMatrix?origins=" + lattCompany + "," + longCompany + "&destinations=" + latt + "," + long + "&vehicle=car&api_key=6Em1syIO2rI54vIEhIqaXDR69cXg7QW4jaPc2BS1"
