@@ -50,22 +50,51 @@ class CheckoutController extends Controller
             $delivery_time = 5;// 5 days since checkout
         }
 
-        //product & variant detail
+        //insert to table orders
+        DB::table('orders')->insert([
+            'Fullname' => $full_name,
+            'Address' => $address,
+            'Phone' => $phone,
+            'Email' => $email,
+            'Note' => $message,
+            'ShipFee' => $ship_fee,
+            'CreateAt' => $create_time,
+            'Subtotal' => $total,
+            'ToPay' => $to_pay,
+            'ShipDate' => $create_time->addDays($delivery_time)->toDateString(),
+            'PaymentId' => $payment,
+            'UserId' => $create_by,
+            'StatusId' => $status,
+            'ShipOptionId' => $ship_option
+        ]);
 
+        $Lasted_order_id = DB::table('orders')->latest('OrderId')->value('OrderId');
 
-        return 'Fullname: ' . $full_name .
-            ' Adress: ' . $address .
-            ' Phone: ' . $phone .
-            ' Email: ' . $email .
-            ' Message: ' . $message .
-            ' Phí vc : ' . $ship_fee .
-            ' Time: ' . $create_time .
-            ' total: ' . $total .
-            ' topay: ' . $to_pay .
-            ' Delivery Time: ' . $create_time->addDays($delivery_time)->toDateString() .
-            ' payment: ' . $payment .
-            ' create_by: ' . $create_by .
-            ' status: ' . $status .
-            ' ship_option: ' . $ship_option;
+        //product & variant insert into order detail
+        $cart = Session::get('Cart')->products;
+        foreach ($cart as $item) {
+            //insert to orderdetail
+            DB::table('orderdetail')->insert([
+                'Quantity' => $item['quantity'],
+                'ProductId' => $item['productInfo']->ProductId,
+                'OrderId' => $Lasted_order_id,
+                'VariantId' => $item['productInfo']->VariantId
+            ]);
+            // reduce quantity of variant
+            DB::table('variant')
+                ->where('ProductId', '=', $item['productInfo']->ProductId)
+                ->where('VariantId','=', $item['productInfo']->VariantId)
+                ->update([
+                    'quantity' => $item['productInfo']->Quantity - $item['quantity']
+                ]);
+        }
+
+        //xoa gio hang
+        Session::forget('Cart');
+
+        return redirect('/order-success');
+    }
+    public function ordersuccessful(){
+        return view('cart/order_success');
     }
 }

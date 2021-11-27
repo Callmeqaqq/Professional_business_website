@@ -81,6 +81,7 @@ Route::post('/checkout', 'CheckoutController@checkoutSubmit')->name('checkout.su
 Route::get('/get_shipfee/{ShipOptionId}', 'SessionController@getshipfee');
 Route::post('/set_session', 'SessionController@createsession');
 Route::get('/allsession', 'SessionController@getsession');
+Route::get('/order-success', 'CheckoutController@ordersuccessful');
 
 
 //--------------------------search----------------------------
