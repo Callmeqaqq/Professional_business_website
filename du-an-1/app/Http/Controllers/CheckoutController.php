@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\OrderRequest;
 
 class CheckoutController extends Controller
 {
@@ -17,11 +18,11 @@ class CheckoutController extends Controller
         return view('checkout', compact('data', 'shipfee'));
     }
 
-    public function checkoutSubmit(Request $request)
+    public function checkoutSubmit(OrderRequest $request)
     {
-        $validatedDate = $request->validate([
-
-        ]);
+        //request check for current passwords
+//        $pass = $request->input('Password');
+//        $request->request->add(['password_old' => $pass]);
 
         //order information
         $full_name = $request->input('Fullname');
@@ -88,8 +89,7 @@ class CheckoutController extends Controller
                     'quantity' => $item['productInfo']->Quantity - $item['quantity']
                 ]);
         }
-
-        //xoa gio hang
+        //delete session cart
         Session::forget('Cart');
 
         return redirect('/order-success');

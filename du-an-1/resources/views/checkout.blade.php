@@ -54,8 +54,8 @@
                                             <label>Họ & Tên <abbr class=""
                                                                   title="Thông tin bắt buộc">*</abbr></label>
                                             <input type="text" placeholder="Nhập họ và tên người nhận" name="Fullname"
-                                                    value="{{Session::get('LoggedUserName')}}"
-                                            >
+                                                    value="{{Session::get('LoggedUserName')}}">
+                                            @error('Fullname') <small id="resultkilo" class="text-danger">{{$message}}</small> @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -69,15 +69,17 @@
 
                                             {{--autocomplete & place info--}}
                                             <div id="geocoder" class="billing-address"></div>
-                                            <span id="kilo" class="text-warnings"></span>
+                                            <p id="kilo"></p>
+                                            <input type="hidden" name="kilometers" id="check_location">
+                                            @error('kilometers') <small id="resultkilo" class="text-danger">{{$message}}</small> @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12">
                                         <div class="billing-info mb-20">
                                             <label>SĐT <abbr class=""
                                                              title="Thông tin bắt buộc">*</abbr></label>
-                                            <input type="text" placeholder="Nhập số điện thoại người nhận" name="Phone"
-                                            >
+                                            <input type="text" placeholder="Nhập số điện thoại người nhận" name="Phone">
+                                            @error('Phone') <small id="resultkilo" class="text-danger">{{$message}}</small> @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12">
@@ -85,17 +87,15 @@
                                             <label>Email <abbr class=""
                                                                title="Thông tin bắt buộc">*</abbr></label>
                                             <input type="email" placeholder="Email người nhận" name="Email" value="{{Session::get('LoggedEmail')}}">
-                                            @error('Email')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
+                                            @error('Email') <small id="resultkilo" class="text-danger">{{$message}}</small> @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="checkout-account-toggle open-toggle2 mb-30">
                                     <label>Xác nhận tạo đơn <abbr class=""
                                                                   title="Thông tin bắt buộc">*</abbr></label>
-                                    <input placeholder="Password" type="password" autocomplete="off" name="Password"
-                                    >
+                                    <input placeholder="Nhập mật khẩu tài khoản tạo đơn" type="password" autocomplete="off" name="Password">
+                                    @error('Password') <small id="resultkilo" class="text-danger">{{$message}}</small> @enderror
                                 </div>
                                 <div class="additional-info-wrap">
                                     <label>Ghi chú</label>
@@ -135,6 +135,7 @@
                                         </div>
                                     </div>
                                     <div class="payment-method">
+                                        @error('Payment_method') <span id="resultkilo" class="text-danger" style="border: 2px solid red; padding:4px;line-height:50px" >{{$message}}</span> @enderror
                                         <div class="pay-top sin-payment">
                                             <input id="payment-method-3" class="input-radio" type="radio" value="1"
                                                    name="Payment_method">

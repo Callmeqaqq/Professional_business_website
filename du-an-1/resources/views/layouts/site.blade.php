@@ -64,7 +64,7 @@
                                                         </ul>
                                                     </li>
                                                     <li>
-                                                        <a href="shop.html"><img src="assets/images/banner/menu.png" alt=""/></a>
+{{--                                                        <a href="shop.html"><img src="assets/images/banner/menu.png" alt=""/></a>--}}
                                                     </li>
                                                 </ul>
                                             </li>

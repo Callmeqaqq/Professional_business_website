@@ -52,15 +52,17 @@ $(document).ready(function () {
                             type: 'GET',
                             success: function (result) {
                                 let kilometers = result['rows'][0]['elements'][0]['distance']['text'];//giá trị cuối của ajax
-                                $('#kilo').html(kilometers + " so với vị trí của chúng tôi");
+                                let kilo_result = $('#kilo');
+                                kilo_result.html(kilometers + " so với vị trí của chúng tôi");
                                 $('#shipping-km').html(kilometers);
+                                $('#check_location').val('checked');
+                                $('#resultkilo').empty();//delete validate
                                 kilometers = kilometers.slice(0, -2);
                                 let shipfee = $('#shipfee-km').html();
                                 shipfee = shipfee * kilometers;
                                 $('#totalship').val(shipfee);
                                 let formatter = new Intl.NumberFormat().format(shipfee);
                                 $('#totalship-fee').html(formatter);
-
                                 //session value
                                 $.ajax({
                                     type: 'POST',
@@ -113,6 +115,7 @@ $(document).ready(function () {
                                 $('#kilo').html(kilometers + " so với vị trí của chúng tôi");
                                 $('#shipping-km').html(kilometers);
                                 kilometers = kilometers.slice(0, -2);
+                                $('#resultkilo').empty();//delete validate
                                 let shipfee = $('#shipfee-km').html();
 
                                 shipfee = shipfee * kilometers;
@@ -156,5 +159,5 @@ $(document).ready(function () {
     $('.mapboxgl-ctrl-geocoder--input').attr("placeholder", "Nhập địa chỉ của bạn");
     $('.mapboxgl-ctrl-geocoder--input').attr('name', 'Address');
     $('.mapboxgl-ctrl-geocoder--input').attr('id', 'Address');
-    $('.mapboxgl-ctrl-geocoder--input').attr('required', '');
+    // $('.mapboxgl-ctrl-geocoder--input').attr('required', '');
 });
