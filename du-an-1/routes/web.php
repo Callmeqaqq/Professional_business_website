@@ -78,7 +78,6 @@ Route::get('/cart/check-quantity/{slug}/{variantId}/{quantity}', 'CartController
 // ---------------------------Checkout----------------------------------
 Route::get('/checkout', 'CheckoutController@index')->name('cart.checkout')->middleware('isLogged');
 Route::post('/checkout', 'CheckoutController@checkoutSubmit')->name('checkout.submit');
-Route::get('/get_shipfee/{ShipOptionId}', 'SessionController@getshipfee');
 Route::post('/set_session', 'SessionController@createsession');
 Route::get('/allsession', 'SessionController@getsession');
 
@@ -89,6 +88,12 @@ Route::get('/search{keyword?}', 'SearchController@action')->name('search');
 // API routes
 Route::prefix('api')->group(function () {
     Route::post('comment/{id}/insert', 'BlogController@insertComment')->name('api.comment.insert');
+    Route::post('post/delete', 'admin\BlogController@delete')->name('api.post.delete');
+    Route::post('/upload/image', 'admin\BlogController@uploadImage');
+    Route::post('/post/new-post', 'admin\BlogController@newPost');
+    Route::post('/post/{id}/edit', 'admin\BlogController@postUpdate');
+    Route::post('/post/category/add', 'admin\BlogController@addNew');
+    Route::post('/post/category/delete', 'admin\BlogController@deleteCategory');
 });
 //----------------------- login google -------------------------------
 Route::get('/buyer/login/google/redirect', 'SocialController@googleRedirect')->name('login.google');
@@ -99,6 +104,7 @@ Route::get('/buyer/login/facebook/back','App\Http\Controllers\Socialite\LoginCon
 Route::get('/buyer/login/facebook/redirect', 'SocialController@facebookRedirect')->name('facebook.google');
 Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
 //------------admin Product-----------------------
+//---------------------- administrator -------------------------------
 Route::get('/admin','admin\DemoController@index');
 Route::get('/admin/administrator','admin\AdministratorController@index')->name('admin.administrator');
 Route::get('/admin/addAdministrator','admin\AdministratorController@add')->name('admin.addAdministrator');
@@ -138,3 +144,8 @@ Route::get('/admin/category',function(){
     return view('admin/product/adminCategory');
 })->name('admin.category')->middleware('role:Warehouse','check_view_permissions');
 
+
+Route::get('admin/blog', 'admin\BlogController@index');
+Route::get('admin/blog/new', 'admin\BlogController@new');
+Route::get('admin/blog/{id}/edit','admin\BlogController@editView');
+Route::get('admin/blog/category','admin\BlogController@categoryView');

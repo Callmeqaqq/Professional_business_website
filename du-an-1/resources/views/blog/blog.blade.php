@@ -39,6 +39,6 @@
             </div>
         </div>
     @else
-    <center>Bạn chưa có bài viết nào<center>
+    <center>Oops! Chưa có bài viết nào ở đây cả</center>
     @endif
 @stop()
