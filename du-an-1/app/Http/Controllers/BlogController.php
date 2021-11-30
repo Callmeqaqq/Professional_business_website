@@ -52,13 +52,13 @@ class BlogController extends Controller
         ->first();
     }
     private function getComments($blogId){
-        return DB::table('blogcomment')
-        ->Join('users', 'users.UserId', 'blogcomment.userId')
+        return DB::table('blogComment')
+        ->Join('users', 'users.UserId', 'blogComment.userId')
         ->Where([
-            ['blogcomment.postId',$blogId],
-            ['blogcomment.status', 1]
+            ['blogComment.postId',$blogId],
+            ['blogComment.status', 1]
         ])
-        ->Select('users.Fullname as Fullname', 'blogcomment.createAt as createAt','message','blogcomment.userId')
+        ->Select('users.Fullname as Fullname', 'blogComment.createAt as createAt','message','blogComment.userId')
         ->paginate(6);
     }
 
@@ -71,18 +71,18 @@ class BlogController extends Controller
         ];
         if(session('LoggedUser')){
             if($message != '' && $message != null){
-                DB::table('blogcomment')->insert([
-                    'postId' => $id,
+                DB::table('blogComment')->insert([
+                    'postId' => $id, 
                     'message' => $message,
                     'userId' => session('LoggedUser'),
                     'status' => 1,
                     'createAt' => date('Y-m-d H:i:s')
-                ]);
+                ]);    
                 $data = [
                     'success' => true,
                     'message' => 'Bình luận thành công',
                     'date' => date('Y-m-d H:i:s')
-                ];
+                ];            
             }else{
                 $data = [
                     'success' => false,

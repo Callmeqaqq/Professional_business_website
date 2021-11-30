@@ -17,7 +17,7 @@
                             </ul>
                         </div>
                         <h1 data-aos="fade-up" data-aos-delay="200">{{$data->Title}}</h1>
-                        <p data-aos="fade-up" data-aos-delay="200">{!!$data->Content !!} </p>
+                        <p data-aos="fade-up" data-aos-delay="200">{{$data->Content}} </p>
                         <div class="tag-social-wrap" style="justify-content: normal">
                             <div style="margin-right: 10px" class="tag-wrap" data-aos="fade-up" data-aos-delay="200">
                                 <span>Chia sẻ:</span>
@@ -37,7 +37,9 @@
                             </div>
                             <div class="blog-author-content-2">
                                 <h2>{{$data->Fullname}}</h2>
-                                <p>Còng lưng làm Content.</p>
+                                <p>Lorem ipsum dolor sit amet, consecteg adipisicing elit sed do eius tempor incididunt
+                                    ut lab et dolore magna aliqua. Ut enim ad minikl veniam, quis nostrud
+                                    exercitatio.</p>
                                 <div class="social-icon-style-3">
                                     <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
                                     <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
@@ -216,8 +218,8 @@
                 var data = $.parseJSON(res);
                 if(data.success == true){
                     Notiflix.Notify.Success(data.message);
-                    setTimeout(function () {
-                        location.reload(true);
+                    setTimeout(function () { 
+                        location.reload(true); 
                     }, 3000);
                 }else{
                     Notiflix.Notify.Warning(data.message);
