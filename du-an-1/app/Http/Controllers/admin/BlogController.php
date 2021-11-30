@@ -15,7 +15,7 @@ class BlogController extends Controller
         $data = DB::table('blog')
                 ->join('users', 'users.userId', 'blog.UserId')
                 ->join('blog_category', 'blog_category.Blog_CategoryID', 'blog.Blog_CategoryID')
-                ->select('blog.Title as title', 'blog.BlogID as id', 'blog.Blog_des as des', 'blog.CreateAt as time', 'blog.view as views', 'blog.slug as slug', 'blog.thumbnail as thumbnail', 'blog.Blog_CategoryID', 'users.Fullname as author', 'blog_Category.BlogName as category', 'blog_Category.slug as cateSlug')
+                ->select('blog.Title as title', 'blog.BlogID as id', 'blog.Blog_des as des', 'blog.CreateAt as time', 'blog.view as views', 'blog.slug as slug', 'blog.thumbnail as thumbnail', 'blog.Blog_CategoryID', 'users.Fullname as author', 'blog_category.BlogName as category', 'blog_category.slug as cateSlug')
                 ->get();
         return view('admin.blog.blog', compact('data'));
     }
@@ -32,7 +32,7 @@ class BlogController extends Controller
             "msg" => "Có lỗi trong quá trình xử lý"
         ];
         if($id != "" && $id != null){
-            DB::table('blogComment')
+            DB::table('blogcomment')
                     ->where('postId', $id)
                     ->delete();
             DB::table('blog')
@@ -171,7 +171,7 @@ class BlogController extends Controller
             "messages" => "Có lỗi trong quá trình xử lý"
         ];
         if($id != null && $id != ""){
-            $affected = DB::table('blogComment')
+            $affected = DB::table('blogcomment')
             ->where('id', $id)
             ->update([
                 'status' => 1
@@ -198,7 +198,7 @@ class BlogController extends Controller
             "messages" => "Có lỗi trong quá trình xử lý"
         ];
         if($id != null && $id != ""){
-            $affected = DB::table('blogComment')
+            $affected = DB::table('blogcomment')
             ->where('id', $id)
             ->update([
                 'status' => 0
@@ -322,11 +322,11 @@ class BlogController extends Controller
     }
 
     public function categoryCommentList($id){
-        $data = DB::table('blogComment')
-                ->join('users', 'users.userId', 'blogComment.userId')
-                ->join('blog','BlogID', 'blogComment.postId')
+        $data = DB::table('blogcomment')
+                ->join('users', 'users.userId', 'blogcomment.userId')
+                ->join('blog','BlogID', 'blogcomment.postId')
                 ->where('postId', $id)
-                ->select('id', 'users.Fullname','blog.Title','blogComment.createAt', 'message', 'blogComment.status')
+                ->select('id', 'users.Fullname','blog.Title','blogcomment.createAt', 'message', 'blogcomment.status')
                 ->get();
         return view('admin.blog.commentPostSingle', compact('data'));
     }
@@ -337,7 +337,7 @@ class BlogController extends Controller
             "messages" => "Có lỗi trong quá trình xử lý"
         ];
         if($id != "" && $id != null){
-            DB::table('blogComment')
+            DB::table('blogcomment')
                 ->where('id', $id)
                 ->delete();
             $rs = [
@@ -356,11 +356,11 @@ class BlogController extends Controller
     }
 
     public function commentsView(){
-        $data = DB::table('blogComment')
-                ->join('users', 'users.userId', 'blogComment.userId')
-                ->join('blog','BlogID', 'blogComment.postId')
-                ->select('blogComment.id', 'users.Fullname', 'blog.Title', 'blogComment.createAt', 'blogComment.status', 'blogComment.message',)
-                ->where('blogComment.status', 0)
+        $data = DB::table('blogcomment')
+                ->join('users', 'users.userId', 'blogcomment.userId')
+                ->join('blog','BlogID', 'blogcomment.postId')
+                ->select('blogcomment.id', 'users.Fullname', 'blog.Title', 'blogcomment.createAt', 'blogcomment.status', 'blogcomment.message',)
+                ->where('blogcomment.status', 0)
                 ->get();
         return view('admin.blog.comments', compact('data'));
     }
