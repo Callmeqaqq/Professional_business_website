@@ -94,6 +94,11 @@ Route::prefix('api')->group(function () {
     Route::post('/post/{id}/edit', 'admin\BlogController@postUpdate');
     Route::post('/post/category/add', 'admin\BlogController@addNew');
     Route::post('/post/category/delete', 'admin\BlogController@deleteCategory');
+    Route::post('/post/category/{id}/edit', 'admin\BlogController@categoryUpdate');
+    Route::post('/post/comment/{id}/active', 'admin\BlogController@commentActive');
+    Route::post('/post/comment/{id}/unactive', 'admin\BlogController@commentUnactive');
+    Route::post('/post/comment/{id}/delete', 'admin\BlogController@commentDelete');
+
 });
 //----------------------- login google -------------------------------
 Route::get('/buyer/login/google/redirect', 'SocialController@googleRedirect')->name('login.google');
@@ -149,3 +154,6 @@ Route::get('admin/blog', 'admin\BlogController@index');
 Route::get('admin/blog/new', 'admin\BlogController@new');
 Route::get('admin/blog/{id}/edit','admin\BlogController@editView');
 Route::get('admin/blog/category','admin\BlogController@categoryView');
+Route::get('admin/blog/category/{id}/edit','admin\BlogController@categoryEditView');
+Route::get('admin/blog/{id}/commentList', 'admin\BlogController@categoryCommentList');
+Route::get('admin/blog/comments', 'admin\BlogController@commentsView');

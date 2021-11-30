@@ -15,7 +15,6 @@
                                 <th scope="col">Danh mục</th>
                                 <th scope="col">Đăng bởi</th>
                                 <th scope="col">Lượt xem</th>
-                                <th scope="col">Lượt bình luận</th>
                                 <th scope="col">Tuỳ chọn</th>
                               </tr>
                             </thead>
@@ -28,8 +27,8 @@
                                 <td>{{$item->category}}</td>
                                 <td>{{$item->author}}</td>
                                 <td>{{$item->views}}</td>
-                                <td>{{$item->views}}</td>
                                 <td>
+                                  <a href="{{url('admin/blog/'.$item->id.'/commentList')}}" type="button" class="btn btn-primary text-white p-1">Quản lý bình luận</a>
                                   <a href="{{url('admin/blog/'.$item->id.'/edit')}}" type="button" class="btn btn-primary text-white p-1">Sửa</a>
                                   <button value="{{$item->id}}" onclick="deleteRq(this)" type="button" class="btn btn-danger text-white p-1">Xoá</button>
                                 </td>

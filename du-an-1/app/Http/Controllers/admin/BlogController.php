@@ -116,8 +116,6 @@ class BlogController extends Controller
 
     // Return edit view via route
     public function editView($id){
-
-        
         $data = DB::table('blog')
                 ->where('BlogID', $id)
                 ->select('blog.Title as title', 'blog.BlogID as id', 'blog.content', 'blog.Blog_des as des', 'blog.CreateAt as time', 'blog.thumbnail as thumbnail', 'blog.Blog_CategoryID')
@@ -162,6 +160,61 @@ class BlogController extends Controller
             ];
         }
         $category = DB::table('blog_category')->select()->get();
+        return response()->json($rs);
+    }
+
+
+    public function commentActive($id){
+        $rs = [
+            "success" => false,
+            "code" => 200,
+            "messages" => "Có lỗi trong quá trình xử lý"
+        ];
+        if($id != null && $id != ""){
+            $affected = DB::table('blogComment')
+            ->where('id', $id)
+            ->update([
+                'status' => 1
+            ]);
+            $rs = [
+                "success" => true,
+                "code" => 200,
+                "messages" => "Duyệt thành công"
+            ];
+        }else{
+            $rs = [
+                "success" => false,
+                "code" => 200,
+                "messages" => "Có lỗi trong quá trình xử lý"
+            ];
+        }
+        return response()->json($rs);
+    }
+
+    public function commentUnactive($id){
+        $rs = [
+            "success" => false,
+            "code" => 200,
+            "messages" => "Có lỗi trong quá trình xử lý"
+        ];
+        if($id != null && $id != ""){
+            $affected = DB::table('blogComment')
+            ->where('id', $id)
+            ->update([
+                'status' => 0
+            ]);
+            $rs = [
+                "success" => true,
+                "code" => 200,
+                "messages" => "Huỷ duyệt thành công"
+            ];
+        }else{
+            $rs = [
+                "success" => false,
+                "code" => 200,
+                "messages" => "Có lỗi trong quá trình xử lý"
+            ];
+        }
         return response()->json($rs);
     }
 
@@ -230,7 +283,90 @@ class BlogController extends Controller
         return response()->json($rs);
     }
 
+    public function categoryEditView($id){
+        $data = DB::table('blog_category')
+                ->where('Blog_CategoryID', $id)
+                ->select()
+                ->first();
+        return view('admin.blog.categoryEdit', compact('data'));
+    }
 
+    public function categoryUpdate($id, Request $request){
+        $rs = [
+            "success" => false,
+            "code" => 200,
+            "messages" => "Có lỗi trong quá trình xử lý"
+        ];
+        $title = $request->input('title');
+        if($title != "" && $title != null){
+            $slug = $this->createSlug($title);
+            DB::table('blog_category')
+                ->where('Blog_CategoryID', $id)
+                ->update([
+                    "BlogName" => $title,
+                    "slug" => $slug,
+                ]);
+            $rs = [
+                "success" => true,
+                "code" => 200,
+                "messages" => "Cập nhật thành công",
+            ];
+        }else{
+            $rs = [
+                "success" => false,
+                "code" => 200,
+                "messages" =>"Bạn chưa nhập tên mới",
+            ];
+        }
+        return response()->json($rs);
+    }
+
+    public function categoryCommentList($id){
+        $data = DB::table('blogComment')
+                ->join('users', 'users.userId', 'blogComment.userId')
+                ->join('blog','BlogID', 'blogComment.postId')
+                ->where('postId', $id)
+                ->select('id', 'users.Fullname','blog.Title','blogComment.createAt', 'message', 'blogComment.status')
+                ->get();
+        return view('admin.blog.commentPostSingle', compact('data'));
+    }
+    public function commentDelete($id){
+        $rs = [
+            "success" => false,
+            "code" => 200,
+            "messages" => "Có lỗi trong quá trình xử lý"
+        ];
+        if($id != "" && $id != null){
+            DB::table('blogComment')
+                ->where('id', $id)
+                ->delete();
+            $rs = [
+                "success" => true,
+                "code" => 200,
+                "messages" => "Xoá thành công",
+            ];
+        }else{
+            $rs = [
+                "success" => false,
+                "code" => 200,
+                "messages" =>"Có lỗi trong quá trình xử lý",
+            ];
+        }
+        return response()->json($rs);
+    }
+
+    public function commentsView(){
+        $data = DB::table('blogComment')
+                ->join('users', 'users.userId', 'blogComment.userId')
+                ->join('blog','BlogID', 'blogComment.postId')
+                ->select('blogComment.id', 'users.Fullname', 'blog.Title', 'blogComment.createAt', 'blogComment.status', 'blogComment.message',)
+                ->where('blogComment.status', 0)
+                ->get();
+        return view('admin.blog.comments', compact('data'));
+    }
+
+
+    
     // Generate string to slug
     public static function createSlug($str){
         $str = trim(mb_strtolower($str));

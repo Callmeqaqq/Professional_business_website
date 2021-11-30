@@ -27,7 +27,7 @@
                                 <td>{{$item->slug}}</td>
                                 <td></td>
                                 <td>
-                                  <a href="{{url('admin/blog/'.$item->Blog_CategoryID.'/edit')}}" type="button" class="btn btn-primary text-white p-1">Sửa</a>
+                                  <a href="{{url('admin/blog/category/'.$item->Blog_CategoryID.'/edit')}}" type="button" class="btn btn-primary text-white p-1">Sửa</a>
                                   <button value="{{$item->Blog_CategoryID}}" onclick="deleteRq(this)" type="button" class="btn btn-danger text-white p-1">Xoá</button>
                                 </td>
                             </tr>
@@ -52,12 +52,12 @@
               </button>
             </div>
             <div class="modal-body">
-              <form>
+              <div>
                 <div class="form-group">
                   <label for="recipient-name" class="col-form-label">Tên danh mục:</label>
                   <input id="title" type="text" class="form-control" id="recipient-name">
                 </div>
-              </form>
+                </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>

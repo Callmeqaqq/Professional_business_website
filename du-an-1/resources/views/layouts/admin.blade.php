@@ -146,6 +146,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{url('admin/blog/category')}}">Quản lý danh mục</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{url('admin/blog/comments')}}">Bình luận chờ duyệt</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>

@@ -32,7 +32,6 @@
                         </div>
                         <div class="form-group p-4">
                             <button id="post" type="button" class="btn btn-primary waves-effect waves-light">Lưu bài viết</button>
-                            <a style="color: #fff" id="preview" type="button" class="btn btn-primary waves-effect waves-light">Xem bài viết</a>
                         </div>
                       </form>
                 </div>
@@ -43,9 +42,6 @@
 @section('scripts')
 <script type="text/javascript">
 var thumbnail = '{{$data->thumbnail}}';
-
-$('#preview').hide();
-
 class MyUploadAdapter {
     constructor( loader ) {
         // The file loader instance to use during the upload. It sounds scary but do not
@@ -86,7 +82,7 @@ class MyUploadAdapter {
     _initListeners( resolve, reject, file ) {
         const xhr = this.xhr;
         const loader = this.loader;
-        const genericErrorText = `Couldn't upload file: ${ file.name }.`;
+        const genericErrorText = `Có lỗi khi xử lý file: ${ file.name }.`;
 
         xhr.addEventListener( 'error', () => reject( genericErrorText ) );
         xhr.addEventListener( 'abort', () => reject() );
@@ -166,6 +162,13 @@ var myEditor;
 
 new Dropzone("#thumbnail", {
     url: "/api/upload/image",
+    maxFilesize: 2, // MB
+    maxFiles: 1,
+    addRemoveLinks: true,
+    dictDefaultMessage: "Kéo ảnh của bạn vào đây để tải lên<br>Chỉ tải ảnh lên nếu bạn muốn thay thumbnail",
+    dictMaxFilesExceeded: "Bạn chỉ có thể tải lên 1 ảnh",
+    dictRemoveFile: "Xoá",
+    dictCancelUploadConfirmation: "Bạn muốn huỷ tải lên?",
     headers: {
         'x-csrf-token': '{{csrf_token()}}'
     },
@@ -199,9 +202,6 @@ new Dropzone("#thumbnail", {
                 Notiflix.Block.Remove('#pulseForm');
                 if(res.success == true){
                     Notiflix.Notify.Success(res.messages);
-                    $('#preview').attr('href',res.redirect);
-                    $('#preview').show();
-                    $('#post').hide();
                 }else{
                     Notiflix.Notify.Warning(res.messages);
                 }
