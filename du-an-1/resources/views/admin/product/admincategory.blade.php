@@ -41,8 +41,8 @@
                                     </td>
 {{--                                    <td>{{date('d-m-Y', strtotime($pd->CreateAt))}}</td>--}}
                                     <td>
-                                        <a href="{{asset('admin/product/edit-category/'.$cat->CategorySlug)}}"><button class="btn btn-outline-primary">Sửa</button></a>
-                                        <a href="{{asset('admin/product/delete-category/'.$cat->CategorySlug)}}"><button class="btn btn-outline-danger">Xóa</button></a>
+                                        <a href="{{asset('admin/product/edit-category/'.$cat->CategorySlug)}}"><button class="btn btn-outline-primary">🖊 Sửa</button></a>
+                                        <a href="{{asset('admin/product/delete-category/'.$cat->CategorySlug)}}" onclick="return confirm('Bạn có chắc muốn xóa danh mục này không?')"><button class="btn btn-outline-danger">⛔ Xóa</button></a>
                                     </td>
                                 </tr>
                             @endforeach
