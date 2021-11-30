@@ -189,16 +189,16 @@ class ShopController extends Controller
 
 
     function category($slug){
-        $data = DB::table('product')
-            ->join('category','product.CategoryId','=','category.CategoryId')
-            ->select('product.*','category.CatActive','category.CategorySlug','category.CategoryName')
-            ->where('category.CatActive','=',1)
-            ->where('Active','=',1)
-            ->where('category.CategorySlug','=',$slug)
-            ->paginate(9);
-
+//        $data = DB::table('product')
+//            ->join('category','product.CategoryId','=','category.CategoryId')
+//            ->select('product.*','category.CatActive','category.CategorySlug','category.CategoryName')
+//            ->where('category.CatActive','=',1)
+//            ->where('Active','=',1)
+//            ->where('category.CategorySlug','=',$slug)
+//            ->paginate(9);
+        $slug=$slug;
 //         dd($data);
-        return view('shop/shop',compact('data'));
+        return view('shop/shop',compact('slug'));
     }
 
 }
