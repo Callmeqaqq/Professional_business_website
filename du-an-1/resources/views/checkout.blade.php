@@ -78,7 +78,7 @@
                                         <div class="billing-info mb-20">
                                             <label>SĐT <abbr class=""
                                                              title="Thông tin bắt buộc">*</abbr></label>
-                                            <input type="text" placeholder="Nhập số điện thoại người nhận" name="Phone">
+                                            <input type="text" placeholder="Nhập số điện thoại người nhận" name="Phone" value="{{old('Phone')}}">
                                             @error('Phone') <small id="resultkilo" class="text-danger">{{$message}}</small> @enderror
                                         </div>
                                     </div>

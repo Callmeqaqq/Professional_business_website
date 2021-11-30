@@ -147,19 +147,19 @@
                                 <div id="submenu-9" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{asset('/admin/category')}}">Phân quyền quản
+                                            <a class="nav-link" href="{{asset('/admin/config-permission')}}">Phân quyền quản
                                                 trị</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{asset('/admin/product')}}">Thiết lập thanh
+                                            <a class="nav-link" href="{{asset('/admin/config-payment')}}">Thiết lập thanh
                                                 toán</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{asset('/admin/product/add-category')}}">Thiết
+                                            <a class="nav-link" href="{{asset('/admin/config-shipfee')}}">Thiết
                                                 lập vận chuyển</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{asset('/admin/product/add-product')}}">Content
+                                            <a class="nav-link" href="{{asset('/admin')}}">Content
                                                 Slider</a>
                                         </li>
                                     </ul>
