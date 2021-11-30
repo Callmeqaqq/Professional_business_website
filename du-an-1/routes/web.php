@@ -47,7 +47,7 @@ Route::get('/','HomeController@index')->name('home');
 // Shop
 // --------------------------shop---------------------------------
 Route::get('/shop','ShopController@index');
-
+Route::post('/shop/load-product','ShopController@load_product');
 //Category, ProductDetail
 Route::get('/category/{slug}','ShopController@category');
 Route::get('/products/{slug}','ProductDetailController@index');
@@ -71,9 +71,9 @@ Route::get('/cart/add-cart/{slug}/{variantId}/{quantity}', 'CartController@AddCa
 Route::get('/cart/delete-item-cart/{slug}/{variantId}', 'CartController@DeleteItemCart');
 Route::get('/cart/delete-item-list-cart/{slug}/{variantId}', 'CartController@DeleteItemListCart');
 Route::get('/cart/save-item-list-cart/{slug}/{variantId}/{quantity}', 'CartController@SaveItemListCart');
-Route::get('/cart/save-all-list-cart', 'CartController@SaveAllListCart');
-Route::get('/cart/delete-all-list-cart', 'CartController@DeleteAllListCart');
-Route::get('/cart/check-quantity/{slug}/{variantId}/{quantity}', 'CartController@CheckQuantity');
+Route::post('/cart/save-all-list-cart', 'CartController@SaveAllListCart');
+Route::post('/cart/delete-all-list-cart', 'CartController@DeleteAllListCart');
+Route::get('/cart/check-quantity/{slug}/{variantId}/{quantity}/{check}', 'CartController@CheckQuantity');
 
 // ---------------------------Checkout----------------------------------
 Route::get('/checkout', 'CheckoutController@index')->name('cart.checkout')->middleware('isLogged');
@@ -81,6 +81,7 @@ Route::post('/checkout', 'CheckoutController@checkoutSubmit')->name('checkout.su
 Route::get('/get_shipfee/{ShipOptionId}', 'SessionController@getshipfee');
 Route::post('/set_session', 'SessionController@createsession');
 Route::get('/allsession', 'SessionController@getsession');
+Route::get('/order-success', 'CheckoutController@ordersuccessful');
 
 
 //--------------------------search----------------------------
@@ -89,17 +90,6 @@ Route::get('/search{keyword?}', 'SearchController@action')->name('search');
 // API routes
 Route::prefix('api')->group(function () {
     Route::post('comment/{id}/insert', 'BlogController@insertComment')->name('api.comment.insert');
-    Route::post('post/delete', 'admin\BlogController@delete')->name('api.post.delete');
-    Route::post('/upload/image', 'admin\BlogController@uploadImage');
-    Route::post('/post/new-post', 'admin\BlogController@newPost');
-    Route::post('/post/{id}/edit', 'admin\BlogController@postUpdate');
-    Route::post('/post/category/add', 'admin\BlogController@addNew');
-    Route::post('/post/category/delete', 'admin\BlogController@deleteCategory');
-    Route::post('/post/category/{id}/edit', 'admin\BlogController@categoryUpdate');
-    Route::post('/post/comment/{id}/active', 'admin\BlogController@commentActive');
-    Route::post('/post/comment/{id}/unactive', 'admin\BlogController@commentUnactive');
-    Route::post('/post/comment/{id}/delete', 'admin\BlogController@commentDelete');
-
 });
 //----------------------- login google -------------------------------
 Route::get('/buyer/login/google/redirect', 'SocialController@googleRedirect')->name('login.google');
@@ -149,11 +139,3 @@ Route::get('/admin/category',function(){
     return view('admin/product/adminCategory');
 })->name('admin.category')->middleware('role:Warehouse','check_view_permissions');
 
-
-Route::get('admin/blog', 'admin\BlogController@index');
-Route::get('admin/blog/new', 'admin\BlogController@new');
-Route::get('admin/blog/{id}/edit','admin\BlogController@editView');
-Route::get('admin/blog/category','admin\BlogController@categoryView');
-Route::get('admin/blog/category/{id}/edit','admin\BlogController@categoryEditView');
-Route::get('admin/blog/{id}/commentList', 'admin\BlogController@categoryCommentList');
-Route::get('admin/blog/comments', 'admin\BlogController@commentsView');
