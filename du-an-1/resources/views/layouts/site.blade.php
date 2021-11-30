@@ -313,15 +313,15 @@
 {{--JS Cart--}}
 <script type="text/javascript">
     function AddToCart(slug) {
-        var quantity = Math.round($(".quantity-add-cart").val());
+        var quantity = $(".quantity-add-cart").val();
         var variant = $('input[name="emotion"]:checked');
 
         if (variant.val()) {
             // var data = {slug: slug, variant: variant.data('id'), quantity: quantity};
-            if (quantity && Number.isInteger(quantity) && Number && quantity > 0) {
+            if (quantity && Number(quantity) && quantity % 1 === 0 && quantity > 0) {
                 $.ajax({
                     type : 'GET',
-                    url  : '../cart/check-quantity'+'/'+slug+'/'+variant.data('id')+'/'+quantity,
+                    url  : '../cart/check-quantity'+'/'+slug+'/'+variant.data('id')+'/'+quantity+'/'+1,
                 }).done(function (res) {
                     if (res) {
                         $.alert({
@@ -333,15 +333,17 @@
                             type : 'GET',
                             url  : '../cart/add-cart/'+slug+'/'+variant.data('id')+'/'+quantity,
                         }).done(function (response) {
-                            RenderCart(response);
-                            alertify.success('Thêm thành công!');
+                            if (response) {
+                                RenderCart(response);
+                                alertify.success('Thêm thành công!');
+                            }
                         });
                     }
                 })
             } else {
                 $.alert({
                     title: 'Lỗi!',
-                    content: 'Vui lòng nhập vào số và lớn hơn 0!',
+                    content: 'Vui lòng nhập vào số nguyên và lớn hơn 0!',
                 });
             }
         } else {
@@ -357,7 +359,9 @@
             type : 'GET',
             url  : '../cart/delete-item-cart/'+$(this).data('slug')+'/'+$(this).data('variant'),
         }).done(function (response) {
-            RenderCart(response);
+            if (response) {
+                RenderCart(response);
+            }
         });
     });
 
@@ -371,6 +375,112 @@
 <script type="text/javascript">
     $(document).ready(function(){
         load_comment();
+
+        load_product();
+
+        function load_product() {
+            let cate = $('input[name="cate"]:checked').val();
+            let amount = $('#amount').val();
+            let search = $('#search-all').val();
+            let page = $('input[name="page"]:checked').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:`{{url("/shop/load-product")}}`,
+                method:"POST",
+                data:{
+                    cate:cate,
+                    amount:amount,
+                    search:search,
+                    page:page,
+                    _token:_token
+                },
+                success:function(data){
+                    $('.load-product').html(data);
+                }
+            })
+        }
+
+        $(document).on('click', '.pd_page', function() {
+            load_product();
+        })
+
+        $('#search-all').keyup(function(){
+            let cate = $('input[name="cate"]:checked').val();
+            let amount = $('#amount').val();
+            let search = $(this).val()
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:`{{url("/shop/load-product")}}`,
+                method:"POST",
+                data:{
+                    cate:cate,
+                    amount:amount,
+                    search:search,
+                    _token:_token
+                },
+                success:function(data){
+                    $('.load-product').html(data);
+                }
+            })
+        })
+
+        $('#amount').change(function(){
+            let cate = $('input[name="cate"]:checked').val();
+            let search = $('#search-all').val();
+            let amount = $(this).val()
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:`{{url("/shop/load-product")}}`,
+                method:"POST",
+                data:{
+                    cate:cate,
+                    amount:amount,
+                    search:search,
+                    _token:_token
+                },
+                success:function(data){
+                    $('.load-product').html(data);
+                }
+            })
+        })
+        $('#search_cat').click(function (){
+            let cate = $('input[name="cate"]:checked').val();
+            let search = $('#search-all').val();
+            let amount = $('#amount').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:`{{url("/shop/load-product")}}`,
+                method:"POST",
+                data:{
+                    cate:cate,
+                    amount:amount,
+                    search:search,
+                    _token:_token
+                },
+                success:function(data){
+                    $('.load-product').html(data);
+                }
+            })
+        })
+        {{--$('#amount').keyup(function(){--}}
+        {{--    let cate = $('input[name="cate"]:checked').val();--}}
+        {{--    let search = $('#search-all').val();--}}
+        {{--    let amount = $(this).val()--}}
+        {{--    var _token = $('input[name="_token"]').val();--}}
+        {{--    $.ajax({--}}
+        {{--        url:`{{url("/shop/load-product")}}`,--}}
+        {{--        method:"POST",--}}
+        {{--        data:{--}}
+        {{--            amount:amount,--}}
+        {{--            search:search,--}}
+        {{--            _token:_token--}}
+        {{--        },--}}
+        {{--        success:function(data){--}}
+        {{--            $('.load-product').html(data);--}}
+        {{--        }--}}
+        {{--    })--}}
+        {{--})--}}
+
         // alert(productId);
         function load_comment() {
             var productId = $('.comment_productId').val();
