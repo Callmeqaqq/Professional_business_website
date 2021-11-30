@@ -94,6 +94,7 @@ class CheckoutController extends Controller
 
         return redirect('/order-success');
     }
+
     public function ordersuccessful(){
         return view('cart/order_success');
     }

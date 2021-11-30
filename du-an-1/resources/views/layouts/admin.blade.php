@@ -17,7 +17,8 @@
     <!-- ============================================================== -->
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}"><img src="{{asset('images/logo/logo1.png')}}" alt=""></a>
+            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}"><img
+                    src="{{asset('images/logo/logo1.png')}}" alt=""></a>
             <a class="navbar-brand" style="color: var(--danger)" href="index.html"
             >Metah</a
             >
@@ -71,10 +72,8 @@
 
     <?php
     $array = explode('/', request()->path());
-    $url_active = $array[1]??'';
+    $url_active = $array[1] ?? '';
     ?>
-
-
 
 
     <div class="nav-left-sidebar sidebar-dark">
@@ -92,15 +91,17 @@
                         <li class="nav-item">
                             <a class="nav-link  {{ '' ===   $url_active  ? 'active':''}}" href="#" aria-expanded="false"
                             ><i class="fab fa-briefcase"></i>Dashboard
-                                </a>
+                            </a>
                         </li>
                         <li class="nav-item  ">
-                            <a class="nav-link {{'administrator' ===   $url_active ||'updateAdministrator' ===   $url_active||'addAdministrator' ===   $url_active  ? 'active':''}}" href="{{route('admin.administrator')}}" aria-expanded="false"
+                            <a class="nav-link {{'administrator' ===   $url_active ||'updateAdministrator' ===   $url_active||'addAdministrator' ===   $url_active  ? 'active':''}}"
+                               href="{{route('admin.administrator')}}" aria-expanded="false"
                             ><i class="fab fa-unlock-alt "></i>Quản trị viên
                             </a>
                         </li>
                         <li class="nav-item  ">
-                            <a class="nav-link {{ 'listComment' ===   $url_active ||'comment' ===   $url_active  ? 'active':''}}" href="{{route('comment.list')}}" aria-expanded="false"
+                            <a class="nav-link {{ 'listComment' ===   $url_active ||'comment' ===   $url_active  ? 'active':''}}"
+                               href="{{route('comment.list')}}" aria-expanded="false"
                             ><i class="fab fa-comment "></i>Quản lí bính luận
                             </a>
                         </li>
@@ -115,13 +116,15 @@
                                 <div id="submenu-10" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{asset('/admin/category')}}">Danh mục sản phẩm</a>
+                                            <a class="nav-link" href="{{asset('/admin/category')}}">Danh mục sản
+                                                phẩm</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{asset('/admin/product')}}">Tất cả sản phẩm</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{asset('/admin/product/add-category')}}">Thêm danh
+                                            <a class="nav-link" href="{{asset('/admin/product/add-category')}}">Thêm
+                                                danh
                                                 mục</a>
                                         </li>
                                         <li class="nav-item">
@@ -133,6 +136,37 @@
                             </li>
                         @endif
                         {{--warehouse role check end--}}
+
+                        {{--configuration--}}
+                        @if(session('UserRole') == 'SuperAdmin')
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse"
+                                   aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9">
+                                    <i class="fas fa-f fa-folder"></i>Cấu hình
+                                </a>
+                                <div id="submenu-9" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{asset('/admin/category')}}">Phân quyền quản
+                                                trị</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{asset('/admin/product')}}">Thiết lập thanh
+                                                toán</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{asset('/admin/product/add-category')}}">Thiết
+                                                lập vận chuyển</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{asset('/admin/product/add-product')}}">Content
+                                                Slider</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        @endif
+                        {{--configuration--}}
 
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-toggle="collapse"
@@ -146,7 +180,8 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#" data-toggle="collapse"
-                                           aria-expanded="false" data-target="#submenu-11" aria-controls="submenu-11">
+                                           aria-expanded="false" data-target="#submenu-11"
+                                           aria-controls="submenu-11">
                                             Level 2
                                         </a>
                                         <div id="submenu-11" class="collapse submenu" style="">

@@ -20,7 +20,6 @@ class AdministratorController extends Controller
 
         $page = 'administrator';
         return view('admin/administrator', compact('admins', 'page'));
-
     }
 
     function add()
@@ -28,6 +27,7 @@ class AdministratorController extends Controller
         $listRole = DB::table('role')->get();
         return view('admin/addAdminstrator', compact('listRole'));
     }
+
     function delete($id)
     {
         $delete = DB::table('users')->where('UserId','=',$id)->delete();
@@ -43,6 +43,7 @@ class AdministratorController extends Controller
         $listRole = DB::table('role')->get();
         return view('admin/updateAdminstrator', compact('listRole','user'));
     }
+
     function postUpdate(Request $request)
     {
         $message = [

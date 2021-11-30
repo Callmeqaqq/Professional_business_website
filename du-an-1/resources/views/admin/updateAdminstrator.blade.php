@@ -4,7 +4,7 @@
         <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11">
             <div class="card">
                 <div class="card-body">
-                <h4>Nhập thông tin người quảng trị</h4>
+                <h4>Nhập thông tin người quản trị</h4>
                 <form action="{{route('admin.Administrator.update')}}" method="post">
                     @csrf
                     <div class="card-body row">
@@ -48,7 +48,6 @@
 
                             @foreach($listRole as $role)
                                 <option {{$user->UserRole === $role->id_role || old('role') === $role->id_role   ? 'selected="selected"':''}} value="{{$role->id_role}}">{{$role->RoleName}}</option>
-
                             @endforeach
 
                         </select>
