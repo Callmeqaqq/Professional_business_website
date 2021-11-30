@@ -47,7 +47,7 @@ Route::get('/','HomeController@index')->name('home');
 // Shop
 // --------------------------shop---------------------------------
 Route::get('/shop','ShopController@index');
-
+Route::post('/shop/load-product','ShopController@load_product');
 //Category, ProductDetail
 Route::get('/category/{slug}','ShopController@category');
 Route::get('/products/{slug}','ProductDetailController@index');
