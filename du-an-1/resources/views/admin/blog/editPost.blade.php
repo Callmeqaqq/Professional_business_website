@@ -162,6 +162,7 @@ var myEditor;
 
 new Dropzone("#thumbnail", {
     url: "/api/upload/image",
+    paramName: 'upload',
     maxFilesize: 2, // MB
     maxFiles: 1,
     addRemoveLinks: true,
