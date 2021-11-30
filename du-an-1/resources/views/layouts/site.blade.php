@@ -404,7 +404,7 @@
             load_product();
         })
 
-        $('#search-all').keyup(function(){
+        $('#search-all').change(function(){
             let cate = $('input[name="cate"]:checked').val();
             let amount = $('#amount').val();
             let search = $(this).val()
