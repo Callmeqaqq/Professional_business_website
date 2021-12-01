@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    //payment
     $('input[type=radio][name=payment_method]').on('change', function () {
         switch ($(this).val()) {
             case '2':
@@ -15,6 +17,45 @@ $(document).ready(function () {
                 break;
         }
     });
+
+    //---------------validate-----------------
+    //full name
+    $('#Fullname').bind('change blur', function () {
+            var node = $(this);
+            node.val(node.val().replace(/[^a-zA-Z_]*$/g, ''));
+        }
+    );
+    //full name
+    $('#Phone').bind('keyup blur', function () {
+        let node = $(this);
+        node.val(node.val().replace(/[^0-9]*$/g, ''));
+    });
+
+    //email
+    const validateEmail = (email) => {
+        return email.match(
+            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
+    const validate = () => {
+        const $result = $('#Email-validation');
+        const email = $('#Email').val();
+        $result.text('');
+
+        if (validateEmail(email)) {
+            $result.text(email + ' là E-mail hợp lệ');
+            $result.removeClass('text-danger');
+            $result.addClass('text-success');
+
+        } else {
+            $result.text(email + ' không phải E-mail hợp lệ');
+            $result.removeClass('text-success');
+            $result.addClass('text-danger');
+        }
+        return false;
+    }
+    $('#Email').on('keyup', validate);
+
 
     // ---------------------DistanceMatrix----------------------------
     let geocoder = new GoongGeocoder({
@@ -159,5 +200,5 @@ $(document).ready(function () {
     $('.mapboxgl-ctrl-geocoder--input').attr("placeholder", "Nhập địa chỉ của bạn");
     $('.mapboxgl-ctrl-geocoder--input').attr('name', 'Address');
     $('.mapboxgl-ctrl-geocoder--input').attr('id', 'Address');
-    // $('.mapboxgl-ctrl-geocoder--input').attr('required', '');
+    $('.mapboxgl-ctrl-geocoder--input').attr('required', '');
 });
