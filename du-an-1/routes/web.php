@@ -39,7 +39,7 @@ Route::get('/profile/{page?}', 'Profile@index')->name('buyer.profile')->middlewa
 Route::get('/profile', 'Profile@index')->name('buyer.profile')->middleware('isLogged');
 Route::post('/profile/update', 'Profile@update')->name('buyer.update')->middleware('isLogged');
 Route::post('/profile/change', 'Profile@changePassword')->name('buyer.change')->middleware('isLogged');
-
+Route::get('/profile/order-detail/{OrderId}', 'Profile@OrderDetail')->name('buyer.orderdetail')->middleware('isLogged');
 
 // Home
 Route::get('/','HomeController@index')->name('home');
@@ -47,12 +47,13 @@ Route::get('/','HomeController@index')->name('home');
 // Shop
 // --------------------------shop---------------------------------
 Route::get('/shop','ShopController@index');
-
+Route::post('/shop/load-product','ShopController@load_product');
 //Category, ProductDetail
 Route::get('/category/{slug}','ShopController@category');
 Route::get('/products/{slug}','ProductDetailController@index');
 Route::post('/load-comment','ProductDetailController@load_comment');
 Route::post('/send-comment','ProductDetailController@send_comment');
+Route::post('/del-comment','ProductDetailController@del_comment');
 Route::post('/quantity','ProductDetailController@quantity');
 Route::post('/price','ProductDetailController@price');
 
@@ -71,9 +72,9 @@ Route::get('/cart/add-cart/{slug}/{variantId}/{quantity}', 'CartController@AddCa
 Route::get('/cart/delete-item-cart/{slug}/{variantId}', 'CartController@DeleteItemCart');
 Route::get('/cart/delete-item-list-cart/{slug}/{variantId}', 'CartController@DeleteItemListCart');
 Route::get('/cart/save-item-list-cart/{slug}/{variantId}/{quantity}', 'CartController@SaveItemListCart');
-Route::get('/cart/save-all-list-cart', 'CartController@SaveAllListCart');
-Route::get('/cart/delete-all-list-cart', 'CartController@DeleteAllListCart');
-Route::get('/cart/check-quantity/{slug}/{variantId}/{quantity}', 'CartController@CheckQuantity');
+Route::post('/cart/save-all-list-cart', 'CartController@SaveAllListCart');
+Route::post('/cart/delete-all-list-cart', 'CartController@DeleteAllListCart');
+Route::get('/cart/check-quantity/{slug}/{variantId}/{quantity}/{check}', 'CartController@CheckQuantity');
 
 // ---------------------------Checkout----------------------------------
 Route::get('/checkout', 'CheckoutController@index')->name('cart.checkout')->middleware('isLogged');
@@ -81,7 +82,7 @@ Route::post('/checkout', 'CheckoutController@checkoutSubmit')->name('checkout.su
 Route::get('/get_shipfee/{ShipOptionId}', 'SessionController@getshipfee');
 Route::post('/set_session', 'SessionController@createsession');
 Route::get('/allsession', 'SessionController@getsession');
-
+Route::get('/order-success', 'CheckoutController@ordersuccessful');
 
 //--------------------------search----------------------------
 Route::get('/search{keyword?}', 'SearchController@action')->name('search');
@@ -110,7 +111,7 @@ Route::get('/buyer/login/facebook/back','App\Http\Controllers\Socialite\LoginCon
 Route::get('/buyer/login/facebook/redirect', 'SocialController@facebookRedirect')->name('facebook.google');
 Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
 //------------admin Product-----------------------
-Route::get('/admin','admin\DemoController@index')->middleware('admin');
+Route::get('/admin','admin\AdminController@index')->middleware('admin');
 Route::get('/admin/administrator','admin\AdministratorController@index')->name('admin.administrator');
 Route::get('/admin/addAdministrator','admin\AdministratorController@add')->name('admin.addAdministrator');
 Route::get('/admin/updateAdministrator/{id}','admin\AdministratorController@update')->name('admin.updateAdministrator');
@@ -122,8 +123,9 @@ Route::post('/admin/post/updateAdministrator','admin\AdministratorController@pos
 Route::get('/admin/comment/{slug}','admin\CommentController@index')->name('comment');
 Route::get('/admin/listComment','admin\CommentController@list')->name('comment.list');
 Route::get('/admin/deleteComment/{id}','admin\CommentController@deleteComment')->name('comment.delete');
-
-
+//-----------------------Analytics admin -------------------------------
+Route::get('/analytics/products','admin\AnalyticsController@product');
+Route::get('/admin','admin\DashboardController@index')->name('dashboard.index');
 
 Route::get('/admin/product','admin\AdminProductController@index')->name('admin.product')->middleware('role:Warehouse','check_view_permissions');
 Route::get('/admin/product/add-product','admin\AdminProductController@add')->name('add-product')->middleware('role:Warehouse','check_create_permissions');
@@ -148,7 +150,15 @@ Route::post('/load-img','admin\AdminProductController@load_img');
 Route::get('/admin/category',function(){
     return view('admin/product/adminCategory');
 })->name('admin.category')->middleware('role:Warehouse','check_view_permissions');
+//config permission
+Route::get('/admin/config-permission', 'admin\ConfigController@config_permission')->name('config.permission');
+Route::post('/admin/update-config-permission', 'admin\ConfigController@update_config_permission')->name('config.update_permission');
+Route::post('/admin/update-config-licenced', 'admin\ConfigController@update_config_licenced')->name('config.update_licenced');
+Route::get('/admin/get-user-permissions/{id}', 'admin\ConfigController@check_user_permission');
+Route::get('/admin/get-permission-licenced/{permission}/{userID}', 'admin\ConfigController@get_permission_licenced');
 
+Route::get('/admin/config-payment', 'admin\ConfigController@config_payment')->name('config.payment');
+Route::get('/admin/config-shipfee', 'admin\ConfigController@config_shipfee')->name('config.shipfee');
 
 Route::get('admin/blog', 'admin\BlogController@index');
 Route::get('admin/blog/new', 'admin\BlogController@new');
@@ -157,3 +167,4 @@ Route::get('admin/blog/category','admin\BlogController@categoryView');
 Route::get('admin/blog/category/{id}/edit','admin\BlogController@categoryEditView');
 Route::get('admin/blog/{id}/commentList', 'admin\BlogController@categoryCommentList');
 Route::get('admin/blog/comments', 'admin\BlogController@commentsView');
+

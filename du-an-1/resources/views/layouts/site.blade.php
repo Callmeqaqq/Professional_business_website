@@ -64,7 +64,7 @@
                                                         </ul>
                                                     </li>
                                                     <li>
-                                                        <a href="shop.html"><img src="assets/images/banner/menu.png" alt=""/></a>
+{{--                                                        <a href="shop.html"><img src="assets/images/banner/menu.png" alt=""/></a>--}}
                                                     </li>
                                                 </ul>
                                             </li>
@@ -404,7 +404,7 @@
             load_product();
         })
 
-        $('#search-all').keyup(function(){
+        $('#search-all').change(function(){
             let cate = $('input[name="cate"]:checked').val();
             let amount = $('#amount').val();
             let search = $(this).val()
@@ -497,6 +497,29 @@
                 }
             });
         }
+
+        $(document).on('click', '.delete-cmt', function() {
+            var r = confirm("Bạn có chắc xóa bình luận này không?")
+            if(r == true){
+                let id_comment = $(this).find('input').val();
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url:"{{url("/del-comment")}}",
+                    method:"POST",
+                    data:{
+                        id_comment:id_comment,
+                        _token:_token
+                    },
+                    success:function(data){
+                        load_comment();
+                        alert('Đã xóa bình luận');
+                    }
+                });
+            }
+
+
+        })
+
         $('.send-comment').click(function (){
             var productId = $('.comment_productId').val();
             var userId = $('.comment_userId').val();

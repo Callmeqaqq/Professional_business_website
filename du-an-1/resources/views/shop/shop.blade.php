@@ -152,10 +152,20 @@
                         <div class="sidebar-list-style">
                             <div id="search_cat" style="display: block;">
                                 <input class="input-hidden" type="radio" name="cate" id="novalue" no value>
-                                <label class="cate" for="novalue"><p>⛔</p></label>
+                                <label class="cate" for="novalue"><p>⛔ Không</p></label>
                                 @foreach($category as $cat)
-                                <input class="input-hidden" type="radio" name="cate" id="{{$cat->CategoryName}}" value="{{$cat->CategorySlug}}">
-                                <label class="cate" for="{{$cat->CategoryName}}"><p >{{$cat->CategoryName}}</p></label>
+                                    @if(isset($slug))
+                                        @if($cat->CategorySlug == $slug)
+                                            <input class="input-hidden" type="radio" name="cate" id="{{$cat->CategoryName}}" checked value="{{$cat->CategorySlug}}">
+                                            <label class="cate" for="{{$cat->CategoryName}}"><p >{{$cat->CategoryName}}</p></label>
+                                        @else
+                                            <input class="input-hidden" type="radio" name="cate" id="{{$cat->CategoryName}}" value="{{$cat->CategorySlug}}">
+                                            <label class="cate" for="{{$cat->CategoryName}}"><p >{{$cat->CategoryName}}</p></label>
+                                        @endif
+                                    @else
+                                        <input class="input-hidden" type="radio" name="cate" id="{{$cat->CategoryName}}" value="{{$cat->CategorySlug}}">
+                                        <label class="cate" for="{{$cat->CategoryName}}"><p >{{$cat->CategoryName}}</p></label>
+                                    @endif
                                 @endforeach
                             </div>
                         </div>

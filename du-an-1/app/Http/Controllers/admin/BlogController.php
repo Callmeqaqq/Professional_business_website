@@ -68,7 +68,7 @@ class BlogController extends Controller
             ]);
         }
     }
-    // Get post entry and save in DB 
+    // Get post entry and save in DB
     public function newPost(Request $request){
         $rs = [
             "success" => false,
@@ -89,7 +89,7 @@ class BlogController extends Controller
         $slug = $this->createSlug($title).'.'.time();
         $description = $request->input('description');
         $category = DB::table('blog_category')->where('Blog_CategoryID', $categoryId)->select()->first();
-        DB::table('Blog')->insert([
+        DB::table('blog')->insert([
             "BlogID" => null,
             "Title" => $title,
             "slug" => $slug,
@@ -366,7 +366,7 @@ class BlogController extends Controller
     }
 
 
-    
+
     // Generate string to slug
     public static function createSlug($str){
         $str = trim(mb_strtolower($str));
