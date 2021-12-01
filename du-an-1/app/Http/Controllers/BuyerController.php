@@ -184,9 +184,8 @@ class BuyerController extends Controller
     function logout()
     {
         if (session()->has('LoggedUser')) {
-            session()->pull('LoggedUser');
-            session()->forget('Cart');
-            return redirect('/buyer/login');
+            session()->flush();
         }
+        return redirect('/buyer/login');
     }
 }
