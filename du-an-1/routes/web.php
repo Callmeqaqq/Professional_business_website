@@ -110,7 +110,7 @@ Route::get('/buyer/login/facebook/back','App\Http\Controllers\Socialite\LoginCon
 Route::get('/buyer/login/facebook/redirect', 'SocialController@facebookRedirect')->name('facebook.google');
 Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
 //------------admin Product-----------------------
-Route::get('/admin','admin\DemoController@index')->middleware('admin');
+Route::get('/admin','admin\AdminController@index')->middleware('admin');
 Route::get('/admin/administrator','admin\AdministratorController@index')->name('admin.administrator');
 Route::get('/admin/addAdministrator','admin\AdministratorController@add')->name('admin.addAdministrator');
 Route::get('/admin/updateAdministrator/{id}','admin\AdministratorController@update')->name('admin.updateAdministrator');
@@ -122,8 +122,9 @@ Route::post('/admin/post/updateAdministrator','admin\AdministratorController@pos
 Route::get('/admin/comment/{slug}','admin\CommentController@index')->name('comment');
 Route::get('/admin/listComment','admin\CommentController@list')->name('comment.list');
 Route::get('/admin/deleteComment/{id}','admin\CommentController@deleteComment')->name('comment.delete');
-
-
+//-----------------------Analytics admin -------------------------------
+Route::get('/analytics/products','admin\AnalyticsController@product');
+Route::get('/admin','admin\DashboardController@index')->name('dashboard.index');
 
 Route::get('/admin/product','admin\AdminProductController@index')->name('admin.product')->middleware('role:Warehouse','check_view_permissions');
 Route::get('/admin/product/add-product','admin\AdminProductController@add')->name('add-product')->middleware('role:Warehouse','check_create_permissions');

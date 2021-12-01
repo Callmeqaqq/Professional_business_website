@@ -14,15 +14,46 @@
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
           integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{asset("vendor/vector-map/jqvmap.css")}}" />
+    <link rel="stylesheet" href="{{asset("vendor/charts/chartist-bundle/chartist.css")}}" />
+    <link rel="stylesheet" href="{{asset("vendor/charts/c3charts/c3.css")}}" />
 </head>
 <body>
+<?php
+if (session('status')) {
+    $arr = explode('/', session('status'));
+    $statu = $arr[0];
+    $message = $arr[1];
+    session()->forget('status');
+}
+
+
+?>
+@if (isset($statu))
+    <section id="alert" class="{{$statu}} ">
+        <div class="content-alert ">
+            @if($statu === 'success')
+                <i class="fab fa-check-circle"></i>
+            @else
+                <i class="fab fa-exclamation-triangle"></i>
+            @endif
+            <div class="text">
+                <h4 class="title">{{$statu}}</h4>
+                <span class="details">{{$message}}</span>
+            </div>
+            <a class="close" id="btn-ok">&times;</a>
+            <div id="ease"></div>
+        </div>
+    </section>
+@endif
 <div class="dashboard-main-wrapper">
     <!-- ============================================================== -->
     <!-- navbar -->
     <!-- ============================================================== -->
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}"><img src="{{asset('images/logo/logo1.png')}}" alt=""></a>
+            {{--            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}"><img src="{{asset('images/logo/logo1.png')}}" alt=""></a>--}}
             <a class="navbar-brand" style="color: var(--danger)" href="index.html"
             >Metah</a
             >
@@ -76,10 +107,8 @@
 
     <?php
     $array = explode('/', request()->path());
-    $url_active = $array[1]??'';
+    $url_active = $array[1] ?? '';
     ?>
-
-
 
 
     <div class="nav-left-sidebar sidebar-dark">
@@ -87,7 +116,8 @@
             <nav class="navbar navbar-expand-lg navbar-light">
                 <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                        aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -96,22 +126,24 @@
                         <li class="nav-item">
                             <a class="nav-link  {{ '' ===   $url_active  ? 'active':''}}" href="#" aria-expanded="false"
                             ><i class="fab fa-briefcase"></i>Dashboard
-                                </a>
+                            </a>
                         </li>
                         <li class="nav-item  ">
-                            <a class="nav-link {{'administrator' ===   $url_active ||'updateAdministrator' ===   $url_active||'addAdministrator' ===   $url_active  ? 'active':''}}" href="{{route('admin.administrator')}}" aria-expanded="false"
+                            <a class="nav-link {{'administrator' ===   $url_active ||'updateAdministrator' ===   $url_active||'addAdministrator' ===   $url_active  ? 'active':''}}"
+                               href="{{route('admin.administrator')}}" aria-expanded="false"
                             ><i class="fab fa-unlock-alt "></i>Quản trị viên
                             </a>
                         </li>
                         <li class="nav-item  ">
-                            <a class="nav-link {{ 'listComment' ===   $url_active ||'comment' ===   $url_active  ? 'active':''}}" href="{{route('comment.list')}}" aria-expanded="false"
+                            <a class="nav-link {{ 'listComment' ===   $url_active ||'comment' ===   $url_active  ? 'active':''}}"
+                               href="{{route('comment.list')}}" aria-expanded="false"
                             ><i class="fab fa-comment "></i>Quản lí bính luận
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a  class="nav-link" href="#" data-toggle="collapse"
-                                aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10">
-                                <i class="fas fa-f fa-folder"></i>Sản Phẩm
+                            <a class="nav-link" href="#" data-toggle="collapse"
+                               aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10">
+                                <i class="fab fa-f fa-folder"></i>Sản Phẩm
                             </a>
                             <div id="submenu-10" class="collapse submenu" style="">
                                 <ul class="nav flex-column">
@@ -122,17 +154,19 @@
                                         <a class="nav-link" href="{{asset('/admin/product')}}">Tất cả sản phẩm</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{asset('/admin/product/add-category')}}">Thêm danh mục</a>
+                                        <a class="nav-link" href="{{asset('/admin/product/add-category')}}">Thêm danh
+                                            mục</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{asset('/admin/product/add-product')}}">Thêm sản phẩm</a>
+                                        <a class="nav-link" href="{{asset('/admin/product/add-product')}}">Thêm sản
+                                            phẩm</a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a  class="nav-link" href="#" data-toggle="collapse"
-                                aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9">
+                            <a class="nav-link" href="#" data-toggle="collapse"
+                               aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9">
                                 <i class="fas fa-f fa-folder"></i>Quản lý bài viết
                             </a>
                             <div id="submenu-9" class="collapse submenu" style="">
@@ -159,9 +193,9 @@
         </div>
     </div>
 </div>
-<script src="{{asset('vendor/jquery/jquery-3.3.1.min.js')}}"></script>
-<script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.js')}}"></script>
-<!-- <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script> -->
+<script src="{{asset("vendor/jquery/jquery-3.3.1.min.js")}}"></script>
+<script src="{{asset("vendor/bootstrap/js/bootstrap.bundle.js")}}"></script>
+{{--<!-- <script src="../assets/{{asset("/vendor/slimscroll/jquery.slimscroll.js")}}"></script> -->--}}
 {{--<script src="../assets/libs/js/main-js.js"></script>--}}
 
 <div class="dashboard-wrapper">
@@ -172,8 +206,29 @@
 {{--Js datatables--}}
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css"/>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<!-- chart chartist js -->
+<script src="{{asset("vendor/charts/chartist-bundle/chartist.min.js")}}"></script>
+<script src="{{asset("vendor/charts/chartist-bundle/Chartistjs.js")}}"></script>
+<script src="{{asset("vendor/charts/chartist-bundle/chartist-plugin-threshold.js")}}"></script>
+<!-- chart C3 js -->
+<script src="{{asset("vendor/charts/c3charts/c3.min.js")}}"></script>
+<script src="{{asset("vendor/charts/c3charts/d3-5.4.0.min.js")}}"></script>
+<!-- chartjs js -->
+<script src="{{asset("vendor/charts/charts-bundle/Chart.bundle.js")}}"></script>
+<script src="{{asset("vendor/charts/charts-bundle/chartjs.js")}}"></script>
+<!-- sparkline js -->
+<script src="{{asset("vendor/charts/sparkline/jquery.sparkline.js")}}"></script>
+<!-- dashboard finance js -->
+
+<script src="{{asset("vendor/charts/morris-bundle/raphael.min.js")}}"></script>
+<script src="{{asset("vendor/charts/morris-bundle/morris.js")}}"></script>
+<script src="{{asset("vendor/charts/morris-bundle/morrisjs.html")}}"></script>
+<script src="{{asset('js/admin.js')}}"></script>
 <script>
     $(document).ready(function () {
+        $("#btn-ok").click(function () {
+            $("#alert").fadeOut();
+        });
         $("#table").DataTable({
             lengthMenu: [10, 20, 30],
             language: {
