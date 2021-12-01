@@ -87,8 +87,7 @@
                                     @else
                                         <input type="radio" name="emotion" id="{{$color->VariantId}}" data-id="{{$color->VariantId}}" class="input-hidden" value="{{$color->VariantId}}"/>
                                         <label class="mr-5" class="sold-out" for="{{$color->VariantId}}">
-                                            <img class="sold-out-img" title="{{$color->VariantName}}" src="{{asset('./images/product/'.$color->Color)}}" alt="{{$color->VariantName}}"/>
-                                            <img style="opacity: 0.8" class="sold-out-img" src="{{asset('./images/icon-img/sold.png')}}" alt="">
+                                            <img title="{{$color->VariantName}}" src="{{asset('./images/product/'.$color->Color)}}" alt="{{$color->VariantName}}"/>
                                         </label>
                                     @endif
                                 @endforeach
