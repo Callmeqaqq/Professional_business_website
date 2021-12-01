@@ -73,8 +73,8 @@
                                             <div id="geocoder" class="billing-address"></div>
                                             <p id="kilo"></p>
                                             <input type="hidden" name="kilometers" id="check_location">
-                                            @error('kilometers') <small id="resultkilo"
-                                                                        class="text-danger">{{$message}}</small> @enderror
+                                            <small id="resultkilo"
+                                                   class="text-danger">@error('kilometers') {{$message}} @enderror </small>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12">
@@ -83,8 +83,8 @@
                                                              title="Thông tin bắt buộc">*</abbr></label>
                                             <input id="Phone" type="text" placeholder="Nhập số điện thoại người nhận"
                                                    name="Phone" value="{{old('Phone')}}" required>
-                                            @error('Phone') <small id=""
-                                                                   class="text-danger">{{$message}}</small> @enderror
+                                            <small id="Phone-validation" class="text-danger"> @error('Phone'){{$message}} @enderror
+                                            </small>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12">

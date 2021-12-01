@@ -13,7 +13,7 @@ class OrderRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return back()->withInput();
     }
 
     /**
@@ -23,13 +23,11 @@ class OrderRequest extends FormRequest
      */
     public function rules()
     {
-//        $request->request->add(['password_old' => $pass]);
-
         return [
             'Fullname' => 'required|string',
             'kilometers' => 'required',
-            'Phone' => 'required|numeric',
-            'Email' => 'required|email',
+            'Phone' => 'required|regex:/(09)[0-9]{8}/',
+            'Email' => 'required|email:rfc,dns',
             'Password' => 'required',
             'Payment_method' => 'required',
         ];
@@ -43,6 +41,7 @@ class OrderRequest extends FormRequest
             'kilometers.required' => 'Thông tin địa chỉ không được xác thực, vui lòng nhập đúng và đầy đủ địa chỉ!',
             'Phone.required' => 'Vui lòng nhập SĐT!',
             'Phone.numeric' => 'Sai định dạng',
+            'Phone.digits_between' => '',
             'Email.required' => 'Vui lòng nhập địa chỉ Email!',
             'Email.email' => 'Không đúng định dạng Email! Ví dụ: Example@domain.com',
             'Password.required' => 'Vui lòng nhập mật khẩu để xác thực tài khoản tạo đơn hàng',
