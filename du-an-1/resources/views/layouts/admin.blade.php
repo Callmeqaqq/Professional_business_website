@@ -4,21 +4,56 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Omni Dashboard</title>
-    <link rel="stylesheet" href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}"/>
-    <link rel="stylesheet" href="{{asset('css/style.css')}}"/>
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ asset('css/vendor/font-awesome.min.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('css/style.css')}}"/>
+    <script src="{{asset('js/notiflix/notiflix-aio.js')}}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
           integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{asset("vendor/vector-map/jqvmap.css")}}" />
+    <link rel="stylesheet" href="{{asset("vendor/charts/chartist-bundle/chartist.css")}}" />
+    <link rel="stylesheet" href="{{asset("vendor/charts/c3charts/c3.css")}}" />
 </head>
 <body>
+<?php
+if (session('status')) {
+    $arr = explode('/', session('status'));
+    $statu = $arr[0];
+    $message = $arr[1];
+    session()->forget('status');
+}
+
+
+?>
+@if (isset($statu))
+    <section id="alert" class="{{$statu}} ">
+        <div class="content-alert ">
+            @if($statu === 'success')
+                <i class="fab fa-check-circle"></i>
+            @else
+                <i class="fab fa-exclamation-triangle"></i>
+            @endif
+            <div class="text">
+                <h4 class="title">{{$statu}}</h4>
+                <span class="details">{{$message}}</span>
+            </div>
+            <a class="close" id="btn-ok">&times;</a>
+            <div id="ease"></div>
+        </div>
+    </section>
+@endif
 <div class="dashboard-main-wrapper">
     <!-- ============================================================== -->
     <!-- navbar -->
     <!-- ============================================================== -->
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}"><img
-                    src="{{asset('images/logo/logo1.png')}}" alt=""></a>
+            {{--            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}"><img src="{{asset('images/logo/logo1.png')}}" alt=""></a>--}}
             <a class="navbar-brand" style="color: var(--danger)" href="index.html"
             >Metah</a
             >
@@ -171,45 +206,35 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-toggle="collapse"
                                aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9">
-                                <i class="fas fa-f fa-folder"></i>Menu Level
+                                <i class="fas fa-f fa-folder"></i>Quản lý bài viết
                             </a>
                             <div id="submenu-9" class="collapse submenu" style="">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Level 1</a>
+                                        <a class="nav-link" href="{{url('admin/blog/new')}}">Tạo bài viết</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#" data-toggle="collapse"
-                                           aria-expanded="false" data-target="#submenu-11"
-                                           aria-controls="submenu-11">
-                                            Level 2
-                                        </a>
-                                        <div id="submenu-11" class="collapse submenu" style="">
-                                            <ul class="nav flex-column">
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#">Level 1</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#">Level 2</a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <a class="nav-link" href="{{url('admin/blog')}}">Bài viết đã đăng</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Level 3</a>
+                                        <a class="nav-link" href="{{url('admin/blog/category')}}">Quản lý danh mục</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{url('admin/blog/comments')}}">Bình luận chờ duyệt</a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
+
                     </ul>
                 </div>
             </nav>
         </div>
     </div>
 </div>
-<script src="{{asset('vendor/jquery/jquery-3.3.1.min.js')}}"></script>
-<script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.js')}}"></script>
-<!-- <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script> -->
+<script src="{{asset("vendor/jquery/jquery-3.3.1.min.js")}}"></script>
+<script src="{{asset("vendor/bootstrap/js/bootstrap.bundle.js")}}"></script>
+{{--<!-- <script src="../assets/{{asset("/vendor/slimscroll/jquery.slimscroll.js")}}"></script> -->--}}
 {{--<script src="../assets/libs/js/main-js.js"></script>--}}
 
 <div class="dashboard-wrapper">
@@ -220,8 +245,29 @@
 {{--Js datatables--}}
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css"/>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<!-- chart chartist js -->
+<script src="{{asset("vendor/charts/chartist-bundle/chartist.min.js")}}"></script>
+<script src="{{asset("vendor/charts/chartist-bundle/Chartistjs.js")}}"></script>
+<script src="{{asset("vendor/charts/chartist-bundle/chartist-plugin-threshold.js")}}"></script>
+<!-- chart C3 js -->
+<script src="{{asset("vendor/charts/c3charts/c3.min.js")}}"></script>
+<script src="{{asset("vendor/charts/c3charts/d3-5.4.0.min.js")}}"></script>
+<!-- chartjs js -->
+<script src="{{asset("vendor/charts/charts-bundle/Chart.bundle.js")}}"></script>
+<script src="{{asset("vendor/charts/charts-bundle/chartjs.js")}}"></script>
+<!-- sparkline js -->
+<script src="{{asset("vendor/charts/sparkline/jquery.sparkline.js")}}"></script>
+<!-- dashboard finance js -->
+
+<script src="{{asset("vendor/charts/morris-bundle/raphael.min.js")}}"></script>
+<script src="{{asset("vendor/charts/morris-bundle/morris.js")}}"></script>
+<script src="{{asset("vendor/charts/morris-bundle/morrisjs.html")}}"></script>
+<script src="{{asset('js/admin.js')}}"></script>
 <script>
     $(document).ready(function () {
+        $("#btn-ok").click(function () {
+            $("#alert").fadeOut();
+        });
         $("#table").DataTable({
             lengthMenu: [10, 20, 30],
             language: {

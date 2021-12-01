@@ -12,7 +12,7 @@
                         <div class="col-lg-3 col-md-4">
                             <div class="myaccount-tab-menu nav" role="tablist">
                                 <a href="#info" {{$page === 'info' ? 'class=active':''}}  data-bs-toggle="tab">Thông tin tài khoản</a>
-{{--                                <a href="#dashboad" data-bs-toggle="tab">Dashboard</a>--}}
+{{--                                <a href="#dashboad" data-bs-toggle="tab">DashboardController</a>--}}
                                 <a href="#password_change" {{$page === 'change_pass' ? 'class=active':''}} data-bs-toggle="tab" >Đổi mật khẩu</a>
                                 <a href="#orders" {{$page === 'orders' ? 'class="active"':''}} data-bs-toggle="tab">Orders</a>
 
@@ -30,7 +30,7 @@
                                 <!-- Single Tab Content Start -->
 {{--                                <div class="tab-pane fade show active" id="dashboad" role="tabpanel">--}}
 {{--                                    <div class="myaccount-content">--}}
-{{--                                        <h3>Dashboard</h3>--}}
+{{--                                        <h3>DashboardController</h3>--}}
 {{--                                        <div class="welcome">--}}
 {{--                                            <p>Hello, <strong>Alex Tuntuni</strong> (If Not <strong>Tuntuni !</strong><a href="login-register.html" class="logout"> Logout</a>)</p>--}}
 {{--                                        </div>--}}

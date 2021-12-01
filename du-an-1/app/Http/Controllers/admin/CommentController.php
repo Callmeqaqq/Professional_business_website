@@ -27,9 +27,14 @@ class CommentController extends Controller
             ->get();
         return view('admin/listComment' ,compact('comments'));
     }
-    function deleteComment($id){
+    function deleteComment($id,Request $request){
         $delete = DB::table('comment')
             ->where( 'CommentId', '=', $id)->delete();
-        return $delete;
+        if($delete){
+            $request->session()->put('status', 'success/Xóa thành công');
+        }else{
+            $request->session()->put('status', 'danger/Xóa không thành công đã có lỗi xãy ra');
+        }
+        return back();
     }
 }

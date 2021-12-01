@@ -375,6 +375,112 @@
 <script type="text/javascript">
     $(document).ready(function(){
         load_comment();
+
+        load_product();
+
+        function load_product() {
+            let cate = $('input[name="cate"]:checked').val();
+            let amount = $('#amount').val();
+            let search = $('#search-all').val();
+            let page = $('input[name="page"]:checked').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:`{{url("/shop/load-product")}}`,
+                method:"POST",
+                data:{
+                    cate:cate,
+                    amount:amount,
+                    search:search,
+                    page:page,
+                    _token:_token
+                },
+                success:function(data){
+                    $('.load-product').html(data);
+                }
+            })
+        }
+
+        $(document).on('click', '.pd_page', function() {
+            load_product();
+        })
+
+        $('#search-all').change(function(){
+            let cate = $('input[name="cate"]:checked').val();
+            let amount = $('#amount').val();
+            let search = $(this).val()
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:`{{url("/shop/load-product")}}`,
+                method:"POST",
+                data:{
+                    cate:cate,
+                    amount:amount,
+                    search:search,
+                    _token:_token
+                },
+                success:function(data){
+                    $('.load-product').html(data);
+                }
+            })
+        })
+
+        $('#amount').change(function(){
+            let cate = $('input[name="cate"]:checked').val();
+            let search = $('#search-all').val();
+            let amount = $(this).val()
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:`{{url("/shop/load-product")}}`,
+                method:"POST",
+                data:{
+                    cate:cate,
+                    amount:amount,
+                    search:search,
+                    _token:_token
+                },
+                success:function(data){
+                    $('.load-product').html(data);
+                }
+            })
+        })
+        $('#search_cat').click(function (){
+            let cate = $('input[name="cate"]:checked').val();
+            let search = $('#search-all').val();
+            let amount = $('#amount').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:`{{url("/shop/load-product")}}`,
+                method:"POST",
+                data:{
+                    cate:cate,
+                    amount:amount,
+                    search:search,
+                    _token:_token
+                },
+                success:function(data){
+                    $('.load-product').html(data);
+                }
+            })
+        })
+        {{--$('#amount').keyup(function(){--}}
+        {{--    let cate = $('input[name="cate"]:checked').val();--}}
+        {{--    let search = $('#search-all').val();--}}
+        {{--    let amount = $(this).val()--}}
+        {{--    var _token = $('input[name="_token"]').val();--}}
+        {{--    $.ajax({--}}
+        {{--        url:`{{url("/shop/load-product")}}`,--}}
+        {{--        method:"POST",--}}
+        {{--        data:{--}}
+        {{--            amount:amount,--}}
+        {{--            search:search,--}}
+        {{--            _token:_token--}}
+        {{--        },--}}
+        {{--        success:function(data){--}}
+        {{--            $('.load-product').html(data);--}}
+        {{--        }--}}
+        {{--    })--}}
+        {{--})--}}
+
         // alert(productId);
         function load_comment() {
             var productId = $('.comment_productId').val();
