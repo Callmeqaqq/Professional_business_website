@@ -12,7 +12,8 @@ class Profile extends Controller
 
     function index($page = 'info'){
         $user = DB::table('users')->select('Email','Fullname','Address','Phone')->where('UserId','=', Session('LoggedUser'))->get()->first();
-        return view('profile',compact('user','page'));
+        $orders = DB::table('orders')->select('OrderId','ShipDate','StatusId','ToPay')->where('UserId','=', Session('LoggedUser'))->orderBy('OrderId','desc')->get();
+        return view('profile',compact('user','page','orders'));
     }
     function update(Request $request){
         $message = [
@@ -83,5 +84,18 @@ class Profile extends Controller
         }else{
             return back()->with('status','Mật khẩu không chính xác');
         }
+    }
+
+    function OrderDetail(Request $request, $OrderId) {
+        $orderDetail = DB::table('orders')
+            ->Join('orderdetail', 'orders.OrderId', '=','orderdetail.OrderId')
+            ->Join('product', 'orderdetail.ProductId', '=','product.ProductId')
+            ->Join('variant', 'orderdetail.VariantId', '=','variant.VariantId')
+            ->Where('orders.UserId', Session('LoggedUser'))
+            ->Where('orders.OrderId', $OrderId)
+            ->Select('variant.Color', 'variant.VariantName', 'orderdetail.Quantity', 'product.Price as ProductPrice', 'variant.Price as VariantPrice')
+            ->get();
+        return view('profile/orderdetail', compact('orderDetail'));
+//        dd($orderDetail);
     }
 }

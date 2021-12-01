@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0bbda4a-3fbf-4b43-8e04-1b6eee43ea7f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/du-an-1/resources/views/profile/orderdetail.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/CartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/CartController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/cart/cart.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/cart/cart.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/cart/cartlist.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/cart/cartlist.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/Profile.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/du-an-1/public/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/public/css/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/layouts/site.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/layouts/site.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/profile.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/du-an-1/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
