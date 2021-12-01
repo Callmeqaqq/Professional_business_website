@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="{{ asset('css/vendor/font-awesome.min.css')}}"/>
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/style.css')}}"/>
+    <script src="{{asset('js/notiflix/notiflix-aio.js')}}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 
     <link rel="stylesheet" href="{{asset("vendor/vector-map/jqvmap.css")}}" />
     <link rel="stylesheet" href="{{asset("vendor/charts/chartist-bundle/chartist.css")}}" />
@@ -161,31 +167,21 @@ if (session('status')) {
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-toggle="collapse"
                                aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9">
-                                <i class="fas fa-f fa-folder"></i>Menu Level
+                                <i class="fas fa-f fa-folder"></i>Quản lý bài viết
                             </a>
                             <div id="submenu-9" class="collapse submenu" style="">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Level 1</a>
+                                        <a class="nav-link" href="{{url('admin/blog/new')}}">Tạo bài viết</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#" data-toggle="collapse"
-                                           aria-expanded="false" data-target="#submenu-11" aria-controls="submenu-11">
-                                            Level 2
-                                        </a>
-                                        <div id="submenu-11" class="collapse submenu" style="">
-                                            <ul class="nav flex-column">
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#">Level 1</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#">Level 2</a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <a class="nav-link" href="{{url('admin/blog')}}">Bài viết đã đăng</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Level 3</a>
+                                        <a class="nav-link" href="{{url('admin/blog/category')}}">Quản lý danh mục</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{url('admin/blog/comments')}}">Bình luận chờ duyệt</a>
                                     </li>
                                 </ul>
                             </div>

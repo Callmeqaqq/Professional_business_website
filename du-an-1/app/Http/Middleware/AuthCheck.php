@@ -17,7 +17,7 @@ class AuthCheck
     public function handle(Request $request, Closure $next)
     {
         if(!session()->has('LoggedUser')){
-            return redirect('/buyer/login')->with('fail', 'Bạn cần đăng nhập');
+            return redirect('/buyer/login');
         }
         return $next($request);
     }

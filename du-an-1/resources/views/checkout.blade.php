@@ -38,9 +38,9 @@
     </style>
     {{--                                            @if (Session::has('Cart') != null)--}}
 
-    {{ Breadcrumbs::render('checkout') }}
-    <div class="checkout-main-area pt-100">
+    <div class="checkout-main-area pb-100">
         <div class="container">
+            {{ Breadcrumbs::render('checkout') }}
             <div class="checkout-wrap pt-30">
                 <form method="post" id="checkout-form" action="{{route('checkout.submit')}}">
                     @csrf
@@ -54,6 +54,7 @@
                                             <label>Họ & Tên <abbr class=""
                                                                   title="Thông tin bắt buộc">*</abbr></label>
                                             <input type="text" placeholder="Nhập họ và tên người nhận" name="Fullname"
+                                                    value="{{Session::get('LoggedUserName')}}"
                                             >
                                         </div>
                                     </div>
@@ -83,7 +84,7 @@
                                         <div class="billing-info mb-20">
                                             <label>Email <abbr class=""
                                                                title="Thông tin bắt buộc">*</abbr></label>
-                                            <input type="email" placeholder="Email người nhận" name="Email">
+                                            <input type="email" placeholder="Email người nhận" name="Email" value="{{Session::get('LoggedEmail')}}">
                                             @error('Email')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
@@ -117,7 +118,7 @@
                                             <ul>
                                                 @foreach(Session::get('Cart')->products as $value)
                                                     <li>
-                                                        {{$value['productInfo']->ProductName}} X {{$value['quantity']}}
+                                                        {{$value['productInfo']->VariantName}} X {{$value['quantity']}}
                                                         <span>{{number_format($value['price'])}}</span>
                                                     </li>
                                                 @endforeach
@@ -128,23 +129,25 @@
                                                 <li>Tổng tiền hóa đơn
                                                     <span>{{number_format(Session::get('Cart')->totalPrice)}}</span>
                                                 </li>
-                                                <input type="number" id="total-before-shipfee" hidden
-                                                       value="{{Session::get('Cart')->totalPrice}}">
+                                                <input id="total-before-shipfee" type="number"
+                                                       value="{{Session::get('Cart')->totalPrice}}" hidden>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="payment-method">
                                         <div class="pay-top sin-payment">
-                                            <input id="payment-method-3" class="input-radio" type="radio" value="after"
-                                                   name="payment_method">
+                                            <input id="payment-method-3" class="input-radio" type="radio" value="1"
+                                                   name="Payment_method">
                                             <label for="payment-method-3">Thanh toán khi nhận hàng</label>
                                             <div class="payment-box" id="after">
-                                                <p>Quãng đường vận chuyển: <span id="shipping-km">0</span></p>
-                                                {{--                                            $data from shipping option--}}
-                                                <p>Phí vận chuyển: <span id="shipfee-km">{{$data}}</span> vnd/km</p>
-                                                {{--                                            <p>Phí vận chuyển: <span id="shipfee-km">{{(Session::get('Cart')->products)}}</span> vnd/km</p>--}}
-                                                <p>Tổng tiền ship: <span id="totalship-fee">0</span> vnd</p>
-                                                <input id="totalship" name="totalship" value="" hidden>
+                                                <p>Quãng đường vận chuyển: <span id="shipping-km" class="payment-detail">0</span></p>
+                                                <p>Phạm vi xác định: <span id="city_check" class="payment-detail"></span>
+                                                    <input type="number" id="thecity" value="" hidden>
+                                                </p>
+                                                <p>Phí vận chuyển: <span id="shipfee-km" class="payment-detail">?</span> vnd/km</p>
+                                                <p class="text-warning">Tối đa 500.000vnđ tiền vận chuyển tuyến Nam-Bắc</p>
+                                                <p>Tổng tiền ship: <span id="totalship-fee" class="payment-detail">0</span> vnd</p>
+                                                <input id="totalship" name="totalshipfee" value="" hidden>
                                                 <hr>
                                                 <p>Hàng sẽ được giao trong vòng 48h(3-5 ngày đối với giao hàng ở tỉnh),
                                                     quý
@@ -152,8 +155,9 @@
                                             </div>
                                         </div>
                                         <div class="pay-top sin-payment sin-payment-3">
-                                            <input id="payment-method-4" class="input-radio" type="radio" value="before"
-                                                   name="payment_method">
+                                            <span class="text-warning"> Đang bảo trì thanh toán trả trước ⚠</span>
+                                            <input id="payment-method-4" class="input-radio" type="radio" value="2"
+                                                   name="Payment_method" disabled>
                                             <label for="payment-method-4">
                                                 <img alt="" src="{{asset('images/paypal.png')}}">
                                                 Thanh toán trả trước
@@ -165,7 +169,7 @@
                                         <div class="your-order-info order-total">
                                             <ul>
                                                 <li>Tổng số tiền phải thanh toán <span
-                                                        id="total-order">{{number_format(Session::get('Cart')->totalPrice)}}</span>
+                                                        id="total-order">{{number_format((Session::get('Cart')->totalPrice) + $shipfee)}}</span>
                                                 </li>
                                             </ul>
                                         </div>
@@ -185,4 +189,5 @@
                 </form>
             </div>
         </div>
+    </div>
 @stop

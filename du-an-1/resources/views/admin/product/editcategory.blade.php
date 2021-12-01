@@ -3,9 +3,9 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="section-block" id="inputmask">
-                <h3 class="section-title">Thêm danh mục mới</h3>
+                <h3 class="section-title">Sửa Danh Mục Sản Phẩm</h3>
                 <p>
-                    Thêm đầy đủ các thông tin vào các ô bên dưới để thêm danh mục mới
+                    Điền đầy đủ thông tin vào các ô bên dưới để sửa danh mục.
                 </p>
             </div>
             <div class="card">
