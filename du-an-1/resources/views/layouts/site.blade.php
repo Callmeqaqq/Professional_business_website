@@ -500,7 +500,7 @@
 
         $(document).on('click', '.delete-cmt', function() {
             var r = confirm("Bạn có chắc xóa bình luận này không?")
-            if(r== true){
+            if(r == true){
                 let id_comment = $(this).find('input').val();
                 var _token = $('input[name="_token"]').val();
                 $.ajax({
@@ -511,8 +511,8 @@
                         _token:_token
                     },
                     success:function(data){
-                        alert('Đã xóa bình luận');
                         load_comment();
+                        alert('Đã xóa bình luận');
                     }
                 });
             }

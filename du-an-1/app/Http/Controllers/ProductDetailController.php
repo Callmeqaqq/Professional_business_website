@@ -136,6 +136,11 @@ class ProductDetailController extends Controller
             ]);
 
     }
+    function del_comment(Request $request){
+        $id_comment= $request->id_comment;
+        DB::table('comment')
+            ->where('CommentId',$id_comment)->delete();
+    }
 
     function quantity(Request $request){
         $variantId = $request->variantId;
