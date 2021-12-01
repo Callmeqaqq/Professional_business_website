@@ -48,7 +48,7 @@
                                     <td>{{date('d-m-Y', strtotime($pd->CreateAt))}}</td>
                                     <td>
                                         <a href="{{asset('admin/product/edit-product/'.$pd->Slug)}}"><button class="btn btn-outline-primary">🖊 Sửa</button></a>
-                                        <a href="{{asset('admin/product/delete-product/'.$pd->Slug)}}"><button class="btn btn-outline-danger">⛔ Xóa</button></a>
+                                        <a href="{{asset('admin/product/delete-product/'.$pd->Slug)}}" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này không?')"><button class="btn btn-outline-danger">⛔ Xóa</button></a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -53,9 +53,11 @@
                                         <div class="billing-info mb-20">
                                             <label>Họ & Tên <abbr class=""
                                                                   title="Thông tin bắt buộc">*</abbr></label>
-                                            <input type="text" placeholder="Nhập họ và tên người nhận" name="Fullname"
-                                                    value="{{Session::get('LoggedUserName')}}"
-                                            >
+                                            <input id="Fullname" type="text" placeholder="Nhập họ và tên người nhận"
+                                                   name="Fullname"
+                                                   value="{{old('Fullname')}}" required>
+                                            <small id="Fullname-validation"
+                                                   class="text-danger"> @error('Fullname') {{$message}} @enderror</small>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -69,38 +71,44 @@
 
                                             {{--autocomplete & place info--}}
                                             <div id="geocoder" class="billing-address"></div>
-                                            <span id="kilo" class="text-warnings"></span>
+                                            <p id="kilo"></p>
+                                            <input type="hidden" name="kilometers" id="check_location">
+                                            @error('kilometers') <small id="resultkilo"
+                                                                        class="text-danger">{{$message}}</small> @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12">
                                         <div class="billing-info mb-20">
                                             <label>SĐT <abbr class=""
                                                              title="Thông tin bắt buộc">*</abbr></label>
-                                            <input type="text" placeholder="Nhập số điện thoại người nhận" name="Phone"
-                                            >
+                                            <input id="Phone" type="text" placeholder="Nhập số điện thoại người nhận"
+                                                   name="Phone" value="{{old('Phone')}}" required>
+                                            @error('Phone') <small id=""
+                                                                   class="text-danger">{{$message}}</small> @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12">
                                         <div class="billing-info mb-20">
-                                            <label>Email <abbr class=""
-                                                               title="Thông tin bắt buộc">*</abbr></label>
-                                            <input type="email" placeholder="Email người nhận" name="Email" value="{{Session::get('LoggedEmail')}}">
-                                            @error('Email')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
+                                            <label for="Email">Email <abbr class=""
+                                                                           title="Thông tin bắt buộc">*</abbr></label>
+                                            <input id="Email" type="email" placeholder="Email người nhận" name="Email"
+                                                   value="{{old('Email')}}" required>
+                                            <small id="Email-validation"
+                                                   class="text-danger">@error('Email') {{$message}} @enderror</small>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="checkout-account-toggle open-toggle2 mb-30">
                                     <label>Xác nhận tạo đơn <abbr class=""
                                                                   title="Thông tin bắt buộc">*</abbr></label>
-                                    <input placeholder="Password" type="password" autocomplete="off" name="Password"
-                                    >
+                                    <input placeholder="Nhập mật khẩu tài khoản tạo đơn" type="password"
+                                           autocomplete="off" name="Password" required>
+                                    @error('Password') <small id="" class="text-danger">{{$message}}</small> @enderror
                                 </div>
                                 <div class="additional-info-wrap">
                                     <label>Ghi chú</label>
                                     <textarea class="note" placeholder="Yêu cầu đặc biệt, lưu ý cho Cửa Hàng/Shipper"
-                                              name="Message"></textarea>
+                                              name="Message">{{old('Message')}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -135,18 +143,25 @@
                                         </div>
                                     </div>
                                     <div class="payment-method">
+                                        @error('Payment_method') <span id="" class="text-danger"
+                                                                       style="border: 2px solid red; padding:4px;line-height:50px">{{$message}}</span> @enderror
                                         <div class="pay-top sin-payment">
                                             <input id="payment-method-3" class="input-radio" type="radio" value="1"
-                                                   name="Payment_method">
+                                                   name="Payment_method" required>
                                             <label for="payment-method-3">Thanh toán khi nhận hàng</label>
                                             <div class="payment-box" id="after">
-                                                <p>Quãng đường vận chuyển: <span id="shipping-km" class="payment-detail">0</span></p>
-                                                <p>Phạm vi xác định: <span id="city_check" class="payment-detail"></span>
+                                                <p>Quãng đường vận chuyển: <span id="shipping-km"
+                                                                                 class="payment-detail">0</span></p>
+                                                <p>Phạm vi xác định: <span id="city_check"
+                                                                           class="payment-detail"></span>
                                                     <input type="number" id="thecity" value="" hidden>
                                                 </p>
-                                                <p>Phí vận chuyển: <span id="shipfee-km" class="payment-detail">?</span> vnd/km</p>
-                                                <p class="text-warning">Tối đa 500.000vnđ tiền vận chuyển tuyến Nam-Bắc</p>
-                                                <p>Tổng tiền ship: <span id="totalship-fee" class="payment-detail">0</span> vnd</p>
+                                                <p>Phí vận chuyển: <span id="shipfee-km" class="payment-detail">?</span>
+                                                    vnd/km</p>
+                                                <p class="text-warning">Tối đa 500.000vnđ tiền vận chuyển tuyến
+                                                    Nam-Bắc</p>
+                                                <p>Tổng tiền ship: <span id="totalship-fee"
+                                                                         class="payment-detail">0</span> vnd</p>
                                                 <input id="totalship" name="totalshipfee" value="" hidden>
                                                 <hr>
                                                 <p>Hàng sẽ được giao trong vòng 48h(3-5 ngày đối với giao hàng ở tỉnh),
@@ -157,13 +172,14 @@
                                         <div class="pay-top sin-payment sin-payment-3">
                                             <span class="text-warning"> Đang bảo trì thanh toán trả trước ⚠</span>
                                             <input id="payment-method-4" class="input-radio" type="radio" value="2"
-                                                   name="Payment_method" disabled>
+                                                   name="Payment_method" disabled required>
                                             <label for="payment-method-4">
                                                 <img alt="" src="{{asset('images/paypal.png')}}">
                                                 Thanh toán trả trước
                                             </label>
                                             <div class="payment-box" id="before">
-                                                <p>Giảm <span style="color:#d0011b">80%</span> tiền ship(tối đa 150k) đối với thanh toán trả trước.</p>
+                                                <p>Giảm <span style="color:#d0011b">80%</span> tiền ship(tối đa 150k)
+                                                    đối với thanh toán trả trước.</p>
                                             </div>
                                         </div>
                                         <div class="your-order-info order-total">
