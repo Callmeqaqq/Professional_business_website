@@ -150,7 +150,13 @@ class ProductDetailController extends Controller
         }
 
         $output = '
-            <span>Số lượng còn lại: '.session('quantity').'</span>
+            <span>Số lượng còn lại: ';
+            if(session('quantity')==0){
+                $output .= '<span style="font-weight: bold;color:red">Hết hàng</span>';
+            }else{
+                $output.=''.session('quantity').'';
+            }
+        $output .= '</span>
         ';
         echo $output;
     }

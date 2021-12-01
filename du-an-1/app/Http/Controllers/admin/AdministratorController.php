@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class AdministratorController extends Controller
@@ -18,9 +19,40 @@ class AdministratorController extends Controller
             ->where('users.UserRole', '!=', '6')
             ->get();
 
+        $get_permissions = DB::table('user_per')
+            ->join('permission','user_per.id_per','=','permission.id_per')
+            ->select('permission.name_per')
+            ->where('user_per.id_user','=',Session('LoggedUser'))
+            ->get();
+        $permissions = array();
+        foreach ($get_permissions as $permission){
+            array_push($permissions,$permission->name_per);
+        }
+
+        //set session for each permission
+        $full = 'Full';
+        if(in_array($full, $permissions)){
+            Session::put('Full', $full);
+        }
+        $view = 'View';
+        if(in_array($view, $permissions)){
+            Session::put('View', $view);
+        }
+        $create = 'Create';
+        if(in_array($create, $permissions)){
+            Session::put('Create', $create);
+        }
+        $edit = 'Edit';
+        if(in_array($edit, $permissions)){
+            Session::put('Edit', $edit);
+        }
+        $delete = 'Delete';
+        if(in_array($delete, $permissions)){
+            Session::put('Delete', $delete);
+        }
+
         $page = 'administrator';
         return view('admin/administrator', compact('admins', 'page'));
-
     }
 
     function add()
