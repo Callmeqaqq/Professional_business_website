@@ -39,7 +39,7 @@ Route::get('/profile/{page?}', 'Profile@index')->name('buyer.profile')->middlewa
 Route::get('/profile', 'Profile@index')->name('buyer.profile')->middleware('isLogged');
 Route::post('/profile/update', 'Profile@update')->name('buyer.update')->middleware('isLogged');
 Route::post('/profile/change', 'Profile@changePassword')->name('buyer.change')->middleware('isLogged');
-
+Route::get('/profile/order-detail/{OrderId}', 'Profile@OrderDetail')->name('buyer.orderdetail')->middleware('isLogged');
 
 // Home
 Route::get('/','HomeController@index')->name('home');

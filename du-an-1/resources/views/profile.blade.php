@@ -1,7 +1,7 @@
 @extends('layouts.site')
 @section('main')
 
-<div class="my-account-wrapper pb-100 pt-100">
+<div class="my-account-wrapper pb-100 pt-100"">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -14,7 +14,7 @@
                                 <a href="#info" {{$page === 'info' ? 'class=active':''}}  data-bs-toggle="tab">Thông tin tài khoản</a>
 {{--                                <a href="#dashboad" data-bs-toggle="tab">Dashboard</a>--}}
                                 <a href="#password_change" {{$page === 'change_pass' ? 'class=active':''}} data-bs-toggle="tab" >Đổi mật khẩu</a>
-                                <a href="#orders" {{$page === 'orders' ? 'class="active"':''}} data-bs-toggle="tab">Orders</a>
+                                <a href="#orders" {{$page === 'orders' ? 'class="active"':''}} data-bs-toggle="tab">Lịch sử đơn hàng</a>
 
                                 <a href="#payment-method" {{$page === 'payment-method' ? 'class="active"':''}} data-bs-toggle="tab">Payment Method</a>
                                 <a href="#address-edit" {{$page === 'address-edit' ? 'class="active"':''}} data-bs-toggle="tab">Address</a>
@@ -42,42 +42,35 @@
                                 <!-- Single Tab Content Start -->
                                 <div class="tab-pane fade" id="orders" role="tabpanel">
                                     <div class="myaccount-content">
-                                        <h3>Orders</h3>
+                                        <h3>Lịch sử đơn hàng</h3>
                                         <div class="myaccount-table table-responsive text-center">
-                                            <table class="table table-bordered">
-                                                <thead class="thead-light">
-                                                <tr>
-                                                    <th>Order</th>
-                                                    <th>Date</th>
-                                                    <th>Status</th>
-                                                    <th>Total</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Aug 22, 2018</td>
-                                                    <td>Pending</td>
-                                                    <td>$3000</td>
-                                                    <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>July 22, 2018</td>
-                                                    <td>Approved</td>
-                                                    <td>$200</td>
-                                                    <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>June 12, 2017</td>
-                                                    <td>On Hold</td>
-                                                    <td>$990</td>
-                                                    <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                            @if($orders != null)
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-light">
+                                                    <tr>
+                                                        <th>STT</th>
+                                                        <th>Ngày Mua Hàng</th>
+                                                        <th>Trạng Thái</th>
+                                                        <th>Tổng Tiền</th>
+                                                        <th>Thao Tác</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php $i = 1; ?>
+                                                    @foreach($orders as $item)
+                                                        <tr>
+                                                            <td>{{$i++}}</td>
+                                                            <td>{{$item->ShipDate}}</td>
+                                                            <td>{{$item->StatusId}}</td>
+                                                            <td>{{number_format($item->ToPay)}} VNĐ</td>
+                                                            <td><a href="" class="check-btn sqr-btn btn-orderdetail" data-id="{{$item->OrderId}}">Chi tiết</a></td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                <p style="align:center">Bạn hiện chưa có đơn hàng nào đã đặt!</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -198,6 +191,7 @@
             </div>
         </div>
     </div>
+    <div class="modals" id="modals"></div>
 </div>
     <script>
 
@@ -227,6 +221,22 @@
 
             });
 
+        });
+
+        // Ajax hiển thị OrderDetail
+        $('.btn-orderdetail').on('click', function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '/profile/order-detail/'+$(this).data('id'),
+                method: 'GET',
+                success:function(data){
+                    $('#modals').html(data);
+                    $('.modal__overlay').on('click', function() {
+                        $('#modals').empty();
+                    });
+                }
+            });
         });
 
     </script>
