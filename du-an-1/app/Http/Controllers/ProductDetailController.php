@@ -103,9 +103,14 @@ class ProductDetailController extends Controller
                         <img src="'.url('/images/users/default.jpg').'" alt="">
                     </div>
                     <div class="review-content">
-                        <div class="review-rating">
-                              '.$star1.''.$star2.'
-                        </div>
+                        <div style="position:relative;" class="review-rating">
+                              '.$star1.''.$star2;
+                                if($request->session()->has('LoggedUser') && $request->session()->get('LoggedUserName') == $comm->Fullname){
+                                    $output.='<div style="position:absolute; top:0; left:330px;" class="btn btn-danger delete-cmt">
+                                    <input hidden value="'.$comm->CommentId.'">
+                                    Xóa</div>';
+                                }
+                        $output.='</div>
                         <h5><span style="font-weight: bold;">'.$comm->Fullname.'</span> - Ngày '.date('d-m-Y', strtotime($comm->CreateAt)).'</h5>
                         <p>'.$comm->Content.'</p>
                     </div>
@@ -130,6 +135,11 @@ class ProductDetailController extends Controller
                 'Rating' => $rating
             ]);
 
+    }
+    function del_comment(Request $request){
+        $id_comment= $request->id_comment;
+        DB::table('comment')
+            ->where('CommentId',$id_comment)->delete();
     }
 
     function quantity(Request $request){

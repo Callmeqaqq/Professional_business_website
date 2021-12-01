@@ -497,6 +497,29 @@
                 }
             });
         }
+
+        $(document).on('click', '.delete-cmt', function() {
+            var r = confirm("Bạn có chắc xóa bình luận này không?")
+            if(r == true){
+                let id_comment = $(this).find('input').val();
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url:"{{url("/del-comment")}}",
+                    method:"POST",
+                    data:{
+                        id_comment:id_comment,
+                        _token:_token
+                    },
+                    success:function(data){
+                        load_comment();
+                        alert('Đã xóa bình luận');
+                    }
+                });
+            }
+
+
+        })
+
         $('.send-comment').click(function (){
             var productId = $('.comment_productId').val();
             var userId = $('.comment_userId').val();

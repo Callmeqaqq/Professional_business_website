@@ -53,6 +53,7 @@ Route::get('/category/{slug}','ShopController@category');
 Route::get('/products/{slug}','ProductDetailController@index');
 Route::post('/load-comment','ProductDetailController@load_comment');
 Route::post('/send-comment','ProductDetailController@send_comment');
+Route::post('/del-comment','ProductDetailController@del_comment');
 Route::post('/quantity','ProductDetailController@quantity');
 Route::post('/price','ProductDetailController@price');
 
