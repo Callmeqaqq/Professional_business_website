@@ -110,7 +110,7 @@ Route::get('/buyer/login/facebook/back','App\Http\Controllers\Socialite\LoginCon
 Route::get('/buyer/login/facebook/redirect', 'SocialController@facebookRedirect')->name('facebook.google');
 Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
 //------------admin Product-----------------------
-Route::get('/admin','admin\DemoController@index')->middleware('admin');
+Route::get('/admin','admin\AdminController@index')->middleware('admin');
 Route::get('/admin/administrator','admin\AdministratorController@index')->name('admin.administrator');
 Route::get('/admin/addAdministrator','admin\AdministratorController@add')->name('admin.addAdministrator');
 Route::get('/admin/updateAdministrator/{id}','admin\AdministratorController@update')->name('admin.updateAdministrator');
@@ -122,8 +122,9 @@ Route::post('/admin/post/updateAdministrator','admin\AdministratorController@pos
 Route::get('/admin/comment/{slug}','admin\CommentController@index')->name('comment');
 Route::get('/admin/listComment','admin\CommentController@list')->name('comment.list');
 Route::get('/admin/deleteComment/{id}','admin\CommentController@deleteComment')->name('comment.delete');
-
-
+//-----------------------Analytics admin -------------------------------
+Route::get('/analytics/products','admin\AnalyticsController@product');
+Route::get('/admin','admin\DashboardController@index')->name('dashboard.index');
 
 Route::get('/admin/product','admin\AdminProductController@index')->name('admin.product')->middleware('role:Warehouse','check_view_permissions');
 Route::get('/admin/product/add-product','admin\AdminProductController@add')->name('add-product')->middleware('role:Warehouse','check_create_permissions');
@@ -148,7 +149,15 @@ Route::post('/load-img','admin\AdminProductController@load_img');
 Route::get('/admin/category',function(){
     return view('admin/product/adminCategory');
 })->name('admin.category')->middleware('role:Warehouse','check_view_permissions');
+//config permission
+Route::get('/admin/config-permission', 'admin\ConfigController@config_permission')->name('config.permission');
+Route::post('/admin/update-config-permission', 'admin\ConfigController@update_config_permission')->name('config.update_permission');
+Route::post('/admin/update-config-licenced', 'admin\ConfigController@update_config_licenced')->name('config.update_licenced');
+Route::get('/admin/get-user-permissions/{id}', 'admin\ConfigController@check_user_permission');
+Route::get('/admin/get-permission-licenced/{permission}/{userID}', 'admin\ConfigController@get_permission_licenced');
 
+Route::get('/admin/config-payment', 'admin\ConfigController@config_payment')->name('config.payment');
+Route::get('/admin/config-shipfee', 'admin\ConfigController@config_shipfee')->name('config.shipfee');
 
 Route::get('admin/blog', 'admin\BlogController@index');
 Route::get('admin/blog/new', 'admin\BlogController@new');
@@ -157,3 +166,4 @@ Route::get('admin/blog/category','admin\BlogController@categoryView');
 Route::get('admin/blog/category/{id}/edit','admin\BlogController@categoryEditView');
 Route::get('admin/blog/{id}/commentList', 'admin\BlogController@categoryCommentList');
 Route::get('admin/blog/comments', 'admin\BlogController@commentsView');
+

@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    //payment
     $('input[type=radio][name=payment_method]').on('change', function () {
         switch ($(this).val()) {
             case '2':
@@ -15,6 +17,45 @@ $(document).ready(function () {
                 break;
         }
     });
+
+    //---------------validate-----------------
+    //full name
+    $('#Fullname').bind('change blur', function () {
+            var node = $(this);
+            node.val(node.val().replace(/[^a-zA-Z_]*$/g, ''));
+        }
+    );
+    //full name
+    $('#Phone').bind('keyup blur', function () {
+        let node = $(this);
+        node.val(node.val().replace(/[^0-9]*$/g, ''));
+    });
+
+    //email
+    const validateEmail = (email) => {
+        return email.match(
+            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
+    const validate = () => {
+        const $result = $('#Email-validation');
+        const email = $('#Email').val();
+        $result.text('');
+
+        if (validateEmail(email)) {
+            $result.text(email + ' là E-mail hợp lệ');
+            $result.removeClass('text-danger');
+            $result.addClass('text-success');
+
+        } else {
+            $result.text(email + ' không phải E-mail hợp lệ');
+            $result.removeClass('text-success');
+            $result.addClass('text-danger');
+        }
+        return false;
+    }
+    $('#Email').on('keyup', validate);
+
 
     // ---------------------DistanceMatrix----------------------------
     let geocoder = new GoongGeocoder({
@@ -52,15 +93,17 @@ $(document).ready(function () {
                             type: 'GET',
                             success: function (result) {
                                 let kilometers = result['rows'][0]['elements'][0]['distance']['text'];//giá trị cuối của ajax
-                                $('#kilo').html(kilometers + " so với vị trí của chúng tôi");
+                                let kilo_result = $('#kilo');
+                                kilo_result.html(kilometers + " so với vị trí của chúng tôi");
                                 $('#shipping-km').html(kilometers);
+                                $('#check_location').val('checked');
+                                $('#resultkilo').empty();//delete validate
                                 kilometers = kilometers.slice(0, -2);
                                 let shipfee = $('#shipfee-km').html();
                                 shipfee = shipfee * kilometers;
                                 $('#totalship').val(shipfee);
                                 let formatter = new Intl.NumberFormat().format(shipfee);
                                 $('#totalship-fee').html(formatter);
-
                                 //session value
                                 $.ajax({
                                     type: 'POST',
@@ -113,6 +156,7 @@ $(document).ready(function () {
                                 $('#kilo').html(kilometers + " so với vị trí của chúng tôi");
                                 $('#shipping-km').html(kilometers);
                                 kilometers = kilometers.slice(0, -2);
+                                $('#resultkilo').empty();//delete validate
                                 let shipfee = $('#shipfee-km').html();
 
                                 shipfee = shipfee * kilometers;

@@ -29,8 +29,14 @@
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-8">
                             <label for="formFile" class="form-label">Chọn Ảnh danh mục(1 ảnh)</label>
-                            <input name="CategoryImage" class="form-control" type="file" id="formFile">
+                            <input name="CategoryImage" class="form-control" type="file" id="upload" onchange="ImagesFileAsURL()">
                             <span class="text-danger">@error('CategoryImage') {{$message}}@enderror</span>
+                        </div>
+                    </div>
+                    <div style="display: flex" class="card-body col-12">
+                        <div class="form-group col-2">
+                            <div style="width:100%" id="displayImg">
+                            </div>
                         </div>
                     </div>
                     <div style="display: flex"class="card-body col-12">
@@ -91,5 +97,20 @@
             // alert(slug);
             $('#slug_here').val(slug);
         });
+        //Load ảnh xem trước
+        function ImagesFileAsURL() {
+            var fileSelected = document.getElementById('upload').files;
+            if(fileSelected.length > 0) {
+                var fileToLoad = fileSelected[0];
+                var fileReader = new FileReader();
+                fileReader.onload = function(fileLoaderEvent) {
+                    var scrData = fileLoaderEvent.target.result;
+                    var newImage = document.createElement("img");
+                    newImage.src = scrData;
+                    document.getElementById('displayImg').innerHTML = newImage.outerHTML;
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        }
     </script>
 @stop()

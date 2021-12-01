@@ -28,10 +28,15 @@ class AdministratorController extends Controller
         $listRole = DB::table('role')->get();
         return view('admin/addAdminstrator', compact('listRole'));
     }
-    function delete($id)
+    function delete($id,Request $request)
     {
         $delete = DB::table('users')->where('UserId','=',$id)->delete();
-        echo $delete;
+        if($delete){
+            $request->session()->put('status', 'success/xóa thành công');
+        }else{
+            $request->session()->put('status', 'danger/xóa không thành công đã có lỗi xãy ra');
+        }
+        return back();
     }
 
     function update($id)
@@ -43,6 +48,7 @@ class AdministratorController extends Controller
         $listRole = DB::table('role')->get();
         return view('admin/updateAdminstrator', compact('listRole','user'));
     }
+
     function postUpdate(Request $request)
     {
         $message = [
@@ -66,7 +72,12 @@ class AdministratorController extends Controller
                 'UserRole' => $request->role,
                 'Active' => $request->status,
             ]);
-        echo $query;
+        if($query){
+            $request->session()->put('status', 'success/Cập nhật thành công');
+        }else{
+            $request->session()->put('status', 'danger/Cập nhật không thành công đã có lỗi xãy ra');
+        }
+        return back();
     }
     function postAdd(Request $request)
     {
@@ -93,6 +104,11 @@ class AdministratorController extends Controller
             'email' => $request->email,
             'password' => Hash::make('123456')
         ]);
-        echo $query;
+        if($query){
+            $request->session()->put('status', 'success/Thêm thành công');
+        }else{
+            $request->session()->put('status', 'danger/Thêm không thành công đã có lỗi xãy ra');
+        }
+        return back();
     }
 }
