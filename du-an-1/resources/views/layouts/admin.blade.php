@@ -140,30 +140,69 @@ if (session('status')) {
                             ><i class="fab fa-comment "></i>Quản lí bính luận
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="collapse"
-                               aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10">
-                                <i class="fab fa-f fa-folder"></i>Sản Phẩm
-                            </a>
-                            <div id="submenu-10" class="collapse submenu" style="">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{asset('/admin/category')}}">Danh mục sản phẩm</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{asset('/admin/product')}}">Tất cả sản phẩm</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{asset('/admin/product/add-category')}}">Thêm danh
-                                            mục</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{asset('/admin/product/add-product')}}">Thêm sản
-                                            phẩm</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+
+                        {{--warehouse role check end--}}
+                        @if(session('UserRole') == 'Warehouse')
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse"
+                                   aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10">
+                                    <i class="fas fa-f fa-folder"></i>Sản Phẩm
+                                </a>
+                                <div id="submenu-10" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{asset('/admin/category')}}">Danh mục sản
+                                                phẩm</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{asset('/admin/product')}}">Tất cả sản phẩm</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{asset('/admin/product/add-category')}}">Thêm
+                                                danh
+                                                mục</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{asset('/admin/product/add-product')}}">Thêm sản
+                                                phẩm</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        @endif
+                        {{--warehouse role check end--}}
+
+                        {{--configuration--}}
+                        @if(session('UserRole') == 'SuperAdmin')
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse"
+                                   aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9">
+                                    <i class="fas fa-f fa-folder"></i>Cấu hình
+                                </a>
+                                <div id="submenu-9" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{asset('/admin/config-permission')}}">Phân quyền quản
+                                                trị</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{asset('/admin/config-payment')}}">Thiết lập thanh
+                                                toán</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{asset('/admin/config-shipfee')}}">Thiết
+                                                lập vận chuyển</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{asset('/admin')}}">Content
+                                                Slider</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        @endif
+                        {{--configuration--}}
+
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-toggle="collapse"
                                aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9">

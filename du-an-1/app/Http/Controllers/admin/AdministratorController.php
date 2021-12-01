@@ -48,6 +48,7 @@ class AdministratorController extends Controller
         $listRole = DB::table('role')->get();
         return view('admin/updateAdminstrator', compact('listRole','user'));
     }
+
     function postUpdate(Request $request)
     {
         $message = [
