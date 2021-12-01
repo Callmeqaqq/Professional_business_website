@@ -33,6 +33,7 @@
                             @foreach($data as $images)
                             <div class="swiper-slide">
                                 <div class="easyzoom-style">
+                                    <img style="position: absolute; width:30%; bottom:0; right:0;" src="{{asset('images\icon-img\merry2.png')}}" alt="">
                                     <img src="{{asset('images/product/'.$images->images)}}" alt="">
                                 </div>
                             </div>
@@ -69,7 +70,6 @@
                         <span class="old-price">{{number_format((100*$data[0]->Price)/((1-$data[0]->Discount)*100))}}<sup>đ</sup> </span>
                         <span class="dis-c">-{{$data[0]->Discount*100}}%</span>
                         @endif
-
                     </div>
 
                     {{-- Biến thể màu của sản phẩm--}}
@@ -220,6 +220,7 @@
                             <div class="swiper-slide">
                                 <div class="product-wrap" data-aos="fade-up" data-aos-delay="200">
                                     <div class="product-img img-zoom mb-25">
+                                        <img style="position: absolute; opacity:0.8" src="{{asset('images\icon-img\merry1.png')}}" alt="">
                                         <a href="{{asset('products/'.$item->Slug)}}">
                                             <img src="{{ asset('images/product/'.$item->Images) }}" alt="">
                                         </a>
