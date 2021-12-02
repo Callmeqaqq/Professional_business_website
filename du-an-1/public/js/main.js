@@ -560,14 +560,14 @@
     /*-----------------------
         Image Popup active
     ------------------------*/
-    $('.img-popup').magnificPopup({
-        type: 'image',
-        gallery: {
-            enabled: true
-        }
-    });
+    // $('.img-popup').magnificPopup({
+    //     type: 'image',
+    //     gallery: {
+    //         enabled: true
+    //     }
+    // });
 
-    /*====== mobile-menu active ======*/
+    // /*====== mobile-menu active ======*/
     const slinky = $('#mobile-menu').slinky();
     const slinky2 = $('#mobile-currency').slinky();
     const slinky3 = $('#mobile-language').slinky();
@@ -599,13 +599,13 @@
     };
     mobileMainMenu();
 
-    /*-------------------------
-      Scroll Animation
-    --------------------------*/
-    AOS.init({
-        once: true,
-        duration: 1000,
-    });
+    // /*-------------------------
+    //   Scroll Animation
+    // --------------------------*/
+    // AOS.init({
+    //     once: true,
+    //     duration: 1000,
+    // });
 
 })(jQuery);
 

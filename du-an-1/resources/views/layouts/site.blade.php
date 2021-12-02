@@ -85,7 +85,7 @@
                                 </a>
                                 <div class="search-wrap-1">
                                     <form action="#">
-                                        <input placeholder="Tìm kiếm sản phẩm…" type="text"/>
+                                        <input id="search-all" placeholder="Tìm kiếm sản phẩm…" type="text"/>
                                         <button class="button-search">
                                             <i class="pe-7s-search"></i>
                                         </button>
@@ -247,21 +247,21 @@
                 <div id="mobile-menu" class="slinky-mobile-menu text-left">
                     <ul>
                         <li>
-                            <a href="index.html">Trang Chủ</a>
+                            <a href="{{route('home')}}">Trang Chủ</a>
                         </li>
                         <li>
-                            <a href="#">Cửa Hàng</a>
+                            <a href="{{route('shop')}}">Cửa Hàng</a>
                             <ul>
                                 @foreach($category as $cat)
-                                    <li><a href="category/{{$cat->CategorySlug}}">{{$cat->CategoryName}}</a></li>
+                                    <li><a href="{{asset('category/'.$cat->CategorySlug)}}">{{$cat->CategoryName}}</a></li>
                                 @endforeach
                             </ul>
                         </li>
                         <li>
-                            <a href="#">Tin tức</a>
+                            <a href="{{route('blog')}}">Tin tức</a>
                         </li>
                         <li>
-                            <a href="about-us.html">Giới Thiệu</a>
+                            <a href="{{route('about-us')}}">Giới Thiệu</a>
                         </li>
                     </ul>
                 </div>
@@ -284,6 +284,7 @@
 <script src="{{asset('js/plugins/counterup.min.js')}}"></script>
 <script src="{{asset('js/plugins/select2.min.js')}}"></script>
 <script src="{{asset('js/plugins/easyzoom.js')}}"></script>
+<script src="{{asset('js/plugins/slinky.min.js')}}"></script>
 {{--Alertify--}}
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>

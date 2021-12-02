@@ -1251,7 +1251,6 @@ textarea {
     width: 370px;
     min-height: 100vh;
     bottom: 0;
-    z-index: 111;
     right: 0;
     visibility: hidden;
     opacity: 1;
@@ -1296,7 +1295,7 @@ textarea {
 .off-canvas-active .off-canvas-close {
     position: absolute;
     left: -40px;
-    top: 0px;
+    top: 0;
     z-index: 9;
     width: 40px;
     height: 40px;
@@ -1304,7 +1303,7 @@ textarea {
     line-height: 40px;
     text-align: center;
     font-size: 16px;
-    background-color: #d0011b;
+    background-color: #e97730;
 }
 
 @media only screen and (max-width: 767px) {
@@ -1318,9 +1317,9 @@ textarea {
 }
 
 .off-canvas-active .off-canvas-close i {
-    -webkit-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
     display: inline-block;
     color: #fff;
     line-height: 40px;
@@ -1384,6 +1383,77 @@ textarea {
     color: #e97730;
 }
 
+.slinky-mobile-menu.slinky-theme-default .next::after {
+    font-size: 11px;
+    color: #000000;
+}
+
+.slinky-mobile-menu.slinky-theme-default .next:hover::after {
+    color: #e97730;
+}
+
+.slinky-mobile-menu.slinky-theme-default .back::before {
+    font-size: 11px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.slinky-theme-default {
+    background: transparent;
+}
+
+.slinky-theme-default ul li a {
+    position: relative;
+}
+
+.slinky-theme-default ul li a:not(.back) {
+    color: #fff;
+}
+
+.slinky-theme-default ul li a:not(.back):hover {
+    color: #e97730;
+    background: transparent;
+}
+
+.slinky-theme-default .next::after {
+    content: "\e649";
+    font-family: themify;
+    font-weight: 900;
+    opacity: 1;
+    -webkit-transition: all .3 ease 0s;
+    -o-transition: all .3 ease 0s;
+    transition: all .3 ease 0s;
+    color: #ffffff;
+    background: none;
+}
+
+.slinky-theme-default .next:hover::after {
+    color: #e97730;
+}
+
+.slinky-theme-default .back::before {
+    content: "\e649";
+    font-family: themify;
+    font-weight: 900;
+    opacity: 1;
+    -webkit-transition: all .3 ease 0s;
+    -o-transition: all .3 ease 0s;
+    transition: all .3 ease 0s;
+    color: #fff;
+    background: none;
+    padding: 0;
+    background-color: #000000;
+    text-align: center;
+    margin: 0 0 13px 0px;
+    border-radius: 3px;
+}
+
+.slinky-theme-default .back:hover::before {
+    font-family: themify;
+    background-color: #e97730;
+    opacity: 1;
+}
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .header-responsive-padding {
         padding: 25px 0;

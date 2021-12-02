@@ -43,7 +43,7 @@ Route::get('/profile/order-detail/{OrderId}', 'Profile@OrderDetail')->name('buye
 
 //======================================================================================================================
 // --------------------------shop---------------------------------
-Route::get('/shop', 'ShopController@index');
+Route::get('/shop', 'ShopController@index')->name('shop');
 Route::post('/shop/load-product', 'ShopController@load_product');
 //Category, ProductDetail
 Route::get('/category/{slug}', 'ShopController@category');
@@ -59,12 +59,12 @@ Route::post('/price', 'ProductDetailController@price');
 
 //======================================================================================================================
 // ---------------------------Blog----------------------------------
-Route::get('/blog', 'BlogController@index');
+Route::get('/blog', 'BlogController@index')->name('blog');
 Route::get('/blog/{category}/{slug}', 'BlogController@viewBySlug');
 Route::get('/blog/{category}', 'BlogController@viewByCategory');
 
 // ---------------------------About----------------------------------
-Route::get('/about-us', 'AboutController@index');
+Route::get('/about-us', 'AboutController@index')->name('about-us');
 //======================================================================================================================
 
 
