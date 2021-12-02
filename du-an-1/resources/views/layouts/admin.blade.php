@@ -54,7 +54,7 @@ if (session('status')) {
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
             {{--            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}"><img src="{{asset('images/logo/logo1.png')}}" alt=""></a>--}}
-            <a class="navbar-brand" style="color: var(--danger)" href="index.html"
+            <a class="navbar-brand" style="color: var(--danger)" href="{{route('dashboard.index')}}"
             >Metah</a
             >
 
@@ -157,15 +157,18 @@ if (session('status')) {
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{asset('/admin/product')}}">Tất cả sản phẩm</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{asset('/admin/product/add-category')}}">Thêm
-                                                danh
-                                                mục</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{asset('/admin/product/add-product')}}">Thêm sản
-                                                phẩm</a>
-                                        </li>
+                                        @if(Session::has('Create') || Session::has('Full'))
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{asset('/admin/product/add-category')}}">Thêm
+                                                    danh
+                                                    mục</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{asset('/admin/product/add-product')}}">Thêm
+                                                    sản
+                                                    phẩm</a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </li>
@@ -214,9 +217,11 @@ if (session('status')) {
                                 </a>
                                 <div id="submenu-9" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{url('admin/blog/new')}}">Tạo bài viết</a>
-                                        </li>
+                                        @if(Session::has('Create') || Session::has('Full'))
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{url('admin/blog/new')}}">Tạo bài viết</a>
+                                            </li>
+                                        @endif
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{url('admin/blog')}}">Bài viết đã đăng</a>
                                         </li>
