@@ -18,14 +18,34 @@ class AdministratorController extends Controller
             ->select('users.UserId', 'users.Fullname', 'users.Email', 'role.RoleName', 'active')
             ->where('users.UserRole', '!=', '6')
             ->get();
-
+        $super_admin = DB::table('users')
+            ->join('role', 'UserRole', '=', 'id_role')
+            ->where('users.UserId', '=', Session('LoggedUser'))
+            ->value('RoleName');
         $page = 'administrator';
-        return view('admin/administrator', compact('admins', 'page'));
+        return view('admin/administrator', compact('admins', 'page','super_admin'));
     }
 
     function add()
     {
-        $listRole = DB::table('role')->get();
+        //check role of logging user
+        $this_user_role = DB::table('users')
+            ->join('role', 'UserRole', '=', 'id_role')
+            ->where('users.UserId', '=', Session('LoggedUser'))
+            ->value('id_role');
+
+        //check logging user's role is supper admin or not, cuz only supper admin can create new manager or supper admin
+        if ($this_user_role == 5) {
+            $listRole = DB::table('role')
+                ->where('RoleName', '!=', 'Customer')
+                ->get();
+        } else {
+            $listRole = DB::table('role')
+                ->where('RoleName', '!=', 'Manager')
+                ->where('RoleName', '!=', 'SuperAdmin')
+                ->where('RoleName', '!=', 'Customer')
+                ->get();
+        }
         return view('admin/addAdminstrator', compact('listRole'));
     }
 

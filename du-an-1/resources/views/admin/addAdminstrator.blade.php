@@ -37,8 +37,7 @@
                     <div class="form-group col-6">
                         <label for="inputText4" class="col-form-label">Chọn chức vụ cho user</label>
                         <select class="form-control" name="role" aria-label="Default select example">
-                            <option value="" >Chọn 1 chức vụ của user</option>
-
+                            <option value="" selected disabled>Chọn 1 chức vụ của user</option>
                             @foreach($listRole as $role)
                                 <option {{old('role')}} {{ old('role') === $role->id_role ? 'selected="selected"':''}} value="{{$role->id_role}}">{{$role->RoleName}}</option>
                             @endforeach

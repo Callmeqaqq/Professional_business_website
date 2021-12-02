@@ -38,10 +38,24 @@
                                     </td>
 
                                     <td>
-                                        @if(session('LoggedUser') !== $admin->UserId)
-                                            <a href="{{url('/admin/updateAdministrator/'.$admin->UserId)}}" class="btn btn-primary"><i class="fab fa-edit"></i> Cập nhật
+                                        @if($super_admin == 'SuperAdmin' && session('LoggedUser') !== $admin->UserId)
+
+                                            <a href="{{url('/admin/updateAdministrator/'.$admin->UserId)}}"
+                                               class="btn btn-primary"><i class="fab fa-edit"></i> Cập nhật
                                             </a>
-                                            <a href="{{url('/admin/deleteAdministrator/'.$admin->UserId)}}" class="btn btn-danger"><i class="fab fa-trash-alt"></i> Xóa</a>
+                                            <a href="{{url('/admin/deleteAdministrator/'.$admin->UserId)}}"
+                                               class="btn btn-danger"><i class="fab fa-trash-alt"></i> Xóa</a>
+
+                                        @elseif(session('LoggedUser') !== $admin->UserId
+                                                && $admin->RoleName !== 'SuperAdmin'
+                                                && $admin->RoleName !== 'Manager')
+
+                                            <a href="{{url('/admin/updateAdministrator/'.$admin->UserId)}}"
+                                               class="btn btn-primary"><i class="fab fa-edit"></i> Cập nhật
+                                            </a>
+                                            <a href="{{url('/admin/deleteAdministrator/'.$admin->UserId)}}"
+                                               class="btn btn-danger"><i class="fab fa-trash-alt"></i> Xóa</a>
+
                                         @endif
                                     </td>
 
