@@ -21,14 +21,21 @@ $(document).ready(function () {
     //---------------validate-----------------
     //full name
     $('#Fullname').bind('change blur', function () {
-            var node = $(this);
-            node.val(node.val().replace(/[^a-zA-Z_]*$/g, ''));
+            let node = $(this);
+            let name_regex = /[^a-zA-Z_(0-9)]*$/g;
+            node.val(node.val().replace(name_regex, ''));
         }
     );
-    //full name
+
+    //sdt
     $('#Phone').bind('keyup blur', function () {
-        let node = $(this);
-        node.val(node.val().replace(/[^0-9]*$/g, ''));
+        let vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+        let mobile = $(this).val();
+        if (vnf_regex.test(mobile) == false) {
+            $('#Phone-validation').html('SĐT chưa đúng định dạng! Ví dụ:0911012345');
+        } else {
+            $('#Phone-validation').html('');
+        }
     });
 
     //email
@@ -43,10 +50,9 @@ $(document).ready(function () {
         $result.text('');
 
         if (validateEmail(email)) {
-            $result.text(email + ' là E-mail hợp lệ');
-            $result.removeClass('text-danger');
-            $result.addClass('text-success');
-
+            // $result.text(email + ' là E-mail hợp lệ');
+            // $result.removeClass('text-danger');
+            // $result.addClass('text-success');
         } else {
             $result.text(email + ' không phải E-mail hợp lệ');
             $result.removeClass('text-success');
@@ -57,11 +63,11 @@ $(document).ready(function () {
     $('#Email').on('keyup', validate);
 
 
-    // ---------------------DistanceMatrix----------------------------
+// ---------------------DistanceMatrix----------------------------
     let geocoder = new GoongGeocoder({
         accessToken: '6Em1syIO2rI54vIEhIqaXDR69cXg7QW4jaPc2BS1'
     });
-    // Add geocoder to input
+// Add geocoder to input
     geocoder.addTo('#geocoder');
     $('.mapboxgl-ctrl-geocoder--input').on('change', function () {
         geocoder.on('result', function (e) {
@@ -158,7 +164,7 @@ $(document).ready(function () {
                                 kilometers = kilometers.slice(0, -2);
                                 $('#resultkilo').empty();//delete validate
                                 let shipfee = $('#shipfee-km').html();
-
+                                $('#check_location').val('checked');
                                 shipfee = shipfee * kilometers;
                                 if (shipfee > 500000) {
                                     shipfee = 500000
@@ -196,9 +202,10 @@ $(document).ready(function () {
         });
     });
 
-    //search map options
+//search map options
     $('.mapboxgl-ctrl-geocoder--input').attr("placeholder", "Nhập địa chỉ của bạn");
     $('.mapboxgl-ctrl-geocoder--input').attr('name', 'Address');
     $('.mapboxgl-ctrl-geocoder--input').attr('id', 'Address');
     $('.mapboxgl-ctrl-geocoder--input').attr('required', '');
-});
+})
+;

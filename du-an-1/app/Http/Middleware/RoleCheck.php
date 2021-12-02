@@ -16,15 +16,17 @@ class RoleCheck
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $role_check)
+    public function handle(Request $request, Closure $next, $role_check1, $role_check2, $role_check3)
     {
         $user_role = DB::table('users')
             ->join('role','users.UserRole', '=', 'role.id_role')
             ->where('UserId', '=', Session('LoggedUser'))
             ->value('RoleName');
-        if($role_check != $user_role){
+        $role = array($role_check1, $role_check2, $role_check3);
+        if(in_array($user_role,$role)){
+            return $next($request);
+        }else{
             return redirect('/SoMeThInGwEnTwRoNg');
         }
-        return $next($request);
     }
 }

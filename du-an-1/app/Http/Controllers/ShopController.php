@@ -126,6 +126,7 @@ class ShopController extends Controller
                 <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                     <div class="product-wrap mb-35" data-aos="fade-up" data-aos-delay="200">
                     <div class="product-img img-zoom mb-25">
+                        <img style="position: absolute; opacity:0.8" src="'.asset('images\icon-img\merry1.png').'" alt="">
                         <a href="'.asset('products/'.$item->Slug).'">
                             <img src="'. asset('images/product/'.$item->Images) .'" alt="">
                         </a>
