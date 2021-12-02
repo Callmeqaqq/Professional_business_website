@@ -16,6 +16,13 @@ class ProductDetailController extends Controller
                         ->select('product.*', 'product_image.images','supplier.SupplierName','category.CategoryName','category.CategorySlug')
                         ->where('Slug','=', $slug)
                         -> Get();
+        $check=0;
+        foreach ($data as $item){
+            $check++;
+        }
+        if($check == 0){
+            return redirect('/Error404');
+        }
         $variant = DB::table('product')
                         ->join('variant', 'product.ProductId', '=', 'variant.ProductId')
                         ->select('variant.*')
@@ -67,8 +74,10 @@ class ProductDetailController extends Controller
         $productId = $request->productId;
         $comment = DB::table('comment')
             ->join('users','users.UserId', '=', 'comment.UserId')
-            ->select('comment.*','users.Fullname')
+            ->select('comment.*','users.*')
             ->where('ProductId','=',$productId)
+            ->limit(5)
+            ->orderBy('comment.CreateAt','desc')
             ->get();
 //        dd($comment);
         $nd='';
@@ -76,7 +85,7 @@ class ProductDetailController extends Controller
             $nd='<h3>Chưa có đánh giá cho sản phẩm này</h3>';
         }
         else{
-            $nd='<h3>'.count($comment).' Đánh giá cho sản phẩm</h3>';
+            $nd='<h3>'.count($comment).' Đánh giá gần nhất cho sản phẩm</h3>';
         }
 
         $output='
@@ -105,7 +114,7 @@ class ProductDetailController extends Controller
                     <div class="review-content">
                         <div style="position:relative;" class="review-rating">
                               '.$star1.''.$star2;
-                                if($request->session()->has('LoggedUser') && $request->session()->get('LoggedUserName') == $comm->Fullname){
+                                if($request->session()->has('LoggedUser') && $request->session()->get('LoggedUser') == $comm->UserId){
                                     $output.='<div style="position:absolute; top:0; left:330px;" class="btn btn-danger delete-cmt">
                                     <input hidden value="'.$comm->CommentId.'">
                                     Xóa</div>';
