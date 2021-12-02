@@ -85,7 +85,7 @@
                                 </a>
                                 <div class="search-wrap-1">
                                     <form action="#">
-                                        <input id="search-all" placeholder="Tìm kiếm sản phẩm…" type="text"/>
+                                        <input placeholder="Tìm kiếm sản phẩm…" type="text"/>
                                         <button class="button-search">
                                             <i class="pe-7s-search"></i>
                                         </button>

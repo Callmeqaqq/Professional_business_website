@@ -26,7 +26,7 @@ class OrderRequest extends FormRequest
         return [
             'Fullname' => 'required|string',
             'kilometers' => 'required',
-            'Phone' => 'required|regex:/(09)[0-9]{8}/',
+            'Phone' => 'required|regex:/(0)[0-9]{9}/',
             'Email' => 'required|email:rfc,dns',
             'Password' => 'required',
             'Payment_method' => 'required',
