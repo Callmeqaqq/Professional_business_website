@@ -43,7 +43,7 @@ Route::get('/profile/order-detail/{OrderId}', 'Profile@OrderDetail')->name('buye
 
 //======================================================================================================================
 // --------------------------shop---------------------------------
-Route::get('/shop', 'ShopController@index');
+Route::get('/shop', 'ShopController@index')->name('shop');
 Route::post('/shop/load-product', 'ShopController@load_product');
 //Category, ProductDetail
 Route::get('/category/{slug}', 'ShopController@category');
@@ -59,12 +59,12 @@ Route::post('/price', 'ProductDetailController@price');
 
 //======================================================================================================================
 // ---------------------------Blog----------------------------------
-Route::get('/blog', 'BlogController@index');
+Route::get('/blog', 'BlogController@index')->name('blog');
 Route::get('/blog/{category}/{slug}', 'BlogController@viewBySlug');
 Route::get('/blog/{category}', 'BlogController@viewByCategory');
 
 // ---------------------------About----------------------------------
-Route::get('/about-us', 'AboutController@index');
+Route::get('/about-us', 'AboutController@index')->name('about-us');
 //======================================================================================================================
 
 
@@ -111,7 +111,7 @@ Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
 
 
 //======================================================================================================================
-//---------------------------------------Công việt????------------------------------------------------------------------
+//---------------------------------------Staff Manager------------------------------------------------------------------
 Route::get('/admin/administrator', 'admin\AdministratorController@index')->name('admin.administrator');
 Route::get('/admin/addAdministrator', 'admin\AdministratorController@add')->name('admin.addAdministrator');
 Route::get('/admin/updateAdministrator/{id}', 'admin\AdministratorController@update')->name('admin.updateAdministrator');
@@ -186,6 +186,11 @@ Route::prefix('api')->group(function () {
     Route::post('/post/comment/{id}/active', 'admin\BlogController@commentActive');
     Route::post('/post/comment/{id}/unactive', 'admin\BlogController@commentUnactive');
     Route::post('/post/comment/{id}/delete', 'admin\BlogController@commentDelete');
+    Route::post('/user/{id}/update', 'admin\userController@update');
+    Route::post('/user/{id}/active', 'admin\userController@active');
+    Route::post('/user/{id}/unactive', 'admin\userController@unactive');
+    Route::post('/user/{id}/changePassword', 'admin\userController@changePassword');
+
 });
 Route::get('admin/blog', 'admin\BlogController@index');
 Route::get('admin/blog/new', 'admin\BlogController@new');
@@ -194,5 +199,14 @@ Route::get('admin/blog/category', 'admin\BlogController@categoryView');
 Route::get('admin/blog/category/{id}/edit', 'admin\BlogController@categoryEditView');
 Route::get('admin/blog/{id}/commentList', 'admin\BlogController@categoryCommentList');
 Route::get('admin/blog/comments', 'admin\BlogController@commentsView');
-//======================================================================================================================
+// User manage route
+
+
+Route::get('admin/order', 'admin\AdminOrderController@index')->name('admin.order');
+Route::get('admin/order/order-detail/{OrderId}', 'admin\AdminOrderController@OrderDetail')->name('admin.order_detail');
+Route::get('admin/order/update-status/{OrderId}/{Status}', 'admin\AdminOrderController@UpdateStatus')->name('admin.update_status');
+Route::get('admin/order/order-by-status/{Status}', 'admin\AdminOrderController@ShowByStatusOrder')->name('admin.show_order_by_status');
+
+Route::get('admin/users/', 'admin\userController@index');
+Route::get('admin/users/{id}', 'admin\userController@detail');
 

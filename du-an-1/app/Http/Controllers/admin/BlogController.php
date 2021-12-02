@@ -10,14 +10,19 @@ use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
-    // Defalut return
+    // Default return
     public function index(){
         $data = DB::table('blog')
                 ->join('users', 'users.userId', 'blog.UserId')
                 ->join('blog_category', 'blog_category.Blog_CategoryID', 'blog.Blog_CategoryID')
                 ->select('blog.Title as title', 'blog.BlogID as id', 'blog.Blog_des as des', 'blog.CreateAt as time', 'blog.view as views', 'blog.slug as slug', 'blog.thumbnail as thumbnail', 'blog.Blog_CategoryID', 'users.Fullname as author', 'blog_category.BlogName as category', 'blog_category.slug as cateSlug')
                 ->get();
-        return view('admin.blog.blog', compact('data'));
+        $commentData = DB::table('blogcomment')
+                        ->join('blog', 'blogcomment.postId','blog.BlogID')
+                        ->select('postId', DB::raw('count(*) as count'))
+                        ->groupBy('postId')
+                        ->get();
+        return view('admin.blog.blog', compact('data', 'commentData'));
     }
     public function new(){
         $category = DB::table('blog_category')->select()->get();
@@ -125,7 +130,7 @@ class BlogController extends Controller
     }
 
 
-
+    // Action update post data
     public function postUpdate($id, Request $request){
         $rs = [
             "success" => false,
@@ -163,7 +168,7 @@ class BlogController extends Controller
         return response()->json($rs);
     }
 
-
+    // Action active comment
     public function commentActive($id){
         $rs = [
             "success" => false,
@@ -191,6 +196,7 @@ class BlogController extends Controller
         return response()->json($rs);
     }
 
+    // Action deactive comment
     public function commentUnactive($id){
         $rs = [
             "success" => false,
@@ -226,7 +232,7 @@ class BlogController extends Controller
 
     }
 
-
+    // Action add new category
     public function addNew(Request $request){
         $rs = [
             "success" => false,
@@ -256,7 +262,7 @@ class BlogController extends Controller
         return response()->json($rs);
     }
 
-
+    // Action delete category
     public function deleteCategory(Request $request){
         $rs = [
             "success" => false,
@@ -291,6 +297,7 @@ class BlogController extends Controller
         return view('admin.blog.categoryEdit', compact('data'));
     }
 
+    // Action update category
     public function categoryUpdate($id, Request $request){
         $rs = [
             "success" => false,
@@ -320,7 +327,7 @@ class BlogController extends Controller
         }
         return response()->json($rs);
     }
-
+    // Get post's comments
     public function categoryCommentList($id){
         $data = DB::table('blogcomment')
                 ->join('users', 'users.userId', 'blogcomment.userId')
@@ -330,6 +337,8 @@ class BlogController extends Controller
                 ->get();
         return view('admin.blog.commentPostSingle', compact('data'));
     }
+
+    // Action delete comment
     public function commentDelete($id){
         $rs = [
             "success" => false,
@@ -355,6 +364,7 @@ class BlogController extends Controller
         return response()->json($rs);
     }
 
+    // Show deactive comments
     public function commentsView(){
         $data = DB::table('blogcomment')
                 ->join('users', 'users.userId', 'blogcomment.userId')

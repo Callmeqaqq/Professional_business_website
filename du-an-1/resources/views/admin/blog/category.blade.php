@@ -85,10 +85,10 @@
             }
         }).done(function(res) {;
             if(res.success == true){
-              Notiflix.Notify.Success(res.msg);
+              Notiflix.Notify.Success(res.messages);
               a.parentNode.parentNode.remove();
             }else{
-              Notiflix.Notify.Warning(res.msg);
+              Notiflix.Notify.Warning(res.messages);
             }
         });
       }

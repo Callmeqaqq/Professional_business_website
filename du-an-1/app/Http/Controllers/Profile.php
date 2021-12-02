@@ -12,7 +12,9 @@ class Profile extends Controller
 
     function index($page = 'info'){
         $user = DB::table('users')->select('Email','Fullname','Address','Phone')->where('UserId','=', Session('LoggedUser'))->get()->first();
-        $orders = DB::table('orders')->select('OrderId','ShipDate','StatusId','ToPay')->where('UserId','=', Session('LoggedUser'))->orderBy('OrderId','desc')->get();
+        $orders = DB::table('orders')
+            ->Join('status', 'orders.StatusId', '=','status.StatusId')
+            ->select('orders.OrderId','orders.ShipDate','status.*','orders.ToPay')->where('UserId','=', Session('LoggedUser'))->orderBy('OrderId','desc')->get();
         return view('profile',compact('user','page','orders'));
     }
     function update(Request $request){
@@ -93,7 +95,7 @@ class Profile extends Controller
             ->Join('variant', 'orderdetail.VariantId', '=','variant.VariantId')
             ->Where('orders.UserId', Session('LoggedUser'))
             ->Where('orders.OrderId', $OrderId)
-            ->Select('variant.Color', 'variant.VariantName', 'orderdetail.Quantity', 'product.Price as ProductPrice', 'variant.Price as VariantPrice')
+            ->Select('variant.Color', 'variant.VariantName', 'orderdetail.Quantity', 'product.Price as ProductPrice', 'variant.Price as VariantPrice', 'orders.ShipFee', 'orders.ToPay')
             ->get();
         return view('profile/orderdetail', compact('orderDetail'));
 //        dd($orderDetail);

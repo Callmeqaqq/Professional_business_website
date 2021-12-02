@@ -1,8 +1,8 @@
 @extends('layouts.site')
 @section('main')
-    {{Breadcrumbs::render('post',$data->BlogName, $data->categorySlug, $data->Title, $data->slug)}}
     <div class="blog-details-area pt-100 pb-100">
         <div class="container">
+            {{Breadcrumbs::render('post',$data->BlogName, $data->categorySlug, $data->Title, $data->slug)}}
             <div class="row">
                 <div class="col-lg-8">
                     <div class="blog-details-wrapper">

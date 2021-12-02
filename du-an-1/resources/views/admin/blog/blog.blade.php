@@ -15,6 +15,7 @@
                                 <th scope="col">Danh mục</th>
                                 <th scope="col">Đăng bởi</th>
                                 <th scope="col">Lượt xem</th>
+                                <th scope="col">Lượt bình luận</th>
                                 <th scope="col">Tuỳ chọn</th>
                               </tr>
                             </thead>
@@ -27,6 +28,14 @@
                                 <td>{{$item->category}}</td>
                                 <td>{{$item->author}}</td>
                                 <td>{{$item->views}}</td>
+                                <td>
+                                @foreach($commentData as $cmt)
+                                  @if($cmt->postId == $item->id)
+                                  {{$cmt->count}}
+                                  @else
+                                  @endif()
+                                @endforeach()
+                                </td>
                                 <td>
                                   <a href="{{url('admin/blog/'.$item->id.'/commentList')}}" type="button" class="btn btn-primary text-white p-1">Quản lý bình luận</a>
                                   <a href="{{url('admin/blog/'.$item->id.'/edit')}}" type="button" class="btn btn-primary text-white p-1">Sửa</a>
@@ -59,7 +68,7 @@
                 id: a.getAttribute('value'),
                 _token: "{{csrf_token()}}"
             }
-        }).done(function(res) {;
+        }).done(function(res) {
             if(res.success == true){
               Notiflix.Notify.Success(res.msg);
               a.parentNode.parentNode.remove();

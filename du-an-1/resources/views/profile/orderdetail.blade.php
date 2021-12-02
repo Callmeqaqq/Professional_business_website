@@ -28,5 +28,7 @@
                 </tbody>
             </table>
         </div>
+        <p style="text-align: right; margin-top: 15px;">Phí vận chuyển: <b>{{number_format($orderDetail[0]->ShipFee)}} VNĐ</b></p>
+        <p style="text-align: right; margin-top: 15px; font-size: 16px;">Tổng tiền: <b>{{number_format($orderDetail[0]->ToPay)}} VNĐ</b></p>
     </div>
 </div>

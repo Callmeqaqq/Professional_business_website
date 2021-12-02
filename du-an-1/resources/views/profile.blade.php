@@ -43,8 +43,8 @@
                                 <div class="tab-pane fade" id="orders" role="tabpanel">
                                     <div class="myaccount-content">
                                         <h3>Lịch sử đơn hàng</h3>
-                                        <div class="myaccount-table table-responsive text-center">
-                                            @if($orders != null)
+                                        @if (isset($orders[0]))
+                                            <div class="myaccount-table table-responsive text-center">
                                                 <table class="table table-bordered">
                                                     <thead class="thead-light">
                                                     <tr>
@@ -56,22 +56,28 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php $i = 1; ?>
+                                                    <?php $i = 1; ?>
                                                     @foreach($orders as $item)
                                                         <tr>
                                                             <td>{{$i++}}</td>
                                                             <td>{{$item->ShipDate}}</td>
-                                                            <td>{{$item->StatusId}}</td>
+                                                            @if ($item->StatusId == 1 || $item->StatusId == 6)
+                                                                <td style="color: #d0011b;">{{$item->StatusName}}</td>
+                                                            @elseif ($item->StatusId == 5)
+                                                                <td style="color: #1bc88c;">{{$item->StatusName}}</td>
+                                                            @else
+                                                                <td style="color: orange;">{{$item->StatusName}}</td>
+                                                            @endif
                                                             <td>{{number_format($item->ToPay)}} VNĐ</td>
                                                             <td><a href="" class="check-btn sqr-btn btn-orderdetail" data-id="{{$item->OrderId}}">Chi tiết</a></td>
                                                         </tr>
                                                     @endforeach
                                                     </tbody>
                                                 </table>
-                                            @else
-                                                <p style="align:center">Bạn hiện chưa có đơn hàng nào đã đặt!</p>
-                                            @endif
-                                        </div>
+                                            </div>
+                                        @else
+                                            <p style="align:center">Bạn hiện chưa có đơn hàng nào đã đặt!</p>
+                                        @endif
                                     </div>
                                 </div>
                                 <!-- Single Tab Content End -->
