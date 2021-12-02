@@ -186,6 +186,11 @@ Route::prefix('api')->group(function () {
     Route::post('/post/comment/{id}/active', 'admin\BlogController@commentActive');
     Route::post('/post/comment/{id}/unactive', 'admin\BlogController@commentUnactive');
     Route::post('/post/comment/{id}/delete', 'admin\BlogController@commentDelete');
+    Route::post('/user/{id}/update', 'admin\userController@update');
+    Route::post('/user/{id}/active', 'admin\userController@active');
+    Route::post('/user/{id}/unactive', 'admin\userController@unactive');
+    Route::post('/user/{id}/changePassword', 'admin\userController@changePassword');
+
 });
 Route::get('admin/blog', 'admin\BlogController@index');
 Route::get('admin/blog/new', 'admin\BlogController@new');
@@ -194,5 +199,7 @@ Route::get('admin/blog/category', 'admin\BlogController@categoryView');
 Route::get('admin/blog/category/{id}/edit', 'admin\BlogController@categoryEditView');
 Route::get('admin/blog/{id}/commentList', 'admin\BlogController@categoryCommentList');
 Route::get('admin/blog/comments', 'admin\BlogController@commentsView');
-//======================================================================================================================
+// User manage route
 
+Route::get('admin/users/', 'admin\userController@index');
+Route::get('admin/users/{id}', 'admin\userController@detail');

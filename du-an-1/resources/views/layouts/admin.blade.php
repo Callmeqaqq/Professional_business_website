@@ -238,6 +238,22 @@ if (session('status')) {
                             </li>
                         @endif
                         {{--content--}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse"
+                               aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9">
+                                <i class="fas fa-f fa-folder"></i>Quản lý người dùng
+                            </a>
+                            <div id="submenu-9" class="collapse submenu" style="">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{url('admin/users')}}">Danh sách người dùng</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Xếp hạng chi tiêu thành viên</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </nav>
