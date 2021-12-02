@@ -111,7 +111,7 @@ Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
 
 
 //======================================================================================================================
-//---------------------------------------Công việt????------------------------------------------------------------------
+//---------------------------------------Staff Manager------------------------------------------------------------------
 Route::get('/admin/administrator', 'admin\AdministratorController@index')->name('admin.administrator');
 Route::get('/admin/addAdministrator', 'admin\AdministratorController@add')->name('admin.addAdministrator');
 Route::get('/admin/updateAdministrator/{id}', 'admin\AdministratorController@update')->name('admin.updateAdministrator');
