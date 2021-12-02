@@ -1,8 +1,8 @@
 @extends('layouts.site')
 @section('main')
-    {{Breadcrumbs::render('post',$data->BlogName, $data->categorySlug, $data->Title, $data->slug)}}
     <div class="blog-details-area pt-100 pb-100">
         <div class="container">
+            {{Breadcrumbs::render('post',$data->BlogName, $data->categorySlug, $data->Title, $data->slug)}}
             <div class="row" style="justify-content: center">
                 <div class="col-lg-8">
                     <div class="blog-details-wrapper">
@@ -96,7 +96,7 @@
                                 </div>
                             @endif
                         @endif
-                        
+
                         <div class="blog-comment-wrapper">
                             <h4 class="blog-dec-title aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">Comments (02)</h4>
                             <div class="single-comment-wrapper single-comment-border aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">

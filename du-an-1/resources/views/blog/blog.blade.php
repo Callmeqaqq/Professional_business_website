@@ -1,13 +1,13 @@
 @extends('layouts.site')
 @section('main')
-    @if(isset($categoryData))
-        {{Breadcrumbs::render('blogCategory',$categoryData->BlogName, $categoryData->slug)}}
-    @else
-        {{Breadcrumbs::render('blog')}}
-    @endif
     @if(count($data)>1)
         <div class="blog-area pt-100 pb-100">
             <div class="container">
+                @if(isset($categoryData))
+                    {{Breadcrumbs::render('blogCategory',$categoryData->BlogName, $categoryData->slug)}}
+                @else
+                    {{Breadcrumbs::render('blog')}}
+                @endif
                 <div class="row">
                     @foreach($data as $item)
                     <div class="col-lg-4 col-md-6">

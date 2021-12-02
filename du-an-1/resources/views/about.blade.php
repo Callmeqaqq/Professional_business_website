@@ -1,8 +1,8 @@
 @extends('layouts.site')
 @section('main')
-    {{ Breadcrumbs::render('about') }}
     <div class="blog-details-area pt-100 pb-100">
         <div class="container">
+            {{ Breadcrumbs::render('about') }}
             <div class="row" style="justify-content: center">
                 <div class="col-lg-8">
                     <div class="blog-details-wrapper">
