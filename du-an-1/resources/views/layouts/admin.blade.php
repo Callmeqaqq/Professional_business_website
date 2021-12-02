@@ -11,13 +11,13 @@
     <script src="{{asset('js/notiflix/notiflix-aio.js')}}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
           integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="{{asset("vendor/vector-map/jqvmap.css")}}" />
-    <link rel="stylesheet" href="{{asset("vendor/charts/chartist-bundle/chartist.css")}}" />
-    <link rel="stylesheet" href="{{asset("vendor/charts/c3charts/c3.css")}}" />
+    <link rel="stylesheet" href="{{asset("vendor/vector-map/jqvmap.css")}}"/>
+    <link rel="stylesheet" href="{{asset("vendor/charts/chartist-bundle/chartist.css")}}"/>
+    <link rel="stylesheet" href="{{asset("vendor/charts/c3charts/c3.css")}}"/>
 </head>
 <body>
 <?php
@@ -54,7 +54,7 @@ if (session('status')) {
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
             {{--            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}"><img src="{{asset('images/logo/logo1.png')}}" alt=""></a>--}}
-            <a class="navbar-brand" style="color: var(--danger)" href="index.html"
+            <a class="navbar-brand" style="color: var(--danger)" href="{{route('dashboard.index')}}"
             >Metah</a
             >
 
@@ -142,7 +142,7 @@ if (session('status')) {
                         </li>
 
                         {{--warehouse role check end--}}
-                        @if(session('UserRole') == 'Warehouse')
+                        @if((session('UserRole') != 'HRM') && (session('UserRole') != 'Writer'))
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse"
                                    aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10">
@@ -157,15 +157,18 @@ if (session('status')) {
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{asset('/admin/product')}}">Tất cả sản phẩm</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{asset('/admin/product/add-category')}}">Thêm
-                                                danh
-                                                mục</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{asset('/admin/product/add-product')}}">Thêm sản
-                                                phẩm</a>
-                                        </li>
+                                        @if(Session::has('Create') || Session::has('Full'))
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{asset('/admin/product/add-category')}}">Thêm
+                                                    danh
+                                                    mục</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{asset('/admin/product/add-product')}}">Thêm
+                                                    sản
+                                                    phẩm</a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </li>
@@ -176,17 +179,19 @@ if (session('status')) {
                         @if(session('UserRole') == 'SuperAdmin')
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse"
-                                   aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9">
+                                   aria-expanded="false" data-target="#submenu-8" aria-controls="submenu-8">
                                     <i class="fas fa-f fa-folder"></i>Cấu hình
                                 </a>
-                                <div id="submenu-9" class="collapse submenu" style="">
+                                <div id="submenu-8" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{asset('/admin/config-permission')}}">Phân quyền quản
+                                            <a class="nav-link" href="{{asset('/admin/config-permission')}}">Phân quyền
+                                                quản
                                                 trị</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{asset('/admin/config-payment')}}">Thiết lập thanh
+                                            <a class="nav-link" href="{{asset('/admin/config-payment')}}">Thiết lập
+                                                thanh
                                                 toán</a>
                                         </li>
                                         <li class="nav-item">
@@ -203,28 +208,53 @@ if (session('status')) {
                         @endif
                         {{--configuration--}}
 
+                        {{--content--}}
+                        @if(session('UserRole') == 'Writer' || session('UserRole') == 'SuperAdmin' || session('UserRole') == 'Manager')
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse"
+                                   aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9">
+                                    <i class="fas fa-f fa-folder"></i>Quản lý bài viết
+                                </a>
+                                <div id="submenu-9" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        @if(Session::has('Create') || Session::has('Full'))
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{url('admin/blog/new')}}">Tạo bài viết</a>
+                                            </li>
+                                        @endif
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{url('admin/blog')}}">Bài viết đã đăng</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{url('admin/blog/category')}}">Quản lý danh
+                                                mục</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{url('admin/blog/comments')}}">Bình luận chờ
+                                                duyệt</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        @endif
+                        {{--content--}}
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-toggle="collapse"
                                aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9">
-                                <i class="fas fa-f fa-folder"></i>Quản lý bài viết
+                                <i class="fas fa-f fa-folder"></i>Quản lý người dùng
                             </a>
                             <div id="submenu-9" class="collapse submenu" style="">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{url('admin/blog/new')}}">Tạo bài viết</a>
+                                        <a class="nav-link" href="{{url('admin/users')}}">Danh sách người dùng</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{url('admin/blog')}}">Bài viết đã đăng</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{url('admin/blog/category')}}">Quản lý danh mục</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{url('admin/blog/comments')}}">Bình luận chờ duyệt</a>
+                                        <a class="nav-link" href="#">Xếp hạng chi tiêu thành viên</a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
+
 
                         {{--order--}}
                         <li class="nav-item">
@@ -240,7 +270,8 @@ if (session('status')) {
                                 </ul>
                             </div>
                         </li>
-
+                        {{--order--}}
+                        
                     </ul>
                 </div>
             </nav>

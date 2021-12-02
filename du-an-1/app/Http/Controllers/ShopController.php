@@ -54,19 +54,8 @@ class ShopController extends Controller
         $total_page =  ceil($count_pd/$one_page);// lam tron so trang
         $prev = $request->page - 1;// lui lai 1 trang
         $next = $request->page + 1;// len 1 trang
-        if($request->cate == null){
-            $data2 = DB::table('product')
-                ->join('category', 'product.CategoryId', '=', 'category.CategoryId')
-                ->select('product.*', 'category.CatActive', 'category.CategorySlug')
-                ->where('category.CatActive', '=', 1)
-                ->where('Active', '=', 1)
-                ->where('product.Price', '<', (int)$request->amount)
-                ->offset($offset)
-                ->limit($one_page)
-                ->where('product.ProductName', 'like', '%' . $request->search . '%')
-                ->get();
-        }else {
-            if (isset($request->search) || isset($request->amount)) {
+        if($count_pd > 9){
+            if($request->cate == null){
                 $data2 = DB::table('product')
                     ->join('category', 'product.CategoryId', '=', 'category.CategoryId')
                     ->select('product.*', 'category.CatActive', 'category.CategorySlug')
@@ -76,18 +65,33 @@ class ShopController extends Controller
                     ->offset($offset)
                     ->limit($one_page)
                     ->where('product.ProductName', 'like', '%' . $request->search . '%')
-                    ->where('category.CategorySlug', '=', $request->cate)
                     ->get();
-            } else {
-                $data2 = DB::table('product')
-                    ->join('category', 'product.CategoryId', '=', 'category.CategoryId')
-                    ->select('product.*', 'category.CatActive')
-                    ->where('category.CatActive', '=', 1)
-                    ->where('Active', '=', 1)
-                    ->offset($offset)
-                    ->limit($one_page)
-                    ->get();
+            }else {
+                if (isset($request->search) || isset($request->amount)) {
+                    $data2 = DB::table('product')
+                        ->join('category', 'product.CategoryId', '=', 'category.CategoryId')
+                        ->select('product.*', 'category.CatActive', 'category.CategorySlug')
+                        ->where('category.CatActive', '=', 1)
+                        ->where('Active', '=', 1)
+                        ->where('product.Price', '<', (int)$request->amount)
+                        ->offset($offset)
+                        ->limit($one_page)
+                        ->where('product.ProductName', 'like', '%' . $request->search . '%')
+                        ->where('category.CategorySlug', '=', $request->cate)
+                        ->get();
+                } else {
+                    $data2 = DB::table('product')
+                        ->join('category', 'product.CategoryId', '=', 'category.CategoryId')
+                        ->select('product.*', 'category.CatActive')
+                        ->where('category.CatActive', '=', 1)
+                        ->where('Active', '=', 1)
+                        ->offset($offset)
+                        ->limit($one_page)
+                        ->get();
+                }
             }
+        }else{
+            $data2=$data;
         }
         $output ='<div class="row">';
             if($total_page!=1) {
@@ -126,6 +130,7 @@ class ShopController extends Controller
                 <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                     <div class="product-wrap mb-35" data-aos="fade-up" data-aos-delay="200">
                     <div class="product-img img-zoom mb-25">
+                        <img style="position: absolute; opacity:0.8" src="'.asset('images\icon-img\merry1.png').'" alt="">
                         <a href="'.asset('products/'.$item->Slug).'">
                             <img src="'. asset('images/product/'.$item->Images) .'" alt="">
                         </a>

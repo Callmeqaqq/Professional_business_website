@@ -7,11 +7,11 @@
                 <div class="card-body">
                     <form id="pulseForm">
                         <div class="form-group">
-                          <label for="exampleFormControlInput1">Tiêu đề bài viết</label>
+                          <label for="exampleFormControlInput1">Tiêu đề bài viết (*)</label>
                           <input type="text" class="form-control" id="title" placeholder="Nhập tiêu đề của bài viết">
                         </div>
                         <div class="form-group">
-                          <label for="category">Chọn danh mục</label>
+                          <label for="category">Chọn danh mục (*)</label>
                           <select class="form-control" id="category">
                               @foreach($category as $item)
                                 <option value="{{$item->Blog_CategoryID}}">{{$item->BlogName}}</option>
@@ -19,11 +19,11 @@
                           </select>
                         </div>
                         <div class="form-group">
-                            <label for="desc">Mô tả</label>
+                            <label for="desc">Mô tả (*)</label>
                             <textarea id="desc" class="form-control" rows="3"></textarea>
                         </div>
                         <div class="form-group">
-                          <label for="editor">Nội dung</label>
+                          <label for="editor">Nội dung (*)</label>
                           <textarea id="editor" class="form-control" rows="3"></textarea>
                         </div>
                             <label for="thumbnail" class="col-sm-2 col-form-label">Thumbnail (*)</label>
@@ -156,6 +156,7 @@ var myEditor;
         })
         .then( editor => {
             myEditor = editor;
+            editor.ui.view.editable.element.style.height = '500px';
         } )
         .catch( error => {
             console.error( error );

@@ -12,21 +12,14 @@ class CheckoutController extends Controller
 {
     function index()
     {
-        $data = DB::table('shipoption')->value('PricePerKm');
         Session::forget('Ship');
+        $data = DB::table('shipoption')->value('PricePerKm');
         $shipfee = Session::get('Ship');
         return view('checkout', compact('data', 'shipfee'));
     }
 
     public function checkoutSubmit(OrderRequest $request)
     {
-//        if($request->fails()){
-//            return back()->withInput();
-//        }
-        //request check for current passwords
-//        $pass = $request->input('Password');
-//        $request->request->add(['password_old' => $pass]);
-
         //order information
         $full_name = $request->input('Fullname');
         $address = $request->input('Address');

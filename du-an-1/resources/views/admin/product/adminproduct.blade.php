@@ -25,7 +25,7 @@
                                 <th style="width: 70px;">Lượt xem</th>
                                 <th style="width: 100px;">Hoạt Động</th>
                                 <th style="width: 70px;">Ngày tạo</th>
-                                <th style="width: 150px;">Hành Động</th>
+                                <th style="width: 80px;">Hành Động</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -46,9 +46,9 @@
                                         @endif
                                     </td>
                                     <td>{{date('d-m-Y', strtotime($pd->CreateAt))}}</td>
-                                    <td>
-                                        <a href="{{asset('admin/product/edit-product/'.$pd->Slug)}}"><button class="btn btn-outline-primary">🖊 Sửa</button></a>
-                                        <a href="{{asset('admin/product/delete-product/'.$pd->Slug)}}" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này không?')"><button class="btn btn-outline-danger">⛔ Xóa</button></a>
+                                    <td style="text-align:right">
+                                        <a href="{{asset('admin/product/edit-product/'.$pd->Slug)}}"><button class="btn btn-outline-primary"><i class="fas fa-info-circle"></i></button></a>
+                                        <a href="{{asset('admin/product/delete-product/'.$pd->Slug)}}" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này không?')"><button class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i></button></a>
                                     </td>
                                 </tr>
                             @endforeach

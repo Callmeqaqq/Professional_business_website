@@ -40,9 +40,9 @@
                                         @endif
                                     </td>
 {{--                                    <td>{{date('d-m-Y', strtotime($pd->CreateAt))}}</td>--}}
-                                    <td>
-                                        <a href="{{asset('admin/product/edit-category/'.$cat->CategorySlug)}}"><button class="btn btn-outline-primary">🖊 Sửa</button></a>
-                                        <a href="{{asset('admin/product/delete-category/'.$cat->CategorySlug)}}" onclick="return confirm('Bạn có chắc muốn xóa danh mục này không?')"><button class="btn btn-outline-danger">⛔ Xóa</button></a>
+                                    <td style="float:right;">
+                                        <a href="{{asset('admin/product/edit-category/'.$cat->CategorySlug)}}"><button class="btn btn-outline-primary"><i class="fas fa-info-circle"></i></button></a>
+                                        <a href="{{asset('admin/product/delete-category/'.$cat->CategorySlug)}}" onclick="return confirm('Bạn có chắc muốn xóa danh mục này không?')"><button class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i></button></a>
                                     </td>
                                 </tr>
                             @endforeach
