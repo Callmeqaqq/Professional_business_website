@@ -38,6 +38,7 @@
                                     </td>
 
                                     <td>
+{{--                                        kiểm tra xem có phải super admin hay không thì có quyền thao tác với manager--}}
                                         @if($super_admin == 'SuperAdmin' && session('LoggedUser') !== $admin->UserId)
 
                                             <a href="{{url('/admin/updateAdministrator/'.$admin->UserId)}}"

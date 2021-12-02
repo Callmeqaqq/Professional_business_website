@@ -14,8 +14,25 @@ class ConfigController extends Controller
             ->select('users.UserId', 'users.Fullname', 'users.Email', 'role.RoleName', 'active')
             ->where('users.UserRole', '!=', '6')
             ->get();
-        $list_permissions = DB::table('permission')->get();
-        return view('admin/configuration/permissionConfig', compact('admins','list_permissions'));
+//        $list_permissions = DB::table('permission')->get();
+        return view('admin/configuration/permissionConfig', compact('admins'));
+    }
+
+    public function get_not_have_permission($user){
+        $permission_check = DB::table('user_per')
+            ->join('permission','user_per.id_per','=','permission.id_per')
+            ->select('permission.id_per')
+            ->where('user_per.id_user','=',$user)
+            ->get();//edit create view
+        $test = array();
+        foreach ($permission_check as $permission){
+            array_push($test,$permission->id_per);
+        }
+        $not_exist_permission = DB::table('permission')
+            ->select('id_per','name_per')
+            ->whereNotIn('id_per',$test)
+            ->get();//edit create view
+        return $not_exist_permission;
     }
 
     public function update_config_permission(Request $request){
@@ -26,7 +43,7 @@ class ConfigController extends Controller
             'id_user' => $user,
             'licenced' => 1
         ]);
-        return redirect('/admin/config-permission')->with('status', 'Thêm quyền thành công');
+        return redirect('/admin/config-permission')->with('add_success', 'Thêm quyền thành công');
     }
 
     public function check_user_permission($user){

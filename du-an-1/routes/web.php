@@ -162,6 +162,7 @@ Route::get('/admin/config-permission', 'admin\ConfigController@config_permission
 Route::post('/admin/update-config-permission', 'admin\ConfigController@update_config_permission')->name('config.update_permission');
 Route::post('/admin/update-config-licenced', 'admin\ConfigController@update_config_licenced')->name('config.update_licenced');
 Route::get('/admin/get-user-permissions/{id}', 'admin\ConfigController@check_user_permission');
+Route::get('/admin/get-user-not-exists-permissions/{id}', 'admin\ConfigController@get_not_have_permission');
 Route::get('/admin/get-permission-licenced/{permission}/{userID}', 'admin\ConfigController@get_permission_licenced');
 //payment config
 Route::get('/admin/config-payment', 'admin\ConfigController@config_payment')->name('config.payment');
