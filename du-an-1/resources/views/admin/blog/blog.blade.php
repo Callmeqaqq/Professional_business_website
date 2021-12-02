@@ -68,7 +68,7 @@
                 id: a.getAttribute('value'),
                 _token: "{{csrf_token()}}"
             }
-        }).done(function(res) {;
+        }).done(function(res) {
             if(res.success == true){
               Notiflix.Notify.Success(res.msg);
               a.parentNode.parentNode.remove();

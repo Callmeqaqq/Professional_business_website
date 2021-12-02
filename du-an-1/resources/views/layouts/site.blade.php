@@ -129,7 +129,11 @@
             <div class="cart-content">
                 <h3>Giỏ Hàng</h3>
                 <div id="list-cart">
-                    @if (Session::has('Cart') != null)
+                    @if (Session::has('LoggedUser') == null)
+                        <p style="text-align: center">Bạn cần đăng nhập để mua hàng!</p>
+                    @elseif (Session::has('Cart') == null)
+                        <p style="text-align: center">Giỏ hàng hiện đang trống!</p>
+                    @else
                         <ul>
                             @foreach(Session::get('Cart')->products as $item)
                                 <li>
@@ -155,8 +159,6 @@
                         <div class="checkout-btn btn-hover">
                             <a class="theme-color" href="/checkout">Thanh toán</a>
                         </div>
-                    @else
-                        <p style="text-align: center">Giỏ hàng hiện đang trống!</p>
                     @endif
                 </div>
             </div>

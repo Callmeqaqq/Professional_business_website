@@ -201,5 +201,12 @@ Route::get('admin/blog/{id}/commentList', 'admin\BlogController@categoryCommentL
 Route::get('admin/blog/comments', 'admin\BlogController@commentsView');
 // User manage route
 
+
+Route::get('admin/order', 'admin\AdminOrderController@index')->name('admin.order');
+Route::get('admin/order/order-detail/{OrderId}', 'admin\AdminOrderController@OrderDetail')->name('admin.order_detail');
+Route::get('admin/order/update-status/{OrderId}/{Status}', 'admin\AdminOrderController@UpdateStatus')->name('admin.update_status');
+Route::get('admin/order/order-by-status/{Status}', 'admin\AdminOrderController@ShowByStatusOrder')->name('admin.show_order_by_status');
+
 Route::get('admin/users/', 'admin\userController@index');
 Route::get('admin/users/{id}', 'admin\userController@detail');
+
