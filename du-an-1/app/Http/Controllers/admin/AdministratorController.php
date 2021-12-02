@@ -19,46 +19,6 @@ class AdministratorController extends Controller
             ->where('users.UserRole', '!=', '6')
             ->get();
 
-        $userID = Session::get('LoggedUser');
-        //check for view permission
-        $action = 'VIEW';
-        $permission_check = 2; //database set of View permission
-        $test = DB::table('users')
-            ->join('user_per','users.UserID','=','user_per.id_user')
-            ->join('permission','user_per.id_per','=','permission.id_per')
-            ->join('permission_detail','permission.id_per','=','permission_detail.id_per')
-            ->where('users.UserID','=', $userID)
-            ->where('user_per.id_per', '=' , $permission_check)
-            ->where('user_per.licenced', '=',  '1')//licenced: 1 = true, 0 = false
-            ->where('action_code', '=', $action)//action code in permission detail
-            ->value('name_per');
-        ;
-
-        //make an array for check exist later, push first value of permission check
-        $permissions = array($test);
-
-        //check for Full permission
-        $permission_check = 1; //database set of Full permission
-        $test = DB::table('users')
-            ->join('user_per','users.UserID','=','user_per.id_user')
-            ->join('permission','user_per.id_per','=','permission.id_per')
-            ->join('permission_detail','permission.id_per','=','permission_detail.id_per')
-            ->where('users.UserID','=', $userID)
-            ->where('user_per.id_per', '=' , $permission_check)
-            ->where('user_per.licenced', '=',  '1')//licenced: 1 = true, 0 = false
-            ->where('action_code', '=', $action)//action code in permission detail
-            ->value('name_per');
-        ;
-        array_push($permissions,$test);
-        if(in_array('Full',$permissions)){
-            $result = "have permission";
-        }elseif (in_array('View',$permissions)){
-            $result = "have permission";
-        }else{
-            $result = 'no permission';
-        }
-        dd($result);
-
         $page = 'administrator';
         return view('admin/administrator', compact('admins', 'page'));
     }
