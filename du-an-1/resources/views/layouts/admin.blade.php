@@ -54,9 +54,11 @@ if (session('status')) {
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
             {{--            <a class="navbar-brand" style="color: aqua" href="{{asset('/admin')}}"><img src="{{asset('images/logo/logo1.png')}}" alt=""></a>--}}
-            <a class="navbar-brand" style="color: var(--danger)" href="{{route('dashboard.index')}}"
-            >Metah</a
-            >
+            <a class="navbar-brand" style="color: var(--danger)" href="{{route('dashboard.index')}}">
+                <span><img style="width:40px" src="{{asset('/images/icon-img/merry3.png')}}" alt=""></span>
+                Metah
+                <span><img style="width:40px" src="{{asset('/images/icon-img/merry3.png')}}" alt=""></span>
+            </a>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
@@ -79,18 +81,15 @@ if (session('status')) {
                             aria-labelledby="navbarDropdownMenuLink2"
                         >
                             <div class="nav-user-info">
-                                <h5 class="mb-0 text-white nav-user-name">John Abraham</h5>
+                                <h5 class="mb-0 text-white nav-user-name">{{session()->get('LoggedUserName')}}</h5>
                                 <span class="status"></span
-                                ><span class="ml-2">Available</span>
+                                ><span class="ml-2">Active</span>
                             </div>
-                            <a class="dropdown-item" href="#"
-                            ><i class="fas fa-user mr-2"></i>Account</a
+                            <a class="dropdown-item" href="{{asset('/profile')}}"
+                            ><i class="fas fa-user mr-2"></i>Tài khoản của bạn</a
                             >
-                            <a class="dropdown-item" href="#"
-                            ><i class="fas fa-cog mr-2"></i>Setting</a
-                            >
-                            <a class="dropdown-item" href="#"
-                            ><i class="fas fa-power-off mr-2"></i>Logout</a
+                            <a class="dropdown-item" href="{{asset('/buyer/logout')}}"
+                            ><i class="fas fa-power-off mr-2"></i>Đăng Xuất</a
                             >
                         </div>
                     </li>
@@ -238,6 +237,37 @@ if (session('status')) {
                             </li>
                         @endif
                         {{--content--}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse"
+                               aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9">
+                                <i class="fas fa-f fa-folder"></i>Quản lý người dùng
+                            </a>
+                            <div id="submenu-9" class="collapse submenu" style="">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{url('admin/users')}}">Danh sách người dùng</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Xếp hạng chi tiêu thành viên</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        {{--order--}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse"
+                               aria-expanded="false" data-target="#submenu-11" aria-controls="submenu-9">
+                                <i class="fas fa-f fa-folder"></i>Quản lý đơn hàng
+                            </a>
+                            <div id="submenu-11" class="collapse submenu" style="">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('admin.order')}}">Xem tất cả đơn hàng</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        {{--order--}}
                     </ul>
                 </div>
             </nav>
