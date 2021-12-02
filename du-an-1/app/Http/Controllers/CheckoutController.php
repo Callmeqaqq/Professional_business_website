@@ -20,9 +20,9 @@ class CheckoutController extends Controller
 
     public function checkoutSubmit(OrderRequest $request)
     {
-        if($request->fails()){
-            return back()->withInput();
-        }
+//        if($request->fails()){
+//            return back()->withInput();
+//        }
         //request check for current passwords
 //        $pass = $request->input('Password');
 //        $request->request->add(['password_old' => $pass]);

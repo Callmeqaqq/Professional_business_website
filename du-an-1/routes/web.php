@@ -167,3 +167,7 @@ Route::get('admin/blog/category/{id}/edit','admin\BlogController@categoryEditVie
 Route::get('admin/blog/{id}/commentList', 'admin\BlogController@categoryCommentList');
 Route::get('admin/blog/comments', 'admin\BlogController@commentsView');
 
+Route::get('admin/order', 'admin\AdminOrderController@index')->name('admin.order');
+Route::get('admin/order/order-detail/{OrderId}', 'admin\AdminOrderController@OrderDetail')->name('admin.order_detail');
+Route::get('admin/order/update-status/{OrderId}/{Status}', 'admin\AdminOrderController@UpdateStatus')->name('admin.update_status');
+Route::get('admin/order/order-by-status/{Status}', 'admin\AdminOrderController@ShowByStatusOrder')->name('admin.show_order_by_status');

@@ -226,6 +226,21 @@ if (session('status')) {
                             </div>
                         </li>
 
+                        {{--order--}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse"
+                               aria-expanded="false" data-target="#submenu-11" aria-controls="submenu-9">
+                                <i class="fas fa-f fa-folder"></i>Quản lý đơn hàng
+                            </a>
+                            <div id="submenu-11" class="collapse submenu" style="">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('admin.order')}}">Xem tất cả đơn hàng</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
                     </ul>
                 </div>
             </nav>
