@@ -7,7 +7,7 @@
                 <h3 class="card-header">Quản lý người dùng</h3>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="table" class="table table-striped">
+                        <table id="usersTable" class="table table-striped">
                             <thead>
                               <tr>
                                 <th scope="col">ID</th>
@@ -86,8 +86,8 @@
         }).done(function(res) {;
             if(res.success == true){
                 Notiflix.Notify.Success(res.messages);
-                setTimeout(function () { 
-                    location.reload(true); 
+                setTimeout(function () {
+                    location.reload(true);
                 }, 2000);
             }else{
                 Notiflix.Notify.Warning(res.messages);
@@ -106,8 +106,8 @@
         }).done(function(res) {;
             if(res.success == true){
                 Notiflix.Notify.Success(res.messages);
-                setTimeout(function () { 
-                    location.reload(true); 
+                setTimeout(function () {
+                    location.reload(true);
                 }, 2000);
             }else{
                 Notiflix.Notify.Warning(res.messages);
@@ -115,4 +115,34 @@
         });
   }
 </script>
+<script>
+    $(document).ready(function () {
+      $("#usersTable").DataTable({
+          lengthMenu: [10, 20, 30],
+          language: {
+              processing: "Đang tải dữ liệu",
+              search: "Tìm kiếm: ",
+              lengthMenu: "Lượng hiển thị:  " + " _MENU_ ",
+              info: "_START_ - _END_ / _TOTAL_",
+              infoEmpty: "Không có dữ liệu",
+              infoFiltered: "(Trên tổng _MAX_ mục)",
+              infoPostFix: " người dùng", // Cái này khi thêm vào nó sẽ đứng sau info
+              loadingRecords: "",
+              zeroRecords: "Không tồn tại dữ liệu cần tìm",
+              emptyTable: "Không có dữ liệu",
+              paginate: {
+                  first: "Trang đầu",
+                  previous: "<",
+                  next: ">",
+                  last: "Trang cuối",
+              },
+              aria: {
+                  sortAscending: ": Đang sắp xếp theo column",
+                  sortDescending: ": Đang sắp xếp theo column",
+              },
+          },
+      });
+  });
+</script>
+
 @stop()

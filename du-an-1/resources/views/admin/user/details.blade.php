@@ -105,6 +105,7 @@
                     $('#fullname').prop("disabled", true);
                     $('#address').prop("disabled", true);
                     $('#address').prop("disabled", true);
+                    $('#email').prop('disabled', true);
                     $('#edit').prop('disabled', false);
                     $('#post').hide();
                 }else{
@@ -125,8 +126,8 @@
         }).done(function(res) {;
             if(res.success == true){
                 Notiflix.Notify.Success(res.messages);
-                setTimeout(function () { 
-                    location.reload(true); 
+                setTimeout(function () {
+                    location.reload(true);
                 }, 2000);
             }else{
                 Notiflix.Notify.Warning(res.messages);
@@ -134,7 +135,7 @@
         });
     }
 
-    
+
 
   function unactive(a){
     id = a.getAttribute('value');
@@ -147,8 +148,8 @@
         }).done(function(res) {;
             if(res.success == true){
                 Notiflix.Notify.Success(res.messages);
-                setTimeout(function () { 
-                    location.reload(true); 
+                setTimeout(function () {
+                    location.reload(true);
                 }, 2000);
             }else{
                 Notiflix.Notify.Warning(res.messages);

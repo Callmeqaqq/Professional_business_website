@@ -80,42 +80,55 @@ class BlogController extends Controller
             "code" => 200,
             "messages" => "Có lỗi trong quá trình sử lý"
         ];
-        $request->validate([
-            'content' => 'required',
-            'title' => 'required',
-            'thumbnail' => 'required',
-            'categoryId' => 'required',
-            'description' => 'required',
-        ]);
+        $warning = "";
         $content = $request->input('content');
         $title = $request->input('title');
         $thumb = $request->input('thumbnail');
         $categoryId = $request->input('categoryId');
         $slug = $this->createSlug($title).'.'.time();
         $description = $request->input('description');
-        $category = DB::table('blog_category')->where('Blog_CategoryID', $categoryId)->select()->first();
-        DB::table('blog')->insert([
-            "BlogID" => null,
-            "Title" => $title,
-            "slug" => $slug,
-            "createAt" => date('Y-m-d H:i:s'),
-            "Content" => $content,
-            "thumbnail" => $thumb,
-            "Blog_CategoryID" => $categoryId,
-            "UserId" => session('LoggedUser'),
-            "view" => 0,
-            "Blog_des" => $description
-        ]);
-        $rs = [
-            "success" => true,
-            "code" => 200,
-            "messages" => "Successful",
-            "content" => $content,
-            "title" => $title,
-            "thumb" => $thumb,
-            "slug" => $slug,
-            "redirect" => url('blog')."/".$category->slug."/".$slug
-        ];
+        if($content == '' || $content == null){
+            $warning .= "Không để trống nội dung";
+        }
+        if($title == '' || $title == null){
+            $warning .= "Không để trống tiêu đề";
+        }
+        if($thumb == '' || $thumb == null){
+            $warning .= "Bạn chưa chọn thumbnail";
+        }
+        if($categoryId == '' || $categoryId == null){
+            $warning .= "Bạn chưa chọn danh mục";
+        }
+        if($description == '' || $description == null){
+            $warning .= "Không để trống mô tả";
+        }
+        if($warning == ""){
+            $category = DB::table('blog_category')->where('Blog_CategoryID', $categoryId)->select()->first();
+            DB::table('blog')->insert([
+                "BlogID" => null,
+                "Title" => $title,
+                "slug" => $slug,
+                "createAt" => date('Y-m-d H:i:s'),
+                "Content" => $content,
+                "thumbnail" => $thumb,
+                "Blog_CategoryID" => $categoryId,
+                "UserId" => session('LoggedUser'),
+                "view" => 0,
+                "Blog_des" => $description
+            ]);
+            $rs = [
+                "success" => true,
+                "code" => 200,
+                "messages" => "Successful",
+                "content" => $content,
+                "title" => $title,
+                "thumb" => $thumb,
+                "slug" => $slug,
+                "redirect" => url('blog')."/".$category->slug."/".$slug
+            ];
+        }else{
+            $rs["messages"] = $warning;
+        }
         return response()->json($rs);
     }
 
