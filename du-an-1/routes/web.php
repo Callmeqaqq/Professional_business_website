@@ -209,4 +209,5 @@ Route::get('admin/order/order-by-status/{Status}', 'admin\AdminOrderController@S
 
 Route::get('admin/users/', 'admin\userController@index');
 Route::get('admin/users/{id}', 'admin\userController@detail');
+Route::get('admin/users/rank', 'admin\userController@rankView');
 

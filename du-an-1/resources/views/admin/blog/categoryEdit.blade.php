@@ -42,7 +42,7 @@
                 Notiflix.Block.Remove('#pulseForm');
                 if(res.success == true){
                     Notiflix.Notify.Success(res.messages);
-                    setTimeout(function () { 
+                    setTimeout(function () {
                         location.href = "{{url('admin/blog/category')}}";
                     }, 2000);
                 }else{
@@ -53,4 +53,5 @@
     })
 
 </script>
+
 @stop()

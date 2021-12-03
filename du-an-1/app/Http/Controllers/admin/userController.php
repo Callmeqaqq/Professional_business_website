@@ -75,7 +75,7 @@ class userController extends Controller
         $rs = [
             "success" => false,
             "messages" => "Có lỗi trong quá trình xử lý"
-        ]; 
+        ];
         if($id != null && $id != ""){
             $affected = DB::table('users')
                         ->where('UserId', $id)
@@ -101,7 +101,7 @@ class userController extends Controller
         $rs = [
             "success" => false,
             "messages" => "Có lỗi trong quá trình xử lý"
-        ]; 
+        ];
         if($id != null && $id != ""){
             $affected = DB::table('users')
                         ->where('UserId', $id)
@@ -135,13 +135,13 @@ class userController extends Controller
         $warning = "";
         if($repeatPassword == "" || $password == null || $password == "" || $repeatPassword == null){
             $warning = "Bạn nhập thiếu thông tin";
-        } 
+        }
         if($password != $repeatPassword){
             $warning = "2 mật khẩu bạn nhập không giống nhau";
         }
         if(strlen($password) <6){
             $warning = "Mật khẩu cần lớn hơn 6 ký tự";
-        } 
+        }
         if($warning == ""){
             $affected = DB::table('users')
             ->where('UserId', $id)
@@ -157,6 +157,9 @@ class userController extends Controller
             $rs["messages"] = $warning;
         }
         return response()->json($rs);
+    }
+
+    function rankView(){
 
     }
 }
