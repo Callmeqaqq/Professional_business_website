@@ -194,14 +194,14 @@ class ShopController extends Controller
 
 
     function category($slug){
-//        $data = DB::table('product')
-//            ->join('category','product.CategoryId','=','category.CategoryId')
-//            ->select('product.*','category.CatActive','category.CategorySlug','category.CategoryName')
-//            ->where('category.CatActive','=',1)
-//            ->where('Active','=',1)
-//            ->where('category.CategorySlug','=',$slug)
-//            ->paginate(9);
-        $slug=$slug;
+        $data = DB::table('category')->where('category.CategorySlug','=',$slug)->get();
+        $check = 0;
+        foreach ($data as $item){
+            $check++;
+        }
+        if ($check==0){
+            return redirect('/Notfound');
+        }
 //         dd($data);
         return view('shop/shop',compact('slug'));
     }

@@ -252,3 +252,117 @@
     </div>
 </div>
 @stop()
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            load_comment();
+
+            function load_comment() {
+                var productId = $('.comment_productId').val();
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url:"{{url("/load-comment")}}",
+                    method:"POST",
+                    data:{
+                        productId:productId,
+                        _token:_token
+                    },
+                    success:function(data){
+                        $('#comment_show').html(data);
+                    }
+                });
+            }
+
+            $(document).on('click', '.delete-cmt', function() {
+                var r = confirm("Bạn có chắc xóa bình luận này không?")
+                if(r == true){
+                    let id_comment = $(this).find('input').val();
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                        url:"{{url("/del-comment")}}",
+                        method:"POST",
+                        data:{
+                            id_comment:id_comment,
+                            _token:_token
+                        },
+                        success:function(data){
+                            load_comment();
+                            alert('Đã xóa bình luận');
+                        }
+                    });
+                }
+
+
+            })
+
+            $('.send-comment').click(function (){
+                var productId = $('.comment_productId').val();
+                var userId = $('.comment_userId').val();
+                var commentCreateAt = $('.comment_createAt').val();
+                var comment_content = $('.comment_content').val();
+                var _token = $('input[name="_token"]').val();
+
+                var checkbox = document.getElementsByName("rating");
+                for (var i = 0; i < checkbox.length; i++){
+                    if (checkbox[i].checked === true){
+                        var rating = checkbox[i].value;
+                    }
+                }
+
+                $.ajax({
+                    url:"{{url("/send-comment")}}",
+                    method:"POST",
+                    data:{
+                        productId:productId,
+                        userId:userId,
+                        comment_content:comment_content,
+                        commentCreateAt:commentCreateAt,
+                        rating:rating,
+                        _token:_token
+                    },
+                    success:function(data){
+                        $('#notify_comment').html('<p class="text text-success"> Thêm bình luận thành công</p>');
+                        load_comment();
+                    }
+                });
+            });
+        });
+        $('.pd_img_color').click(function(){
+            let variantId = $('input[name="emotion"]:checked').val();
+            var _token = $('input[name="_token"]').val();
+            // alert(variantId);
+            $.ajax({
+                url:"{{url("/quantity")}}",
+                method:"POST",
+                data:{
+                    variantId:variantId,
+                    _token:_token
+                },
+                success:function(data){
+                    $('#quantityhere').html(data);
+                }
+            });
+        });
+
+        $('.pd_img_color').click(function(){
+            let productId = $('.comment_productId').val();
+            let variantId = $('input[name="emotion"]:checked').val();
+            let price = $('.price').val();
+            var _token = $('input[name="_token"]').val();
+            // alert(productId);
+            $.ajax({
+                url:"{{url("/price")}}",
+                method:"POST",
+                data:{
+                    productId:productId,
+                    variantId:variantId,
+                    _token:_token,
+                    price:price
+                },
+                success:function(data){
+                    $('.product-details-price').html(data);
+                }
+            });
+        });
+    </script>
+@stop()
