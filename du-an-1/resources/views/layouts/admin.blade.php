@@ -127,18 +127,21 @@ if (session('status')) {
                             ><i class="fab fa-briefcase"></i>Dashboard
                             </a>
                         </li>
-                        <li class="nav-item  ">
-                            <a class="nav-link {{'administrator' ===   $url_active ||'updateAdministrator' ===   $url_active||'addAdministrator' ===   $url_active  ? 'active':''}}"
-                               href="{{route('admin.administrator')}}" aria-expanded="false"
-                            ><i class="fab fa-unlock-alt "></i>Quản trị viên
-                            </a>
-                        </li>
-                        <li class="nav-item  ">
-                            <a class="nav-link {{ 'listComment' ===   $url_active ||'comment' ===   $url_active  ? 'active':''}}"
-                               href="{{route('comment.list')}}" aria-expanded="false"
-                            ><i class="fab fa-comment "></i>Quản lí bính luận
-                            </a>
-                        </li>
+                        {{--                        Quản trị--}}
+                        @if((session('UserRole') == 'HRM') || (session('UserRole') == 'Manager') || (session('UserRole') == 'SuperAdmin'))
+                            <li class="nav-item  ">
+                                <a class="nav-link {{'administrator' ===   $url_active ||'updateAdministrator' ===   $url_active||'addAdministrator' ===   $url_active  ? 'active':''}}"
+                                   href="{{route('admin.administrator')}}" aria-expanded="false"
+                                ><i class="fab fa-unlock-alt "></i>Quản trị viên
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a class="nav-link {{ 'listComment' ===   $url_active ||'comment' ===   $url_active  ? 'active':''}}"
+                                   href="{{route('comment.list')}}" aria-expanded="false"
+                                ><i class="fab fa-comment "></i>Quản lí bính luận
+                                </a>
+                            </li>
+                        @endif
 
                         {{--warehouse role check end--}}
                         @if((session('UserRole') != 'HRM') && (session('UserRole') != 'Writer'))
@@ -236,40 +239,42 @@ if (session('status')) {
                             </li>
                         @endif
                         {{--content--}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="collapse"
-                               aria-expanded="false" data-target="#submenu-12" aria-controls="submenu-12">
-                                <i class="fas fa-f fa-folder"></i>Quản lý người dùng
-                            </a>
-                            <div id="submenu-12" class="collapse submenu" style="">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{url('admin/users')}}">Danh sách người dùng</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Xếp hạng chi tiêu thành viên</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-
+                        @if(session('UserRole') == 'HRM' || session('UserRole') == 'SuperAdmin' || session('UserRole') == 'Manager')
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse"
+                                   aria-expanded="false" data-target="#submenu-12" aria-controls="submenu-12">
+                                    <i class="fas fa-f fa-folder"></i>Quản lý người dùng
+                                </a>
+                                <div id="submenu-12" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{url('admin/users')}}">Danh sách người dùng</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Xếp hạng chi tiêu thành viên</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        @endif
 
                         {{--order--}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="collapse"
-                               aria-expanded="false" data-target="#submenu-11" aria-controls="submenu-9">
-                                <i class="fas fa-f fa-folder"></i>Quản lý đơn hàng
-                            </a>
-                            <div id="submenu-11" class="collapse submenu" style="">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{route('admin.order')}}">Xem tất cả đơn hàng</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        {{--order--}}
-
+                        @if(session('UserRole') == 'Sale' || session('UserRole') == 'SuperAdmin' || session('UserRole') == 'Manager')
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse"
+                                   aria-expanded="false" data-target="#submenu-11" aria-controls="submenu-9">
+                                    <i class="fas fa-f fa-folder"></i>Quản lý đơn hàng
+                                </a>
+                                <div id="submenu-11" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{route('admin.order')}}">Xem tất cả đơn hàng</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            {{--order--}}
+                        @endif
                     </ul>
                 </div>
             </nav>
