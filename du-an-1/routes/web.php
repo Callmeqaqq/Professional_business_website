@@ -250,10 +250,10 @@ Route::get('admin/order/update-status/{OrderId}/{Status}', 'admin\AdminOrderCont
     ->middleware('role:Sale,Manager,SuperAdmin', 'check_edit_permissions');
 Route::get('admin/order/order-by-status/{Status}', 'admin\AdminOrderController@ShowByStatusOrder')->name('admin.show_order_by_status');
 
-Route::get('admin/users/', 'admin\userController@index');
+Route::get('admin/users/', 'admin\userController@index')
   ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
-Route::get('admin/users/{id}', 'admin\userController@detail');
+Route::get('admin/users/{id}', 'admin\userController@detail')
   ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
-Route::get('admin/users/rank', 'admin\userController@rankView');
-  ->->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
+Route::get('admin/users/rank', 'admin\userController@rankView')
+  ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
 
