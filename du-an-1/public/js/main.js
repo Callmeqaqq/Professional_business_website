@@ -358,21 +358,21 @@
         $(this).addClass("active");
     });
 
-    /*--------------------------
-        Isotope active 1
-    ---------------------------- */
-    $('.grid').imagesLoaded(function() {
-        // init Isotope
-        $('.grid').isotope({
-            itemSelector: '.grid-item',
-            percentPosition: true,
-            layoutMode: 'masonry',
-            masonry: {
-                // use outer width of grid-sizer for columnWidth
-                columnWidth: '.grid-sizer',
-            }
-        });
-    });
+    // /*--------------------------
+    //     Isotope active 1
+    // ---------------------------- */
+    // $('.grid').imagesLoaded(function() {
+    //     // init Isotope
+    //     $('.grid').isotope({
+    //         itemSelector: '.grid-item',
+    //         percentPosition: true,
+    //         layoutMode: 'masonry',
+    //         masonry: {
+    //             // use outer width of grid-sizer for columnWidth
+    //             columnWidth: '.grid-sizer',
+    //         }
+    //     });
+    // });
 
     /*---------------------
         Price range
@@ -380,6 +380,9 @@
     var sliderrange = $('#slider-range');
     var amountprice = $('#amount');
     $(function() {
+        sliderrange.slider = function (param) {
+
+        }
         sliderrange.slider({
             range: true,
             min: 20,
