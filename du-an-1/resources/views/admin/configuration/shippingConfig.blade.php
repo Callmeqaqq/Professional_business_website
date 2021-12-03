@@ -5,7 +5,12 @@
             <div class="card">
                 <div class="card-body">
                     <h4>Thiết lập phí vận chuyển</h4>
-                    <form action="" method="post">
+                    @if (session('update-shipfee-success'))
+                        <div class="alert alert-success">
+                            {{ session('update-shipfee-success') }}
+                        </div>
+                    @endif
+                    <form action="{{route('update.config.shipfee')}}" method="post">
                         @csrf
                         <div class="card-body row">
                             <div class="form-group col-6">
@@ -13,10 +18,9 @@
                                 <input
                                     type="text"
                                     class="form-control date-inputmask"
-                                    id="date-mask"
                                     placeholder="Nhập số tiền trên mỗi Ki-lô-mét"
-                                    name="Fullname"
-                                    value="{{old('Fullname')}}"
+                                    name="Inside"
+                                    value="{{$inside->PricePerKm}}"
                                 />
                             </div>
                             <div class="form-group col-6">
@@ -24,14 +28,13 @@
                                 <input
                                     type="text"
                                     class="form-control date-inputmask"
-                                    id="date-mask"
                                     placeholder="Nhập số tiền trên mỗi Ki-lô-mét"
-                                    name="Fullname"
-                                    value="{{old('Fullname')}}"
+                                    name="Outside"
+                                    value="{{$outside->PricePerKm}}"
                                 />
                             </div>
                         </div>
-                        <button class="btn btn-outline-primary">Cập nhật</button>
+                        <button type="submit" name="" class="btn btn-outline-primary">Cập nhật</button>
                     </form>
                 </div>
             </div>

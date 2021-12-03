@@ -199,8 +199,7 @@ if (session('status')) {
                                                 lập vận chuyển</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{asset('/admin')}}">Content
-                                                Slider</a>
+                                            <a class="nav-link" href="{{route('config.slider')}}">Thiết lập slider</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -271,7 +270,7 @@ if (session('status')) {
                             </div>
                         </li>
                         {{--order--}}
-                        
+
                     </ul>
                 </div>
             </nav>

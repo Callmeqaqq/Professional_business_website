@@ -112,19 +112,30 @@ Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
 
 //======================================================================================================================
 //---------------------------------------Staff Manager------------------------------------------------------------------
-Route::get('/admin/administrator', 'admin\AdministratorController@index')->name('admin.administrator');
-Route::get('/admin/addAdministrator', 'admin\AdministratorController@add')->name('admin.addAdministrator');
-Route::get('/admin/updateAdministrator/{id}', 'admin\AdministratorController@update')->name('admin.updateAdministrator');
-Route::get('/admin/deleteAdministrator/{id}', 'admin\AdministratorController@delete')->name('admin.updateAdministrator');
-Route::post('/admin/post/addAdministrator', 'admin\AdministratorController@postAdd')->name('admin.Administrator.add');
-Route::post('/admin/post/updateAdministrator', 'admin\AdministratorController@postUpdate')->name('admin.Administrator.update');
+Route::get('/admin/administrator', 'admin\AdministratorController@index')->name('admin.administrator')
+    ->middleware('role:HRM,Manager,SuperAdmin', 'check_view_permissions');
+Route::get('/admin/addAdministrator', 'admin\AdministratorController@add')->name('admin.addAdministrator')
+    ->middleware('role:HRM,Manager,SuperAdmin', 'check_create_permissions');
+Route::get('/admin/updateAdministrator/{id}', 'admin\AdministratorController@update')->name('admin.updateAdministrator')
+    ->middleware('role:HRM,Manager,SuperAdmin', 'check_edit_permissions');
+Route::get('/admin/deleteAdministrator/{id}', 'admin\AdministratorController@delete')->name('admin.updateAdministrator')
+    ->middleware('role:HRM,Manager,SuperAdmin', 'check_delete_permissions');
+Route::post('/admin/post/addAdministrator', 'admin\AdministratorController@postAdd')->name('admin.Administrator.add')
+    ->middleware('role:HRM,Manager,SuperAdmin', 'check_create_permissions');
+Route::post('/admin/post/updateAdministrator', 'admin\AdministratorController@postUpdate')->name('admin.Administrator.update')
+    ->middleware('role:HRM,Manager,SuperAdmin', 'check_edit_permissions');
 //-----------------------comment admin -------------------------------
-Route::get('/admin/comment/{slug}', 'admin\CommentController@index')->name('comment');
-Route::get('/admin/listComment', 'admin\CommentController@list')->name('comment.list');
-Route::get('/admin/deleteComment/{id}', 'admin\CommentController@deleteComment')->name('comment.delete');
+Route::get('/admin/comment/{slug}', 'admin\CommentController@index')->name('comment')
+    ->middleware('role:,Manager,SuperAdmin', 'check_view_permissions');
+Route::get('/admin/listComment', 'admin\CommentController@list')->name('comment.list')
+    ->middleware('role:,Manager,SuperAdmin', 'check_view_permissions');
+Route::get('/admin/deleteComment/{id}', 'admin\CommentController@deleteComment')->name('comment.delete')
+    ->middleware('role:,Manager,SuperAdmin', 'check_delete_permissions');
 //-----------------------Analytics admin -------------------------------
-Route::get('/analytics/products', 'admin\AnalyticsController@product');
-Route::get('/admin', 'admin\DashboardController@index')->name('dashboard.index')->middleware('admin');
+Route::get('/analytics/products', 'admin\AnalyticsController@product')
+    ->middleware('admin');
+Route::get('/admin', 'admin\DashboardController@index')->name('dashboard.index')
+    ->middleware('admin');
 //======================================================================================================================
 
 
@@ -158,17 +169,39 @@ Route::post('/load-img', 'admin\AdminProductController@load_img');
 //======================================================================================================================
 //-----------------------------------------------SUPER ADMIN CONFIGURATION----------------------------------------------
 //permission config
-Route::get('/admin/config-permission', 'admin\ConfigController@config_permission')->name('config.permission');
-Route::post('/admin/update-config-permission', 'admin\ConfigController@update_config_permission')->name('config.update_permission');
-Route::post('/admin/update-config-licenced', 'admin\ConfigController@update_config_licenced')->name('config.update_licenced');
-Route::get('/admin/get-user-permissions/{id}', 'admin\ConfigController@check_user_permission');
-Route::get('/admin/get-user-not-exists-permissions/{id}', 'admin\ConfigController@get_not_have_permission');
-Route::get('/admin/get-permission-licenced/{permission}/{userID}', 'admin\ConfigController@get_permission_licenced');
+Route::get('/admin/config-permission', 'admin\ConfigController@config_permission')->name('config.permission')
+    ->middleware('role:,,SuperAdmin', 'check_view_permissions');
+Route::post('/admin/update-config-permission', 'admin\ConfigController@update_config_permission')->name('config.update_permission')
+    ->middleware('role:,,SuperAdmin', 'check_view_permissions');
+Route::post('/admin/update-config-licenced', 'admin\ConfigController@update_config_licenced')->name('config.update_licenced')
+    ->middleware('role:,,SuperAdmin', 'check_view_permissions');
+Route::get('/admin/get-user-permissions/{id}', 'admin\ConfigController@check_user_permission')
+    ->middleware('role:,,SuperAdmin', 'check_view_permissions');
+Route::get('/admin/get-user-not-exists-permissions/{id}', 'admin\ConfigController@get_not_have_permission')
+    ->middleware('role:,,SuperAdmin', 'check_view_permissions');
+Route::get('/admin/get-permission-licenced/{permission}/{userID}', 'admin\ConfigController@get_permission_licenced')
+    ->middleware('role:,,SuperAdmin', 'check_view_permissions');
 //payment config
-Route::get('/admin/config-payment', 'admin\ConfigController@config_payment')->name('config.payment');
+Route::get('/admin/config-payment', 'admin\ConfigController@config_payment')->name('config.payment')
+    ->middleware('role:,,SuperAdmin', 'check_view_permissions');
 //shipping config
-Route::get('/admin/config-shipfee', 'admin\ConfigController@config_shipfee')->name('config.shipfee');
+Route::get('/admin/config-shipfee', 'admin\ConfigController@config_shipfee')->name('config.shipfee')
+    ->middleware('role:,,SuperAdmin', 'check_view_permissions');
+Route::post('/admin/update-config-shipfee', 'admin\ConfigController@update_config_shipfee')->name('update.config.shipfee')
+    ->middleware('role:,,SuperAdmin', 'check_view_permissions');
 //slider config
+Route::get('/admin/config-slider', 'admin\ConfigController@config_slider')->name('config.slider')
+    ->middleware('role:,,SuperAdmin', 'check_view_permissions');
+Route::get('/admin/config-add-slider', 'admin\ConfigController@config_add_slider')->name('config.add.slider')
+    ->middleware('role:,,SuperAdmin', 'check_view_permissions');;
+Route::get('/admin/config-edit-slider/{id}', 'admin\ConfigController@config_edit_slider')->name('config.edit.slider')
+    ->middleware('role:,,SuperAdmin', 'check_view_permissions');
+Route::post('/admin/add-slider', 'admin\ConfigController@add_slider')->name('add.slider')
+    ->middleware('role:,,SuperAdmin', 'check_view_permissions');
+Route::post('/admin/update-slider', 'admin\ConfigController@update_slider')->name('update.slider')
+    ->middleware('role:,,SuperAdmin', 'check_view_permissions');
+Route::post('/admin/delete-slider/{id}', 'admin\ConfigController@delete_slider')->name('delete.slider')
+    ->middleware('role:,,SuperAdmin', 'check_view_permissions');
 //======================================================================================================================
 
 
@@ -191,23 +224,34 @@ Route::prefix('api')->group(function () {
     Route::post('/user/{id}/active', 'admin\userController@active');
     Route::post('/user/{id}/unactive', 'admin\userController@unactive');
     Route::post('/user/{id}/changePassword', 'admin\userController@changePassword');
-
 });
-Route::get('admin/blog', 'admin\BlogController@index');
-Route::get('admin/blog/new', 'admin\BlogController@new');
-Route::get('admin/blog/{id}/edit', 'admin\BlogController@editView');
-Route::get('admin/blog/category', 'admin\BlogController@categoryView');
-Route::get('admin/blog/category/{id}/edit', 'admin\BlogController@categoryEditView');
-Route::get('admin/blog/{id}/commentList', 'admin\BlogController@categoryCommentList');
-Route::get('admin/blog/comments', 'admin\BlogController@commentsView');
+Route::get('admin/blog', 'admin\BlogController@index')
+    ->middleware('role:Writer,Manager,SuperAdmin', 'check_view_permissions');
+Route::get('admin/blog/new', 'admin\BlogController@new')
+    ->middleware('role:Writer,Manager,SuperAdmin', 'check_create_permissions');
+Route::get('admin/blog/{id}/edit', 'admin\BlogController@editView')
+    ->middleware('role:Writer,Manager,SuperAdmin', 'check_edit_permissions');
+Route::get('admin/blog/category', 'admin\BlogController@categoryView')
+    ->middleware('role:Writer,Manager,SuperAdmin', 'check_view_permissions');
+Route::get('admin/blog/category/{id}/edit', 'admin\BlogController@categoryEditView')
+    ->middleware('role:Writer,Manager,SuperAdmin', 'check_edit_permissions');
+Route::get('admin/blog/{id}/commentList', 'admin\BlogController@categoryCommentList')
+    ->middleware('role:Writer,Manager,SuperAdmin', 'check_view_permissions');
+Route::get('admin/blog/comments', 'admin\BlogController@commentsView')
+    ->middleware('role:Writer,Manager,SuperAdmin', 'check_view_permissions');
 // User manage route
 
 
-Route::get('admin/order', 'admin\AdminOrderController@index')->name('admin.order');
-Route::get('admin/order/order-detail/{OrderId}', 'admin\AdminOrderController@OrderDetail')->name('admin.order_detail');
-Route::get('admin/order/update-status/{OrderId}/{Status}', 'admin\AdminOrderController@UpdateStatus')->name('admin.update_status');
+Route::get('admin/order', 'admin\AdminOrderController@index')->name('admin.order')
+    ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
+Route::get('admin/order/order-detail/{OrderId}', 'admin\AdminOrderController@OrderDetail')->name('admin.order_detail')
+    ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
+Route::get('admin/order/update-status/{OrderId}/{Status}', 'admin\AdminOrderController@UpdateStatus')->name('admin.update_status')
+    ->middleware('role:Sale,Manager,SuperAdmin', 'check_edit_permissions');
 Route::get('admin/order/order-by-status/{Status}', 'admin\AdminOrderController@ShowByStatusOrder')->name('admin.show_order_by_status');
 
-Route::get('admin/users/', 'admin\userController@index');
-Route::get('admin/users/{id}', 'admin\userController@detail');
+Route::get('admin/users/', 'admin\userController@index')
+    ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
+Route::get('admin/users/{id}', 'admin\userController@detail')
+    ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
 
