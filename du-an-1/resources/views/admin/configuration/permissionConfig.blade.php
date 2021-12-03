@@ -5,9 +5,9 @@
             <div class="card">
                 <div class="card-body">
                     <h4>Thêm quyền nhân viên</h4>
-                    @if (session('status'))
+                    @if (session('add_success'))
                         <div class="alert alert-success">
-                            {{ session('status') }}
+                            {{ session('add_success') }}
                         </div>
                     @endif
                     <form action="{{asset('/admin/update-config-permission')}}" method="post">
@@ -15,7 +15,8 @@
                         <div class="card-body row">
                             <div class="form-group col-6">
                                 <label for="inputText4" class="col-form-label">Nhân viên</label>
-                                <select class="form-control" name="PermissionUser" aria-label="Default select example">
+                                <select id="PermissionUser" class="form-control" name="PermissionUser"
+                                        aria-label="Default select example">
                                     <option value="">Chọn nhân viên</option>
                                     @foreach($admins as $admin)
                                         <option value="{{$admin->UserId}}">
@@ -26,14 +27,9 @@
                             </div>
                             <div class="form-group col-6">
                                 <label for="inputText4" class="col-form-label">Chọn quyền</label>
-                                <select class="form-control" name="PermissionAction"
+                                <select id="PermissionAction" class="form-control" name="PermissionAction"
                                         aria-label="Default select example">
-                                    <option value="">Chọn quyền thao tác</option>
-                                    @foreach($list_permissions as $permissions)
-                                        <option value="{{$permissions->id_per}}">
-                                            {{$permissions->name_per}}
-                                        </option>
-                                    @endforeach
+                                    <option value="" selected disabled>Chọn nhân viên trước</option>
                                 </select>
                             </div>
                         </div>
@@ -72,7 +68,8 @@
                             </div>
                             <div class="form-group col-6">
                                 <label for="inputText4" class="col-form-label">Trạng thái</label>
-                                <select id="LicencedStatus" class="form-control" name="LicencedStatus" aria-label="Default select example">
+                                <select id="LicencedStatus" class="form-control" name="LicencedStatus"
+                                        aria-label="Default select example">
                                     <option value="" disabled selected>Chọn quyền thao tác</option>
                                 </select>
                             </div>
@@ -86,30 +83,49 @@
     </div>
     <script>
         $(document).ready(function () {
-            //select user for check user's permission
-            $('#LicencedUser').on('change', function () {
-                let permission = $("#LicencedUserPermission");
+            //get not exists permission of user selected
+            $('#PermissionUser').on('change', function () {
+                let permission = $("#PermissionAction");
                 let userID = $(this).val();
-
                 permission.empty();
-                // $('.test').html($(this).val());
                 $.ajax({
                     type: 'GET',
-                    url: '/admin/get-user-permissions/' + userID,
+                    url: '/admin/get-user-not-exists-permissions/' + userID,
                 })
                     .done(function (data) {
-                        permission.append($('<option>').text('Chọn quyền nv').attr('disabled','').attr('selected',''));
+                        console.log(data);
+                        permission.append($('<option>').text('Chọn quyền user chưa có').attr('disabled', '').attr('selected', ''));
                         for (let i = 0; i < data.length; i++) {
                             let id_per = data[i]['id_per'];
                             let name_per = data[i]['name_per'];
                             permission.append($('<option>').val(id_per).text(name_per));
                         }
-
                     })
                     .error(function () {
                         alert("Lỗi");
                     });
+            });
 
+            //select user for check user's permission
+            $('#LicencedUser').on('change', function () {
+                let permission = $("#LicencedUserPermission");
+                let userID = $(this).val();
+                permission.empty();
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/get-user-permissions/' + userID,
+                })
+                    .done(function (data) {
+                        permission.append($('<option>').text('Chọn quyền nv').attr('disabled', '').attr('selected', ''));
+                        for (let i = 0; i < data.length; i++) {
+                            let id_per = data[i]['id_per'];
+                            let name_per = data[i]['name_per'];
+                            permission.append($('<option>').val(id_per).text(name_per));
+                        }
+                    })
+                    .error(function () {
+                        alert("Lỗi");
+                    });
             });
 
             //select permission for change licenced
@@ -120,21 +136,21 @@
                     type: 'GET',
                     url: '/admin/get-permission-licenced/' + selected + '/' + userID,
                 })
-                .done(function (data) {
-                    let status = $('#LicencedStatus');
-                    status.empty();
-                    for(let i = 0; i < 2;i++) {
-                        if(i === 0){
-                            status.append($('<option>').val(i).text('Tạm dừng'));
-                        }else{
-                            status.append($('<option>').val(i).text('Kích hoạt'));
+                    .done(function (data) {
+                        let status = $('#LicencedStatus');
+                        status.empty();
+                        for (let i = 0; i < 2; i++) {
+                            if (i === 0) {
+                                status.append($('<option>').val(i).text('Tạm dừng'));
+                            } else {
+                                status.append($('<option>').val(i).text('Kích hoạt'));
+                            }
                         }
-                    }
-                    status.val(data).attr('selected','selected');
-                })
-                .error(function () {
-                    alert("Lỗi");
-                });
+                        status.val(data).attr('selected', 'selected');
+                    })
+                    .error(function () {
+                        alert("Lỗi");
+                    });
             })
         });
     </script>

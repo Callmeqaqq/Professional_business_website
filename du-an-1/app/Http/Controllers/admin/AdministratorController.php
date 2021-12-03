@@ -18,14 +18,34 @@ class AdministratorController extends Controller
             ->select('users.UserId', 'users.Fullname', 'users.Email', 'role.RoleName', 'active')
             ->where('users.UserRole', '!=', '6')
             ->get();
-
+        $super_admin = DB::table('users')//check super admin so với hr
+            ->join('role', 'UserRole', '=', 'id_role')
+            ->where('users.UserId', '=', Session('LoggedUser'))
+            ->value('RoleName');
         $page = 'administrator';
-        return view('admin/administrator', compact('admins', 'page'));
+        return view('admin/administrator', compact('admins', 'page','super_admin'));
     }
 
     function add()
     {
-        $listRole = DB::table('role')->get();
+        //check role of logging user
+        $this_user_role = DB::table('users')
+            ->join('role', 'UserRole', '=', 'id_role')
+            ->where('users.UserId', '=', Session('LoggedUser'))
+            ->value('id_role');
+
+        //check logging user's role is supper admin or not, cuz only supper admin can create new manager or supper admin
+        if ($this_user_role == 5) {
+            $listRole = DB::table('role')
+                ->where('RoleName', '!=', 'Customer')
+                ->get();
+        } else {
+            $listRole = DB::table('role')
+                ->where('RoleName', '!=', 'Manager')
+                ->where('RoleName', '!=', 'SuperAdmin')
+                ->where('RoleName', '!=', 'Customer')
+                ->get();
+        }
         return view('admin/addAdminstrator', compact('listRole'));
     }
 
@@ -46,7 +66,24 @@ class AdministratorController extends Controller
             ->select('UserRole', 'Fullname', 'Email', 'Active')
             ->where('UserId', '=', $id)
             ->first();
-        $listRole = DB::table('role')->get();
+        //check role of logging user
+        $this_user_role = DB::table('users')
+            ->join('role', 'UserRole', '=', 'id_role')
+            ->where('users.UserId', '=', Session('LoggedUser'))
+            ->value('id_role');
+
+        //check logging user's role is supper admin or not, cuz only supper admin can create new manager or supper admin
+        if ($this_user_role == 5) {
+            $listRole = DB::table('role')
+                ->where('RoleName', '!=', 'Customer')
+                ->get();
+        } else {
+            $listRole = DB::table('role')
+                ->where('RoleName', '!=', 'Manager')
+                ->where('RoleName', '!=', 'SuperAdmin')
+                ->where('RoleName', '!=', 'Customer')
+                ->get();
+        }
         return view('admin/updateAdminstrator', compact('listRole', 'user'));
     }
 
@@ -83,7 +120,6 @@ class AdministratorController extends Controller
 
     function postAdd(Request $request)
     {
-
         $message = [
             'required' => 'Chưa nhập :attribute',
             'email' => 'Vui lòng nhập đúng định dạng email',
@@ -99,6 +135,9 @@ class AdministratorController extends Controller
         if ($validate->fails()) {
             return back()->withErrors($validate)->withInput();
         }
+
+
+
         $query = DB::table('users')->insert([
             'fullname' => $request->Fullname,
             'UserRole' => $request->role,
@@ -106,6 +145,20 @@ class AdministratorController extends Controller
             'email' => $request->email,
             'password' => Hash::make('123456')
         ]);
+
+        //automatic add permission for new user
+        if($request->role == 5 || $request->role == 4){//super admin or manager
+            $permission_action = 1;//1 is Full permission
+        }else{
+            $permission_action = 2;//2 is View only
+        }
+        $last_created_user = DB::table('users')->latest('UserId')->value('UserId');
+        DB::table('user_per')->insert([
+            'id_per' => $permission_action,//view or full permission
+            'id_user' => $last_created_user,
+            'licenced' => 1,//active
+        ]);
+
         if ($query) {
             $request->session()->put('status', 'success/Thêm thành công');
         } else {
