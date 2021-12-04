@@ -210,6 +210,7 @@ Route::post('/admin/delete-slider/{id}', 'admin\ConfigController@delete_slider')
 //----------------------------------------------API routes--------------------------------------------------------------
 Route::prefix('api')->group(function () {
     Route::post('comment/{id}/insert', 'BlogController@insertComment')->name('api.comment.insert');
+    Route::post('comment/{id}/delete', 'BlogController@deleteComment')->name('api.comment.insert');
     Route::post('post/delete', 'admin\BlogController@delete')->name('api.post.delete');
     Route::post('/upload/image', 'admin\BlogController@uploadImage');
     Route::post('/post/new-post', 'admin\BlogController@newPost');
