@@ -1,9 +1,6 @@
 @extends('layouts.site')
 @section('main')
-
 {{--{{Breadcrumbs::render('products', $data[0]->ProductName, $data[0]->Slug)}}--}}
-
-
 
 <div class="product-details-area pb-100 pt-30">
     <div class="container">
@@ -61,35 +58,41 @@
                         @endif
                     </div>
                     {{-- Giá sản phẩm--}}
-                    <div class="product-details-price">
-
-                        {{-- Giá mới--}}
-                        <span class="new-price">{{number_format($data[0]->Price)}}<sup>đ</sup></span> <br>
-                        {{-- Nếu ko có giảm giá thì không cần in giá cũ--}}
-                        @if($data[0]->Discount != 0)
-                        <span class="old-price">{{number_format((100*$data[0]->Price)/((1-$data[0]->Discount)*100))}}<sup>đ</sup> </span>
-                        <span class="dis-c">-{{$data[0]->Discount*100}}%</span>
+                    @foreach($variant as $color)
+                        @if(!isset($check))
+                            <div class="product-details-price quantity-view" id="a{{$color->VariantId}}">
+                            {{-- Giá mới--}}
+                                <span class="new-price">{{number_format($data[0]->Price + $data[0]->Price * $color->Price)}}<sup>đ</sup></span> <br>
+                            {{-- Nếu ko có giảm giá thì không cần in giá cũ--}}
+                                @if($data[0]->Discount != 0)
+                                    <span class="old-price">{{number_format((100*$data[0]->Price + $data[0]->Price * $color->Price)/((1-$data[0]->Discount)*100))}}<sup>đ</sup> </span>
+                                    <span class="dis-c">-{{$data[0]->Discount*100}}%</span>
+                                @endif
+                            </div>
+                            @php $check=0; @endphp
+                        @else
+                            <div style="display: none" class="product-details-price quantity-view" id="a{{$color->VariantId}}">
+                                {{-- Giá mới--}}
+                                <span class="new-price">{{number_format($data[0]->Price + $data[0]->Price * $color->Price)}}<sup>đ</sup></span> <br>
+                                {{-- Nếu ko có giảm giá thì không cần in giá cũ--}}
+                                @if($data[0]->Discount != 0)
+                                    <span class="old-price">{{number_format((100*$data[0]->Price + $data[0]->Price * $color->Price)/((1-$data[0]->Discount)*100))}}<sup>đ</sup> </span>
+                                    <span class="dis-c">-{{$data[0]->Discount*100}}%</span>
+                                @endif
+                            </div>
                         @endif
-                    </div>
-
+                    @endforeach
                     {{-- Biến thể màu của sản phẩm--}}
                     <div class="product-color product-color-active product-details-color pl-10">
                         <span class="title">Màu :</span>
                         <ul>
                             <div class='pd_img_color'>
                                 @foreach($variant as $color)
-                                    @if($color->Quantity !=0)
-                                        <input class="price_var" type="hidden" value="{{$color->Price}}">
-                                        <input type="radio" name="emotion" id="{{$color->VariantId}}" data-id="{{$color->VariantId}}" class="input-hidden" value="{{$color->VariantId}}"/>
-                                        <label class="mr-5" for="{{$color->VariantId}}">
-                                            <img title="{{$color->VariantName}}" src="{{asset('./images/product/'.$color->Color)}}" alt="{{$color->VariantName}}"/>
-                                        </label>
-                                    @else
-                                        <input type="radio" name="emotion" id="{{$color->VariantId}}" data-id="{{$color->VariantId}}" class="input-hidden" value="{{$color->VariantId}}"/>
-                                        <label class="mr-5" class="sold-out" for="{{$color->VariantId}}">
-                                            <img title="{{$color->VariantName}}" src="{{asset('./images/product/'.$color->Color)}}" alt="{{$color->VariantName}}"/>
-                                        </label>
-                                    @endif
+                                    <input class="price_var" type="hidden" value="{{$color->Price}}">
+                                    <input type="radio" name="emotion" id="{{$color->VariantId}}" data-id="{{$color->VariantId}}" class="input-hidden" value="{{$color->VariantId}}"/>
+                                    <label class="mr-5" for="{{$color->VariantId}}">
+                                        <img title="{{$color->VariantName}}" src="{{asset('./images/product/'.$color->Color)}}" alt="{{$color->VariantName}}"/>
+                                    </label>
                                 @endforeach
                             </div>
                         </ul>
@@ -97,7 +100,15 @@
                     <div class="product-color product-color-active product-details-color pl-10">
                         <span class="title">Khối lượng : {{$data[0]->Weight}} Kg</span>
                     </div>
-                    <div class="pl-10 product-color product-color-active product-details-color" id="quantityhere"><span class="title">Số lượng còn lại: {{$quantity}}</span></div>
+
+                        <div class="pl-10 product-color product-color-active product-details-color active" >
+                            @foreach($variant as $color)
+                                <span style="display: none" class='quantity-view' id="b{{$color->VariantId}}" class="title">
+                                    Số lượng còn lại: @if($color->Quantity!=0){{$color->Quantity}}@else <span style="color:red; font-weight: bold">Hết hàng</span> @endif
+                                </span>
+                            @endforeach
+                        </div>
+
                     {{-- Thêm Sản Phẩm vào giỏ hàng --}}
                     <div class="product-details-action-wrap pl-10 pt-15">
                         <div class="product-quality">
@@ -328,41 +339,40 @@
             });
         });
         $('.pd_img_color').click(function(){
-            let variantId = $('input[name="emotion"]:checked').val();
-            var _token = $('input[name="_token"]').val();
-            // alert(variantId);
-            $.ajax({
-                url:"{{url("/quantity")}}",
-                method:"POST",
-                data:{
-                    variantId:variantId,
-                    _token:_token
-                },
-                success:function(data){
-                    $('#quantityhere').html(data);
+                let variantId = $('input[name="emotion"]:checked').val();
+                let tab = $('.quantity-view');
+                for (i = 0; i < tab.length; i++) {
+                    tab[i].style.display = "none";
                 }
-            });
-        });
+                let change = 'a'+variantId;
+                let change2 = 'b'+variantId;
+                document.getElementById(change).style.display = 'block';
+                document.getElementById(change2).style.display = 'block';
+                {{--$.ajax({--}}
+                {{--    url:"{{url("/quantity")}}",--}}
+                {{--    method:"POST",--}}
+                {{--    data:{--}}
+                {{--        variantId:variantId,--}}
+                {{--        _token:_token--}}
+                {{--    },--}}
+                {{--    success:function(data){--}}
+                {{--        $('#quantityhere').html(data);--}}
+                {{--    }--}}
+                {{--});--}}
+                {{--$.ajax({--}}
+                {{--    url:"{{url("/price")}}",--}}
+                {{--    method:"POST",--}}
+                {{--    data:{--}}
 
-        $('.pd_img_color').click(function(){
-            let productId = $('.comment_productId').val();
-            let variantId = $('input[name="emotion"]:checked').val();
-            let price = $('.price').val();
-            var _token = $('input[name="_token"]').val();
-            // alert(productId);
-            $.ajax({
-                url:"{{url("/price")}}",
-                method:"POST",
-                data:{
-                    productId:productId,
-                    variantId:variantId,
-                    _token:_token,
-                    price:price
-                },
-                success:function(data){
-                    $('.product-details-price').html(data);
-                }
-            });
+                {{--        productId:productId,--}}
+                {{--        variantId:variantId,--}}
+                {{--        _token:_token,--}}
+                {{--        price:price--}}
+                {{--    },--}}
+                {{--    success:function(data){--}}
+                {{--        $('.product-details-price').html(data);--}}
+                {{--    }--}}
+                {{--});--}}
         });
     </script>
 @stop()
