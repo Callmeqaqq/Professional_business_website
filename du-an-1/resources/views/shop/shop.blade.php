@@ -43,6 +43,16 @@
         margin:5px;
         border:1px solid #d0011b;
     }
+
+    #amount option{
+        font-size:16px;
+        padding:0;
+        margin:0;
+    }
+
+    .price-slider-amount .label-input{
+        flex-wrap: wrap;
+    }
 </style>
 <div class="banner">
     <img style="width:100%;" src="{{asset('./images/banner/banner_shop.jpg')}}" alt="">
@@ -50,6 +60,7 @@
 
 <div class="shop-area shop-page-responsive pb-100">
     <div class="container">
+        <hr>
         {{--{{ Breadcrumbs::render('shop') }}--}}
         @if(isset($data[0]->CategoryName))
             {{Breadcrumbs::render('productCategory',$data[0]->CategoryName, $data[0]->CategorySlug)}}
@@ -70,32 +81,37 @@
                 </div>
             </div>
             <div class="col-lg-3">
+                <hr>
                 <div class="sidebar-wrapper">
-                    <div class="sidebar-widget mb-40" data-aos="fade-up" data-aos-delay="200">
+                    <div class="sidebar-widget" data-aos="fade-up" data-aos-delay="200">
                         <div class="search-wrap-2">
 {{--                            <form class="search-2-form">--}}
-                            <div class="search-2-form">
+                            <div class="sidebar-widget-title">
+                                <h3>Tìm kiếm theo tên</h3>
+                            </div>
+                            <div class="search-2-form" style="margin-top:20px">
                                 <input placeholder="Tìm kiếm sản phẩm*" id="search-all" type="text">
                             </div>
 {{--                            </form>--}}
                         </div>
                     </div>
                     <div class="sidebar-widget sidebar-widget-border mb-40 pb-35" data-aos="fade-up" data-aos-delay="200">
-                        <div class="sidebar-widget-title mb-30">
+                        <hr>
+                        <div class="sidebar-widget-title">
                             <h3>Tìm kiếm theo giá</h3>
                         </div>
                         <div class="price-filter">
                             <div class="price-slider-amount">
                                 <div class="label-input">
-                                    <span style="font-size: 16px; font-weight: 500;">Lọc giá: </span>
-                                    <select style="width:150px;color:#d0011b; font-size: 16px; margin-left: 10px" name="price" id="amount">
+                                    <label for="amount" ></label>
+                                    <select size="7" style="color:#d0011b; margin-left: 10px; overflow:hidden" name="price" id="amount">
                                         <option value="1000000">Dưới 1,000,000</option>
                                         <option value="2000000">Dưới 2,000,000</option>
                                         <option value="5000000">Dưới 5,000,000</option>
                                         <option value="10000000">Dưới 10,000,000</option>
                                         <option value="15000000">Dưới 15,000,000</option>
                                         <option value="20000000">Dưới 20,000,000</option>
-                                        <option value="100000000">Dưới 100,000,000</option>
+                                        <option value="100000000" selected="selected">Dưới 100,000,000</option>
                                     </select>
                                 </div>
                             </div>

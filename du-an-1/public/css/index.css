@@ -161,7 +161,7 @@ input {
 select {
     width: 100%;
     background: transparent;
-    border: 0px solid #eceff8;
+    border: 0 solid #eceff8;
     -webkit-box-shadow: none;
     box-shadow: none;
     font-size: 14px;
@@ -169,7 +169,7 @@ select {
 
 option {
     background: #fff;
-    border: 0px solid #626262;
+    border: 0 solid #626262;
     padding-left: 10px;
     font-size: 14px;
 }
