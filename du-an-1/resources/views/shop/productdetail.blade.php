@@ -104,7 +104,7 @@
                         <div class="pl-10 product-color product-color-active product-details-color active" >
                             @foreach($variant as $color)
                                 <span style="display: none" class='quantity-view' id="b{{$color->VariantId}}" class="title">
-                                    Số lượng còn lại: @if($color->Quantity!=0){{$color->Quantity}}@else <span style="color:red; font-weight: bold">Hết hàng</span> @endif
+                                    Số lượng còn lại: @if($color->Quantity!=0) <span style="color:#d0011b; font-weight: bold">{{$color->Quantity}} (Sản phẩm)</span> @else <span style="color:red; font-weight: bold">Sản phẩm này dã hết hàng</span> @endif
                                 </span>
                             @endforeach
                         </div>
@@ -248,7 +248,7 @@
                                     <div class="product-content">
                                         <h3><a href="{{asset('products/'.$item->Slug)}}">{{$item->ProductName}}</a></h3>
                                         <div class="product-price">
-                                            <span class="old-price">{{number_format((100*$item->Price)/((1-$item->Discount)*100))}} <sup>vnđ</sup></span>
+                                            <span class="old-price">{{number_format((100*$item->Price)/((1-$item->Discount)*100))}}</span>
                                             <span class="new-price">{{number_format($item->Price)}} <sup>vnđ</sup> </span>
                                         </div>
                                     </div>
@@ -265,6 +265,7 @@
 @stop()
 @section('scripts')
     <script type="text/javascript">
+        let check = 0;
         $(document).ready(function(){
             load_comment();
 
@@ -339,7 +340,8 @@
             });
         });
         $('.pd_img_color').click(function(){
-                let variantId = $('input[name="emotion"]:checked').val();
+            let variantId = $('input[name="emotion"]:checked').val();
+            if( check != variantId){
                 let tab = $('.quantity-view');
                 for (i = 0; i < tab.length; i++) {
                     tab[i].style.display = "none";
@@ -348,31 +350,8 @@
                 let change2 = 'b'+variantId;
                 document.getElementById(change).style.display = 'block';
                 document.getElementById(change2).style.display = 'block';
-                {{--$.ajax({--}}
-                {{--    url:"{{url("/quantity")}}",--}}
-                {{--    method:"POST",--}}
-                {{--    data:{--}}
-                {{--        variantId:variantId,--}}
-                {{--        _token:_token--}}
-                {{--    },--}}
-                {{--    success:function(data){--}}
-                {{--        $('#quantityhere').html(data);--}}
-                {{--    }--}}
-                {{--});--}}
-                {{--$.ajax({--}}
-                {{--    url:"{{url("/price")}}",--}}
-                {{--    method:"POST",--}}
-                {{--    data:{--}}
-
-                {{--        productId:productId,--}}
-                {{--        variantId:variantId,--}}
-                {{--        _token:_token,--}}
-                {{--        price:price--}}
-                {{--    },--}}
-                {{--    success:function(data){--}}
-                {{--        $('.product-details-price').html(data);--}}
-                {{--    }--}}
-                {{--});--}}
+                check = variantId;
+            }
         });
     </script>
 @stop()

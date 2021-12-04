@@ -121,7 +121,7 @@ class ProductDetailController extends Controller
                                 }
                         $output.='</div>
                         <h5><span style="font-weight: bold;">'.$comm->Fullname.'</span> - Ngày '.date('d-m-Y', strtotime($comm->CreateAt)).'</h5>
-                        <p>'.$comm->Content.'</p>
+                        <p style="width: 300px;">'.$comm->Content.'</p>
                     </div>
                 </div>
             ';
@@ -150,5 +150,5 @@ class ProductDetailController extends Controller
         DB::table('comment')
             ->where('CommentId',$id_comment)->delete();
     }
-    
+
 }

@@ -58,56 +58,12 @@
         @endif
         <div class="row flex-row-reverse">
             <div class="col-lg-9">
-{{--                <div class="shop-topbar-wrapper mb-40">--}}
-{{--                    <div class="shop-topbar-left" data-aos="fade-up" data-aos-delay="200">--}}
-{{--                        <div class="showing-item">--}}
-{{--                            <span>Có {{count($data->items())}}/ {{$data->total()}} sản phẩm đang được hiển thị</span>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-
                 <div class="shop-bottom-area">
                     <div class="tab-content jump">
                         <form action="">
                             @csrf
                         <div id="shop-1" class="tab-pane active load-product">
-{{--                            <div class="row" >--}}
-{{--                                @foreach($data as $item)--}}
-{{--                                <div class="col-lg-4 col-md-4 col-sm-6 col-12">--}}
-{{--                                    <div class="product-wrap mb-35" data-aos="fade-up" data-aos-delay="200">--}}
-{{--                                    <div class="product-img img-zoom mb-25">--}}
-{{--                                        <a href="{{asset('products/'.$item->Slug)}}">--}}
-{{--                                            <img src="{{ asset('images/product/'.$item->Images) }}" alt="">--}}
-{{--                                        </a>--}}
-{{--                                        <div class="product-badge badge-top badge-right badge-pink">--}}
-{{--                                                @if ($item->Discount != 0)--}}
-{{--                                                <span style="padding:5px; background-color: #d0011b; color:white; border-radius: 10px;">-{{$item->Discount*100}}%</span>--}}
-{{--                                                @endif--}}
-{{--                                        </div>--}}
-{{--                                        <div class="product-action-2-wrap">--}}
-{{--                                            <a href="/products/{{$item->Slug}}" class="product-action-btn-2" title="Mua Ngay"><i--}}
-{{--                                                    class="pe-7s-cart"></i> Mua Ngay--}}
-{{--                                            </a>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="product-content">--}}
-{{--                                        <h3><a href="{{asset('products/'.$item->Slug)}}">{{$item->ProductName}}</a></h3>--}}
-{{--                                        <div class="product-price">--}}
-{{--                                            @if ($item->Discount != 0)--}}
-{{--                                            <span class="old-price">{{number_format((100*$item->Price)/((1-$item->Discount)*100))}} <sup>vnđ</sup></span>--}}
-{{--                                            @endif--}}
-{{--                                            <span class="new-price">{{number_format($item->Price)}} <sup>vnđ</sup></span>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                @endforeach--}}
-{{--                            </div>--}}
-
-{{--                            <div  class="paginate mb-40">--}}
-{{--                                {{$data -> links()}}--}}
-{{--                            </div>--}}
+{{--                            Hiển thị sản phẩm ở đây--}}
                         </div>
                         </form>
                     </div>
@@ -131,8 +87,8 @@
                         <div class="price-filter">
                             <div class="price-slider-amount">
                                 <div class="label-input">
-                                    <select name="price" id="amount">
-                                        <option value="100000000">Lọc giá</option>
+                                    <span style="font-size: 16px; font-weight: 500;">Lọc giá: </span>
+                                    <select style="width:150px;color:#d0011b; font-size: 16px; margin-left: 10px" name="price" id="amount">
                                         <option value="1000000">Dưới 1,000,000</option>
                                         <option value="2000000">Dưới 2,000,000</option>
                                         <option value="5000000">Dưới 5,000,000</option>
@@ -170,19 +126,6 @@
                             </div>
                         </div>
                     </div>
-{{--                    <div class="sidebar-widget sidebar-widget-border mb-40 pb-35" data-aos="fade-up" data-aos-delay="200">--}}
-{{--                        <div class="sidebar-widget-title mb-25">--}}
-{{--                            <h3>Chọn Màu</h3>--}}
-{{--                        </div>--}}
-{{--                        <div class="sidebar-widget-color sidebar-list-style">--}}
-{{--                            <ul>--}}
-{{--                                <li><a class="black" href="#">Đen <span>4</span></a></li>--}}
-{{--                                <li><a class="blue" href="#">Xanh <span>9</span></a></li>--}}
-{{--                                <li><a class="brown" href="#">Xám <span>5</span></a></li>--}}
-{{--                                <li><a class="red" href="#">Đỏ <span>3</span></a></li>--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
                 </div>
             </div>
         </div>
