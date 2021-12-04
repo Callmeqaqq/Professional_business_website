@@ -150,7 +150,7 @@ Route::get('/admin/product/delete-product/{id}', 'admin\AdminProductController@d
 Route::get('admin/product/edit-product/{slug}', 'admin\AdminProductController@edit')->name('admin.edit')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_edit_permissions');
 Route::post('admin/product/edit-product/{slug}', 'admin\AdminProductController@createedit')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_edit_permissions');
 //category
-Route::get('/admin/category', function () {return view('admin/product/adminCategory');})->name('admin.category')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_view_permissions');
+Route::get('/admin/category','admin\AdminProductController@view_category')->name('admin.category')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_view_permissions');
 Route::get('/admin/product/add-category', 'admin\AdminProductController@add_category')->name('add-category')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_create_permissions');
 Route::post('/admin/product/add-category', 'admin\AdminProductController@create_category')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_create_permissions');
 Route::get('/admin/product/edit-category/{slug}', 'admin\AdminProductController@edit_category')->name('edit.category')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_edit_permissions');

@@ -132,7 +132,7 @@
                             <div class="price-slider-amount">
                                 <div class="label-input">
                                     <select name="price" id="amount">
-                                        <option no value>Lọc giá</option>
+                                        <option value="100000000">Lọc giá</option>
                                         <option value="1000000">Dưới 1,000,000</option>
                                         <option value="2000000">Dưới 2,000,000</option>
                                         <option value="5000000">Dưới 5,000,000</option>
@@ -197,6 +197,9 @@
             function load_product() {
                 let cate = $('input[name="cate"]:checked').val();
                 let amount = $('#amount').val();
+                if(amount == null){
+                    amount = 100000000;
+                }
                 let search = $('#search-all').val();
                 let page = $('input[name="page"]:checked').val();
                 var _token = $('input[name="_token"]').val();
@@ -223,6 +226,9 @@
             $('#search-all').change(function(){
                 let cate = $('input[name="cate"]:checked').val();
                 let amount = $('#amount').val();
+                if(amount == null){
+                    amount = 100000000;
+                }
                 let search = $(this).val()
                 var _token = $('input[name="_token"]').val();
                 $.ajax({
@@ -244,6 +250,9 @@
                 let cate = $('input[name="cate"]:checked').val();
                 let search = $('#search-all').val();
                 let amount = $(this).val()
+                if(amount == null){
+                    amount = 100000000;
+                }
                 var _token = $('input[name="_token"]').val();
                 $.ajax({
                     url:`{{url("/shop/load-product")}}`,
@@ -263,6 +272,9 @@
                 let cate = $('input[name="cate"]:checked').val();
                 let search = $('#search-all').val();
                 let amount = $('#amount').val();
+                if(amount == null){
+                    amount = 100000000;
+                }
                 var _token = $('input[name="_token"]').val();
                 $.ajax({
                     url:`{{url("/shop/load-product")}}`,

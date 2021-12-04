@@ -11,10 +11,7 @@ class ShopController extends Controller
         return view('shop/shop');
     }
     function load_product(Request $request){
-        if($request->amount == null){
-            $request->amount = 1000000000000;
-        }
-        if($request->cate == null){
+        if(!isset($request->cate)||$request->cate==null){
             $data = DB::table('product')
                 ->join('category','product.CategoryId','=','category.CategoryId')
                 ->select('product.*','category.CatActive','category.CategorySlug')
@@ -43,7 +40,6 @@ class ShopController extends Controller
                     ->get();
             }
         }
-
 
         if(!isset($request->page)){
             $request->page = 1;
