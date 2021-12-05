@@ -38,14 +38,14 @@
                                     </td>
 
                                     <td>
-{{--                                        kiểm tra xem có phải super admin hay không thì có quyền thao tác với manager--}}
+                                        {{--                                        kiểm tra xem có phải super admin hay không thì có quyền thao tác với manager--}}
                                         @if($super_admin == 'SuperAdmin' && session('LoggedUser') !== $admin->UserId)
 
                                             <a href="{{url('/admin/updateAdministrator/'.$admin->UserId)}}"
-                                               class="btn btn-primary"><i class="fab fa-edit"></i> Cập nhật
+                                               class="btn btn-outline-info"><i class="fab fa-edit"></i> Cập nhật
                                             </a>
                                             <a href="{{url('/admin/deleteAdministrator/'.$admin->UserId)}}"
-                                               class="btn btn-danger"><i class="fab fa-trash-alt"></i> Xóa</a>
+                                               class="btn btn-outline-danger"><i class="fab fa-trash"></i> Xóa</a>
 
                                         @elseif(session('LoggedUser') !== $admin->UserId
                                                 && $admin->RoleName !== 'SuperAdmin'

@@ -134,6 +134,12 @@ Route::get('/admin/deleteComment/{id}', 'admin\CommentController@deleteComment')
 //-----------------------Analytics admin -------------------------------
 Route::get('/analytics/products', 'admin\AnalyticsController@product')
     ->middleware('admin');
+Route::get('/analytics/inventory', 'admin\AnalyticsController@inventory')
+    ->middleware('admin');
+Route::get('/analytics/variantSoldStock', 'admin\AnalyticsController@variantSoldStock')
+    ->middleware('admin');
+Route::get('/analytics/totalMoney/{now}/{daysAgo}', 'admin\AnalyticsController@totalMoney')
+    ->middleware('admin');
 Route::get('/admin', 'admin\DashboardController@index')->name('dashboard.index')
     ->middleware('admin');
 //======================================================================================================================

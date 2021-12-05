@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
@@ -12,7 +12,7 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+{{--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"--}}
           integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 
     <link rel="stylesheet" href="{{asset("vendor/vector-map/jqvmap.css")}}"/>
@@ -86,10 +86,10 @@ if (session('status')) {
                                 ><span class="ml-2">Active</span>
                             </div>
                             <a class="dropdown-item" href="{{asset('/profile')}}"
-                            ><i class="fas fa-user mr-2"></i>Tài khoản của bạn</a
+                            ><i class="fab fa-user mr-2"></i>Tài khoản của bạn</a
                             >
                             <a class="dropdown-item" href="{{asset('/buyer/logout')}}"
-                            ><i class="fas fa-power-off mr-2"></i>Đăng Xuất</a
+                            ><i class="fab fa-power-off mr-2"></i>Đăng Xuất</a
                             >
                         </div>
                     </li>
@@ -123,7 +123,7 @@ if (session('status')) {
                     <ul class="navbar-nav flex-column">
                         <li class="nav-divider">Menu</li>
                         <li class="nav-item">
-                            <a class="nav-link  {{ '' ===   $url_active  ? 'active':''}}" href="#" aria-expanded="false"
+                            <a class="nav-link  {{ '' ===   $url_active  ? 'active':''}}" href="{{route('dashboard.index')}}" aria-expanded="false"
                             ><i class="fab fa-briefcase"></i>Dashboard
                             </a>
                         </li>
@@ -148,7 +148,7 @@ if (session('status')) {
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse"
                                    aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10">
-                                    <i class="fas fa-f fa-folder"></i>Sản Phẩm
+                                    <i class="fab fa-product-hunt"></i>Sản Phẩm
                                 </a>
                                 <div id="submenu-10" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
@@ -182,7 +182,7 @@ if (session('status')) {
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse"
                                    aria-expanded="false" data-target="#submenu-8" aria-controls="submenu-8">
-                                    <i class="fas fa-f fa-folder"></i>Cấu hình
+                                    <i class="fab fa-wrench"></i>Cấu hình
                                 </a>
                                 <div id="submenu-8" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
@@ -214,7 +214,7 @@ if (session('status')) {
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse"
                                    aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9">
-                                    <i class="fas fa-f fa-folder"></i>Quản lý bài viết
+                                    <i class="fab fa-f fa-folder"></i>Quản lý bài viết
                                 </a>
                                 <div id="submenu-9" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
@@ -243,7 +243,7 @@ if (session('status')) {
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse"
                                    aria-expanded="false" data-target="#submenu-12" aria-controls="submenu-12">
-                                    <i class="fas fa-f fa-folder"></i>Quản lý người dùng
+                                    <i class="fab fa-users"></i>Quản lý người dùng
                                 </a>
                                 <div id="submenu-12" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
@@ -263,7 +263,7 @@ if (session('status')) {
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse"
                                    aria-expanded="false" data-target="#submenu-11" aria-controls="submenu-9">
-                                    <i class="fas fa-f fa-folder"></i>Quản lý đơn hàng
+                                    <i class="fab fa-shopping-cart"></i>Quản lý đơn hàng
                                 </a>
                                 <div id="submenu-11" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
@@ -291,9 +291,11 @@ if (session('status')) {
         @yield('main')
     </div>
 </div>
-{{--Js datatables--}}
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css"/>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+{{--date js--}}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <!-- chart chartist js -->
 <script src="{{asset("vendor/charts/chartist-bundle/chartist.min.js")}}"></script>
 <script src="{{asset("vendor/charts/chartist-bundle/Chartistjs.js")}}"></script>
@@ -312,8 +314,15 @@ if (session('status')) {
 <script src="{{asset("vendor/charts/morris-bundle/morris.js")}}"></script>
 <script src="{{asset("vendor/charts/morris-bundle/morrisjs.html")}}"></script>
 <script src="{{asset('js/admin.js')}}"></script>
+
+{{--Js datatables--}}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css"/>
+{{--<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>--}}
+<script src="{{asset('js/vendor/datatables-1.11.3.js')}}"></script>
 <script>
+
     $(document).ready(function () {
+
         $("#btn-ok").click(function () {
             $("#alert").fadeOut();
         });
@@ -347,3 +356,4 @@ if (session('status')) {
 @yield('scripts')
 </body>
 </html>
+
