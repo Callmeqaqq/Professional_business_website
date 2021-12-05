@@ -20,12 +20,12 @@
                             <thead class="bg-dark">
                             <tr>
                                 <th>STT</th>
-                                <th style="width: 300px;">Hình Ảnh</th>
+                                <th style="width: 200px;">Hình Ảnh</th>
                                 <th>Nội Dung Khuyến Mãi</th>
                                 <th>Nội Dung Sự Kiện</th>
                                 <th>Trạng thái</th>
                                 {{--                                <th>Ngày tạo</th>--}}
-                                <th style="width: 100px;">Thao tác</th>
+                                <th >Thao tác</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -45,11 +45,11 @@
                                     </td>
                                     <td>
                                         <a href="{{asset('/admin/config-edit-slider/'.$slider->SliderId)}}">
-                                            <button class="btn btn-outline-primary"><i class="fas fa-info-circle"></i>
+                                            <button class="btn btn-outline-info"><i class="fab fa-edit"></i>Cập nhật
                                             </button>
                                         </a>
                                         <a href="{{asset('/admin/delete-slider/'.$slider->SliderId)}}" onclick="return confirm('Bạn có chắc muốn xóa không?')">
-                                            <button class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i>
+                                            <button class="btn btn-outline-danger"><i class="fab fa-trash"></i>Xóa
                                             </button>
                                         </a>
                                     </td>
@@ -57,7 +57,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <a href="{{route('config.add.slider')}}" class="btn btn-primary">Tạo mới</a>
+                        <a href="{{route('config.add.slider')}}" class="btn btn-outline-primary">Tạo mới</a>
                     </div>
                 </div>
             </div>

@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div style="display: flex" class="card-body col-12">
-                        <div class="form-group col-2">
+                        <div class="form-group col-12">
                             <div style="width:100%" id="displayImg">
                             </div>
                         </div>
@@ -68,12 +68,13 @@
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-3">
-                            <button type="submit" class="btn btn-primary">Thêm mới danh mục</button>
+                            <button type="submit" class="btn btn-outline-primary">Thêm mới danh mục</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+
     </div>
     <script>
         //Load ảnh xem trước
@@ -84,9 +85,10 @@
                 var fileReader = new FileReader();
                 fileReader.onload = function(fileLoaderEvent) {
                     var scrData = fileLoaderEvent.target.result;
-                    var newImage = document.createElement("img");
-                    newImage.src = scrData;
-                    document.getElementById('displayImg').innerHTML = newImage.outerHTML;
+                    // var newImage = document.createElement("img");
+                    // newImage.src = scrData;
+                    // document.getElementById('displayImg').innerHTML = newImage.outerHTML;
+                    $('#displayImg').html(`<img src="${scrData}" style="width:100%;" alt="abv">`)  ;
                 }
                 fileReader.readAsDataURL(fileToLoad);
             }

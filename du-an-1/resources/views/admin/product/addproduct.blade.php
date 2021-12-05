@@ -204,7 +204,7 @@
                 </div>
                 <div style="display: flex" class="card-body col-12">
                     <div class="form-group col-3">
-                        <button type="submit" class="btn btn-primary">Thêm mới sản phẩm </button>
+                        <button type="submit" class="btn btn-outline-primary">Thêm mới sản phẩm </button>
                     </div>
                 </div>
                 </form>
