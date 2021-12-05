@@ -350,7 +350,6 @@ class BlogController extends Controller
                 ->get();
         return view('admin.blog.commentPostSingle', compact('data'));
     }
-
     // Action delete comment
     public function commentDelete($id){
         $rs = [

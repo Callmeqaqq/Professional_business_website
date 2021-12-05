@@ -209,9 +209,9 @@ Route::post('/admin/delete-slider/{id}', 'admin\ConfigController@delete_slider')
 //======================================================================================================================
 //----------------------------------------------API routes--------------------------------------------------------------
 Route::prefix('api')->group(function () {
-    Route::post('comment/{id}/insert', 'BlogController@insertComment')->name('api.comment.insert');
-    Route::post('comment/{id}/delete', 'BlogController@deleteComment')->name('api.comment.insert');
-    Route::post('post/delete', 'admin\BlogController@delete')->name('api.post.delete');
+    Route::post('comment/{id}/insert', 'BlogController@insertComment');
+    Route::post('comment/{id}/delete', 'BlogController@deleteComment');
+    Route::post('post/delete', 'admin\BlogController@delete');
     Route::post('/upload/image', 'admin\BlogController@uploadImage');
     Route::post('/post/new-post', 'admin\BlogController@newPost');
     Route::post('/post/{id}/edit', 'admin\BlogController@postUpdate');
@@ -225,6 +225,7 @@ Route::prefix('api')->group(function () {
     Route::post('/user/{id}/active', 'admin\userController@active');
     Route::post('/user/{id}/unactive', 'admin\userController@unactive');
     Route::post('/user/{id}/changePassword', 'admin\userController@changePassword');
+    Route::post('/about/update', 'admin\aboutController@update');
 });
 Route::get('admin/blog', 'admin\BlogController@index')
     ->middleware('role:Writer,Manager,SuperAdmin', 'check_view_permissions');
@@ -240,6 +241,7 @@ Route::get('admin/blog/{id}/commentList', 'admin\BlogController@categoryCommentL
     ->middleware('role:Writer,Manager,SuperAdmin', 'check_view_permissions');
 Route::get('admin/blog/comments', 'admin\BlogController@commentsView')
     ->middleware('role:Writer,Manager,SuperAdmin', 'check_view_permissions');
+Route::get('admin/about/edit', 'admin\aboutController@index');
 // User manage route
 
 

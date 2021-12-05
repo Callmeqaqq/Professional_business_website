@@ -113,8 +113,13 @@
                                             @endif
                                         </div>
                                         <p>{{$comment->message}}</p>
+                                        <div class="comment-reply">
+                                            <a href="#">Reply</a>
+                                        </div>
                                     </div>
                                 </div>
+
+
                                 @endforeach
                                 <center>
                                     {!! $commentData->links() !!}
