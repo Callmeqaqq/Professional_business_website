@@ -203,6 +203,9 @@ if (session('status')) {
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{route('config.slider')}}">Thiết lập slider</a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{url('admin/about/edit')}}">Quản lý trang giới thiệu</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
