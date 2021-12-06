@@ -28,11 +28,52 @@
                         </div>
                         <div class="form-group p-4">
                             <button value="{{$data->UserId}}" type="button" onclick="{{($data->Active == 0) ? 'active(this)' :  "unactive(this)"}}" class="btn btn-danger waves-effect waves-light">{{($data->Active) == 1 ? 'Khoá' : 'Mở khoá'}}</button>
-                            <button onclick="editReady()" id="edit" type="button" class="btn btn-primary waves-effect waves-light">Sửa thông tin</button>
+                            @if(Session::has('Edit') || Session::has('Full'))
+                                <button onclick="editReady()" id="edit" type="button" class="btn btn-primary waves-effect waves-light">Sửa thông tin</button>
+                            @endif
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePassModal">Đặt lại mật khẩu</button>
                             <button style="display: none" id="post" type="button" class="btn btn-primary waves-effect waves-light">Lưu</button>
                         </div>
                       </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-header">Đơn hàng gần đây của {{$data->Fullname}} ({{count($orders)}})</h3>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="categoryTable" class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Người nhận</th>
+                                <th scope="col">Điện thoại</th>
+                                <th scope="col">Ngày mua</th>
+                                <th scope="col">Tình trạng</th>
+                                <th scope="col">Ghi chú</th>
+                                <th scope="col">Tổng tiền</th>
+                                <th scope="col">Tuỳ chọn</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($orders as $item)
+                              <tr>
+                                <th scope="row">{{$item->OrderId}}</th>
+                                <td><a>{{$item->Fullname}}</a></td>
+                                <td>{{$item->Phone}}</td>
+                                <td>{{$item->CreateAt}}</td>
+                                <td>{{$item->StatusName}}</td>
+                                <td>{{$item->Note}}</td>
+                                <td>{{number_format($item->ToPay)}}đ</td>
+                                <td>
+                                  <a href="{{url('admin/order/order-detail')}}/{{$item->OrderId}}" type="button" class="btn btn-outline-primary p-1"><i class="fab fa-edit"></i>Chi tiết</a>
+                                </td>
+                            </tr>
+                            @endforeach()
+                            </tbody>
+                          </table>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,10 +100,10 @@
                 </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                <button type="button" onclick="changePassword()" class="btn btn-primary">Lưu</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                    <button type="button" onclick="changePassword()" class="btn btn-primary">Lưu</button>
+                </div>
             </div>
         </div>
     </div>
