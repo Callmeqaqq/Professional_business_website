@@ -497,7 +497,7 @@ class AdminProductController extends Controller
             $output .= '
                 <input style="display:none; position: absolute" type="radio" name="emotion" class="input-hidden" id="a' . $i->ImageId . '" value="' . $i->ImageId . '"/>
                 <label style="cursor: pointer; position:absolute; top:-5px; color:red;" for="a' . $i->ImageId . '">
-                    <i style="font-size: 20px;" class="fas fa-times-circle"></i>
+                    <i style="font-size: 20px;" class="fab fa-times-circle"></i>
                 </label>
                 <img style="margin-right:10px; width:10%" title="" src="' . asset('/images/product/' . $i->images) . '"/>
             ';

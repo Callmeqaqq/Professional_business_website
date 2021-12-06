@@ -219,7 +219,8 @@
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-3">
                             <button type="submit" class="btn btn-primary">Cập Nhật </button>
-                            <a href="{{asset('admin/product/delete-product/'.$item->Slug)}}" onclick="return confirm('Bạn có chắc xóa sản phẩm này không?')" class="btn btn-danger">Xóa Sản Phẩm</a>
+                            <x-permission per="Delete"
+                                          href="{{asset('admin/product/delete-product/'.$item->Slug)}}"></x-permission>
                         </div>
                     </div>
                     @endforeach
@@ -291,7 +292,8 @@
                             <button type="submit" class="btn btn-primary">Cập Nhật </button>
                         </div>
                         <div class="form-group col-1">
-                            <a href="{{asset('admin/product/delete-variant/'.$var->VariantId)}}" onclick="return confirm('Bạn có chắc xóa sản phẩm này không?')" class="btn btn-danger">Xóa Biến Thể</a>
+                            <x-permission per="Delete"
+                                          href="{{asset('admin/product/delete-variant/'.$var->VariantId)}}"></x-permission>
                         </div>
                     </div>
                 </form>

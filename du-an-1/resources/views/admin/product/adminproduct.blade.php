@@ -45,8 +45,9 @@
                                         @endif
                                     </td>
                                     <td style="text-align:right">
-                                        <a href="{{asset('admin/product/edit-product/'.$pd->Slug)}}"><button class="btn btn-outline-info"><i class="fab fa-edit"></i>Cập nhật</button></a>
-                                        <a href="{{asset('admin/product/delete-product/'.$pd->Slug)}}" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này không?')"><button class="btn btn-outline-danger"><i class="fab fa-trash"></i>Xóa</button></a>
+                                        <a href="{{asset('admin/product/edit-product/'.$pd->Slug)}}"><button class="btn btn-outline-info"><i class="fab fa-edit"></i></button></a>
+                                        <x-permission per="Delete"
+                                                      href="{{asset('admin/product/delete-product/'.$pd->Slug)}}"></x-permission>
                                     </td>
                                 </tr>
                             @endforeach

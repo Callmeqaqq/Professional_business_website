@@ -150,7 +150,7 @@ Route::post('/admin/product/add-product', 'admin\AdminProductController@create')
 Route::get('/admin/product/delete-product/{id}', 'admin\AdminProductController@delete_product')
     ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_delete_permissions');
 Route::get('admin/product/edit-product/{slug}', 'admin\AdminProductController@edit')->name('admin.edit')
-    ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_edit_permissions');
+    ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_view_permissions');
 Route::post('admin/product/edit-product/{slug}', 'admin\AdminProductController@createedit')
     ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_edit_permissions');
 
