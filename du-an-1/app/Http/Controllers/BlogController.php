@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Session;
 class BlogController extends Controller
 {
     public $postId;
@@ -27,6 +27,11 @@ class BlogController extends Controller
             $prePost = $this->getInfoPost($this->postId - 1);
             $nextPost = $this->getInfoPost($this->postId + 1);
             $commentData = $this->getComments($this->postId);
+            $sessionView = Session::get('postView_'.$this->postId);
+            if (!$sessionView) { 
+                Session::put('postView_'.$this->postId, 1);
+                DB::table('blog')->where('BlogID', $this->postId)->increment('View');
+            }
             return view('blog/postSingle', compact('data','prePost','nextPost','commentData'));
         }else{
             return view('404');
@@ -58,7 +63,7 @@ class BlogController extends Controller
             ['blogcomment.postId',$blogId],
             ['blogcomment.status', 1]
         ])
-        ->Select('users.Fullname as Fullname', 'blogcomment.createAt as createAt','message','blogcomment.userId')
+        ->Select('users.Fullname as Fullname', 'blogcomment.createAt as createAt', 'message', 'blogcomment.userId', 'blogcomment.id')
         ->paginate(6);
     }
 
@@ -96,6 +101,23 @@ class BlogController extends Controller
                 'message' => 'Không curl được đâu :3',
                 'date' => date('Y-m-d H:i:s')
             ];
+        }
+        return json_encode($data);
+    }
+
+    function deleteComment($id, Request $request){
+        $data = [
+            'success' => false,
+            'message' => 'Có lỗi trong quá trình xử lý',
+        ];
+        if(session('LoggedUser')){
+            DB::table('blogcomment')->where('id', $id)->where('userId', session('LoggedUser'))->delete();
+            $data = [
+                'success' => true,
+                'message' => 'Xoá thành công',
+            ];
+        }else{
+            $data['messages'] = 'Có lỗi trong quá trình xử lý';
         }
         return json_encode($data);
     }
