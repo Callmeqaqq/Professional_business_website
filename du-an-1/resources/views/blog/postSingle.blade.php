@@ -37,7 +37,7 @@
                             </div>
                             <div class="blog-author-content-2">
                                 <h2>{{$data->Fullname}}</h2>
-                                <p>Người viết bài ưu tú.</p>
+                                <p>Còng lưng làm Content.</p>
                                 <div class="social-icon-style-3">
                                     <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
                                     <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
@@ -108,18 +108,13 @@
                                             </div>
                                             @if(session('LoggedUser') == $comment->userId)
                                             <div class="comment-reply">
-                                                <a value="{{$comment->id}}" onclick="deleteComment(this)">Xoá bình luận</a>
+                                                <a href="#">Xoá bình luận</a>
                                             </div>
                                             @endif
                                         </div>
                                         <p>{{$comment->message}}</p>
-                                        <div class="comment-reply">
-                                            <a href="#">Reply</a>
-                                        </div>
                                     </div>
                                 </div>
-
-
                                 @endforeach
                                 <center>
                                     {!! $commentData->links() !!}
@@ -183,7 +178,28 @@
 @stop()
 @section('scripts')
 <script type="text/javascript">
-    
+    _html = "";
+    // $(document).ready(function() {
+    //     Notiflix.Block.Pulse('#commentBox');
+    //     e.preventDefault();
+    //     $.ajax({
+    //         url: "{{url('api/comment')}}/{{$data->BlogID}}/insert",
+    //         type: 'POST',
+    //         data: {
+    //             messages: $('#messages').val(),
+    //             _token: "{{csrf_token()}}",
+    //         }
+    //     }).done(function(res) {
+    //         Notiflix.Block.Remove('#commentBox');
+    //         var data = $.parseJSON(res);
+    //         if(data.success == true){
+    //         }else{
+    //             Notiflix.Notify.Warning(data.message);
+    //         }
+    //     });
+    // })();
+
+
     $(document).ready(function() {
         $('#submit').click(function(e) {
             Notiflix.Block.Pulse('#commentBox');
@@ -208,34 +224,6 @@
                 }
             });
         });
-    });
-</script>
-<script>
-    function deleteComment(a){
-        Notiflix.Confirm.Show(
-        'Bạn muốn xoá bình luận này?',
-        'Việc này sẽ không thể khôi phục',
-        'Xoá',
-        'Huỷ',
-        function okCb(){
-            id = $(a).attr('value');
-            $.ajax({
-                    url: "{{url('api/comment')}}/"+id+"/delete",
-                    type: 'POST',
-                    data: {
-                        _token: "{{csrf_token()}}"
-                    }
-                }).done(function(res) {
-                    var data = $.parseJSON(res);
-                    if(data.success == true){
-                        Notiflix.Notify.Success(data.message);
-                        $(a).parent().parent().parent().parent().remove();
-                    }else{
-                        Notiflix.Notify.Warning(data.message);
-                    }
-                })
-            }
-        );
-    }
+    })
 </script>
 @stop()
