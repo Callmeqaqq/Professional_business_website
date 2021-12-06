@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\Component;
 
 class Permission extends Component
@@ -11,9 +12,12 @@ class Permission extends Component
      *
      * @return void
      */
-    public function __construct()
+    public $per;
+    public $href;
+    public function __construct($per, $href)
     {
-        //
+        $this->href = $href;
+        $this->per = $per;//Edit
     }
 
     /**
@@ -23,6 +27,10 @@ class Permission extends Component
      */
     public function render()
     {
-        return view('components.permission');
+        $get_permission = null;
+        if(Session($this->per) == $this->per || Session::has('Full')){
+            $get_permission = $this->per;
+        }
+        return view('components.permission', compact('get_permission'));
     }
 }
