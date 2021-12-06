@@ -142,6 +142,7 @@
                 })
                     .done(function (data) {
                         permission.append($('<option>').text('Chọn quyền nv').attr('disabled', '').attr('selected', ''));
+
                         for (let i = 0; i < data.length; i++) {
                             let id_per = data[i]['id_per'];
                             let name_per = data[i]['name_per'];
