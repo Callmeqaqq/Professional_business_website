@@ -59,7 +59,7 @@ class BlogController extends Controller
         ]);
         if($request->file()) {
             $image = $request->file('upload');
-            $filename = rand().'_'.$this->createSlug($request->file('upload')->getClientOriginalName());
+            $filename = rand().'_'.$request->file('upload')->getClientOriginalName();
             $image->move('images/blog',$filename);
 
             return response()->json([
@@ -350,6 +350,7 @@ class BlogController extends Controller
                 ->get();
         return view('admin.blog.commentPostSingle', compact('data'));
     }
+
     // Action delete comment
     public function commentDelete($id){
         $rs = [
@@ -399,7 +400,6 @@ class BlogController extends Controller
         $str = preg_replace('/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/', 'u', $str);
         $str = preg_replace('/(ỳ|ý|ỵ|ỷ|ỹ)/', 'y', $str);
         $str = preg_replace('/(đ)/', 'd', $str);
-        $str = preg_replace('/(--|---|----|__|___|___)/', '-', $str);
         $str = preg_replace('/[^a-z0-9-\s]/', '', $str);
         $str = preg_replace('/([\s]+)/', '-', $str);
         return $str;

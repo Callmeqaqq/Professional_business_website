@@ -221,39 +221,6 @@
             </div>
         </div>
     </div>
-
-    <div class="blog-area pb-70">
-        <div class="container">
-            <div class="section-title-2" data-aos="fade-up" data-aos-delay="200" style="margin-bottom: 40px">
-                <h2>Tin tức</h2>
-            </div>
-            <div class="row">
-                @foreach($news as $new)
-                <div class="col-lg-4 col-md-6">
-                    <div class="blog-wrap mb-30" data-aos="fade-up" data-aos-delay="200">
-                        <div class="blog-img-date-wrap mb-25">
-                            <div class="blog-img">
-                                <a href="{{url('/blog')}}/{{$new->cateSlug}}/{{$new->slug}}"><img src="{{asset('images/blog')}}/{{$new->thumbnail}}" alt="{{$new->slug}}"></a>
-                            </div>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-meta">
-                                <ul>
-                                    <li>Đăng bởi: <a>{{$new->Fullname}}</a></li>
-                                </ul>
-                            </div>
-                            <h3><a href="{{url('/blog')}}/{{$new->cateSlug}}/{{$new->slug}}">{{Str::limit($new->Title),'10','(...)'}}</a></h3>
-                            <p>{{Str::limit($new->desc),'150','(...)'}}</p>
-                            <div class="blog-btn-2 btn-hover">
-                                <a class="btn hover-border-radius theme-color" href="{{url('/blog')}}/{{$new->cateSlug}}/{{$new->slug}}">Xem thêm</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
     <script>
 
     </script>
