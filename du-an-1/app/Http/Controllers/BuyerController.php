@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -17,9 +18,18 @@ class BuyerController extends Controller
 
     function login(Request $request)
     {
-        $preUrl = explode('http://127.0.0.1:8000/', url()->previous())[1];
-        if($preUrl !== 'buyer/login'){
-            $request->session()->put('backUrl', url()->previous() );
+
+        $preUrl = explode( $request->getSchemeAndHttpHost(),url()->previous() )[1];
+        if($preUrl !== '/buyer/login' && $preUrl !== '/buyer/logout'){
+            $urlCut = explode('/',$preUrl)[1];
+            var_dump($urlCut);
+            if($urlCut==='admin'){
+               $urlBack = $request->getSchemeAndHttpHost().'/admin';
+            }else{
+                $urlBack = url()->previous();
+            }
+            $request->session()->put('backUrl',$urlBack);
+            echo $urlBack;
         }
 
         return view('buyer/buyer')->with('page', 'login');

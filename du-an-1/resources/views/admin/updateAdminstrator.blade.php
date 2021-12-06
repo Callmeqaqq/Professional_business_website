@@ -23,15 +23,7 @@
                         <div class="form-group col-6">
                             <label>Email</label>
                             <input
-                                type="email"
-                                disabled
-                                name="email"
-                                class="form-control disabled"
-                                placeholder="Nhập email"
-                                value="{{ $user->Email ?? old('email')}}"
-                            />
-                            <input
-                                type="hidden"
+
                                 name="email"
                                 class="form-control disabled"
                                 placeholder="Nhập email"
@@ -42,13 +34,27 @@
                     </div>
                     <div class="card-body row">
                     <div class="form-group col-6">
-                        <label for="inputText4" class="col-form-label">Chọn chức vụ cho user</label>
-                        <select class="form-control" name="role" aria-label="Default select example">
-                            <option value="" >Chọn 1 chức vụ của user</option>
-
-                            @foreach($listRole as $role)
-                                <option {{$user->UserRole === $role->id_role || old('role') === $role->id_role   ? 'selected="selected"':''}} value="{{$role->id_role}}">{{$role->RoleName}}</option>
-                            @endforeach
+                            <label for="inputText4" class="col-form-label">Chọn nghiệp vụ cho user</label>
+                            <select class="form-control" name="role" aria-label="Default select example">
+                                <option value="" selected disabled hidden>Chọn 1 nghiệp vụ</option>
+                                @if(Session('UserRole') == 'Manager' || Session('UserRole') == 'SuperAdmin')
+                                    <optgroup label="Quản lý">
+                                        @foreach($listRole as $role)
+                                            @if($role->RoleName == 'Manager' || $role->RoleName == 'SuperAdmin')
+                                                <option
+                                                    {{old('role')}} {{ old('role') === $role->id_role ||$user->UserRole=== $role->id_role? 'selected="selected"':''}} value="{{$role->id_role}}">{{$role->RoleName}}</option>
+                                            @endif
+                                        @endforeach
+                                    </optgroup>
+                                @endif
+                                <optgroup label="Nhân viên">
+                                    @foreach($listRole as $role)
+                                        @if($role->RoleName != 'Manager' && $role->RoleName != 'SuperAdmin')
+                                            <option
+                                                {{old('role')}} {{ old('role') === $role->id_role ||$user->UserRole=== $role->id_role ? 'selected="selected"':''}} value="{{$role->id_role}}">{{$role->RoleName}}</option>
+                                        @endif
+                                    @endforeach
+                                </optgroup>
 
                         </select>
                         <span class="text-danger">@error('role') {{$message}}@enderror</span>

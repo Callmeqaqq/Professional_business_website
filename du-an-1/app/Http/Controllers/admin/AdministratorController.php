@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class AdministratorController extends Controller
 {
@@ -60,10 +62,11 @@ class AdministratorController extends Controller
         return back();
     }
 
-    function update($id)
+    function update($id,Request $request)
     {
+        $request->session()->put('updateId',$id);
         $user = DB::table('users')
-            ->select('UserRole', 'Fullname', 'Email', 'Active')
+            ->select('UserRole','UserID', 'Fullname', 'Email', 'Active')
             ->where('UserId', '=', $id)
             ->first();
         //check role of logging user
@@ -91,25 +94,28 @@ class AdministratorController extends Controller
     {
         $message = [
             'required' => 'Chưa nhập :attribute',
-            'email' => 'Vui lòng nhập đúng định dạng email',
+            'email' => 'Vui lòng nhập email',
             'unique' => 'email Đã đăng ký'
         ];
         //validate request
         $validate = Validator::make($request->all(), [
             'Fullname' => 'required|string',
             'role' => 'required',
+            'email' => 'required|email'
         ], $message);
 
         if ($validate->fails()) {
             return back()->withErrors($validate)->withInput();
         }
         $query = DB::table('users')
-            ->where('Email', '=', $request->email)
+            ->where('UserId', '=', $request->session()->get('updateId'))
             ->update([
+                'Email' => $request->email,
                 'fullname' => $request->Fullname,
                 'UserRole' => $request->role,
                 'Active' => $request->status,
             ]);
+        $request->session()->forget('updateId');
         if ($query) {
             $request->session()->put('status', 'success/Cập nhật thành công');
         } else {
@@ -137,13 +143,23 @@ class AdministratorController extends Controller
         }
 
 
+        $token = Str::random(150);
+        $passwordRandom = Str::random(150);
+        DB::table('password_resets')->insert(
+            ['email' => $request->email, 'token' => $token]
+        );
 
+        Mail::send('buyer/verify',['token' => $token,'email' => $request->email], function($message) use ($request) {
+            $message->from('vietpcps15786@fpt.edu.vn');
+            $message->to($request->email);
+            $message->subject('bạn đã được tạo tài khoản quản trị bên metah với chức vụ '.$request->role.' \n vui lòng đặt lại mật khẩu');
+        });
         $query = DB::table('users')->insert([
             'fullname' => $request->Fullname,
             'UserRole' => $request->role,
             'Active' => $request->status,
             'email' => $request->email,
-            'password' => Hash::make('123456')
+            'password' => Hash::make($passwordRandom)
         ]);
 
         //automatic add permission for new user

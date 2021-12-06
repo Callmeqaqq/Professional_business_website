@@ -54,7 +54,7 @@
                                             <a href="{{url('/admin/updateAdministrator/'.$admin->UserId)}}"
                                                class="btn btn-primary"><i class="fab fa-edit"></i> Cập nhật
                                             </a>
-                                            <a href="{{url('/admin/deleteAdministrator/'.$admin->UserId)}}"
+                                            <a onclick="return confirm('Bạn có chắc muốn xóa người quản trị này không?')" href="{{url('/admin/deleteAdministrator/'.$admin->UserId)}}"
                                                class="btn btn-danger"><i class="fab fa-trash-alt"></i> Xóa</a>
 
                                         @endif
