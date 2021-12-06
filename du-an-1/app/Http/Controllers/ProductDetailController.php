@@ -121,7 +121,7 @@ class ProductDetailController extends Controller
                                 }
                         $output.='</div>
                         <h5><span style="font-weight: bold;">'.$comm->Fullname.'</span> - Ngày '.date('d-m-Y', strtotime($comm->CreateAt)).'</h5>
-                        <p>'.$comm->Content.'</p>
+                        <p style="width: 300px;">'.$comm->Content.'</p>
                     </div>
                 </div>
             ';
@@ -151,51 +151,4 @@ class ProductDetailController extends Controller
             ->where('CommentId',$id_comment)->delete();
     }
 
-    function quantity(Request $request){
-        $variantId = $request->variantId;
-        $quantity = DB::table('variant')->where('variantId','=', $variantId)->get();
-        foreach ($quantity as $qua){
-            session()->put('quantity',$qua->Quantity);
-        }
-
-        $output = '
-            <span>Số lượng còn lại: ';
-            if(session('quantity')==0){
-                $output .= '<span style="font-weight: bold;color:red">Hết hàng</span>';
-            }else{
-                $output.=''.session('quantity').'';
-            }
-        $output .= '</span>
-        ';
-        echo $output;
-    }
-
-    function price(Request $request){
-        $variantId = $request->variantId;
-
-        $discount = DB::table('product')->where('ProductId','=', $request->productId)->get();
-
-        foreach ($discount as $dis){
-            $discount = $dis->Discount;
-            $new_price = $dis->Price;
-        }
-
-        $price_variant = DB::table('variant')->where('VariantId','=', $variantId)->select('Price')->get();
-        foreach ($price_variant as $prv){
-            $price_variant = $prv->Price;
-        }
-
-        $new_price = $new_price+($price_variant*$new_price);
-        $output = '';
-        $output .= '
-            <span class="new-price">'.number_format($new_price).'<sup>đ</sup></span> <br>
-        ';
-        if($discount != 0){
-            $output .='<span class="old-price">'.number_format(($new_price)*100/((1-$discount)*100)).'<sup>đ</sup></span>
-                        <span class="dis-c">-'.$discount*100 .'%</span>
-        ';
-        }
-//        dd($output);
-        echo $output;
-    }
 }

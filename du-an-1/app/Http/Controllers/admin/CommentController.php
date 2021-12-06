@@ -22,10 +22,10 @@ class CommentController extends Controller
         $comments = DB::table('comment')
             ->select('product.Slug','product.ProductName',DB::raw('COUNT(*) as quantity') ,DB::raw('MIN(comment.CreateAt) as minDate'),DB::raw('MAX(comment.CreateAt) as maxDate') )
             ->join('product','product.ProductId', '=','comment.ProductId')
-            ->groupBy('comment.ProductId')
+            ->groupBy('comment.ProductId','product.Slug','product.ProductName' )
             ->having('quantity' ,'>', 0)
             ->get();
-        return view('admin/listComment' ,compact('comments'));
+        return view('admin/listComment',compact('comments'));
     }
     function deleteComment($id,Request $request){
         $delete = DB::table('comment')

@@ -40,7 +40,6 @@ Route::get('/profile/order-detail/{OrderId}', 'Profile@OrderDetail')->name('buye
 //======================================================================================================================
 
 
-
 //======================================================================================================================
 // --------------------------shop---------------------------------
 Route::get('/shop', 'ShopController@index')->name('shop');
@@ -56,7 +55,6 @@ Route::post('/price', 'ProductDetailController@price');
 //======================================================================================================================
 
 
-
 //======================================================================================================================
 // ---------------------------Blog----------------------------------
 Route::get('/blog', 'BlogController@index')->name('blog');
@@ -66,7 +64,6 @@ Route::get('/blog/{category}', 'BlogController@viewByCategory');
 // ---------------------------About----------------------------------
 Route::get('/about-us', 'AboutController@index')->name('about-us');
 //======================================================================================================================
-
 
 
 //======================================================================================================================
@@ -82,7 +79,6 @@ Route::get('/cart/check-quantity/{slug}/{variantId}/{quantity}/{check}', 'CartCo
 //======================================================================================================================
 
 
-
 //======================================================================================================================
 // ---------------------------Checkout----------------------------------
 Route::get('/checkout', 'CheckoutController@index')->name('cart.checkout')->middleware('isLogged');
@@ -92,7 +88,6 @@ Route::post('/set_session', 'SessionController@createsession');
 Route::get('/allsession', 'SessionController@getsession');
 Route::get('/order-success', 'CheckoutController@ordersuccessful');
 //======================================================================================================================
-
 
 
 //======================================================================================================================
@@ -107,7 +102,6 @@ Route::get('/buyer/login/facebook/back', 'App\Http\Controllers\Socialite\LoginCo
 Route::get('/buyer/login/facebook/redirect', 'SocialController@facebookRedirect')->name('facebook.google');
 Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
 //======================================================================================================================
-
 
 
 //======================================================================================================================
@@ -134,36 +128,56 @@ Route::get('/admin/deleteComment/{id}', 'admin\CommentController@deleteComment')
 //-----------------------Analytics admin -------------------------------
 Route::get('/analytics/products', 'admin\AnalyticsController@product')
     ->middleware('admin');
+Route::get('/analytics/inventory', 'admin\AnalyticsController@inventory')
+    ->middleware('admin');
+Route::get('/analytics/variantSoldStock', 'admin\AnalyticsController@variantSoldStock')
+    ->middleware('admin');
+Route::get('/analytics/totalMoney/{now}/{daysAgo}', 'admin\AnalyticsController@totalMoney')
+    ->middleware('admin');
 Route::get('/admin', 'admin\DashboardController@index')->name('dashboard.index')
     ->middleware('admin');
 //======================================================================================================================
 
 
-
 //======================================================================================================================
 //--------------Warehouse----------------------
 //product
-Route::get('/admin/product', 'admin\AdminProductController@index')->name('admin.product')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_view_permissions');
-Route::get('/admin/product/add-product', 'admin\AdminProductController@add')->name('add-product')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_create_permissions');
+Route::get('/admin/product', 'admin\AdminProductController@index')->name('admin.product')
+    ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_view_permissions');
+Route::get('/admin/product/add-product', 'admin\AdminProductController@add')->name('add-product')
+    ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_create_permissions');
 Route::post('/admin/product/add-product', 'admin\AdminProductController@create');
-Route::get('/admin/product/delete-product/{id}', 'admin\AdminProductController@delete_product')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_delete_permissions');
-Route::get('admin/product/edit-product/{slug}', 'admin\AdminProductController@edit')->name('admin.edit')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_edit_permissions');
-Route::post('admin/product/edit-product/{slug}', 'admin\AdminProductController@createedit')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_edit_permissions');
+Route::get('/admin/product/delete-product/{id}', 'admin\AdminProductController@delete_product')
+    ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_delete_permissions');
+Route::get('admin/product/edit-product/{slug}', 'admin\AdminProductController@edit')->name('admin.edit')
+    ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_edit_permissions');
+Route::post('admin/product/edit-product/{slug}', 'admin\AdminProductController@createedit')
+    ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_edit_permissions');
+
 //category
-Route::get('/admin/category', function () {return view('admin/product/adminCategory');})->name('admin.category')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_view_permissions');
-Route::get('/admin/product/add-category', 'admin\AdminProductController@add_category')->name('add-category')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_create_permissions');
-Route::post('/admin/product/add-category', 'admin\AdminProductController@create_category')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_create_permissions');
-Route::get('/admin/product/edit-category/{slug}', 'admin\AdminProductController@edit_category')->name('edit.category')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_edit_permissions');
-Route::post('/admin/product/edit-category/{slug}', 'admin\AdminProductController@createedit_category')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_edit_permissions');
-Route::get('/admin/product/delete-category/{slug}', 'admin\AdminProductController@delete_category')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_delete_permissions');
+Route::get('/admin/category', 'admin\AdminProductController@view_category')->name('admin.category')
+    ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_view_permissions');
+Route::get('/admin/product/add-category', 'admin\AdminProductController@add_category')->name('add-category')
+    ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_create_permissions');
+Route::post('/admin/product/add-category', 'admin\AdminProductController@create_category')
+    ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_create_permissions');
+Route::get('/admin/product/edit-category/{slug}', 'admin\AdminProductController@edit_category')->name('edit.category')
+    ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_edit_permissions');
+Route::post('/admin/product/edit-category/{slug}', 'admin\AdminProductController@createedit_category')
+    ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_edit_permissions');
+Route::get('/admin/product/delete-category/{slug}', 'admin\AdminProductController@delete_category')
+    ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_delete_permissions');
+
 //variant
-Route::post('/admin/product/add-variant', 'admin\AdminProductController@create_variant')->name('add-variant')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_create_permissions');
-Route::post('/admin/product/edit-variant', 'admin\AdminProductController@edit_variant')->name('edit-variant')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_edit_permissions');
-Route::get('/admin/product/delete-variant/{id}', 'admin\AdminProductController@delete_variant')->middleware('role:Warehouse,Manager,SuperAdmin', 'check_delete_permissions');
+Route::post('/admin/product/add-variant', 'admin\AdminProductController@create_variant')->name('add-variant')
+    ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_create_permissions');
+Route::post('/admin/product/edit-variant', 'admin\AdminProductController@edit_variant')->name('edit-variant')
+    ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_edit_permissions');
+Route::get('/admin/product/delete-variant/{id}', 'admin\AdminProductController@delete_variant')
+    ->middleware('role:Warehouse,Manager,SuperAdmin', 'check_delete_permissions');
 Route::post('/delete-img', 'admin\AdminProductController@deleteimg');
 Route::post('/load-img', 'admin\AdminProductController@load_img');
 //======================================================================================================================
-
 
 
 //======================================================================================================================
@@ -181,14 +195,17 @@ Route::get('/admin/get-user-not-exists-permissions/{id}', 'admin\ConfigControlle
     ->middleware('role:,,SuperAdmin', 'check_view_permissions');
 Route::get('/admin/get-permission-licenced/{permission}/{userID}', 'admin\ConfigController@get_permission_licenced')
     ->middleware('role:,,SuperAdmin', 'check_view_permissions');
+
 //payment config
 Route::get('/admin/config-payment', 'admin\ConfigController@config_payment')->name('config.payment')
     ->middleware('role:,,SuperAdmin', 'check_view_permissions');
+
 //shipping config
 Route::get('/admin/config-shipfee', 'admin\ConfigController@config_shipfee')->name('config.shipfee')
     ->middleware('role:,,SuperAdmin', 'check_view_permissions');
 Route::post('/admin/update-config-shipfee', 'admin\ConfigController@update_config_shipfee')->name('update.config.shipfee')
     ->middleware('role:,,SuperAdmin', 'check_view_permissions');
+
 //slider config
 Route::get('/admin/config-slider', 'admin\ConfigController@config_slider')->name('config.slider')
     ->middleware('role:,,SuperAdmin', 'check_view_permissions');
@@ -203,7 +220,6 @@ Route::post('/admin/update-slider', 'admin\ConfigController@update_slider')->nam
 Route::post('/admin/delete-slider/{id}', 'admin\ConfigController@delete_slider')->name('delete.slider')
     ->middleware('role:,,SuperAdmin', 'check_view_permissions');
 //======================================================================================================================
-
 
 
 //======================================================================================================================
@@ -251,12 +267,14 @@ Route::get('admin/order/order-detail/{OrderId}', 'admin\AdminOrderController@Ord
     ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
 Route::get('admin/order/update-status/{OrderId}/{Status}', 'admin\AdminOrderController@UpdateStatus')->name('admin.update_status')
     ->middleware('role:Sale,Manager,SuperAdmin', 'check_edit_permissions');
-Route::get('admin/order/order-by-status/{Status}', 'admin\AdminOrderController@ShowByStatusOrder')->name('admin.show_order_by_status');
+Route::get('admin/order/order-by-status/{Status}', 'admin\AdminOrderController@ShowByStatusOrder')->name('admin.show_order_by_status')
+    ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
+;
 
 Route::get('admin/users/', 'admin\userController@index')
-  ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
+    ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
 Route::get('admin/users/{id}', 'admin\userController@detail')
-  ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
+    ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
 Route::get('admin/users/rank', 'admin\userController@rankView')
-  ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
+    ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
 

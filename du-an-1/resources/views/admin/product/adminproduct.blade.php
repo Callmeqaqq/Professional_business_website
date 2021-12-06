@@ -16,16 +16,15 @@
                             class="table table-striped table-bordered first">
                             <thead style="background-color: #0e0c28;">
                             <tr>
-                                <th style="width: 10px;">ID</th>
-                                <th style="width: 100px;">Tên Sản Phẩm</th>
-                                <th style="width: 80px;">Hình Ảnh</th>
-                                <th style="width: 80px;">Giá (VNĐ)</th>
-                                <th style="width: 60px;">Giảm giá</th>
-                                <th style="width: 70px;">Cân nặng</th>
-                                <th style="width: 70px;">Lượt xem</th>
-                                <th style="width: 100px;">Hoạt Động</th>
-                                <th style="width: 70px;">Ngày tạo</th>
-                                <th style="width: 80px;">Hành Động</th>
+                                <th >ID</th>
+                                <th >Tên Sản Phẩm</th>
+                                <th style="width: 100px;">Hình Ảnh</th>
+                                <th >Giá (VNĐ)</th>
+                                <th >Giảm giá</th>
+                                <th >Cân nặng</th>
+                                <th >Lượt xem</th>
+                                <th >Hoạt Động</th>
+                                <th >Hành Động</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -45,10 +44,9 @@
                                             Không hoạt động
                                         @endif
                                     </td>
-                                    <td>{{date('d-m-Y', strtotime($pd->CreateAt))}}</td>
                                     <td style="text-align:right">
-                                        <a href="{{asset('admin/product/edit-product/'.$pd->Slug)}}"><button class="btn btn-outline-primary"><i class="fas fa-info-circle"></i></button></a>
-                                        <a href="{{asset('admin/product/delete-product/'.$pd->Slug)}}" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này không?')"><button class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i></button></a>
+                                        <a href="{{asset('admin/product/edit-product/'.$pd->Slug)}}"><button class="btn btn-outline-info"><i class="fab fa-edit"></i>Cập nhật</button></a>
+                                        <a href="{{asset('admin/product/delete-product/'.$pd->Slug)}}" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này không?')"><button class="btn btn-outline-danger"><i class="fab fa-trash"></i>Xóa</button></a>
                                     </td>
                                 </tr>
                             @endforeach

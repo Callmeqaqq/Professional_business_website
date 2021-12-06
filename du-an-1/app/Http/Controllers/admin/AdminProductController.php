@@ -235,6 +235,9 @@ class AdminProductController extends Controller
 
 //Danh Mục
     //Thêm Danh Mục
+    public function view_category(){
+        return view('admin/product/adminCategory');
+    }
     public function add_category(){
         return view('admin/product/addcategory');
     }
