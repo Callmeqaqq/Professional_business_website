@@ -40,8 +40,8 @@
                                     <td>
                                         <a href="{{url('admin/blog/'.$item->id.'/commentList')}}" type="button"
                                            class="btn btn-outline-info p-1"><i class="fab fa-info"></i>Chi tiết</a>
-                                        <x-permission per="Edit" href="{{url('admin/blog/'.$item->id.'/edit')}}" type="button"
-                                           class="btn btn-outline-primary p-1"><i class="fab fa-edit"></i>Sửa</x-permission >
+                                        <a href="{{url('admin/blog/'.$item->id.'/edit')}}" type="button"
+                                           class="btn btn-outline-primary p-1"><i class="fab fa-edit"></i>Sửa</a>
                                         <button value="{{$item->id}}" onclick="deleteRq(this)" type="button"
                                                 class="btn btn-outline-danger  p-1"><i class="fab fa-trash"></i>Xoá
                                         </button>
