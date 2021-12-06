@@ -37,6 +37,7 @@ class StaffMiddleware
             ->join('permission', 'user_per.id_per', '=', 'permission.id_per')
             ->select('permission.name_per')
             ->where('user_per.id_user', '=', Session('LoggedUser'))
+            ->where('user_per.licenced', '=',  '1')
             ->get();
         $permissions = array();
         //push value from query builder into array $permission
