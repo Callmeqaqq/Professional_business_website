@@ -21,7 +21,12 @@ class userController extends Controller
         $data = DB::table('users')
                 ->where('UserId', $id)
                 ->first();
-        return view('admin.user.details', compact('data'));
+        $orders = DB::table('orders')
+                    ->where('UserId', $id)
+                    ->join('status', 'orders.StatusId', 'status.StatusId')
+                    ->orderByDesc('orders.OrderId')
+                    ->get();
+        return view('admin.user.details', compact('data', 'orders'));
     }
 
     public function update($id, Request $request){
