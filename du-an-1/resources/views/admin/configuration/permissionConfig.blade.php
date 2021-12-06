@@ -17,19 +17,32 @@
                                 <label for="inputText4" class="col-form-label">Nhân viên</label>
                                 <select id="PermissionUser" class="form-control" name="PermissionUser"
                                         aria-label="Default select example">
-                                    <option value="">Chọn nhân viên</option>
-                                    @foreach($admins as $admin)
-                                        <option value="{{$admin->UserId}}">
-                                            {{$admin->UserId}} | {{$admin->RoleName}} | {{$admin->Email}}
-                                        </option>
-                                    @endforeach
+                                    <option value="" selected disabled hidden>Chọn nhân viên</option>
+                                    <optgroup label="Quản lý">
+                                        @foreach($admins as $admin)
+                                            @if($admin->RoleName == 'Manager' || $admin->RoleName == 'SuperAdmin')
+                                                <option value="{{$admin->UserId}}">
+                                                    {{$admin->UserId}} | {{$admin->RoleName}} | {{$admin->Email}}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </optgroup>
+                                    <optgroup label="Nhân viên">
+                                        @foreach($admins as $admin)
+                                            @if($admin->RoleName != 'Manager' && $admin->RoleName != 'SuperAdmin')
+                                                <option value="{{$admin->UserId}}">
+                                                    {{$admin->UserId}} | {{$admin->RoleName}} | {{$admin->Email}}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </optgroup>
                                 </select>
                             </div>
                             <div class="form-group col-6">
                                 <label for="inputText4" class="col-form-label">Chọn quyền</label>
                                 <select id="PermissionAction" class="form-control" name="PermissionAction"
                                         aria-label="Default select example">
-                                    <option value="" selected disabled>Chọn nhân viên trước</option>
+                                    <option value="" selected disabled hidden>Chọn nhân viên trước</option>
                                 </select>
                             </div>
                         </div>
@@ -51,19 +64,32 @@
                                 <label for="inputText4" class="col-form-label">Nhân viên</label>
                                 <select id="LicencedUser" class="form-control" name="LicencedUser"
                                         aria-label="Default select example">
-                                    <option value="" disabled selected>Chọn nhân viên</option>
-                                    @foreach($admins as $admin)
-                                        <option value="{{$admin->UserId}}">
-                                            {{$admin->UserId}} | {{$admin->RoleName}} | {{$admin->Email}}
-                                        </option>
-                                    @endforeach
+                                    <option value="" selected disabled hidden>Chọn nhân viên</option>
+                                    <optgroup label="Quản lý">
+                                        @foreach($admins as $admin)
+                                            @if($admin->RoleName == 'Manager' || $admin->RoleName == 'SuperAdmin')
+                                                <option value="{{$admin->UserId}}">
+                                                    {{$admin->UserId}} | {{$admin->RoleName}} | {{$admin->Email}}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </optgroup>
+                                    <optgroup label="Nhân viên">
+                                        @foreach($admins as $admin)
+                                            @if($admin->RoleName != 'Manager' && $admin->RoleName != 'SuperAdmin')
+                                                <option value="{{$admin->UserId}}">
+                                                    {{$admin->UserId}} | {{$admin->RoleName}} | {{$admin->Email}}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </optgroup>
                                 </select>
                             </div>
                             <div class="form-group col-6">
                                 <label for="inputText4" class="col-form-label">Quyền thao tác</label>
                                 <select id="LicencedUserPermission" class="form-control" name="LicencedUserPermission"
                                         aria-label="Default select example">
-                                    <option value="">Chọn nhân viên trước</option>
+                                    <option value="" selected disabled hidden>Chọn nhân viên trước</option>
                                 </select>
                             </div>
                             <div class="form-group col-6">
@@ -93,7 +119,6 @@
                     url: '/admin/get-user-not-exists-permissions/' + userID,
                 })
                     .done(function (data) {
-                        console.log(data);
                         permission.append($('<option>').text('Chọn quyền user chưa có').attr('disabled', '').attr('selected', ''));
                         for (let i = 0; i < data.length; i++) {
                             let id_per = data[i]['id_per'];
@@ -117,13 +142,14 @@
                 })
                     .done(function (data) {
                         permission.append($('<option>').text('Chọn quyền nv').attr('disabled', '').attr('selected', ''));
+
                         for (let i = 0; i < data.length; i++) {
                             let id_per = data[i]['id_per'];
                             let name_per = data[i]['name_per'];
                             permission.append($('<option>').val(id_per).text(name_per));
                         }
                     })
-                    .error(function () {
+                    .fail(function () {
                         alert("Lỗi");
                     });
             });
@@ -131,7 +157,8 @@
             //select permission for change licenced
             $('#LicencedUserPermission').change(function () {
                 let selected = $(this).children('option:selected').val();
-                let userID = $('#LicencedUser').children('option:selected').val();
+                let userID = $('#LicencedUser').children('optgroup').children('option:selected').val();
+                console.log(userID);
                 $.ajax({
                     type: 'GET',
                     url: '/admin/get-permission-licenced/' + selected + '/' + userID,
@@ -148,7 +175,7 @@
                         }
                         status.val(data).attr('selected', 'selected');
                     })
-                    .error(function () {
+                    .fail(function () {
                         alert("Lỗi");
                     });
             })
