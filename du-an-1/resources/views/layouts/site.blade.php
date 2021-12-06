@@ -277,6 +277,7 @@
 <script src="{{asset('js/vendor/jquery-migrate-3.3.2.min.js')}}"></script>
 <script src="{{asset('js/vendor/popper.min.js')}}"></script>
 <script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/vendor/jquery-validate-1.15.1.js')}}"></script>
 
 <script src="{{asset('js/plugins/jquery.syotimer.min.js')}}"></script>
 <script src="{{asset('js/plugins/swiper.min.js')}}"></script>
@@ -287,6 +288,7 @@
 <script src="{{asset('js/plugins/select2.min.js')}}"></script>
 <script src="{{asset('js/plugins/easyzoom.js')}}"></script>
 <script src="{{asset('js/plugins/slinky.min.js')}}"></script>
+
 {{--Alertify--}}
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
@@ -313,6 +315,7 @@
 <script src="{{asset('js/main.js')}}"></script>
 <script src="{{asset('js/checkout.js')}}"></script>
 <script src="{{asset('js/plugins/search.js')}}"></script>
+<script src="{{asset('js/plugins/login.js')}}"></script>
 {{--JS Cart--}}
 <script type="text/javascript">
     function AddToCart(slug) {

@@ -37,7 +37,7 @@
                                     <td>{{$pd->Discount * 100}}%</td>
                                     <td>{{$pd->Weight}}</td>
                                     <td>{{$pd->Views}}</td>
-                                    <td>
+                                    <td style="color: {{$pd->Active === 0 ? 'red':'blue' }} ">
                                         @if($pd->Active==1)
                                             Đang hoạt động
                                         @else

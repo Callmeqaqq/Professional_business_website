@@ -25,14 +25,14 @@
                             <div id="lg1" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="{{route('buyer.check')}}" method="post">
+                                        <form action="{{route('buyer.check')}}" id="form-login" method="post">
                                             @csrf
                                             <input type="email" name="loginEmail" placeholder="Email"
                                                    value="{{ old('email') }}">
-                                            <span class="text-danger">@error('loginEmail') {{$message}}@enderror</span>
+                                            <span class="text-danger error-login-email">@error('loginEmail') {{$message}}@enderror</span>
                                             <input type="password" name="loginPassword" placeholder="Mật khẩu">
 
-                                            <span class="text-danger">@error('loginPassword') {{$message}}@enderror</span>
+                                            <span class="text-danger error-login-password">@error('loginPassword') {{$message}}@enderror</span>
                                             <div class="login-toggle-btn">
 {{--                                                <label>--}}
 {{--                                                    <input type="checkbox">--}}
@@ -59,7 +59,7 @@
                             <div id="lg2" class="tab-pane">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="{{ route('buyer.insertUser') }}" method="post">
+                                        <form action="{{ route('buyer.insertUser') }}" id="form-register" method="post">
                                             @csrf
                                             <input type="text" name="name" placeholder="Họ và Tên"
                                                    value="{{old('name')}}">
@@ -81,11 +81,11 @@
                             <div id="lg3" class="tab-pane">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="{{route('buyer.postEmail')}}" method="post">
+                                        <form action="{{route('buyer.postEmail')}}" id="post-email-forget" method="post">
                                             @csrf
                                             <input type="email" name="email" placeholder="Nhâp email đã đăng ký"
                                                    value="{{old('email')}}">
-                                            <span class="text-danger">@error('email'){{$message}} @enderror</span>
+                                            <span class="text-danger" id="err-email-forget">@error('email'){{$message}} @enderror</span>
                                             <div class="button-box btn-hover">
                                                 <button type="submit">Gửi lại mật khẩu</button>
                                             </div>

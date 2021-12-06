@@ -15,8 +15,13 @@ use Illuminate\Support\Str;
 class BuyerController extends Controller
 {
 
-    function login()
+    function login(Request $request)
     {
+        $preUrl = explode('http://127.0.0.1:8000/', url()->previous())[1];
+        if($preUrl !== 'buyer/login'){
+            $request->session()->put('backUrl', url()->previous() );
+        }
+
         return view('buyer/buyer')->with('page', 'login');
     }
     function register()
@@ -124,7 +129,8 @@ class BuyerController extends Controller
                 $request->session()->put('LoggedUser', $user->UserId);
                 $request->session()->put('LoggedUserName', $user->Fullname);
                 $request->session()->put('LoggedEmail', $request->loginEmail);
-                return redirect('/profile');
+
+                return redirect($request->session()->get('backUrl'));
             } else {
                 return redirect('/buyer/login')->with('status', 'Mật khẩu không chính xác');
             }

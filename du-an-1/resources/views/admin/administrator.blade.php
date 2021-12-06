@@ -37,7 +37,7 @@
                                             {{$admin->active=== 0 ? 'Ngừng hoạt động':'Đang hoạt động' }}
                                     </td>
 
-                                    <td>
+                                    <td style="text-align: center">
                                         {{--                                        kiểm tra xem có phải super admin hay không thì có quyền thao tác với manager--}}
                                         @if($super_admin == 'SuperAdmin' && session('LoggedUser') !== $admin->UserId)
 

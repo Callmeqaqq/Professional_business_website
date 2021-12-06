@@ -32,7 +32,7 @@ Route::post('/buyer/postEmail', 'BuyerController@postEmail')->name('buyer.postEm
 Route::get('/buyer/reset/{token}/{email}', 'BuyerController@reset')->name('buyer.reset')->middleware('AlreadyLogIn');
 Route::post('/buyer/reset', 'BuyerController@resetToken')->name('buyer.resetToken')->middleware('AlreadyLogIn');
 // --------------------------profile---------------------------------
-Route::get('/profile/{page?}', 'Profile@index')->name('buyer.profile')->middleware('isLogged');
+//Route::get('/profile/{page}', 'Profile@index')->name('buyer.profile')->middleware('isLogged');
 Route::get('/profile', 'Profile@index')->name('buyer.profile')->middleware('isLogged');
 Route::post('/profile/update', 'Profile@update')->name('buyer.update')->middleware('isLogged');
 Route::post('/profile/change', 'Profile@changePassword')->name('buyer.change')->middleware('isLogged');

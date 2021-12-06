@@ -30,7 +30,7 @@
                                     <td>{{$comment->CreateAt}}</td>
                                     <td>{{$comment->Content}}</td>
                                     <td>{{$comment->Fullname}}</td>
-                                    <td><a href="{{url('/admin/deleteComment/'.$comment->CommentId)}}" class="btn btn-outline-danger"><i class="fab fa-trash"></i> Xóa</a> </td>
+                                    <td style="text-align: center"><a href="{{url('/admin/deleteComment/'.$comment->CommentId)}}" class="btn btn-outline-danger"><i class="fab fa-trash"></i> Xóa</a> </td>
                                 </tr>
                             @endforeach
 
