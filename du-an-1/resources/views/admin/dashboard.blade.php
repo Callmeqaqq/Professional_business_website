@@ -10,6 +10,36 @@
                     </div>
                     <div id="product"></div>
                     <div class="table_product">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table
+                                        id="table"
+                                        class="table table-striped table-bordered first"
+                                    >
+                                        <thead style="background-color: var(--cyan)">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Danh mục</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá cao nhất</th>
+                                            <th>Giá trung bình</th>
+                                            <th>Giá thấp nhất</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>@foreach ($product as  $item)
+                                            <tr>
+                                                <td>{{$item->CategoryId}}</td>
+                                                <td>{{$item->CategoryName}}</td>
+                                                <td>{{$item->quantity}}</td>
+                                                <td>{{$item->maxPrice}}</td>
+                                                <td>{{$item->avgPrice}}</td>
+                                                <td>{{$item->minPrice}}</td>
+
+                                            </tr>
+                                        @endforeach </tbody>
+                                    </table>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -47,7 +77,9 @@
                         </div>
 
                     </div>
+                    <div class="card-body">
                     <div id="total-money-chart-div"></div>
+                    </div>
                     <div class="table-responsive total-money-table">
                     </div>
                 </div>
@@ -65,6 +97,30 @@
                     <div class="card-body">
                         <canvas id="ct-chart-inventory"></canvas>
                         <div class="table_product_variant">
+                            <div class="table-responsive">
+                                <table
+                                    id="table-1"
+                                    class="table table-striped table-bordered first"
+                                >
+                                    <thead style="background-color: var(--cyan)">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Sản phẩm</th>
+                                        <th>Tồn kho</th>
+                                        <th>Đã bán</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>@foreach ($newSold['stock'] as  $item)
+                                        <tr>
+                                            <td>{{$item->VariantId}}</td>
+                                            <td>{{$item->VariantName}}</td>
+                                            <td>{{ $item->Quantity }}</td>
+                                            <td>{{$newSold['sold'][ $loop->index]}}</td>
+
+                                        </tr>
+                                    @endforeach </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,7 @@ $(document).ready(function () {
     function Ajax(handleData) {
         $.ajax({
             async: true,
-            url: 'http://127.0.0.1:8000/analytics/products',
+            url: './analytics/products',
             type: 'GET',
             dataType: "json",
             success: function (result) {
@@ -21,7 +21,7 @@ $(document).ready(function () {
             data[index] = [element.CategoryName, element.quantity];
         });
         drawChart(data)
-        insertTable(output)
+        // insertTable(output)
     });
     let product_bottom_table = $('.product-bottom-table');
     click(product_bottom_table,chart_product,table_product);
@@ -68,7 +68,7 @@ $(document).ready(function () {
                             <tbody >` + html + ` </tbody>
                         </table>
 `
-        table_product.html(html)
+        // table_product.html(html)
     }
 
     function drawChart(data) {
@@ -179,7 +179,7 @@ $(document).ready(function () {
         let type = 'day';
         now = now.format("YYYY-MM-DD")
         daysAgo = daysAgo.format("YYYY-MM-DD")
-        console.log(now);
+        // console.log(now);
         $('input[name="datetimes"]').daterangepicker({
             timePicker: true,
             startDate: moment().startOf('hour').add(-30, 'day'),
@@ -208,7 +208,7 @@ $(document).ready(function () {
         function AjaxTotalMoney(handleData, daysAgo, now) {
             $.ajax({
                 async: true,
-                url: 'http://127.0.0.1:8000/analytics/totalMoney/' + now + '/' + daysAgo,
+                url: './analytics/totalMoney/' + now + '/' + daysAgo,
                 type: 'GET',
                 dataType: "json",
                 success: function (result) {
@@ -244,12 +244,13 @@ $(document).ready(function () {
                         } else {
                             check = true;
                         }
-                        console.log([output[0].ShipDate,day.format('-MM-DD')])
+                        // console.log([output[0].ShipDate,day.format('-MM-DD')])
                     }
                     if (type === 'day') {
-                        data.labels[number] = day.format('D/MM');
+                        data.labels[number] = day.format('DD/MM/YYYY');
                     } else if (type === 'week') {
                         data.labels[number] = moment(day, 'YYYY/MM/DD').format("W")
+                        console.log(moment(day, 'YYYY/MM/DD').format("W"))
                     } else {
                         data.labels[number] = moment(day, 'YYYY/MM/DD').format("M")
                     }
@@ -261,7 +262,7 @@ $(document).ready(function () {
                     }
 
                 }
-                console.log(data);
+                // console.log(data);
                 if (type === 'week' || type === 'month') {
                     let newLabel;
                     let newData = [];
@@ -291,7 +292,7 @@ $(document).ready(function () {
         function Ajax(handleData) {
             $.ajax({
                 async: true,
-                url: 'http://127.0.0.1:8000/analytics/inventory',
+                url: './analytics/inventory',
                 type: 'GET',
                 dataType: "json",
                 success: function (result) {
@@ -354,7 +355,7 @@ $(document).ready(function () {
         function AjaxVariantSoldStock(handleData) {
             $.ajax({
                 async: true,
-                url: 'http://127.0.0.1:8000/analytics/variantSoldStock',
+                url: './analytics/variantSoldStock',
                 type: 'GET',
                 dataType: "json",
                 success: function (result) {
@@ -364,7 +365,7 @@ $(document).ready(function () {
         }
 
         AjaxVariantSoldStock(function (output) {
-            console.log(output);
+            // console.log(output);
             let data = {labels : [],sold: [], stock: []}
 
             output['1'].forEach(function (item1,index){
@@ -380,7 +381,7 @@ $(document).ready(function () {
                 }
             })
 
-            insertTableSold(data.labels,data.sold,data.stock)
+            // insertTableSold(data.labels,data.sold,data.stock)
             // drawChart(data)
             // insertTable(output)
         });
@@ -410,7 +411,7 @@ $(document).ready(function () {
                             <tbody >` + html + ` </tbody>
                         </table></div>
 `
-            $('.table_product_variant').html(html)
+
         }
         let chartSold = $('#ct-chart-inventory');
         let  TableSold = $('.table_product_variant');

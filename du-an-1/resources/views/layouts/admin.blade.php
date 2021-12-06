@@ -13,7 +13,7 @@
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css"/>
 {{--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"--}}
-          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+{{--          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">--}}
 
     <link rel="stylesheet" href="{{asset("vendor/vector-map/jqvmap.css")}}"/>
     <link rel="stylesheet" href="{{asset("vendor/charts/chartist-bundle/chartist.css")}}"/>
@@ -354,6 +354,35 @@ if (session('status')) {
                 },
             },
         });
+        if( $("#table-1").length ){
+            $("#table-1").DataTable({
+                lengthMenu: [10, 20, 30],
+                language: {
+                    processing: "Đang tải dữ liệu",
+                    search: "Tìm kiếm: ",
+                    lengthMenu: "Lượng hiển thị:  " + " _MENU_ ",
+                    info: "_START_ - _END_ / _TOTAL_",
+                    infoEmpty: "Không có dữ liệu",
+                    infoFiltered: "(Trên tổng _MAX_ mục)",
+                    infoPostFix: " sản phẩm", // Cái này khi thêm vào nó sẽ đứng sau info
+                    loadingRecords: "",
+                    zeroRecords: "Không tồn tại dữ liệu cần tìm",
+                    emptyTable: "Không có dữ liệu",
+                    paginate: {
+                        first: "Trang đầu",
+                        previous: "<",
+                        next: ">",
+                        last: "Trang cuối",
+                    },
+                    aria: {
+                        sortAscending: ": Đang sắp xếp theo column",
+                        sortDescending: ": Đang sắp xếp theo column",
+                    },
+                },
+            });
+        }
+
+
     });
 </script>
 @yield('scripts')
