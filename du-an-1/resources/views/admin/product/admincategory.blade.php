@@ -21,8 +21,8 @@
                                 <th style="width: 100px;">Hình Ảnh</th>
                                 <th>Slug</th>
                                 <th>Hoạt động</th>
-{{--                                <th>Ngày tạo</th>--}}
-                                <th>Hành Động</th>
+                                {{--                                <th>Ngày tạo</th>--}}
+                                <th style="width: 100px;">Hành Động</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -30,7 +30,8 @@
                                 <tr>
                                     <td>{{$cat->CategoryId}}</td>
                                     <td>{{$cat->CategoryName}}</td>
-                                    <td><img style="width:80%" src="{{asset('./images/product/'.$cat->CategoryImage)}}" alt=""></td>
+                                    <td><img style="width:80%" src="{{asset('./images/product/'.$cat->CategoryImage)}}"
+                                             alt=""></td>
                                     <td>{{$cat->CategorySlug}}</td>
                                     <td>
                                         @if($cat->CatActive==1)
@@ -39,10 +40,13 @@
                                             Không hoạt động
                                         @endif
                                     </td>
-{{--                                    <td>{{date('d-m-Y', strtotime($pd->CreateAt))}}</td>--}}
-                                    <td style="text-align: center">
-                                        <a href="{{asset('admin/product/edit-category/'.$cat->CategorySlug)}}"><button class="btn btn-outline-info"><i class="fab fa-edit"></i>Cập nhật</button></a>
-                                        <a href="{{asset('admin/product/delete-category/'.$cat->CategorySlug)}}" onclick="return confirm('Bạn có chắc muốn xóa không \n xóa sẻ hoàng tác đươc?')"><button class="btn btn-outline-danger"><i class="fab fa-trash"></i>Xóa</button></a>
+                                    <td>
+                                        <div class="row" style="justify-content:center">
+                                            <x-permission per="Edit"
+                                                          href="{{asset('admin/product/edit-category/'.$cat->CategorySlug)}}"></x-permission>
+                                            <x-permission per="Delete"
+                                                          href="{{asset('admin/product/delete-category/'.$cat->CategorySlug)}}"></x-permission>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
