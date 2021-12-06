@@ -5,7 +5,7 @@
             <div class="card">
                 <h3 class="card-header">Danh mục bài viết</h3>
                 <div>
-                    <button style="float: right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNew">Thêm mới</button>
+                    <button style="float: right" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addNew">Thêm mới</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -27,8 +27,8 @@
                                 <td>{{$item->slug}}</td>
                                 <td></td>
                                 <td>
-                                  <a href="{{url('admin/blog/category/'.$item->Blog_CategoryID.'/edit')}}" type="button" class="btn btn-primary text-white p-1">Sửa</a>
-                                  <button value="{{$item->Blog_CategoryID}}" onclick="deleteRq(this)" type="button" class="btn btn-danger text-white p-1">Xoá</button>
+                                  <a href="{{url('admin/blog/category/'.$item->Blog_CategoryID.'/edit')}}" type="button" class="btn btn-outline-primary p-1"><i class="fab fa-edit"></i>Sửa</a>
+                                  <button value="{{$item->Blog_CategoryID}}" onclick="deleteRq(this)" type="button" class="btn btn-outline-danger p-1"><i class="fab fa-trash"></i>Xoá</button>
                                 </td>
                             </tr>
                             @endforeach()
@@ -60,8 +60,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-              <button type="button" onclick="addNewCategory()" id="addNewCategory" class="btn btn-primary">Thêm mới</button>
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Đóng</button>
+              <button type="button" onclick="addNewCategory()" id="addNewCategory" class="btn btn-outline-primary">Thêm mới</button>
             </div>
           </div>
         </div>

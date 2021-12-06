@@ -6,7 +6,7 @@
                 <div class="d-flex justify-content-between " style="border-bottom: 1px solid #e6e6f2">
                     <h3 class="card-header ">Quản trị viên </h3>
 
-                    <a href="{{route('admin.addAdministrator')}}" class="btn btn-primary btn-sm "
+                    <a href="{{route('admin.addAdministrator')}}" class="btn btn-outline-primary btn-sm "
                        style="margin-right:20px">Thêm Người quảng trị</a>
                 </div>
 
@@ -32,20 +32,20 @@
                                     <td>{{$admin->Fullname}}</td>
                                     <td>{{$admin->RoleName}}</td>
 
-                                    <td>
-                                        <button
-                                            class="btn {{$admin->active === 0 ? 'btn-secondary':'btn-primary' }} ">{{$admin->active=== 0 ? 'Ngừng hoạt động':'Đang hoạt động' }}</button>
+                                    <td style="color: {{$admin->active === 0 ? 'red':'blue' }} " class=" ">
+
+                                            {{$admin->active=== 0 ? 'Ngừng hoạt động':'Đang hoạt động' }}
                                     </td>
 
                                     <td>
-{{--                                        kiểm tra xem có phải super admin hay không thì có quyền thao tác với manager--}}
+                                        {{--                                        kiểm tra xem có phải super admin hay không thì có quyền thao tác với manager--}}
                                         @if($super_admin == 'SuperAdmin' && session('LoggedUser') !== $admin->UserId)
 
                                             <a href="{{url('/admin/updateAdministrator/'.$admin->UserId)}}"
-                                               class="btn btn-primary"><i class="fab fa-edit"></i> Cập nhật
+                                               class="btn btn-outline-info"><i class="fab fa-edit"></i> Cập nhật
                                             </a>
                                             <a href="{{url('/admin/deleteAdministrator/'.$admin->UserId)}}"
-                                               class="btn btn-danger"><i class="fab fa-trash-alt"></i> Xóa</a>
+                                               class="btn btn-outline-danger"><i class="fab fa-trash"></i> Xóa</a>
 
                                         @elseif(session('LoggedUser') !== $admin->UserId
                                                 && $admin->RoleName !== 'SuperAdmin'

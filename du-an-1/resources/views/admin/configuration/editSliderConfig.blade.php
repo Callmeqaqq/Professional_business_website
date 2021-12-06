@@ -45,9 +45,9 @@
                         </div>
                     </div>
                     <div style="display: flex" class="card-body col-12">
-                        <div class="form-group col-2">
+                        <div class="form-group col-12">
                             <div style="width:100%" id="displayImg">
-                                <img src="{{asset('./images/slider/'.$edit->Images)}}" alt="Girl in a jacket">
+                                <img style="width:100%" src="{{asset('./images/slider/'.$edit->Images)}}" alt="Girl in a jacket">
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                     </div>
                     <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-3">
-                            <button type="submit" class="btn btn-primary">Cập nhật</button>
+                            <button type="submit" class="btn btn-outline-primary">Cập nhật</button>
                         </div>
                     </div>
                 </form>

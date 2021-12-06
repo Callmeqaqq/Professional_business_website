@@ -29,7 +29,7 @@
                                     <td>{{$comment->quantity}}</td>
                                     <td>{{$comment->minDate}}</td>
                                     <td>{{$comment->maxDate}}</td>
-                                    <td><a href="{{url('/admin/comment/'.$comment->Slug)}}" class="btn btn-primary"> Chi tiết</a> </td>
+                                    <td><a href="{{url('/admin/comment/'.$comment->Slug)}}" class="btn btn-outline-primary"><i class="fab fa-info"></i> Chi tiết</a> </td>
                                 </tr>
                             @endforeach
 

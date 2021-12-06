@@ -29,9 +29,9 @@
                                 <td>{{($item->facebook_id != NULL) ? '✓' : ''}}</th>
                                 <td>{{($item->google_id != NULL) ? '✓' : ''}}</th>
                                 <td>
-                                    <a href="{{url('admin/users/' . $item->UserId.'')}}" target="_blank"type="button" class="btn btn-primary text-white p-1">Chi tiết</a>
-                                    <a value="{{$item->UserId}}" onclick="{{($item->Active == 0) ? 'active(this)' :  "unactive(this)"}}" type="button" class="btn btn-primary text-white p-1">{{($item->Active == 0) ? 'Mở khoá' :  "Khoá"}}</a>
-                                    <button value="{{$item->UserId}}" onclick="deleteRq(this)" type="button" class="btn btn-danger text-white p-1">Xoá</button>
+                                    <a href="{{url('admin/users/' . $item->UserId.'')}}" target="_blank"type="button" class="btn btn-outline-info p-1"><i class="fab fa-info"></i>Chi tiết</a>
+                                    <a value="{{$item->UserId}}" onclick="{{($item->Active == 0) ? 'active(this)' :  "unactive(this)"}}" type="button" class="btn btn-outline-primary p-1"> <i class='fab fa-{{($item->Active == 0) ?'unlock':'lock' }}'></i>{{($item->Active == 0) ? 'Mở khoá' :  "Khoá"}}</a>
+                                    <button value="{{$item->UserId}}" onclick="deleteRq(this)" type="button" class="btn btn-outline-danger p-1"><i class="fab fa-trash"></i>Xoá</button>
                                 </td>
                             </tr>
                             @endforeach()

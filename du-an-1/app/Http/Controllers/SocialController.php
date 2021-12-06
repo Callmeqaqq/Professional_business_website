@@ -66,7 +66,7 @@ class SocialController extends Controller
             return redirect('/profile');
         }catch(\Exception $e){
             //Authentication failed
-            return redirect()->back()->with('status','authentication failed, please try again!');
+            return redirect()->back()->with('status','đăng nhập goodle đang bị lỗi, làm ở thử lại sau!');
         }
     }
 }

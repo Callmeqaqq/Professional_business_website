@@ -30,8 +30,8 @@
                             <div class="dropzone" id="thumbnail" type="file"></div>
                         </div>
                         <div class="form-group p-4">
-                            <button id="post" type="button" class="btn btn-primary waves-effect waves-light">Đăng bài</button>
-                            <a style="color: #fff" id="preview" type="button" class="btn btn-primary waves-effect waves-light">Xem bài viết</a>
+                            <button id="post" type="button" class="btn-outline-primary waves-effect waves-light">Đăng bài</button>
+                            <a style="color: #fff" id="preview" type="button" class="btn btn-outline waves-effect waves-light">Xem bài viết</a>
                             <a style="color: #fff" id="addNewPost" href="{{url('admin/blog/new')}}" type="button" class="btn btn-primary waves-effect waves-light">Thêm bài mới</a>
                         </div>
                       </form>
