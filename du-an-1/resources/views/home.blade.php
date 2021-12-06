@@ -106,10 +106,10 @@
                                                href="products/{{$item->Slug}}">{{$item->ProductName}}</a></h3>
                                         <div class="product-price">
                                             @if ($item->Discount != 0)
-                                                <span class="old-price">{{number_format((100*$item->Price)/((1-$item->Discount)*100))}} <sup>vnđ</sup></span>
+                                                <span class="old-price">{{number_format((100*$item->Price)/((1-$item->Discount)*100))}}</span>
                                             @endif
                                             <span
-                                                class="new-price">{{number_format($item->Price)}} <sup>vnđ</sup></span>
+                                                class="new-price">{{number_format($item->Price)}} <sup>đ</sup></span>
                                         </div>
                                     </div>
                                 </div>
