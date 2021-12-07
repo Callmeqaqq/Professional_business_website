@@ -1,4 +1,4 @@
-<table id="table2" class="table table-striped">
+<table id="tableOrder2" class="table table-striped">
     <thead>
     <tr>
         <th scope="col">#</th>
@@ -31,30 +31,32 @@
     </tbody>
 </table>
 <script type="text/javascript">
-    $("#table2").DataTable({
-        lengthMenu: [10, 20, 30],
-        "order": [[ 0, "desc" ]],
-        language: {
-            processing: "Đang tải dữ liệu",
-            search: "Tìm kiếm: ",
-            lengthMenu: "Lượng hiển thị:  " + " _MENU_ ",
-            info: "_START_ - _END_ / _TOTAL_",
-            infoEmpty: "Không có dữ liệu",
-            infoFiltered: "(Trên tổng _MAX_ mục)",
-            infoPostFix: " đơn hàng", // Cái này khi thêm vào nó sẽ đứng sau info
-            loadingRecords: "",
-            zeroRecords: "Không tồn tại dữ liệu cần tìm",
-            emptyTable: "Không có dữ liệu",
-            paginate: {
-                first: "Trang đầu",
-                previous: "<",
-                next: ">",
-                last: "Trang cuối",
+    $(document).ready(function () {
+        $("#tableOrder2").DataTable({
+            lengthMenu: [10, 20, 30],
+            "order": [[0, "desc"]],
+            language: {
+                processing: "Đang tải dữ liệu",
+                search: "Tìm kiếm: ",
+                lengthMenu: "Lượng hiển thị:  " + " _MENU_ ",
+                info: "_START_ - _END_ / _TOTAL_",
+                infoEmpty: "Không có dữ liệu",
+                infoFiltered: "(Trên tổng _MAX_ mục)",
+                infoPostFix: " đơn hàng", // Cái này khi thêm vào nó sẽ đứng sau info
+                loadingRecords: "",
+                zeroRecords: "Không tồn tại dữ liệu cần tìm",
+                emptyTable: "Không có dữ liệu",
+                paginate: {
+                    first: "Trang đầu",
+                    previous: "<",
+                    next: ">",
+                    last: "Trang cuối",
+                },
+                aria: {
+                    sortAscending: ": Đang sắp xếp theo column",
+                    sortDescending: ": Đang sắp xếp theo column",
+                },
             },
-            aria: {
-                sortAscending: ": Đang sắp xếp theo column",
-                sortDescending: ": Đang sắp xếp theo column",
-            },
-        },
+        });
     });
 </script>

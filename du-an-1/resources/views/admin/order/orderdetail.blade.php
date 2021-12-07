@@ -28,7 +28,7 @@
                         @endforeach
                     </div>
                     <div class="table-responsive">
-                        <table id="table3" class="table table-striped">
+                        <table id="tableOrderDetail" class="table table-striped">
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -72,30 +72,32 @@
 @stop()
 @section('scripts')
     <script type="text/javascript">
-        $("#table3").DataTable({
-            lengthMenu: [10, 20, 30],
-            language: {
-                processing: "Đang tải dữ liệu",
-                search: "Tìm kiếm: ",
-                lengthMenu: "Lượng hiển thị:  " + " _MENU_ ",
-                info: "_START_ - _END_ / _TOTAL_",
-                infoEmpty: "Không có dữ liệu",
-                infoFiltered: "(Trên tổng _MAX_ mục)",
-                infoPostFix: " chi tiết đơn hàng", // Cái này khi thêm vào nó sẽ đứng sau info
-                loadingRecords: "",
-                zeroRecords: "Không tồn tại dữ liệu cần tìm",
-                emptyTable: "Không có dữ liệu",
-                paginate: {
-                    first: "Trang đầu",
-                    previous: "<",
-                    next: ">",
-                    last: "Trang cuối",
+        $(document).ready(function () {
+            $("#tableOrderDetail").DataTable({
+                lengthMenu: [10, 20, 30],
+                language: {
+                    processing: "Đang tải dữ liệu",
+                    search: "Tìm kiếm: ",
+                    lengthMenu: "Lượng hiển thị:  " + " _MENU_ ",
+                    info: "_START_ - _END_ / _TOTAL_",
+                    infoEmpty: "Không có dữ liệu",
+                    infoFiltered: "(Trên tổng _MAX_ mục)",
+                    infoPostFix: " chi tiết đơn hàng", // Cái này khi thêm vào nó sẽ đứng sau info
+                    loadingRecords: "",
+                    zeroRecords: "Không tồn tại dữ liệu cần tìm",
+                    emptyTable: "Không có dữ liệu",
+                    paginate: {
+                        first: "Trang đầu",
+                        previous: "<",
+                        next: ">",
+                        last: "Trang cuối",
+                    },
+                    aria: {
+                        sortAscending: ": Đang sắp xếp theo column",
+                        sortDescending: ": Đang sắp xếp theo column",
+                    },
                 },
-                aria: {
-                    sortAscending: ": Đang sắp xếp theo column",
-                    sortDescending: ": Đang sắp xếp theo column",
-                },
-            },
+            });
         });
 
         $('button[name="btnUpdateStatus"]').on('click', function(e) {

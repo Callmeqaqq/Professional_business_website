@@ -88,7 +88,7 @@
                         </div>
                     </div>
                     <div class="table-responsive" id="table-responsive">
-                        <table id="table3" class="table table-striped">
+                        <table id="tableOrder1" class="table table-striped">
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -114,7 +114,7 @@
                                     @endif
                                     <td><b>{{number_format($item->ToPay)}} VNĐ</b></td>
                                     <td>
-                                        <a href="{{url('admin/order/order-detail/'.$item->OrderId)}}" type="button" class="btn btn-outline-info p-1"><i class="fab fa-info"></i> Chi tiết</a>
+                                        <a href="{{url('admin/order/order-detail/'.$item->OrderId)}}" type="button" class="btn btn-primary text-white p-1">Chi tiết</a>
                                     </td>
                                 </tr>
                             @endforeach()
@@ -125,11 +125,13 @@
             </div>
         </div>
     </div>
-    <script >
+@stop()
+@section('scripts')
+    <script type="text/javascript">
         $(document).ready(function () {
-            $("#table3").DataTable({
+            $("#tableOrder1").DataTable({
                 lengthMenu: [10, 20, 30],
-                "order": [[ 0, "desc" ]],
+                "order": [[0, "desc"]],
                 language: {
                     processing: "Đang tải dữ liệu",
                     search: "Tìm kiếm: ",
@@ -153,34 +155,35 @@
                     },
                 },
             });
-
-            const tabs = document.querySelectorAll('.tab-item');
-            tabs[0].classList.add('active');
-
-            const tabActive = document.querySelector(".tab-item.active");
-            const line = document.querySelector(".tabs .line");
-
-            line.style.left = tabActive.offsetLeft + "px";
-            line.style.width = tabActive.offsetWidth + "px";
-
-            tabs.forEach((tab, index) => {
-                tab.onclick = function () {
-                    tabActive.classList.remove("active");
-                    line.style.left = this.offsetLeft + "px";
-                    line.style.width = this.offsetWidth + "px";
-                    this.classList.add("active");
-
-                    $.ajax({
-                        type : 'GET',
-                        url  : "{{url('/admin/order/order-by-status')}}/"+$(this).data('id'),
-                    }).done(function (response) {
-                        if (response) {
-                            $('#table-responsive').empty();
-                            $('#table-responsive').html(response);
-                        }
-                    });
-                };
-            });
         });
     </script>
-@stop
+    <script type="text/javascript">
+        const tabs = document.querySelectorAll('.tab-item');
+        tabs[0].classList.add('active');
+
+        const tabActive = document.querySelector(".tab-item.active");
+        const line = document.querySelector(".tabs .line");
+
+        line.style.left = tabActive.offsetLeft + "px";
+        line.style.width = tabActive.offsetWidth + "px";
+
+        tabs.forEach((tab, index) => {
+            tab.onclick = function () {
+                tabActive.classList.remove("active");
+                line.style.left = this.offsetLeft + "px";
+                line.style.width = this.offsetWidth + "px";
+                this.classList.add("active");
+
+                $.ajax({
+                    type : 'GET',
+                    url  : "{{url('/admin/order/order-by-status')}}/"+$(this).data('id'),
+                }).done(function (response) {
+                    if (response) {
+                        $('#table-responsive').empty();
+                        $('#table-responsive').html(response);
+                    }
+                });
+            };
+        });
+    </script>
+@stop()
