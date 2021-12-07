@@ -19,6 +19,7 @@ class ProductDetailController extends Controller
         $check=0;
         foreach ($data as $item){
             $check++;
+            $view = $item->Views;
         }
         if($check == 0){
             return redirect('/Error404');
@@ -66,7 +67,20 @@ class ProductDetailController extends Controller
             $quantity = $quantity + $var->Quantity;
         }
 
-//         dd($comment);
+        if(!session($slug)){
+            $check_views = 0;
+        }else{
+            $check_views = 1;
+        }
+        if($check_views==0){
+            DB::table('product')
+                ->where('Slug','=', $slug)
+                ->update([
+                    'Views'=> $view + 1,
+                ]);
+            session()->put($slug,'hihi');
+        }
+
         return view('shop/productdetail', compact('data','variant','comment','relative','accept','star','quantity'));
     }
 
