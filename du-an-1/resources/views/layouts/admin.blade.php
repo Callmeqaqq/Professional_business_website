@@ -211,6 +211,9 @@ if (session('status')) {
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{url('admin/about/edit')}}">Quản lý trang giới thiệu</a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{url('admin/infomation')}}">Quản lý thông tin</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
