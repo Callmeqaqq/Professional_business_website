@@ -231,7 +231,7 @@
             <div class="container">
                 <div class="footer-bottom copyright text-center bg-gray-3">
                     <p>
-                        Copyright ©2021 | Tạo bởi <i class="fa fa-heart"></i> 
+                        Copyright ©2021 | Tạo bởi <i class="fa fa-heart"></i>
                         <a href="#" id="brandName">Loading...</a>.
                     </p>
                 </div>

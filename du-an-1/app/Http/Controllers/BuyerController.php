@@ -46,26 +46,27 @@ class BuyerController extends Controller
 
         $message =[
             'required'=> 'Bạn chưa nhập email',
-            'email' => 'Vui lòng nhập đúng định dạn email',
-            'exists'=> 'Tài khoản chưa đăng ký'
+            'forget-email' => 'Vui lòng nhập đúng định dạn email',
+            'exists'=> 'Tài khoản chưa đăng ký',
+            'email' => 'Không đúng định dạng'
         ];
         $validate = Validator::make($request->all(),[
-            'email' => 'required|email|exists:users'
+            'forget-email' => 'required|email|exists:users'
         ],$message);
         if($validate->fails()){
             return redirect('buyer/forgot')->withErrors($validate)->withInput();
         }
         $token = Str::random(150);
         DB::table('password_resets')->insert(
-            ['email' => $request->email, 'token' => $token]
+            ['email' => $request->forgetEmail, 'token' => $token]
         );
 
-        Mail::send('buyer/verify',['token' => $token,'email' => $request->email], function($message) use ($request) {
+        Mail::send('buyer/verify',['token' => $token,'email' => $request->forgetEmail], function($message) use ($request) {
             $message->from('vietpcps15786@fpt.edu.vn');
-            $message->to($request->email);
+            $message->to($request->forgetEmail);
             $message->subject('Reset Password Notification');
         });
-        $request->session()->put('email', $request->email);
+//        $request->session()->put('email', $request->forgetEmail);
         return redirect('buyer/forgot')->with('status', 'Chung tôi đã gửi cho bạn email xác thực mật khẩu mới');
     }
     function insertUser(Request $request)

@@ -3,6 +3,7 @@
     <div class="login-register-area pb-100 pt-95">
         <div class="container">
             <div id="{{$page}}"></div>
+            {{ Breadcrumbs::render('buyer',$page) }}
             <div class="row">
                 <div class="col-lg-8 col-md-12 offset-lg-2">
                     <div class="login-register-wrapper">
@@ -83,9 +84,9 @@
                                     <div class="login-register-form">
                                         <form action="{{route('buyer.postEmail')}}" id="post-email-forget" method="post">
                                             @csrf
-                                            <input type="email" name="email" placeholder="Nhâp email đã đăng ký"
-                                                   value="{{old('email')}}">
-                                            <span class="text-danger" id="err-email-forget">@error('email'){{$message}} @enderror</span>
+                                            <input type="email" name="forgetEmail" placeholder="Nhâp email đã đăng ký"
+                                                   value="{{old('forgetEmail')}}">
+                                            <span class="text-danger" id="err-email-forget">@error('forgetEmail'){{$message}} @enderror</span>
                                             <div class="button-box btn-hover">
                                                 <button type="submit">Gửi lại mật khẩu</button>
                                             </div>

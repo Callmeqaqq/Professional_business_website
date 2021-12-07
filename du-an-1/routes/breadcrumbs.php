@@ -69,3 +69,8 @@ Breadcrumbs::for('checkout', function (BreadcrumbTrail $trail) {
    $trail->parent('cart');
    $trail->push('Thanh toán', url('checkout'));
 });
+Breadcrumbs::for('buyer', function (BreadcrumbTrail $trail,$page) {
+    $trail->parent('home');
+    $url = 'buyer.'.$page;
+    $trail->push($page, url($url));
+});
