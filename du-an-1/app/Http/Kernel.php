@@ -94,6 +94,7 @@ class Kernel extends HttpKernel
         'isLogged' => \App\Http\Middleware\AuthCheck::class,
         'AlreadyLogIn' => \App\Http\Middleware\Alreadylogin::class,
         'role' => \App\Http\Middleware\RoleCheck::class,
+        'HandleOrder' => \App\Http\Middleware\HandleOrder::class,
 
         // default
         'auth' => \App\Http\Middleware\Authenticate::class,

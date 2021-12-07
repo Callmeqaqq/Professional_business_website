@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0bbda4a-3fbf-4b43-8e04-1b6eee43ea7f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/du-an-1/app/Http/Middleware/HandleOrder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/admin/order/order.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/admin/order/order.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/admin/order/order_render.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/admin/order/order_render.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/admin/order/orderdetail.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/admin/order/orderdetail.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/layouts/admin.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/du-an-1/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/app/Http/Kernel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/du-an-1/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -170,12 +168,17 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/du-an-1/app/Http/Middleware" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Hoai\OneDrive\Tài liệu\GitHub\MetaH\du-an-1\app\Http\Middleware" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
