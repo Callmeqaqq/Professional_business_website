@@ -108,10 +108,11 @@
                 url  : "{{url('/admin/order/update-status')}}/"+$(this).data('id')+'/'+$(this).data('status'),
             }).done(function (response) {
                 if (response) {
+                    Notiflix.Block.Standard('html');
                     Notiflix.Notify.Success("Cập nhật trạng thái đơn hàng thành công!");
                     setInterval(function () {
                         window.location.href = '/admin/order';
-                    }, 1000)
+                    }, 800)
                 }
             });
         });
