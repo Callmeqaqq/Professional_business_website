@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>MetaH - Mơ ước của mọi nhà</title>
+    <title id="title">Hello</title>
     <meta name="robots" content="noindex, follow"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     {{--    GoongMap--}}
@@ -40,7 +40,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-6 col-6">
                         <div class="logo">
-                            <a href="{{url('/')}}"><img src="{{asset('/images/logo/logo4.png')}}" alt="logo"/></a>
+                            <a href="{{url('/')}}"><img  id="logoImage" src="{{asset('/images/logo/logo4.png')}}" alt="logo"/></a>
                         </div>
                     </div>
                     <div class="col-lg-6 d-none d-lg-block d-flex justify-content-center">
@@ -174,7 +174,7 @@
                             <div class="footer-widget footer-about mb-40">
                                 <div class="footer-logo">
                                     <a href="{{url('')}}"
-                                    ><img src="{{asset('/images/logo/logo3.png')}}" alt="logo"
+                                    ><img id="footerLogo" src="{{asset('/images/logo/logo3.png')}}" alt="logo"
                                         /></a>
                                 </div>
                                 <p>
@@ -209,16 +209,16 @@
                         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                             <div
                                 class="footer-widget footer-widget-margin-2 footer-address mb-40">
-                                <h3 class="footer-title">Get in touch</h3>
+                                <h3 class="footer-title">Thông tin liên hệ</h3>
                                 <ul>
-                                    <li><span>Địa chỉ: </span>Your address goes here</li>
-                                    <li><span>Điện thoại:</span> (012) 345 6789</li>
-                                    <li><span>Email: </span>demo@example.com</li>
+                                    <li><span>Địa chỉ: </span><span id="address">loading...</span></li>
+                                    <li><span>Điện thoại: </span><span id="phone">loading...</span></li>
+                                    <li><span>Email: </span><span id="email">loading.../span></li>
                                 </ul>
                                 <div class="open-time">
                                     <p>
-                                        Mở cửa: <span>8:00 AM</span> - Đóng cửa:
-                                        <span>18:00 PM</span>
+                                        Mở cửa: <span id="open">loading...</span> - Đóng cửa:
+                                        <span id="close">loading...</span>
                                     </p>
                                 </div>
                             </div>
@@ -231,8 +231,8 @@
             <div class="container">
                 <div class="footer-bottom copyright text-center bg-gray-3">
                     <p>
-                        Copyright ©2021 | Tạo bởi <i class="fa fa-heart"></i>
-                        <a href="#"> MetaH</a>.
+                        Copyright ©2021 | Tạo bởi <i class="fa fa-heart"></i> 
+                        <a href="#" id="brandName">Loading...</a>.
                     </p>
                 </div>
             </div>
@@ -243,7 +243,7 @@
         <a class="off-canvas-close"><i class="ti-close"></i></a>
         <div class="off-canvas-wrap">
             <div class="welcome-text off-canvas-margin-padding">
-                <p>Chào mừng đén với MetaH</p>
+                <p>Chào mừng đến với <span id="mobileName"></span></p>
             </div>
             <div class="mobile-menu-wrap off-canvas-margin-padding-2">
                 <div id="mobile-menu" class="slinky-mobile-menu text-left">
@@ -377,8 +377,27 @@
         $('#total-quantity-show').text($('#total-quantity-cart').val());
     }
 </script>
-{{--Ajax bình luận sản phẩm--}}
 
+{{-- get infomation from server --}}
+<script>
+$(document).ready(function(){
+    $.ajax({ url: "{{url('api/getInfomation')}}",
+        context: document.body,
+        success: function(res){
+            $('#title').html(res.name+' - Mơ uớc của mọi nhà');
+            $("#logoImage").attr("src", res.logoUrl);
+            $("#footerLogo").attr("src", res.logoUrl);
+            $("#email").text(res.email);
+            $("#address").text(res.address);
+            $("#phone").text(res.phone);
+            $("#open").text(res.openTime);
+            $("#close").text(res.closeTime);
+            $("#mobileName").text(res.name);
+            $("#brandName").text(res.name);
+        }
+    });
+});
+</script>
     @yield('scripts')
 </body>
 </html>

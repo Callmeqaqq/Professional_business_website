@@ -31,7 +31,6 @@ class HomeController extends Controller
                 ->select('blog.Title', 'Blog_des as desc', 'blog.slug as slug', 'blog.thumbnail', 'blog_category.slug as cateSlug', 'users.Fullname')
                 ->limit(3)
                 ->get();
-        $info = DB::table('about')->first();
-        return view('home', compact('data', 'sliders', 'company', 'discount', 'news', 'info'));
+        return view('home', compact('data', 'sliders', 'company', 'discount', 'news',));
     }
 }
