@@ -67,7 +67,7 @@
                                             <input type="email" name="email" placeholder="Email"
                                                    value="{{old('email')}}">
                                             <span class="text-danger">@error('email'){{$message}} @enderror</span>
-                                            <input type="password" name="password" placeholder="Mật Khẩu">
+                                            <input type="password" name="password" id="password-register" placeholder="Mật Khẩu">
                                             <span class="text-danger">@error('password'){{$message}} @enderror</span>
                                             <input type="password" name="password_confirmation" placeholder="Xác thực mật Khẩu">
                                             <span class="text-danger">@error('password'){{$message}} @enderror</span>

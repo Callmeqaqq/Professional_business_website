@@ -20,9 +20,9 @@ class BuyerController extends Controller
     {
 
         $preUrl = explode( $request->getSchemeAndHttpHost(),url()->previous() )[1];
+
         if($preUrl !== '/buyer/login' && $preUrl !== '/buyer/logout'){
             $urlCut = explode('/',$preUrl)[1];
-            var_dump($urlCut);
             if($urlCut==='admin'){
                $urlBack = $request->getSchemeAndHttpHost().'/admin';
             }else{

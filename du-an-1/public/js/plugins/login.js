@@ -49,7 +49,7 @@ $(document).ready(function () {
             password_confirmation: {
                 required: true,
                 minlength: 6,
-                equalTo: "#password"
+                equalTo: "#password-register"
             }
         }, messages: {
             name: 'Vui lòng nhập họ và tên',
