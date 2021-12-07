@@ -242,6 +242,7 @@ Route::prefix('api')->group(function () {
     Route::post('/user/{id}/unactive', 'admin\userController@unactive');
     Route::post('/user/{id}/changePassword', 'admin\userController@changePassword');
     Route::post('/about/update', 'admin\aboutController@update');
+    Route::post('/information/update', 'admin\aboutController@informationUpdate');
 });
 Route::get('admin/blog', 'admin\BlogController@index')
     ->middleware('role:Writer,Manager,SuperAdmin', 'check_view_permissions');
@@ -273,8 +274,11 @@ Route::get('admin/order/order-by-status/{Status}', 'admin\AdminOrderController@S
 
 Route::get('admin/users/', 'admin\userController@index')
     ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
-Route::get('admin/users/{id}', 'admin\userController@detail')
+Route::get('admin/users/{id}/detail', 'admin\userController@detail')
     ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
 Route::get('admin/users/rank', 'admin\userController@rankView')
     ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
 
+// Infomation setup 
+Route::get('admin/infomation', 'admin\aboutController@setupView')
+    ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');

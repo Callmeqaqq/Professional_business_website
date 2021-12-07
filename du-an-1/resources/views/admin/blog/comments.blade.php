@@ -27,8 +27,8 @@
                                 <td>{{$item->Title}}</td>
                                 <td>{{$item->createAt}}</th>
                                 <td>
-                                  <a value="{{$item->id}}" onclick="{{($item->status == 0) ? 'active(this)' :  "unactive(this)"}}" type="button" class="btn btn-outline-primary  p-1">{{($item->status == 0) ? ' Duyệt' :  ' Huỷ duyệt'}}</a>
-                                  <button value="{{$item->id}}" onclick="deleteRq(this)" type="button" class="btn btn-outline-danger p-1">Xoá</button>
+                                  <a value="{{$item->id}}" onclick="{{($item->status == 0) ? 'active(this)' :  "unactive(this)"}}" type="button" class="btn btn-outline-primary">{{($item->status == 0) ? ' Duyệt' :  ' Huỷ duyệt'}}</a>
+                                  <button value="{{$item->id}}" onclick="deleteRq(this)" type="button" class="btn btn-outline-danger">Xoá</button>
                                 </td>
                             </tr>
                             @endforeach()

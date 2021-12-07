@@ -259,7 +259,7 @@ if (session('status')) {
                                             <a class="nav-link" href="{{url('admin/users')}}">Danh sách người dùng</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#">Xếp hạng chi tiêu thành viên</a>
+                                            <a class="nav-link" href="{{url('admin/users/rank')}}">Xếp hạng chi tiêu thành viên</a>
                                         </li>
                                     </ul>
                                 </div>

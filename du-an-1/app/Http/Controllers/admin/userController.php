@@ -165,6 +165,16 @@ class userController extends Controller
     }
 
     function rankView(){
-
+        $data = DB::table('users')
+        ->join('orders', 'orders.UserId', 'users.UserId')
+        ->select('users.UserId', 'users.Fullname', DB::raw('ifnull(count(*), 0) as count'), DB::raw('ifnull(count(*), 0) as count'), DB::raw('sum(ToPay) as sum'))
+        ->groupBy('users.UserId')
+        ->where('orders.StatusId', 5)
+        ->orderByDesc('sum')
+        ->get()
+        ->each(function ($row, $index) {
+            $row->no = $index + 1;
+        });
+        return view('admin.user.topBuy', compact('data'));
     }
 }
