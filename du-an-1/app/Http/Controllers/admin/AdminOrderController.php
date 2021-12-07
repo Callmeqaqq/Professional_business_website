@@ -104,7 +104,7 @@ class AdminOrderController extends Controller
         if ($statusId == 2){
             return 'Đơn hàng đã được xác nhận bởi '.$user->Fullname;
         } else if ($statusId == 3) {
-            return 'Đơn hàng đang được giao bởi '.$user->Fullname;
+            return 'Đơn hàng đang được giao!';
         } else if ($statusId == 4) {
             return 'Đơn hàng đã được giao thành công đến khách hàng!';
         } else {
