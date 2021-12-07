@@ -26,6 +26,7 @@
                           <label for="editor">Nội dung</label>
                           <textarea id="editor" class="form-control" rows="3">{{$data->content}}</textarea>
                         </div>
+                        <div>
                             <label for="thumbnail" class="col-sm-2 col-form-label">Thumbnail</label>
                             <div class="dropzone" id="thumbnail" type="file"></div>
                             <span>Chỉ tải lên ảnh mới khi bạn muốn cập nhật thumbnail</span>

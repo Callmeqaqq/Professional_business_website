@@ -211,6 +211,9 @@ if (session('status')) {
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{url('admin/about/edit')}}">Quản lý trang giới thiệu</a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{url('admin/infomation')}}">Quản lý thông tin</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -259,7 +262,7 @@ if (session('status')) {
                                             <a class="nav-link" href="{{url('admin/users')}}">Danh sách người dùng</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#">Xếp hạng chi tiêu thành viên</a>
+                                            <a class="nav-link" href="{{url('admin/users/rank')}}">Xếp hạng chi tiêu thành viên</a>
                                         </li>
                                     </ul>
                                 </div>

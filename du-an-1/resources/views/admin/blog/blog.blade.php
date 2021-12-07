@@ -39,11 +39,11 @@
                                     </td>
                                     <td>
                                         <a href="{{url('admin/blog/'.$item->id.'/commentList')}}" type="button"
-                                           class="btn btn-outline-info p-1"><i class="fab fa-info"></i>Chi tiết</a>
+                                           class="btn btn-outline-primary"><i class="fab fa-info"></i>Xem bình luận</a>
                                         <a href="{{url('admin/blog/'.$item->id.'/edit')}}" type="button"
-                                           class="btn btn-outline-primary p-1"><i class="fab fa-edit"></i>Sửa</a>
+                                           class="btn btn-outline-primary"><i class="fab fa-edit"></i>Sửa</a>
                                         <button value="{{$item->id}}" onclick="deleteRq(this)" type="button"
-                                                class="btn btn-outline-danger  p-1"><i class="fab fa-trash"></i>Xoá
+                                                class="btn btn-outline-danger"><i class="fab fa-trash"></i>Xoá
                                         </button>
                                     </td>
                                 </tr>

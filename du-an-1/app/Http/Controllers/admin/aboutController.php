@@ -39,4 +39,75 @@ class aboutController extends Controller
         }
         return response()->json($rs);
     }
+
+    public function setupView(){
+        $data = DB::table('about')
+                ->where('AboutID', 1)
+                ->first();
+        return view('admin.infomationSetup', compact('data'));
+    }
+
+    public function informationUpdate(Request $request){
+        $name = $request->input('Name');
+        $phone = $request->input('Phone');
+        $address = $request->input('Address');
+        $facebook = $request->input('Facebook');
+        $instagram = $request->input('Instagram');
+        $zalo = $request->input('Zalo');
+        $logo = $request->input('Logo');
+        $openTime = $request->input('OpenTime');
+        $closeTime = $request->input('CloseTime');
+        $email = $request->input('Email');
+        $wrong = "";
+        $rs = [
+            "success" => false,
+            "code" => 200,
+            "messages" => "Có lỗi trong quá trình xử lý"
+        ];
+        if($name == null || $name == ""){
+            $wrong .= "Không để trống tên thương hiệu";
+        }
+        if($phone == null || $phone == ""){
+            $wrong .= "Không để trống số điện thoại";
+        }
+        if($address == null || $address == ""){
+            $wrong .= "Không để trống số điện thoại";
+        }
+        if($facebook == null || $facebook == ""){
+            $wrong .= "Không để trống liên kết Facebook";
+        }
+        if($instagram == null || $instagram == ""){
+            $wrong .= "Không để trống liên kết Instagram";
+        }
+        if($zalo == null || $zalo == ""){
+            $wrong .= "Không để trống liên kết Zalo";
+        }
+        if($email == null || $email == ""){
+            $wrong .= "Không để trống địa chỉ Email";
+        }
+        if($wrong == ""){
+            $affected = DB::table('about')
+            ->where('AboutID', 1)
+            ->update([
+                'Name' => $name,
+                'Phone' => $phone,
+                'Address' => $address,
+                'Facebook' => $facebook,
+                'Instagram' => $instagram,
+                'Zalo' => $zalo,
+                'Logo' => $logo,
+                'Email' => $email,
+                'OpenTime' => $openTime,
+                'CloseTime' => $closeTime,
+            ]);
+            $rs = [
+                "success" => true,
+                "code" => 200,
+                "messages" => "Cập nhật thành công"
+            ];
+        }else{
+            $rs['messages'] = $wrong;
+        }
+        return response()->json($rs);
+    }
 }
