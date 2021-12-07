@@ -110,4 +110,22 @@ class aboutController extends Controller
         }
         return response()->json($rs);
     }
+
+    public function getInfomation(){
+        $data = DB::table('about')
+                ->first();
+        $rs = [
+            "logoUrl" => asset('images/blog').'/'.$data->Logo,
+            "name" => $data->Name,
+            "email" => $data->Email,
+            "phone" => $data->Phone,
+            "openTime" => date('G:i', strtotime($data->OpenTime)),
+            "closeTime" => date('G:i', strtotime($data->CloseTime)),
+            "facebook" => $data->Facebook,
+            "instagram" => $data->Instagram,
+            "zalo" => $data->Zalo,
+            "address" => $data->Address,
+        ];
+        return response()->json($rs);
+    }
 }
