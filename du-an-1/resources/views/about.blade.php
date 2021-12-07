@@ -13,8 +13,8 @@
                             </div>
                             <div class="social-comment-digit-wrap" data-aos="fade-up" data-aos-delay="400">
                                 <div class="social-icon-style-2">
-                                    <a target="_blank" href="https://facebook.com/sharer.php?u={{url()->full()}}"><i class="fa fa-facebook"></i></a>
-                                    <a target="_blank" href="https://twitter.com/intent/tweet?url={{url()->full()}}"><i class="fa fa-twitter"></i></a>
+                                    <a target="_blank" href="https://facebook.com/sharer.php?u={{url()->full()}}"><i class="fab fa-facebook-f"></i></a>
+                                    <a target="_blank" href="https://twitter.com/intent/tweet?url={{url()->full()}}"><i class="fab fa-twitter"></i></a>
                                 </div>
                             </div>
                         </div>

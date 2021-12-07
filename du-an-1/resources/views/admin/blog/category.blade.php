@@ -5,7 +5,9 @@
             <div class="card">
                 <h3 class="card-header">Danh mục bài viết</h3>
                 <div>
-                    <button style="float: right" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addNew">Thêm mới</button>
+                    @if(Session::has('Create') || Session::has('Full')) 
+                      <button style="float: right" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addNew">Thêm mới</button>
+                    @endif
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -27,8 +29,12 @@
                                 <td>{{$item->slug}}</td>
                                 <td></td>
                                 <td>
-                                  <a href="{{url('admin/blog/category/'.$item->Blog_CategoryID.'/edit')}}" type="button" class="btn btn-outline-primary p-1"><i class="fab fa-edit"></i>Sửa</a>
-                                  <button value="{{$item->Blog_CategoryID}}" onclick="deleteRq(this)" type="button" class="btn btn-outline-danger p-1"><i class="fab fa-trash"></i>Xoá</button>
+                                  @if(Session::has('Edit') || Session::has('Full')) 
+                                    <a href="{{url('admin/blog/category/'.$item->Blog_CategoryID.'/edit')}}" type="button" class="btn btn-outline-info"><i class="fab fa-edit"></i>Sửa</a>
+                                  @endif
+                                  @if(Session::has('Delete') || Session::has('Full'))
+                                    <button value="{{$item->Blog_CategoryID}}" onclick="deleteRq(this)" type="button" class="btn btn-outline-danger"><i class="fab fa-trash"></i>Xoá</button>
+                                  @endif
                                 </td>
                             </tr>
                             @endforeach()

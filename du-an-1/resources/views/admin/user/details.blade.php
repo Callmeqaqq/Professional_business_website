@@ -42,7 +42,7 @@
                 <h3 class="card-header">Đơn hàng gần đây của {{$data->Fullname}} ({{count($orders)}})</h3>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="categoryTable" class="table table-striped">
+                        <table id="orderTable" class="table table-striped">
                             <thead>
                               <tr>
                                 <th scope="col">#</th>
@@ -221,4 +221,33 @@
         })
     }
 </script>
+<script>
+    $(document).ready(function () {
+        $("#orderTable").DataTable({
+            lengthMenu: [10, 20, 30],
+            language: {
+                processing: "Đang tải dữ liệu",
+                search: "Tìm kiếm: ",
+                lengthMenu: "Lượng hiển thị:  " + " _MENU_ ",
+                info: "_START_ - _END_ / _TOTAL_",
+                infoEmpty: "Không có dữ liệu",
+                infoFiltered: "(Trên tổng _MAX_ mục)",
+                infoPostFix: " đơn hàng", // Cái này khi thêm vào nó sẽ đứng sau info
+                loadingRecords: "",
+                zeroRecords: "Không tồn tại dữ liệu cần tìm",
+                emptyTable: "Không có dữ liệu",
+                paginate: {
+                    first: "Trang đầu",
+                    previous: "<",
+                    next: ">",
+                    last: "Trang cuối",
+                },
+                aria: {
+                    sortAscending: ": Đang sắp xếp theo column",
+                    sortDescending: ": Đang sắp xếp theo column",
+                },
+            },
+        });
+    });
+  </script>
 @stop()
