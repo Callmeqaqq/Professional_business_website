@@ -29,7 +29,7 @@ class BuyerController extends Controller
                 $urlBack = url()->previous();
             }
             $request->session()->put('backUrl',$urlBack);
-            echo $urlBack;
+//            echo $urlBack;
         }
 
         return view('buyer/buyer')->with('page', 'login');
