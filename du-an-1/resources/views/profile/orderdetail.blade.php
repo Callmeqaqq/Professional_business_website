@@ -28,7 +28,15 @@
                 </tbody>
             </table>
         </div>
-        <p style="text-align: right; margin-top: 15px;">Phí vận chuyển: <b>{{number_format($orderDetail[0]->ShipFee)}} VNĐ</b></p>
-        <p style="text-align: right; margin-top: 15px; font-size: 16px;">Tổng tiền: <b>{{number_format($orderDetail[0]->ToPay)}} VNĐ</b></p>
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap; align-items: start; width: 100%; justify-content: space-between; margin-top: 15px;">
+            <div>
+                <p>Ngày giao hàng(dự kiến): <b>{{$orderDetail[0]->ShipDate}}</b></p>
+            </div>
+            <div>
+                <p>Phí vận chuyển: <b>{{number_format($orderDetail[0]->ShipFee)}} VNĐ</b></p>
+                <p style="font-size: 16px;">Tổng tiền: <b>{{number_format($orderDetail[0]->ToPay)}} VNĐ</b></p>
+            </div>
+        </div>
+
     </div>
 </div>

@@ -67,6 +67,15 @@ class CheckoutController extends Controller
 
         $Lasted_order_id = DB::table('orders')->latest('OrderId')->value('OrderId');
 
+        //insert to table historyOrder
+        DB::table('historyorder')->insert([
+            'CreateAt' => $create_time,
+            'StatusId' => $status,
+            'OrderId' => $Lasted_order_id,
+            'UserId' => $create_by,
+            'Description' => 'Đã nhận đơn hàng mới #'.$Lasted_order_id.' từ '.$full_name
+        ]);
+
         //product & variant insert into order detail
         $cart = Session::get('Cart')->products;
         foreach ($cart as $item) {

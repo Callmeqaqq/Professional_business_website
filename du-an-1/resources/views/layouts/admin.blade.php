@@ -268,7 +268,7 @@ if (session('status')) {
                                 <div id="submenu-11" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{route('admin.order')}}">Xem tất cả đơn hàng</a>
+                                            <a class="nav-link" href="{{route('admin.order')}}">Quản lí đơn hàng</a>
                                         </li>
                                     </ul>
                                 </div>

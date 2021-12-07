@@ -5,15 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0bbda4a-3fbf-4b43-8e04-1b6eee43ea7f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/admin/AdminOrderController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/du-an-1/resources/views/admin/order/order.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/du-an-1/resources/views/admin/order/orderdetail.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/CheckoutController.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/CheckoutController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/Profile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/admin/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/admin/AdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/public/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/public/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/admin/blog/blog.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/admin/blog/blog.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/admin/AdminOrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/admin/AdminOrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/admin/order/order.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/admin/order/order.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/admin/order/order_render.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/admin/order/order_render.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/admin/order/orderdetail.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/admin/order/orderdetail.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/cart/cart.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/cart/cart.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/cart/cartlist.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/cart/cartlist.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/layouts/admin.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/layouts/site.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/layouts/site.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/profile.blade.php" afterDir="false" />
@@ -197,6 +197,7 @@
       <workItem from="1636339255286" duration="908000" />
       <workItem from="1636340176529" duration="564000" />
       <workItem from="1637899215251" duration="24907000" />
+      <workItem from="1638601562062" duration="35249000" />
     </task>
     <servers />
   </component>

@@ -164,7 +164,7 @@
             if (quantity && Number(quantity) && quantity % 1 === 0 && quantity > 0) {
                 $.ajax({
                     type : 'GET',
-                    url  : '../cart/check-quantity'+'/'+slug+'/'+variantId+'/'+quantity+'/'+2,
+                    url  : "{{url('/cart/check-quantity')}}/"+slug+'/'+variantId+'/'+quantity+'/'+2,
                 }).done(function (res) {
                     if (res) {
                         $.confirm({
@@ -179,7 +179,7 @@
                     } else {
                         $.ajax({
                             type : 'GET',
-                            url  : 'cart/save-item-list-cart/'+slug+'/'+variantId+'/'+quantity,
+                            url  : "{{url('cart/save-item-list-cart')}}/"+slug+'/'+variantId+'/'+quantity,
                         }).done(function (response) {
                             if (response) {
                                 RenderListCart(response);
@@ -242,7 +242,7 @@
                 if (lists.length > 0) {
                     $.ajax({
                         type : 'POST',
-                        url  : 'cart/save-all-list-cart',
+                        url  : "{{url('cart/save-all-list-cart')}}",
                         data : {
                             "_token" : "{{csrf_token()}}",
                             "data" : lists
@@ -265,7 +265,7 @@
                     'Xác nhận': function () {
                         $.ajax({
                             type : 'POST',
-                            url  : 'cart/delete-all-list-cart',
+                            url  : "{{url('cart/delete-all-list-cart')}}",
                         }).done(function (response) {
                             if (response) {
                                 RenderListCart(response);

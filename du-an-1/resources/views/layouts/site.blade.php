@@ -324,7 +324,8 @@
             if (quantity && Number(quantity) && quantity % 1 === 0 && quantity > 0) {
                 $.ajax({
                     type : 'GET',
-                    url  : '../cart/check-quantity'+'/'+slug+'/'+variant.data('id')+'/'+quantity+'/'+1,
+                    // url  : '../cart/check-quantity'+'/'+slug+'/'+variant.data('id')+'/'+quantity+'/'+1,
+                    url : "{{url('/cart/check-quantity')}}/"+slug+'/'+variant.data('id')+'/'+quantity+'/'+1,
                 }).done(function (res) {
                     if (res) {
                         $.alert({
@@ -334,7 +335,7 @@
                     } else {
                         $.ajax({
                             type : 'GET',
-                            url  : '../cart/add-cart/'+slug+'/'+variant.data('id')+'/'+quantity,
+                            url  : "{{url('/cart/add-cart')}}/"+slug+'/'+variant.data('id')+'/'+quantity,
                         }).done(function (response) {
                             if (response) {
                                 RenderCart(response);
@@ -344,9 +345,14 @@
                     }
                 })
             } else {
-                $.alert({
+                $.confirm({
                     title: 'Lỗi!',
                     content: 'Vui lòng nhập vào số nguyên và lớn hơn 0!',
+                    buttons: {
+                        'Ok': function () {
+                            $(".quantity-add-cart").val(1);
+                        },
+                    }
                 });
             }
         } else {
@@ -360,7 +366,7 @@
     $('#list-cart').on("click", ".btn-delete-item-cart", function() {
         $.ajax({
             type : 'GET',
-            url  : '../cart/delete-item-cart/'+$(this).data('slug')+'/'+$(this).data('variant'),
+            url  : "{{url('/cart/delete-item-cart')}}/"+$(this).data('slug')+'/'+$(this).data('variant'),
         }).done(function (response) {
             if (response) {
                 RenderCart(response);
