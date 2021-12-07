@@ -76,18 +76,27 @@ class AdminOrderController extends Controller
     function UpdateStatus(Request $request, $orderId, $status) {
         $create_time = Carbon::now();
         $userId = Session::get('LoggedUser');
-        $UpdateOrder = DB::table('orders')
-            ->where('OrderId', $orderId)
-            ->update(['StatusId' => $status]);
-        $insertOder = DB::table('historyorder')->insert([
-            'CreateAt' => $create_time,
-            'StatusId' => $status,
-            'OrderId' => $orderId,
-            'UserId' => $userId,
-            'Description' => $this->InsertDescriptionOfHistoryOrder($status, $userId),
-        ]);
 
-        return $UpdateOrder && $insertOder;
+        $result = DB::table('historyorder')
+            ->Where('OrderId', $orderId)
+            ->Where('UserId', $userId)
+            ->Where('StatusId', $status)
+            ->Value('HistoryOrderId');
+
+        if (!$result) {
+            $UpdateOrder = DB::table('orders')
+                ->where('OrderId', $orderId)
+                ->update(['StatusId' => $status]);
+            $insertOder = DB::table('historyorder')->insert([
+                'CreateAt' => $create_time,
+                'StatusId' => $status,
+                'OrderId' => $orderId,
+                'UserId' => $userId,
+                'Description' => $this->InsertDescriptionOfHistoryOrder($status, $userId),
+            ]);
+
+            return $UpdateOrder && $insertOder;
+        }
     }
 
     function InsertDescriptionOfHistoryOrder($statusId, $userId) {
@@ -97,7 +106,7 @@ class AdminOrderController extends Controller
         } else if ($statusId == 3) {
             return 'Đơn hàng đang được giao bởi '.$user->Fullname;
         } else if ($statusId == 4) {
-            return 'Đơn hàng đã giao thành công đến khách hàng!';
+            return 'Đơn hàng đã được giao thành công đến khách hàng!';
         } else {
             return 'Đơn hàng đã hủy bởi '.$user->Fullname;
         }

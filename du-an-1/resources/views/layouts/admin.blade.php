@@ -270,7 +270,7 @@ if (session('status')) {
                         @endif
 
                         {{--order--}}
-                        @if(session('UserRole') == 'Sale' || session('UserRole') == 'SuperAdmin' || session('UserRole') == 'Manager')
+                        @if(session('UserRole') == 'Sale' || session('UserRole') == 'Warehouse' || session('UserRole') == 'Shipper' || session('UserRole') == 'SuperAdmin' || session('UserRole') == 'Manager')
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse"
                                    aria-expanded="false" data-target="#submenu-11" aria-controls="submenu-9">
