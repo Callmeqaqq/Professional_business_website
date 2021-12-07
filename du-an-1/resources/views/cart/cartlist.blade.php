@@ -185,7 +185,7 @@
             if (lists.length > 0) {
                 $.ajax({
                     type : 'POST',
-                    url  : 'cart/save-all-list-cart',
+                    url  : "{{url('cart/save-all-list-cart')}}",
                     data : {
                         "_token" : "{{csrf_token()}}",
                         "data" : lists
@@ -208,7 +208,7 @@
                 'Xác nhận': function () {
                     $.ajax({
                         type : 'POST',
-                        url  : 'cart/delete-all-list-cart',
+                        url  : "{{url('cart/delete-all-list-cart')}}",
                     }).done(function (response) {
                         if (response) {
                             RenderListCart(response);

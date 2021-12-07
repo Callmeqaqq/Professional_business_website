@@ -11,20 +11,22 @@
                     <p style="margin: 6px;">Số điện thoại: {{$orderDetail[0]->Phone}}</p>
                     <p style="margin: 6px;">Địa chỉ: {{$orderDetail[0]->Address}}</p>
                     <p style="margin: 6px;">Ngày đặt hàng: {{$orderDetail[0]->CreateAt}}</p>
-                    <form action="">
-                        <div class="form-group" style="padding: 15px 0px;">
-                            <select style="padding: 5px 12px;" name="sltStatus" id="sltStatus">
-                                @foreach($status as $value)
-                                    @if ($value->StatusId == $orderDetail[0]->StatusId)
-                                        <option value="{{$value->StatusId}}" selected>{{$value->StatusName}}</option>
-                                    @else
-                                        <option value="{{$value->StatusId}}">{{$value->StatusName}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            <button name="btnUpdateStatus" data-id="{{$orderDetail[0]->OrderId}}" class="btn btn-primary text-white p-1">Cập nhật</button>
-                        </div>
-                    </form>
+                    <div class="form-group" style="padding: 15px 0px;">
+                        <?php $i = 0?>
+                        @foreach($status as $value)
+                            @if ($value->StatusId == $orderDetail[0]->StatusId)
+                                @if($value->StatusId == 1)
+                                    <button style="text-transform: capitalize;" name="btnUpdateStatus" data-id="{{$orderDetail[0]->OrderId}}" data-status="5" class="btn btn-danger btn-sm">Hủy đơn</button>
+                                @endif
+                                <?php $i++; ?>
+                                @continue
+                            @endif
+                            @if($i == 1 && $value->Status)
+                                <button style="text-transform: capitalize;" name="btnUpdateStatus" data-id="{{$orderDetail[0]->OrderId}}" data-status="{{$value->StatusId}}" class="btn btn-primary btn-sm">{{$value->Status}}</button>
+                                @break
+                            @endif
+                        @endforeach
+                    </div>
                     <div class="table-responsive">
                         <table id="table3" class="table table-striped">
                             <thead>
@@ -54,6 +56,15 @@
                         <p style="text-align: left; font-size: 16px; margin-top: 15px;">Phí vận chuyển: <b>{{number_format($orderDetail[0]->ShipFee)}} VNĐ</b></p>
                         <p style="text-align: left; font-size: 18px; margin-top: 15px;">Tổng tiền: <b>{{number_format($orderDetail[0]->ToPay)}} VNĐ</b></p>
                     </div>
+                    @if ($userRole == 'Manager' || $userRole == 'SuperAdmin')
+                    <div style="margin-top: 15px;">
+                        <hr>
+                        <h3>Lịch sử</h3>
+                        @foreach($historyOrder as $item)
+                            <p><b>{{$item->CreateAt}}</b>: {{$item->Description}}</p>
+                        @endforeach
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -92,10 +103,13 @@
 
             $.ajax({
                 type : 'GET',
-                url  : '../../../admin/order/update-status/'+$(this).data('id')+'/'+$('select[name="sltStatus"]').val(),
+                url  : "{{url('/admin/order/update-status')}}/"+$(this).data('id')+'/'+$(this).data('status'),
             }).done(function (response) {
                 if (response) {
                     Notiflix.Notify.Success("Cập nhật trạng thái đơn hàng thành công!");
+                    setInterval(function () {
+                        window.location.href = '/admin/order';
+                    }, 1000)
                 }
             });
         });

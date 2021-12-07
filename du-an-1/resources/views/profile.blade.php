@@ -60,10 +60,10 @@
                                                     @foreach($orders as $item)
                                                         <tr>
                                                             <td>{{$i++}}</td>
-                                                            <td>{{$item->ShipDate}}</td>
-                                                            @if ($item->StatusId == 1 || $item->StatusId == 6)
+                                                            <td>{{$item->CreateAt}}</td>
+                                                            @if ($item->StatusId == 1 || $item->StatusId == 5)
                                                                 <td style="color: #d0011b;">{{$item->StatusName}}</td>
-                                                            @elseif ($item->StatusId == 5)
+                                                            @elseif ($item->StatusId == 4)
                                                                 <td style="color: #1bc88c;">{{$item->StatusName}}</td>
                                                             @else
                                                                 <td style="color: orange;">{{$item->StatusName}}</td>
