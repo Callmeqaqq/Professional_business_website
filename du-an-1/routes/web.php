@@ -263,13 +263,13 @@ Route::get('admin/about/edit', 'admin\aboutController@index');
 
 
 Route::get('admin/order', 'admin\AdminOrderController@index')->name('admin.order')
-    ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
+    ->middleware('HandleOrder', 'check_view_permissions');
 Route::get('admin/order/order-detail/{OrderId}', 'admin\AdminOrderController@OrderDetail')->name('admin.order_detail')
-    ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
+    ->middleware('HandleOrder', 'check_view_permissions');
 Route::get('admin/order/update-status/{OrderId}/{Status}', 'admin\AdminOrderController@UpdateStatus')->name('admin.update_status')
-    ->middleware('role:Sale,Manager,SuperAdmin', 'check_edit_permissions');
+    ->middleware('HandleOrder', 'check_edit_permissions');
 Route::get('admin/order/order-by-status/{Status}', 'admin\AdminOrderController@ShowByStatusOrder')->name('admin.show_order_by_status')
-    ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
+    ->middleware('HandleOrder', 'check_view_permissions');
 
 Route::get('admin/users/', 'admin\userController@index')
     ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
