@@ -270,7 +270,6 @@ Route::get('admin/order/update-status/{OrderId}/{Status}', 'admin\AdminOrderCont
     ->middleware('role:Sale,Manager,SuperAdmin', 'check_edit_permissions');
 Route::get('admin/order/order-by-status/{Status}', 'admin\AdminOrderController@ShowByStatusOrder')->name('admin.show_order_by_status')
     ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
-;
 
 Route::get('admin/users/', 'admin\userController@index')
     ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
@@ -279,6 +278,6 @@ Route::get('admin/users/{id}/detail', 'admin\userController@detail')
 Route::get('admin/users/rank', 'admin\userController@rankView')
     ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
 
-// Infomation setup 
+// Infomation setup
 Route::get('admin/infomation', 'admin\aboutController@setupView')
     ->middleware('role:Sale,Manager,SuperAdmin', 'check_view_permissions');
