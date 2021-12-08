@@ -1,12 +1,12 @@
 $(document).ready(function () {
     $("#post-email-forget").validate({
         rules: {
-            email: {
+            forgetEmail: {
                 required: true,
                 email: true
             },
         }, messages: {
-            email: {
+            forgetEmail: {
                 required: 'Vui lòng nhập email',
                 email: 'Vui lòng đúng định dạng email'
             }
