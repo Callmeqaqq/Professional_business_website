@@ -112,7 +112,7 @@
                     Notiflix.Notify.Success("Cập nhật trạng thái đơn hàng thành công!");
                     setInterval(function () {
                         window.location.href = '/admin/order';
-                    }, 800)
+                    }, 400)
                 }
             });
         });
