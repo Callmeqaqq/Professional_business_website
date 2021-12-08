@@ -102,7 +102,7 @@
 
                                                 <div class="single-input-item">
                                                     <label for="email" class="required">Mật khẩu mới
-                                                        <input type="password" id="password_new" name="password" placeholder="nhập mật khẩu mới"/>
+                                                        <input type="password" id="password_new" name="password " placeholder="nhập mật khẩu mới"/>
                                                         <span class="text-danger">@error('password') {{$message}} @enderror</span>
                                                     </label>
                                                 </div>

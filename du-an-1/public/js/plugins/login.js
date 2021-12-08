@@ -68,10 +68,13 @@ $(document).ready(function () {
             }
         }
     })
-    $('input[name="email"]').keyup(function(){
+    $('input[name="forgetEmail"]').keyup(function(){
         $('#err-email-forget').hide();
     })
+    $('input[name="email"]').keyup(function(){
+        $('#email-error').hide();
+    })
     $('input[name="loginEmail"]').keyup(function(){
-        $('#err-email-forget').hide();
+        $('#error-login-email').hide();
     })
 })

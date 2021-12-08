@@ -72,11 +72,11 @@ class Profile extends Controller
             return redirect('/profile/change_pass')->withErrors($validate)->withInput();
         }
         $user = DB::table('users')->select('password')->where('UserId','=', Session('LoggedUser'))->get()->first();
-        if (Hash::check($request->password,  $user->password)) {
+        if (Hash::check($request['password-current'],  $user->password)) {
             $query = DB::table('users')
                 ->where('UserId','=', Session('LoggedUser'))
                 ->update([
-                    'password' => Hash::make($request->password),
+                    'password' => Hash::make($request['password-current']),
                 ]);
             if($request){
                 return back()->with('status','Cập nhật thành công');

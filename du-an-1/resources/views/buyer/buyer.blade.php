@@ -84,9 +84,9 @@
                                     <div class="login-register-form">
                                         <form action="{{route('buyer.postEmail')}}" id="post-email-forget" method="post">
                                             @csrf
-                                            <input type="email" name="forgetEmail" placeholder="Nhâp email đã đăng ký"
-                                                   value="{{old('forgetEmail')}}">
-                                            <span class="text-danger" id="err-email-forget">@error('forgetEmail'){{$message}} @enderror</span>
+                                            <input type="email" name="email" placeholder="Nhâp email đã đăng ký"
+                                                   value="{{old('email')}}">
+                                            <span class="text-danger" id="err-email-forget">@error('email'){{$message}} @enderror</span>
                                             <div class="button-box btn-hover">
                                                 <button type="submit">Gửi lại mật khẩu</button>
                                             </div>

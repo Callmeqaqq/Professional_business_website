@@ -29,7 +29,7 @@ class BuyerController extends Controller
                 $urlBack = url()->previous();
             }
             $request->session()->put('backUrl',$urlBack);
-//            echo $urlBack;
+            echo $urlBack;
         }
 
         return view('buyer/buyer')->with('page', 'login');
@@ -46,27 +46,25 @@ class BuyerController extends Controller
 
         $message =[
             'required'=> 'Bạn chưa nhập email',
-            'forget-email' => 'Vui lòng nhập đúng định dạn email',
+            'email' => 'Vui lòng nhập đúng định dạn email',
             'exists'=> 'Tài khoản chưa đăng ký',
-            'email' => 'Không đúng định dạng'
         ];
         $validate = Validator::make($request->all(),[
-            'forget-email' => 'required|email|exists:users'
+            'email' => 'required|email|exists:users'
         ],$message);
         if($validate->fails()){
             return redirect('buyer/forgot')->withErrors($validate)->withInput();
         }
         $token = Str::random(150);
-        DB::table('password_resets')->insert(
-            ['email' => $request->forgetEmail, 'token' => $token]
+        $check = DB::table('password_resets')->insert(
+            ['email' => $request->email, 'token' => $token]
         );
-
-        Mail::send('buyer/verify',['token' => $token,'email' => $request->forgetEmail], function($message) use ($request) {
+        Mail::send('buyer/verify',['token' => $token,'email' => $request->email], function($message) use ($request) {
             $message->from('vietpcps15786@fpt.edu.vn');
-            $message->to($request->forgetEmail);
-            $message->subject('Reset Password Notification');
+            $message->to($request->email);
+            $message->subject('Thông báo đặt mật khẩu');
         });
-//        $request->session()->put('email', $request->forgetEmail);
+        $request->session()->put('email', $request->email);
         return redirect('buyer/forgot')->with('status', 'Chung tôi đã gửi cho bạn email xác thực mật khẩu mới');
     }
     function insertUser(Request $request)
