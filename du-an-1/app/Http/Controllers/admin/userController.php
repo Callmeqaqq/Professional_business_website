@@ -169,7 +169,7 @@ class userController extends Controller
         ->join('orders', 'orders.UserId', 'users.UserId')
         ->select('users.UserId', 'users.Fullname', DB::raw('ifnull(count(*), 0) as count'), DB::raw('ifnull(count(*), 0) as count'), DB::raw('sum(ToPay) as sum'))
         ->groupBy('users.UserId')
-        ->where('orders.StatusId', 5)
+        ->where('orders.StatusId', 4)
         ->orderByDesc('sum')
         ->get()
         ->each(function ($row, $index) {
