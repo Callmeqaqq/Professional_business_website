@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0bbda4a-3fbf-4b43-8e04-1b6eee43ea7f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/du-an-1/app/Http/Middleware/HandleOrder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/CartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/CartController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/CheckoutController.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/CheckoutController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/admin/userController.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/admin/userController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/admin/user/topBuy.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/admin/user/topBuy.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/layouts/admin.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -149,7 +149,7 @@ if (session('status')) {
                         @endif
 
                         {{--warehouse role check end--}}
-                        @if((session('UserRole') != 'HRM') && (session('UserRole') != 'Writer'))
+                        @if((session('UserRole') != 'HRM') && (session('UserRole') != 'Writer') && (session('UserRole') != 'Sale') && (session('UserRole') != 'Shipper'))
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse"
                                    aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10">
