@@ -166,10 +166,10 @@ class userController extends Controller
 
     function rankView(){
         $data = DB::table('users')
-        ->join('orders', 'orders.UserId', 'users.UserId')
+        ->join('orders', 'orders.UserId', '=', 'users.UserId')
         ->select('users.UserId', 'users.Fullname', DB::raw('ifnull(count(*), 0) as count'), DB::raw('ifnull(count(*), 0) as count'), DB::raw('sum(ToPay) as sum'))
-        ->groupBy('users.UserId')
-        ->where('orders.StatusId', 5)
+        ->groupBy('users.UserId', 'users.Fullname')
+        ->where('orders.StatusId', 4)
         ->orderByDesc('sum')
         ->get()
         ->each(function ($row, $index) {
