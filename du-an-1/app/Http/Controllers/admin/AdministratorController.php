@@ -107,6 +107,20 @@ class AdministratorController extends Controller
         if ($validate->fails()) {
             return back()->withErrors($validate)->withInput();
         }
+        $user = DB::table('users')
+            ->where('UserId','=',$request->session()->get('updateId'))
+            ->select('email')
+            ->get();
+        $requestEmail = $request->email;
+        if($user['0']->email !== $request->email){
+            $emails = DB::table('users')->select('email')->get();
+            foreach($emails as $value) {
+                if($value->email === $requestEmail){
+                    $request->session()->put('status', 'danger/email đã tồng tại');
+                    return back();
+                }
+            }
+        }
         $query = DB::table('users')
             ->where('UserId', '=', $request->session()->get('updateId'))
             ->update([
@@ -129,7 +143,7 @@ class AdministratorController extends Controller
         $message = [
             'required' => 'Chưa nhập :attribute',
             'email' => 'Vui lòng nhập đúng định dạng email',
-            'unique' => 'email Đã đăng ký'
+            'unique' => 'Email đã đăng ký'
         ];
         //validate request
         $validate = Validator::make($request->all(), [

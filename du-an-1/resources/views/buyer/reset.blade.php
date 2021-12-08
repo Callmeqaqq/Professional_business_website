@@ -33,13 +33,6 @@
                                                 <input type="password" name="password_confirmation" placeholder="Nhập lại mật khẩu">
 
                                                 <span class="text-danger">@error('password_confirmation') {{$message}}@enderror</span>
-                                                <div class="login-toggle-btn">
-                                                    <label>
-                                                        <input type="checkbox">
-                                                    </label>
-                                                    <label>Nhớ đăng nhâp</label>
-                                                    <a href="#lg3" >Quên mật khẩu?</a>
-                                                </div>
                                                 <div class="button-box btn-hover">
                                                     <button type="submit">Đăng nhập</button>
                                                 </div>

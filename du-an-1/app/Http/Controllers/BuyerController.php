@@ -28,7 +28,6 @@ class BuyerController extends Controller
                 $urlBack = url()->previous();
             }
             $request->session()->put('backUrl',$urlBack);
-            echo $urlBack;
         }
 
         return view('buyer/buyer')->with('page', 'login');
@@ -64,7 +63,8 @@ class BuyerController extends Controller
             $message->subject('Thông báo đặt mật khẩu');
         });
         $request->session()->put('email', $request->email);
-        return redirect('buyer/forgot')->with('status', 'Chung tôi đã gửi cho bạn email xác thực mật khẩu mới');
+        $request->session()->put('status', 'success/Chung tôi đã gửi cho bạn email xác thực mật khẩu mới');
+        return redirect('buyer/forgot');
     }
     function insertUser(Request $request)
     {
@@ -178,7 +178,7 @@ class BuyerController extends Controller
             'password_confirmation' => 'required',
         ],$message);
         if ($validate->fails()) {
-            return redirect('/buyer/login')->withErrors($validate)->withInput();
+            return back()->withErrors($validate)->withInput();
         }
 
         $updatePassword = DB::table('password_resets')
@@ -192,8 +192,8 @@ class BuyerController extends Controller
             ->update(['password' => Hash::make($request->password)]);
 
         DB::table('password_resets')->where(['email'=> $request->email])->delete();
-
-        return redirect('buyer/login')->with('status', 'Mật khẩu của bạn đã được thay đổi');
+        $request->session()->put('status', 'success/Mật khẩu của bạn đã được thay đổi');
+        return redirect('buyer/login');
     }
     function logout()
     {

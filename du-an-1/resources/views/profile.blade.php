@@ -86,11 +86,11 @@
                                     <div class="myaccount-content">
                                         <h3>Đổi Mật khẩu</h3>
                                         <div class="account-details-form">
-                                            @if(Session::get('status'))
-                                                <div class="alert alert-success">
-                                                    {{Session::get('status')}}
-                                                </div>
-                                            @endif
+{{--                                            @if(Session::get('status'))--}}
+{{--                                                <div class="alert alert-success">--}}
+{{--                                                    {{Session::get('status')}}--}}
+{{--                                                </div>--}}
+{{--                                            @endif--}}
                                             <form action="{{route('buyer.change')}}" method="post">
                                                 @csrf
                                                 <div class="single-input-item">
@@ -102,8 +102,8 @@
 
                                                 <div class="single-input-item">
                                                     <label for="email" class="required">Mật khẩu mới
-                                                        <input type="password" id="password_new" name="password " placeholder="nhập mật khẩu mới"/>
-                                                        <span class="text-danger">@error('password') {{$message}} @enderror</span>
+                                                        <input type="password" id="password_new" name="password-new" placeholder="nhập mật khẩu mới"/>
+                                                        <span class="text-danger">@error('password-new') {{$message}} @enderror</span>
                                                     </label>
                                                 </div>
                                                 <div class="single-input-item">
@@ -146,11 +146,6 @@
                                 <div class="tab-pane fade" id="info" role="tabpanel">
                                     <div class="myaccount-content">
                                         <h3>Thông Tin Tài Khoản</h3>
-                                        @if(Session::get('status'))
-                                            <div class="alert alert-success">
-                                                {{Session::get('status')}}
-                                            </div>
-                                        @endif
                                         <div class="account-details-form">
                                             <form action="{{route('buyer.update')}}" method="post">
 

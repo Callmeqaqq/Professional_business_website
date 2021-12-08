@@ -9560,3 +9560,8 @@ img {
 .header-area{
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+.login-drop {
+    font-weight: 400;
+    font-size: 14px;
+    display: none;
+}

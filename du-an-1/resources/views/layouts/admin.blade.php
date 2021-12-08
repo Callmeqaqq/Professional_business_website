@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/vendor/font-awesome.min.css')}}"/>
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/style.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('css/alert.css')}}"/>
     <script src="{{asset('js/notiflix/notiflix-aio.js')}}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
@@ -44,7 +45,7 @@ if (session('status')) {
                 <i class="fab fa-exclamation-triangle"></i>
             @endif
             <div class="text">
-                <h4 class="title">{{$statu}}</h4>
+                <h4 class="title">{{$statu==='success'?'Thành công':'Thất bại'}}</h4>
                 <span class="details">{{$message}}</span>
             </div>
             <a class="close" id="btn-ok">&times;</a>

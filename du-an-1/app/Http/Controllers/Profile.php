@@ -32,7 +32,7 @@ class Profile extends Controller
             'email' => 'required|email',
         ],$message);
         if ($validate->fails()) {
-            return back()->withErrors($validate)->withInput();
+            return redirect('profile')->withErrors($validate)->withInput();
         }
         $user = DB::table('users')->select('password')->where('UserId','=', Session('LoggedUser'))->get()->first();
 
@@ -46,18 +46,19 @@ class Profile extends Controller
                         'address' => $request->address,
                     ]);
             if($request){
-                return back()->with('status','Cập nhật thành công');
+                $request->session()->put('status', 'success/Cập nhật thông tin thành công thành công');
             }else{
-            return back()->with('status','Cập nhật thất bại đã có lỗi');
+                $request->session()->put('status', 'danger/Cập nhật thất bại đã có lỗi');
             }
         }else{
-            return back()->with('status','Mật khẩu không chính xác');
+            $request->session()->put('status', 'Mật khẩu không chính xác');
         }
+        return redirect('profile');
     }
     function changePassword(Request $request){
         $message = [
             'password-current.required' => 'Vui lòng nhập mật khẩu hiện tại',
-            'password.required' => 'Vui lòng nhập mật khẩu mới',
+            'password-new.required' => 'Vui lòng nhập mật khẩu mới',
             'password_confirmation.required' => 'Vui lòng xác nhận lại mật khẩu',
             'min' => 'Các kí tự không đươc ít hơn 6',
             'max' => 'Các kí tự không đươc nhiều hơn 50',
@@ -65,26 +66,29 @@ class Profile extends Controller
         ];
         $validate = Validator::make($request->all(),[
             'password-current' => 'required|min:6|max:50',
-            'password' => ['required','min:6','max:50','same:password_confirmation'],
-            'password_confirmation' => 'required|same:password',
+            'password-new' => ['required','min:6','max:50','same:password_confirmation'],
+            'password_confirmation' => 'required|same:password-new',
         ],$message);
         if ($validate->fails()) {
-            return redirect('/profile/change_pass')->withErrors($validate)->withInput();
+            return redirect('profile/change_pass')->withErrors($validate)->withInput()->with('page','changePassword');
         }
         $user = DB::table('users')->select('password')->where('UserId','=', Session('LoggedUser'))->get()->first();
         if (Hash::check($request['password-current'],  $user->password)) {
             $query = DB::table('users')
                 ->where('UserId','=', Session('LoggedUser'))
                 ->update([
-                    'password' => Hash::make($request['password-current']),
+                    'password' => Hash::make($request['password-new']),
                 ]);
             if($request){
-                return back()->with('status','Cập nhật thành công');
-            }else{
-                return back()->with('status','Cập nhật thất bại đã có lỗi');
+                $request->session()->put('status', 'success/Cập nhật mật khẩu thành công thành công');
+                return redirect('profile/change_pass');
             }
+                $request->session()->put('status', 'danger/Cập nhật thất bại đã có lỗi');
+            return redirect('profile/change_pass');
         }else{
-            return back()->with('status','Mật khẩu không chính xác');
+            $request->session()->put('status', 'danger/Mật khẩu không chính xác');
+            return redirect('profile/change_pass');
+
         }
     }
 
