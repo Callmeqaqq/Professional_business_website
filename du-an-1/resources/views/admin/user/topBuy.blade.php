@@ -3,8 +3,8 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
-                <h3>Xếp hạng chi tiêu thành viên</h3>
                 <div class="card-body">
+                    <h3>Xếp hạng chi tiêu thành viên</h3>
                     <div class="table-responsive">
                         <table id="top" class="table table-striped">
                             <thead>
@@ -24,7 +24,7 @@
                                 <td>{{number_format($item->count)}}</td>
                                 <td>{{number_format($item->sum)}}đ</td>
                                 <td>
-                                  @if(Session::has('View') || Session::has('Full')) 
+                                  @if(Session::has('View') || Session::has('Full'))
                                     <a href="{{url('admin/users/'.$item->UserId.'/detail')}}" type="button" class="btn btn-outline-info">Chi tiết</a>
                                   @endif
                                 </td>
