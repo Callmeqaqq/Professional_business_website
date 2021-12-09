@@ -8,14 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     {{--    GoongMap--}}
     <script src="https://cdn.jsdelivr.net/npm/@goongmaps/goong-js@1.0.9/dist/goong-js.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/@goongmaps/goong-js@1.0.9/dist/goong-js.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@goongmaps/goong-js@1.0.9/dist/goong-js.css" rel="stylesheet"/>
     <link
         rel="icon"
         href="{{asset('images/favicon/cropped-favicon-32x32.png')}}"
         sizes="32x32"
     />
     <!--- JQuery --->
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
     <!--- Notilfix --->
     <script src="{{asset('js/notiflix/notiflix-aio.js')}}"></script>
@@ -26,10 +27,14 @@
     <link rel="stylesheet" href="{{ asset('css/vendor/themify-icons.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/vendor/font-awesome.min.css')}}"/>
 
+    <link rel="stylesheet" href="{{ asset('css/alert.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/index.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/plugins/swiper.min.css')}} "/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+          integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 </head>
 
 <body>
@@ -40,7 +45,8 @@
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-6 col-6">
                         <div class="logo">
-                            <a href="{{url('/')}}"><img  id="logoImage" src="{{asset('/images/logo/logo4.png')}}" alt="logo"/></a>
+                            <a href="{{url('/')}}"><img id="logoImage" src="{{asset('/images/logo/logo4.png')}}"
+                                                        alt="logo"/></a>
                         </div>
                     </div>
                     <div class="col-lg-6 d-none d-lg-block d-flex justify-content-center">
@@ -59,12 +65,14 @@
                                                         <a class="dropdown-title" href="#">Danh mục sản phẩm</a>
                                                         <ul>
                                                             @foreach($category as $cat)
-                                                                <li><a href="{{asset('category/'.$cat->CategorySlug)}}">{{$cat->CategoryName}}</a></li>
+                                                                <li>
+                                                                    <a href="{{asset('category/'.$cat->CategorySlug)}}">{{$cat->CategoryName}}</a>
+                                                                </li>
                                                             @endforeach
                                                         </ul>
                                                     </li>
                                                     <li>
-{{--                                                        <a href="shop.html"><img src="assets/images/banner/menu.png" alt=""/></a>--}}
+                                                        {{--                                                        <a href="shop.html"><img src="assets/images/banner/menu.png" alt=""/></a>--}}
                                                     </li>
                                                 </ul>
                                             </li>
@@ -92,26 +100,37 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="header-action-style">
-                                <a title="Đăng nhập/ Đăng kí" href="
+                            <div class="header-action-style  ">
+                                <ul>
+                                    <li>
+                                        <a title="Đăng nhập/ Đăng kí" href="
                                 @if (Session()->has('LoggedUser'))
-                                {{route('buyer.profile')}}
-                                @else
-                                {{route('buyer.login')}}
-                                @endif
-                                    "><i class="pe-7s-user"></i></a>
+                                        {{route('buyer.profile')}}
+                                        @else
+                                        {{route('buyer.login')}}
+                                        @endif
+                                            "><i class="pe-7s-user"></i></a>
+                                        <ul class="mega-menu-style mega-menu-mrg-1 login-drop">
+                                            <li>
+                                                <a class="" href="#">Thông tin tài khoản</a>
+                                                <a class="" href="#">Đổi mật khẩu</a>
+                                                <a class="" href="#">Lịch sủ đơn hàng</a>
+                                                <a class="" href="#">Đăng xuất</a>
+                                            </li>
+                                        </ul>
                             </div>
                             <div class="header-action-style header-action-cart">
                                 @if (!strpos(url()->current(), '/cart'))
-                                <a class="cart-active" href="#"><i class="pe-7s-shopbag"></i>
-                                    <span class="product-count bg-black">
+                                    <a class="cart-active" href="#"><i class="pe-7s-shopbag"></i>
+                                        <span class="product-count bg-black">
                                         @if (Session::has('Cart') != null)
-                                            <span id="total-quantity-show">{{Session::get('Cart')->totalQuantity}}</span>
-                                        @else
-                                            <span id="total-quantity-show">0</span>
-                                        @endif
+                                                <span
+                                                    id="total-quantity-show">{{Session::get('Cart')->totalQuantity}}</span>
+                                            @else
+                                                <span id="total-quantity-show">0</span>
+                                            @endif
                                     </span>
-                                </a>
+                                    </a>
                                 @endif
                             </div>
                             <div class="header-action-style d-block d-lg-none">
@@ -138,14 +157,21 @@
                             @foreach(Session::get('Cart')->products as $item)
                                 <li>
                                     <div class="cart-img">
-                                        <a href="/products/{{$item['productInfo']->Slug}}"><img src="{{asset('images/product/'.$item['productInfo']->Color)}}" alt=""/></a>
+                                        <a href="/products/{{$item['productInfo']->Slug}}"><img
+                                                src="{{asset('images/product/'.$item['productInfo']->Color)}}" alt=""/></a>
                                     </div>
                                     <div class="cart-title">
-                                        <h4><a href="/products/{{$item['productInfo']->Slug}}">{{$item['productInfo']->VariantName}}</a></h4>
+                                        <h4>
+                                            <a href="/products/{{$item['productInfo']->Slug}}">{{$item['productInfo']->VariantName}}</a>
+                                        </h4>
                                         <span> {{number_format($item['productInfo']->ProductPrice + ($item['productInfo']->ProductPrice * $item['productInfo']->VariantPrice))}} × {{$item['quantity']}} </span>
                                     </div>
                                     <div class="cart-delete">
-                                        <a style="display: block; cursor: pointer;" data-id="{{$item['productInfo']->ProductId}}" data-variant="{{$item['productInfo']->VariantId}}" data-slug="{{$item['productInfo']->Slug}}" slug="{{$item['productInfo']->Slug}}" class="btn-delete-item-cart">x</a>
+                                        <a style="display: block; cursor: pointer;"
+                                           data-id="{{$item['productInfo']->ProductId}}"
+                                           data-variant="{{$item['productInfo']->VariantId}}"
+                                           data-slug="{{$item['productInfo']->Slug}}"
+                                           slug="{{$item['productInfo']->Slug}}" class="btn-delete-item-cart">x</a>
                                     </div>
                                 </li>
                             @endforeach
@@ -237,39 +263,69 @@
                 </div>
             </div>
         </div>
-    </footer>
+
+        {{--        alert --}}
+        <?php
+        if (session('status')) {
+            $arr = explode('/', session('status'));
+            $statu = $arr[0];
+            $message = $arr[1];
+            session()->forget('status');
+        }
+
+
+        ?>
+        @if (isset($statu))
+            <section id="alert" class="{{$statu}} ">
+                <div class="content-alert ">
+                    @if($statu === 'success')
+                        <i class="fas fa-check-circle"></i>
+                    @else
+                        <i class="fas fa-exclamation-triangle"></i>
+                    @endif
+                    <div class="text">
+                        <h4 class="title">{{$statu==='success'?'Thành công':'Thất bại'}}</h4>
+                        <span class="details">{{$message}}</span>
+                    </div>
+                    <a class="close" id="btn-ok">&times;</a>
+                    <div id="ease"></div>
+                </div>
+            </section>
+    @endif
     <!-- Mobile Menu start -->
-    <div class="off-canvas-active">
-        <a class="off-canvas-close"><i class="ti-close"></i></a>
-        <div class="off-canvas-wrap">
-            <div class="welcome-text off-canvas-margin-padding">
-                <p>Chào mừng đến với <span id="mobileName"></span></p>
-            </div>
-            <div class="mobile-menu-wrap off-canvas-margin-padding-2">
-                <div id="mobile-menu" class="slinky-mobile-menu text-left">
-                    <ul>
-                        <li>
-                            <a href="{{route('home')}}">Trang Chủ</a>
-                        </li>
-                        <li>
-                            <a href="{{route('shop')}}">Cửa Hàng</a>
-                            <ul>
-                                @foreach($category as $cat)
-                                    <li><a href="{{asset('category/'.$cat->CategorySlug)}}">{{$cat->CategoryName}}</a></li>
-                                @endforeach
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="{{route('blog')}}">Tin tức</a>
-                        </li>
-                        <li>
-                            <a href="{{route('about-us')}}">Giới Thiệu</a>
-                        </li>
-                    </ul>
+        <div class="off-canvas-active">
+            <a class="off-canvas-close"><i class="ti-close"></i></a>
+            <div class="off-canvas-wrap">
+                <div class="welcome-text off-canvas-margin-padding">
+                    <p>Chào mừng đến với <span id="mobileName"></span></p>
+                </div>
+                <div class="mobile-menu-wrap off-canvas-margin-padding-2">
+                    <div id="mobile-menu" class="slinky-mobile-menu text-left">
+                        <ul>
+                            <li>
+                                <a href="{{route('home')}}">Trang Chủ</a>
+                            </li>
+                            <li>
+                                <a href="{{route('shop')}}">Cửa Hàng</a>
+                                <ul>
+                                    @foreach($category as $cat)
+                                        <li>
+                                            <a href="{{asset('category/'.$cat->CategorySlug)}}">{{$cat->CategoryName}}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="{{route('blog')}}">Tin tức</a>
+                            </li>
+                            <li>
+                                <a href="{{route('about-us')}}">Giới Thiệu</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </div>
 <!-- Javascript có thể dựa vào đây custom lại-->
 <script src="{{asset('js/vendor/modernizr-3.11.2.min.js')}} "></script>
@@ -303,11 +359,11 @@
         background-color: #d0011b;
     }
 
-    .jconfirm.jconfirm-my-theme .jconfirm-box .jconfirm-title-c{
+    .jconfirm.jconfirm-my-theme .jconfirm-box .jconfirm-title-c {
         font-size: 15px;
     }
 
-    .jconfirm.jconfirm-my-theme .jconfirm-box .jconfirm-buttons button{
+    .jconfirm.jconfirm-my-theme .jconfirm-box .jconfirm-buttons button {
         background-color: #d0011b;
     }
 </style>
@@ -318,6 +374,12 @@
 <script src="{{asset('js/plugins/login.js')}}"></script>
 {{--JS Cart--}}
 <script type="text/javascript">
+    $(document).ready(function () {
+        $("#btn-ok").click(function () {
+            $("#alert").fadeOut();
+        });
+    })
+
     function AddToCart(slug) {
         var quantity = $(".quantity-add-cart").val();
         var variant = $('input[name="emotion"]:checked');
@@ -326,9 +388,9 @@
             // var data = {slug: slug, variant: variant.data('id'), quantity: quantity};
             if (quantity && Number(quantity) && quantity % 1 === 0 && quantity > 0) {
                 $.ajax({
-                    type : 'GET',
+                    type: 'GET',
                     // url  : '../cart/check-quantity'+'/'+slug+'/'+variant.data('id')+'/'+quantity+'/'+1,
-                    url : "{{url('/cart/check-quantity')}}/"+slug+'/'+variant.data('id')+'/'+quantity+'/'+1,
+                    url: "{{url('/cart/check-quantity')}}/" + slug + '/' + variant.data('id') + '/' + quantity + '/' + 1,
                 }).done(function (res) {
                     if (res) {
                         $.alert({
@@ -337,8 +399,8 @@
                         });
                     } else {
                         $.ajax({
-                            type : 'GET',
-                            url  : "{{url('/cart/add-cart')}}/"+slug+'/'+variant.data('id')+'/'+quantity,
+                            type: 'GET',
+                            url: "{{url('/cart/add-cart')}}/" + slug + '/' + variant.data('id') + '/' + quantity,
                         }).done(function (response) {
                             if (response) {
                                 RenderCart(response);
@@ -366,10 +428,10 @@
         }
     }
 
-    $('#list-cart').on("click", ".btn-delete-item-cart", function() {
+    $('#list-cart').on("click", ".btn-delete-item-cart", function () {
         $.ajax({
-            type : 'GET',
-            url  : "{{url('/cart/delete-item-cart')}}/"+$(this).data('slug')+'/'+$(this).data('variant'),
+            type: 'GET',
+            url: "{{url('/cart/delete-item-cart')}}/" + $(this).data('slug') + '/' + $(this).data('variant'),
         }).done(function (response) {
             if (response) {
                 RenderCart(response);
@@ -386,24 +448,25 @@
 
 {{-- get infomation from server --}}
 <script>
-$(document).ready(function(){
-    $.ajax({ url: "{{url('api/getInfomation')}}",
-        context: document.body,
-        success: function(res){
-            $('#title').html(res.name+' - Mơ uớc của mọi nhà');
-            $("#logoImage").attr("src", res.logoUrl);
-            $("#footerLogo").attr("src", res.logoUrl);
-            $("#email").text(res.email);
-            $("#address").text(res.address);
-            $("#phone").text(res.phone);
-            $("#open").text(res.openTime);
-            $("#close").text(res.closeTime);
-            $("#mobileName").text(res.name);
-            $("#brandName").text(res.name);
-        }
+    $(document).ready(function () {
+        $.ajax({
+            url: "{{url('api/getInfomation')}}",
+            context: document.body,
+            success: function (res) {
+                $('#title').html(res.name + ' - Mơ uớc của mọi nhà');
+                $("#logoImage").attr("src", res.logoUrl);
+                $("#footerLogo").attr("src", res.logoUrl);
+                $("#email").text(res.email);
+                $("#address").text(res.address);
+                $("#phone").text(res.phone);
+                $("#open").text(res.openTime);
+                $("#close").text(res.closeTime);
+                $("#mobileName").text(res.name);
+                $("#brandName").text(res.name);
+            }
+        });
     });
-});
 </script>
-    @yield('scripts')
+@yield('scripts')
 </body>
 </html>
