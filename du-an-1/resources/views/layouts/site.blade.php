@@ -272,8 +272,6 @@
             $message = $arr[1];
             session()->forget('status');
         }
-
-
         ?>
         @if (isset($statu))
             <section id="alert" class="{{$statu}} ">

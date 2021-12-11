@@ -1,12 +1,12 @@
 $(document).ready(function () {
     $("#post-email-forget").validate({
         rules: {
-            forgetEmail: {
+            email: {
                 required: true,
                 email: true
             },
         }, messages: {
-            forgetEmail: {
+            email: {
                 required: 'Vui lòng nhập email',
                 email: 'Vui lòng đúng định dạng email'
             }
@@ -68,10 +68,10 @@ $(document).ready(function () {
             }
         }
     })
-    $('input[name="forgetEmail"]').keyup(function(){
+    $('#input-email-forget').keyup(function(){
         $('#err-email-forget').hide();
     })
-    $('input[name="email"]').keyup(function(){
+    $('#input-email-register').keyup(function(){
         $('#email-error').hide();
     })
     $('input[name="loginEmail"]').keyup(function(){

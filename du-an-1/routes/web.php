@@ -97,10 +97,8 @@ Route::get('/search{keyword?}', 'SearchController@action')->name('search');
 Route::get('/buyer/login/google/redirect', 'SocialController@googleRedirect')->name('login.google');
 Route::get('/buyer/login/google/back', 'SocialController@googleBack');
 //----------------------- login facebook -------------------------------
-Route::get('/buyer/login/facebook/redirect', 'App\Http\Controllers\Socialite\LoginController@redirectToProvider')->name('login.facebook');
-Route::get('/buyer/login/facebook/back', 'App\Http\Controllers\Socialite\LoginController@handleProviderCallback');
-Route::get('/buyer/login/facebook/redirect', 'SocialController@facebookRedirect')->name('facebook.google');
-Route::get('/buyer/login/facebook/back', 'SocialController@facebookBack');
+Route::get('/buyer/login/fbk/redirect', 'SocialController@facebookRedirect')->name('login.facebook');
+Route::get('/buyer/login/fbk/back', 'SocialController@facebookBack');
 //======================================================================================================================
 
 

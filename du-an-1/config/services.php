@@ -14,9 +14,9 @@ return [
     |
     */
     'facebook' => [
-        'client_id' => '324726175710404',
-        'client_secret' => '6b39ac875a47a8044350b4b114525e8fb',
-        'redirect' => 'http://127.0.0.1:8000/buyer/login/fbk/back'
+        'client_id' => '421129083044878',
+        'client_secret' => 'c1f811948e4ff265b85bef2ae757ebbb',
+        'redirect' => 'http://localhost:8000/buyer/login/fbk/back'
     ],
     'google' => [
         'client_id'     => '923006995700-27ka0ltg2e445slsi1ibagcfd95slqvl.apps.googleusercontent.com',
