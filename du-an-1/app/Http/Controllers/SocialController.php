@@ -23,7 +23,8 @@ class SocialController extends Controller
 
             if($user){
                 $request->session()->put('LoggedUser',$user->UserId);
-                return redirect('/profile');
+                $request->session()->put('status', 'success/Đăng nhập thành công');
+                return redirect($request->session()->get('backUrl'));
             }
 
             $newUser = DB::table('users')->insert([
@@ -34,9 +35,10 @@ class SocialController extends Controller
             ]);
             $userNew = DB::table('users')->select('UserId')->where('email','=',$user_google->email )->first();
             $request->session()->put('LoggedUser',$userNew->UserId);
-            return redirect('/profile');
+            $request->session()->put('status', 'success/Đăng nhập thành công');
+            return redirect($request->session()->get('backUrl'));
         } catch (Exception $e) {
-            dd($e->getMessage());
+            $request->session()->put('status', 'danger/Đã có lỗi sảy ra,hảy thử lại sau');
         }
     }
     // login facebook
@@ -52,8 +54,11 @@ class SocialController extends Controller
             $user = DB::table('users')->where('facebook_id','=',$user_facebook->getId() )->first();
 
             if($user){
-                $request->session()->put('LoggedUser',$user->UserId);
-                return redirect('/profile');
+                $request->session()->put('LoggedUser', $user->UserId);
+                $request->session()->put('LoggedUserName', $user->Fullname);
+                $request->session()->put('LoggedEmail', $request->loginEmail);
+                $request->session()->put('status', 'success/Đăng nhập thành công!');
+                return redirect($request->session()->get('backUrl'));
             }
 
             $newUser = DB::table('users')->insert([
@@ -62,11 +67,19 @@ class SocialController extends Controller
                 'facebook_id'=> $user_facebook->getId(),
                 'password' => Hash::make('123456')
             ]);
-            $request->session()->put('LoggedUser',$newUser->UserId);
-            return redirect('/profile');
+            if($newUser!== null){
+                $request->session()->put('status', 'success/Đăng nhập thành công!');
+            }else{
+                $request->session()->put('status', 'danger/đăng nhập goodle đang bị lỗi, làm ở thử lại sau!');
+            }
+            $request->session()->put('LoggedUser', $newUser->UserId);
+            $request->session()->put('LoggedUserName', $newUser->Fullname);
+            $request->session()->put('LoggedEmail', $newUser->Email);
+            return redirect($request->session()->get('backUrl'));
         }catch(\Exception $e){
             //Authentication failed
-            return redirect()->back()->with('status','đăng nhập goodle đang bị lỗi, làm ở thử lại sau!');
+            $request->session()->put('status', 'danger/đăng nhập facebook đang bị lỗi, làm ở thử lại sau!');
+            return back();
         }
     }
 }

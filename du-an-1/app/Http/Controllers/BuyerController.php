@@ -78,7 +78,7 @@ class BuyerController extends Controller
 //        validate request
         $message = [
             'required' => 'Vui lòng nhập :attribute',
-            'email.unique' => 'Email đã được đăng ký',
+            'email.unique' => 'Email đã đăng ký',
             'email' => 'Vui lòng nhập đúng định dạng email',
             'password.min' => 'Các kí tự không đươc ít hơn 6',
             'password.max' => 'Các kí tự không đươc nhiều hơn 50',
@@ -111,10 +111,12 @@ class BuyerController extends Controller
         ]);
         if ($query) {
             $request->session()->put('status', 'success/Tạo mới tài khoản thành công');
-        } else {
-            $request->session()->put('danger', 'success/Đã có lỗi sảy ra,hảy thử lại sau');
+            return redirect('/buyer/login');
+        }
+            $request->session()->put('status', 'success/Đã có lỗi sảy ra,hảy thử lại sau');
 
-        }return redirect('/buyer/register');
+        return redirect('/buyer/register');
+
     }
 
     function check(Request $request)

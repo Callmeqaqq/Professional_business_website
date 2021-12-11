@@ -25,17 +25,26 @@ class Profile extends Controller
             'password.max' => 'Các kí tự không đươc nhiều hơn 50',
             'name.min' => 'Họ và Tên không đươc ít hơn 5',
             'name.max' => 'Họ và Tên không đươc nhiều hơn 100',
+            'phone' => 'vui lòng nhập đúng số điện thoại',
         ];
         $validate = Validator::make($request->all(),[
             'name' => 'required|min:5|max:100',
             'password' => 'required|min:6|max:50',
             'email' => 'required|email',
+            'phone' => 'numeric|min:10|max:10|phone_number|'
         ],$message);
         if ($validate->fails()) {
             return redirect('profile')->withErrors($validate)->withInput();
         }
-        $user = DB::table('users')->select('password')->where('UserId','=', Session('LoggedUser'))->get()->first();
-
+        $user = DB::table('users')->select('password','Email')->where('UserId','=', Session('LoggedUser'))->get()->first();
+        $listUser = DB::table('users')->select('UserId','Email')->get();
+//        dd([$listUser,$user,Session('LoggedUser')]);
+        foreach ($listUser as $lUser){
+            if($lUser->Email === $request->email && $lUser->UserId !== Session('LoggedUser')){
+                $request->session()->put('status', 'danger/Email đã đăng ký');
+                return redirect('profile');
+            }
+        }
         if (Hash::check($request->password,  $user->password)) {
             $query = DB::table('users')
                 ->where('UserId','=', Session('LoggedUser'))
