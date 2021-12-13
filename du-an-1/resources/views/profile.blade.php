@@ -102,12 +102,12 @@
 
                                                 <div class="single-input-item">
                                                     <label for="email" class="required">Mật khẩu mới
-                                                        <input type="password" id="password_new" name="password-new" placeholder="nhập mật khẩu mới"/>
+                                                        <input type="password" id="password_new" name="password-new" placeholder="Nhập mật khẩu mới"/>
                                                         <span class="text-danger">@error('password-new') {{$message}} @enderror</span>
                                                     </label>
                                                 </div>
                                                 <div class="single-input-item">
-                                                    <label for="display-name" class="required">Xác nhậ mật khẩu
+                                                    <label for="display-name" class="required">Xác nhận mật khẩu
                                                         <input type="password" id="password_confirm" name="password_confirmation" placeholder="Nhập lại mật khẩu mới" />
                                                         <span class="text-danger">@error('password_confirmation') {{$message}} @enderror</span>
                                                     </label>
@@ -163,17 +163,17 @@
                                                     <span class="text-danger" >@error('email') {{$message}}@enderror</span>
                                                 </div>
                                                 <div class="single-input-item">
-                                                    <label for="display-name" class="required">Số Diện Thoại
+                                                    <label for="display-name" class="required">Số Điện Thoại
                                                     <input type="text" id="phone " name="phone" value="{{$user->Phone ?? old('phone')}}"  placeholder="Nhập số điện thoại của bạn" /></label>
                                                     <span class="text-danger" >@error('phone') {{$message}}@enderror</span>
                                                 </div>
                                                 <div class="single-input-item">
                                                     <label for="display-name" class="required">Địa Chỉ
-                                                    <input type="text" id="address" name="address" value="{{$user->Address??old('address')}}"  placeholder="Nhập địa chỉ hiện tại của bạn để thận tiện cho việc giao hàng"/></label>
+                                                    <input type="text" id="address" name="address" value="{{$user->Address??old('address')}}"  placeholder="Nhập địa chỉ hiện tại của bạn để thuận tiện cho việc giao hàng"/></label>
                                                     <span class="text-danger" >@error('address') {{$message}}@enderror</span>
                                                 </div>
                                                 <div class="single-input-item">
-                                                    <label for="display-name" class="required">Mật khẩu
+                                                    <label for="display-name" class="required">Mật khẩu xác nhận
                                                         <input type="password" id="password" name="password" placeholder="Nhập mật khẩu của bạn"/></label>
                                                     <span class="text-danger" >@error('password') {{$message}}@enderror</span>
                                                 </div>
