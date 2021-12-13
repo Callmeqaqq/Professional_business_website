@@ -130,7 +130,7 @@ if (session('status')) {
                         <li class="nav-divider">Menu</li>
                         <li class="nav-item">
                             <a class="nav-link  {{ '' ===   $url_active  ? 'active':''}}" href="{{route('dashboard.index')}}" aria-expanded="false"
-                            ><i class="fab fa-briefcase"></i>Dashboard
+                            ><i class="fab fa-briefcase"></i>Thống kê
                             </a>
                         </li>
                         {{--                        Quản trị--}}
