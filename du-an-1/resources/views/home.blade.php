@@ -70,7 +70,7 @@
                 </div>
                 <div class="tab-style-1 nav" data-aos="fade-up" data-aos-delay="400">
                     <a class="active" href="#pro-1" data-bs-toggle="tab">Sản phẩm mới </a>
-                    <a href="#pro-2" data-bs-toggle="tab" class=""> Bán chạy </a>
+{{--                    <a href="#pro-2" data-bs-toggle="tab" class=""> Bán chạy </a>--}}
                     <a href="#pro-3" data-bs-toggle="tab" class=""> Giảm giá </a>
                 </div>
             </div>
@@ -118,46 +118,46 @@
                     </div>
                 </div>
                 {{-- Sản Phẩm Bán chạy--}}
-                <div id="pro-2" class="tab-pane">
-                    <div class="row">
-                        @foreach($data as $item)
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                                <div class="product-wrap mb-35" data-aos="fade-up" data-aos-delay="200">
-                                    <div class="product-img img-zoom mb-25">
-                                        <img style="position: absolute; opacity:0.8"
-                                             src="{{asset('images\icon-img\merry1.png')}}" alt="">
-                                        <a href="products/{{$item->Slug}}">
-                                            <img src="{{asset('images/product/'.$item->Images)}}" alt="">
-                                        </a>
-                                        <div class="product-badge badge-top badge-right badge-pink">
-                                            @if ($item->Discount != 0)
-                                                <span
-                                                    style="padding:5px; background-color: #d0011b; color:white; border-radius: 10px;">-{{$item->Discount*100}}%</span>
-                                            @endif
-                                        </div>
-                                        <div class="product-action-2-wrap">
-                                            <a href="/products/{{$item->Slug}}" class="product-action-btn-2"
-                                               title="Mua Ngay"><i
-                                                    class="pe-7s-cart"></i> Mua Ngay
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h3><a id="{{$item->ProductId}}" slug="{{$item->Slug}}"
-                                               href="products/{{$item->Slug}}">{{$item->ProductName}}</a></h3>
-                                        <div class="product-price">
-                                            @if ($item->Discount != 0)
-                                                <span class="old-price">{{number_format((100*$item->Price)/((1-$item->Discount)*100))}} <sup>vnđ</sup></span>
-                                            @endif
-                                            <span
-                                                class="new-price">{{number_format($item->Price)}} <sup>vnđ</sup></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+{{--                <div id="pro-2" class="tab-pane">--}}
+{{--                    <div class="row">--}}
+{{--                        @foreach($data as $item)--}}
+{{--                            <div class="col-lg-3 col-md-4 col-sm-6 col-12">--}}
+{{--                                <div class="product-wrap mb-35" data-aos="fade-up" data-aos-delay="200">--}}
+{{--                                    <div class="product-img img-zoom mb-25">--}}
+{{--                                        <img style="position: absolute; opacity:0.8"--}}
+{{--                                             src="{{asset('images\icon-img\merry1.png')}}" alt="">--}}
+{{--                                        <a href="products/{{$item->Slug}}">--}}
+{{--                                            <img src="{{asset('images/product/'.$item->Images)}}" alt="">--}}
+{{--                                        </a>--}}
+{{--                                        <div class="product-badge badge-top badge-right badge-pink">--}}
+{{--                                            @if ($item->Discount != 0)--}}
+{{--                                                <span--}}
+{{--                                                    style="padding:5px; background-color: #d0011b; color:white; border-radius: 10px;">-{{$item->Discount*100}}%</span>--}}
+{{--                                            @endif--}}
+{{--                                        </div>--}}
+{{--                                        <div class="product-action-2-wrap">--}}
+{{--                                            <a href="/products/{{$item->Slug}}" class="product-action-btn-2"--}}
+{{--                                               title="Mua Ngay"><i--}}
+{{--                                                    class="pe-7s-cart"></i> Mua Ngay--}}
+{{--                                            </a>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="product-content">--}}
+{{--                                        <h3><a id="{{$item->ProductId}}" slug="{{$item->Slug}}"--}}
+{{--                                               href="products/{{$item->Slug}}">{{$item->ProductName}}</a></h3>--}}
+{{--                                        <div class="product-price">--}}
+{{--                                            @if ($item->Discount != 0)--}}
+{{--                                                <span class="old-price">{{number_format((100*$item->Price)/((1-$item->Discount)*100))}} <sup>vnđ</sup></span>--}}
+{{--                                            @endif--}}
+{{--                                            <span--}}
+{{--                                                class="new-price">{{number_format($item->Price)}} <sup>vnđ</sup></span>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        @endforeach--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 {{-- Sản Phẩm Giảm Giá--}}
                 <div id="pro-3" class="tab-pane">
                     <div class="row">

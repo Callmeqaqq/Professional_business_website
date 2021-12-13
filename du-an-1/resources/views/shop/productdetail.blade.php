@@ -104,7 +104,7 @@
                         <div class="pl-10 product-color product-color-active product-details-color active" >
                             @foreach($variant as $color)
                                 <span style="display: none" class='quantity-view' id="b{{$color->VariantId}}" class="title">
-                                    Số lượng còn lại: @if($color->Quantity!=0) <span style="color:#d0011b; font-weight: bold">{{$color->Quantity}} (Sản phẩm)</span> @else <span style="color:red; font-weight: bold">Sản phẩm này dã hết hàng</span> @endif
+                                    Số lượng còn lại: @if($color->Quantity!=0) <span style="color:#d0011b; font-weight: bold">{{$color->Quantity}} (Sản phẩm)</span> @else <span style="color:red; font-weight: bold">Sản phẩm này đã hết hàng</span> @endif
                                 </span>
                             @endforeach
                         </div>
