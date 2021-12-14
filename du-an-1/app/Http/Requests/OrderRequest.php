@@ -45,7 +45,9 @@ class OrderRequest extends FormRequest
             'Email.required' => 'Vui lòng nhập địa chỉ Email!',
             'Email.email' => 'Không đúng định dạng Email! Ví dụ: Example@domain.com',
             'Password.required' => 'Vui lòng nhập mật khẩu để xác thực tài khoản tạo đơn hàng',
-            'Payment_method.required' => 'Vui lòng chọn hình thức thanh toán'
+            'Payment_method.required' => 'Vui lòng chọn hình thức thanh toán',
+            'Phone.regex'=> "Số điện thoại không hợp lệ"
+
         ];
     }
 }

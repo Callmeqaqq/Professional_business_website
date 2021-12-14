@@ -42,17 +42,22 @@ class BuyerController extends Controller
     public function postEmail(Request $request)
     {
 
-        $message =[
-            'required'=> 'Bạn chưa nhập email',
+        $message = [
+            'required' => 'Bạn chưa nhập email',
             'email' => 'Vui lòng nhập đúng định dạn email',
-            'exists'=> 'Tài khoản chưa đăng ký',
         ];
-        $validate = Validator::make($request->all(),[
-            'email' => 'required|email|exists:users'
-        ],$message);
-        if($validate->fails()){
+        $validate = Validator::make($request->all(), [
+            'email' => 'required|email'
+        ], $message);
+        if ($validate->fails()) {
             return redirect('buyer/forgot')->withErrors($validate)->withInput();
         }
+        $checkEmail = DB::table('users')
+            ->where('email', $request->email)->first();
+       if ($checkEmail=== null){
+           $request->session()->put('status', 'danger/Email chưa đăng kí');
+           return redirect('buyer/forgot');
+    }
         $token = Str::random(150);
         $check = DB::table('password_resets')->insert(
             ['email' => $request->email, 'token' => $token]
@@ -72,7 +77,7 @@ class BuyerController extends Controller
 //        validate request
         $message = [
             'required' => 'Vui lòng nhập :attribute',
-            'email.unique' => 'Email đã được đăng ký',
+            'email.unique' => 'Email đã đăng ký',
             'email' => 'Vui lòng nhập đúng định dạng email',
             'password.min' => 'Các kí tự không đươc ít hơn 6',
             'password.max' => 'Các kí tự không đươc nhiều hơn 50',
@@ -104,10 +109,13 @@ class BuyerController extends Controller
             'password' => Hash::make($request->password)
         ]);
         if ($query) {
-            return redirect('/buyer/login')->with('status', 'Tạo mới tài khoản thành công');
-        } else {
-            return redirect('/buyer/register')->with('status', 'Đã có lỗi sảy ra,hảy thử lại sau');
+            $request->session()->put('status', 'success/Tạo mới tài khoản thành công');
+            return redirect('/buyer/login');
         }
+            $request->session()->put('status', 'success/Đã có lỗi sảy ra,hảy thử lại sau');
+
+        return redirect('/buyer/register');
+
     }
 
     function check(Request $request)
@@ -137,14 +145,22 @@ class BuyerController extends Controller
                 $request->session()->put('LoggedUser', $user->UserId);
                 $request->session()->put('LoggedUserName', $user->Fullname);
                 $request->session()->put('LoggedEmail', $request->loginEmail);
+                $request->session()->put('UserRole', $user->UserRole);
+                $request->session()->put('status', 'success/Đăng nhập thành công TK '.$user->Fullname);
 
+                $preUrl = explode( $request->getSchemeAndHttpHost(),$request->session()->get('backUrl') )[1];
+                $urlCut = explode('/',$preUrl)[1];
+                if( $user->UserRole === 6 && $urlCut === 'admin' ){
+                    return redirect( $request->getSchemeAndHttpHost());
+                }
                 return redirect($request->session()->get('backUrl'));
             } else {
-                return redirect('/buyer/login')->with('status', 'Mật khẩu không chính xác');
+                $request->session()->put('status', 'danger/Mật khẩu không chính xác');
             }
         } else {
-            return redirect('/buyer/login')->with('status', 'Tài khoản không tồn tại ');
-        }
+            $request->session()->put('status', 'danger/Tài khoản không tồn tại');
+
+        } return redirect('/buyer/login');
     }
 
 //    function profile()
@@ -185,9 +201,10 @@ class BuyerController extends Controller
             ->where(['email' => $request->email, 'token' => $request->token])
             ->first();
 
-        if(!$updatePassword)
-            return back()->with('status', 'Mã không  còn sử dụng ')->withInput();
-
+        if(!$updatePassword) {
+            $request->session()->put('status', 'danger/Mã không  còn sử dụng');
+            return back()->withInput();
+        }
         $user = DB::table('users')->where('email','=', $request->email)
             ->update(['password' => Hash::make($request->password)]);
 

@@ -79,7 +79,11 @@
                                         </ul>
                                     </li>
                                     <li><a href="{{url('blog')}}">TIN TỨC</a></li>
-                                    <li><a href="{{url('about-us')}}">GIỚI THIỆU</a></li>
+                                    <li><a href="{{route('about-us')}}">GIỚI THIỆU</a></li>
+                                    @if( Session()->has('UserRole')  && Session()->get('UserRole') !== 6)
+                                        <li><a href="{{route('dashboard.index')}}">QUẢN TRỊ</a></li>
+                                    @endif
+
                                 </ul>
                             </nav>
                         </div>
@@ -103,13 +107,22 @@
                             <div class="header-action-style  ">
                                 <ul>
                                     <li>
-                                        <a title="Đăng nhập/ Đăng kí" href="
+                                        <a  href="
                                 @if (Session()->has('LoggedUser'))
                                         {{route('buyer.profile')}}
                                         @else
                                         {{route('buyer.login')}}
                                         @endif
-                                            "><i class="pe-7s-user"></i></a>
+                                            ">@if (Session()->has('LoggedUser'))
+                                                <i class="pe-7s-user"></i>
+                                                <span style="font-size:15px;line-height:30px ;width:80px;text-overflow: ellipsis;-webkit-line-clamp: 1;
+                                                         -webkit-box-orient: vertical;
+                                                         overflow: hidden;
+                                                        "> {{Session::get('LoggedUserName')}}</span>
+
+                                            @else
+                                                <i class="pe-7s-user" title="Đăng nhập / Đăng ký"></i>
+                                            @endif</a>
                                         <ul class="mega-menu-style mega-menu-mrg-1 login-drop">
                                             <li>
                                                 <a class="" href="#">Thông tin tài khoản</a>
@@ -272,8 +285,6 @@
             $message = $arr[1];
             session()->forget('status');
         }
-
-
         ?>
         @if (isset($statu))
             <section id="alert" class="{{$statu}} ">
@@ -369,9 +380,10 @@
 </style>
 <!-- JS chính -->
 <script src="{{asset('js/main.js')}}"></script>
-<script src="{{asset('js/checkout.js')}}"></script>
+
 <script src="{{asset('js/plugins/search.js')}}"></script>
 <script src="{{asset('js/plugins/login.js')}}"></script>
+<script src="{{asset('js/checkout.js')}}"></script>
 {{--JS Cart--}}
 <script type="text/javascript">
     $(document).ready(function () {

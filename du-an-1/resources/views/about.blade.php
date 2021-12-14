@@ -1,9 +1,9 @@
 @extends('layouts.site')
 @section('main')
-    <div class="blog-details-area pt-100 pb-100">
+    <div class="blog-details-area pt-30 pb-100">
         <div class="container">
-            {{ Breadcrumbs::render('about') }}
-            <div class="row" style="justify-content: center">
+
+            <div class="row" style="justify-content: center">{{ Breadcrumbs::render('about') }}
                 <div class="col-lg-8">
                     <div class="blog-details-wrapper">
                         <p data-aos="fade-up" data-aos-delay="200">{!!$data->content!!}</p>

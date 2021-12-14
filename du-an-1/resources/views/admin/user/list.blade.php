@@ -16,7 +16,7 @@
                                 <th scope="col">Điện thoại</th>
                                 <th scope="col">Đăng nhập Facebook</th>
                                 <th scope="col">Đăng nhập Google</th>
-                                <th scope="col">Tuỳ chọn</th>
+                                <th style='width: 250px;' scope="col">Tuỳ chọn</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -29,9 +29,9 @@
                                 <td>{{($item->facebook_id != NULL) ? '✓' : ''}}</th>
                                 <td>{{($item->google_id != NULL) ? '✓' : ''}}</th>
                                 <td>
-                                    <a href="{{url('admin/users/' . $item->UserId.'/detail')}}" target="_blank"type="button" class="btn btn-outline-primary"><i class="fab fa-info"></i>Chi tiết</a>
-                                    <a value="{{$item->UserId}}" onclick="{{($item->Active == 0) ? 'active(this)' :  "unactive(this)"}}" type="button" class="btn btn-outline-primary"> <i class='fab fa-{{($item->Active == 0) ?'unlock':'lock' }}'></i>{{($item->Active == 0) ? 'Mở khoá' :  "Khoá"}}</a>
-                                    <button value="{{$item->UserId}}" onclick="deleteRq(this)" type="button" class="btn btn-outline-danger"><i class="fab fa-trash"></i>Xoá</button>
+                                    <a href="{{url('admin/users/' . $item->UserId.'/detail')}}" target="_blank"type="button" class="btn btn-outline-primary"><i class="fab fa-edit"></i> Chi tiết</a>
+                                    <a value="{{$item->UserId}}" onclick="{{($item->Active == 0) ? 'active(this)' :  "unactive(this)"}}" type="button" class="btn btn-outline-primary"> <i class='fab fa-{{($item->Active == 0) ?'unlock':'lock' }}'></i> {{($item->Active == 0) ? 'Mở khoá' :  "Khoá"}}</a>
+                                    <button value="{{$item->UserId}}" onclick="deleteRq(this)" type="button" class="btn btn-outline-danger"><i class="fab fa-trash"></i> Xoá</button>
                                 </td>
                             </tr>
                             @endforeach()

@@ -1,6 +1,6 @@
 @extends('layouts.site')
 @section('main')
-    <div class="blog-details-area pt-100 pb-100">
+    <div class="blog-details-area pt-30 pb-100">
         <div class="container">
             {{Breadcrumbs::render('post',$data->BlogName, $data->categorySlug, $data->Title, $data->slug)}}
             <div class="row">
@@ -183,7 +183,7 @@
 @stop()
 @section('scripts')
 <script type="text/javascript">
-    
+
     $(document).ready(function() {
         $('#submit').click(function(e) {
             Notiflix.Block.Pulse('#commentBox');

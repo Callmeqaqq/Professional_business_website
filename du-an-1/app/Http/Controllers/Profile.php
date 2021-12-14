@@ -36,8 +36,22 @@ class Profile extends Controller
         if ($validate->fails()) {
             return redirect('profile')->withErrors($validate)->withInput();
         }
-        $user = DB::table('users')->select('password')->where('UserId','=', Session('LoggedUser'))->get()->first();
-
+        if(isset($request->phone)){
+            $pattern = "/^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$/";
+            if(!preg_match($pattern, $request->phone)){
+                $request->session()->put('status', 'danger/Bạn vừa nhập vào số không điện thoại hợp lệ!');
+                return redirect('profile');
+            }
+        }
+        $user = DB::table('users')->select('password','Email')->where('UserId','=', Session('LoggedUser'))->get()->first();
+        $listUser = DB::table('users')->select('UserId','Email')->get();
+//        dd([$listUser,$user,Session('LoggedUser')]);
+        foreach ($listUser as $lUser){
+            if($lUser->Email === $request->email && $lUser->UserId !== Session('LoggedUser')){
+                $request->session()->put('status', 'danger/Email đã đăng ký');
+                return redirect('profile');
+            }
+        }
         if (Hash::check($request->password,  $user->password)) {
             $query = DB::table('users')
                 ->where('UserId','=', Session('LoggedUser'))
@@ -47,7 +61,9 @@ class Profile extends Controller
                         'phone' => $request->phone,
                         'address' => $request->address,
                     ]);
-            if($request){
+            if($query !== null){
+                $request->session()->put('LoggedUserName', $request->name);
+                $request->session()->put('LoggedEmail', $request->email);
                 $request->session()->put('status', 'success/Cập nhật thông tin thành công thành công');
             }else{
                 $request->session()->put('status', 'danger/Cập nhật thất bại đã có lỗi');
