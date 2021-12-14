@@ -7,7 +7,7 @@
                     <h3 class="card-header ">Quản trị viên </h3>
 
                     <a href="{{route('admin.addAdministrator')}}" class="btn btn-outline-primary btn-sm "
-                       style="margin-right:20px">Thêm Người quảng trị</a>
+                       style="margin-right:20px">Thêm Người quản trị</a>
                 </div>
 
                 <div class="card-body">

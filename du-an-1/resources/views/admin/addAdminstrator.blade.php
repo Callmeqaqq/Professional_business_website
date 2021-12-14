@@ -4,7 +4,7 @@
         <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11">
             <div class="card">
                 <div class="card-body">
-                    <h4>Nhập thông tin người quảng trị</h4>
+                    <h4>Nhập thông tin người quản trị</h4>
                     <form action="{{route('admin.Administrator.add')}}" method="post">
                         @csrf
                         <div class="card-body row">

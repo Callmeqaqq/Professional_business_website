@@ -66,7 +66,7 @@
                                 <td>{{$item->Note}}</td>
                                 <td>{{number_format($item->ToPay)}}đ</td>
                                 <td>
-                                  <a href="{{url('admin/order/order-detail')}}/{{$item->OrderId}}" type="button" class="btn btn-outline-primary p-1"><i class="fab fa-edit"></i>Chi tiết</a>
+                                  <a href="{{url('admin/order/order-detail')}}/{{$item->OrderId}}" type="button" class="btn btn-outline-primary p-1"><i class="fab fa-edit"></i> Chi tiết</a>
                                 </td>
                             </tr>
                             @endforeach()
