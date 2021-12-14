@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b0bbda4a-3fbf-4b43-8e04-1b6eee43ea7f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/app/Http/Controllers/Profile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/admin/order/order.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/admin/order/order.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/cart/cart.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/cart/cart.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/profile/orderdetail.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/profile/orderdetail.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/du-an-1/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/du-an-1/resources/views/cart/cartlist.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/du-an-1/resources/views/cart/cartlist.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,7 +195,7 @@
       <workItem from="1639404409414" duration="202000" />
       <workItem from="1639412469026" duration="819000" />
       <workItem from="1639429221381" duration="22000" />
-      <workItem from="1639463206898" duration="6873000" />
+      <workItem from="1639463206898" duration="8192000" />
     </task>
     <servers />
   </component>
