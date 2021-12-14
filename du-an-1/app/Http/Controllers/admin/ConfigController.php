@@ -148,12 +148,13 @@ class ConfigController extends Controller
                 'Content' => $request->EventContent,
                 'Active' => $request->SliderActive
             ]);
-        return back()->with('add-success','Tạo Slider Thành Công');
+        return back()->with('add-success', 'Tạo Slider Thành Công');
     }//action create
 
-    public function config_edit_slider($id){
+    public function config_edit_slider($id)
+    {
         $edit = DB::table('slider')
-            ->where('SliderId','=',$id)
+            ->where('SliderId', '=', $id)
             ->first();
         Session::put('slider-edit', $edit->Images);
         return view('admin/configuration/editSliderConfig', compact('edit'));
@@ -161,15 +162,15 @@ class ConfigController extends Controller
 
     public function update_slider(Request $request)
     {
-        if($request->SliderImage == null){
+        if ($request->SliderImage == null) {
             $file_name = Session('slider-edit');
-        }else{
+        } else {
             $file = $request->SliderImage;
             $file_name = $file->getClientOriginalName();
             $file->move(base_path('public/images/slider'), $file_name);
         }
         DB::table('slider')
-            ->where('SliderId','=',$request->SliderId)
+            ->where('SliderId', '=', $request->SliderId)
             ->update([
                 'Images' => $file_name,
                 'URL' => $request->LinkToContent,
@@ -177,11 +178,29 @@ class ConfigController extends Controller
                 'Content' => $request->EventContent,
                 'Active' => $request->SliderActive
             ]);
-        return back()->with('edit-success','Cập nhật Slider Thành Công');
+        return back()->with('edit-success', 'Cập nhật Slider Thành Công');
     }//action update
 
-    public function delete_slider($id){
-        DB::table('slider')->where('SliderID',$id)->delete();
-        Return back()->with('delete-success','Xóa thành công');
+    public function delete_slider($id)
+    {
+        DB::table('slider')->where('SliderID', $id)->delete();
+        return back()->with('delete-success', 'Xóa thành công');
+    }
+
+    //address
+
+    public function get_address()
+    {
+        $address = DB::table('comp_location')->first();
+        return view('admin/configuration/AddressConfig', compact('address'));
+    }
+
+    public function update_address(Request $request){
+        $query = DB::table('comp_location')
+            ->update([
+                'Lattitude' => $request->lat,
+                'Longtitude' => $request->long
+            ]);
+        return back()->with('status', 'Cập nhật thành công');
     }
 }
