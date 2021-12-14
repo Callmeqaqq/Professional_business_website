@@ -30,7 +30,10 @@
                                     <td>{{$comment->CreateAt}}</td>
                                     <td>{{$comment->Content}}</td>
                                     <td>{{$comment->Fullname}}</td>
-                                    <td style="text-align: center"><a href="{{url('/admin/deleteComment/'.$comment->CommentId)}}" onclick="return confirm('Bạn có chắc muốn xóa bình luận này không này không?')" class="btn btn-outline-danger"><i class="fab fa-trash"></i> Xóa</a> </td>
+                                    <td style="text-align: center">
+                                    <x-permission per="Delete"
+                                                  href="{{url('/admin/deleteComment/'.$comment->CommentId)}}"></x-permission></td>
+{{--                                    <td style="text-align: center"><a href="{{url('/admin/deleteComment/'.$comment->CommentId)}}" onclick="return confirm('Bạn có chắc muốn xóa bình luận này không này không?')" class="btn btn-outline-danger"><i class="fab fa-trash"></i> Xóa</a> </td>--}}
                                 </tr>
                             @endforeach
 

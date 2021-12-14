@@ -41,21 +41,24 @@
                                         {{--                                        kiểm tra xem có phải super admin hay không thì có quyền thao tác với manager--}}
                                         @if($super_admin == 'SuperAdmin' && session('LoggedUser') !== $admin->UserId)
 
-                                            <a href="{{url('/admin/updateAdministrator/'.$admin->UserId)}}"
-                                               class="btn btn-outline-info"><i class="fab fa-edit"></i> Cập nhật
-                                            </a>
-                                            <a href="{{url('/admin/deleteAdministrator/'.$admin->UserId)}}"
-                                               class="btn btn-outline-danger"><i class="fab fa-trash"></i> Xóa</a>
-
+                                            <x-permission per="Edit"
+                                                          href="{{url('/admin/updateAdministrator/'.$admin->UserId)}}"></x-permission>
+{{--                                            <a href="{{url('/admin/deleteAdministrator/'.$admin->UserId)}}"--}}
+{{--                                               class="btn btn-outline-danger"><i class="fab fa-trash"></i> Xóa</a>--}}
+                                            <x-permission per="Delete"
+                                                          href="{{url('/admin/deleteAdministrator/'.$admin->UserId)}}"></x-permission>
                                         @elseif(session('LoggedUser') !== $admin->UserId
                                                 && $admin->RoleName !== 'SuperAdmin'
                                                 && $admin->RoleName !== 'Manager')
-
-                                            <a href="{{url('/admin/updateAdministrator/'.$admin->UserId)}}"
-                                               class="btn btn-primary"><i class="fab fa-edit"></i> Cập nhật
-                                            </a>
-                                            <a onclick="return confirm('Bạn có chắc muốn xóa người quản trị này không?')" href="{{url('/admin/deleteAdministrator/'.$admin->UserId)}}"
-                                               class="btn btn-danger"><i class="fab fa-trash-alt"></i> Xóa</a>
+                                            <x-permission per="Delete"
+                                                          href="{{url('/admin/deleteAdministrator/'.$admin->UserId)}}"></x-permission>
+                                            <x-permission per="Edit"
+                                                          href="{{url('/admin/updateAdministrator/'.$admin->UserId)}}"></x-permission>
+{{--                                            <a href="{{url('/admin/updateAdministrator/'.$admin->UserId)}}"--}}
+{{--                                               class="btn btn-primary"><i class="fab fa-edit"></i> Cập nhật--}}
+{{--                                            </a>--}}
+{{--                                            <a onclick="return confirm('Bạn có chắc muốn xóa người quản trị này không?')" href="{{url('/admin/deleteAdministrator/'.$admin->UserId)}}"--}}
+{{--                                               class="btn btn-danger"><i class="fab fa-trash-alt"></i> Xóa</a>--}}
 
                                         @endif
                                     </td>
