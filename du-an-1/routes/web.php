@@ -195,8 +195,9 @@ Route::get('/admin/get-permission-licenced/{permission}/{userID}', 'admin\Config
     ->middleware('role:,,SuperAdmin', 'check_view_permissions');
 
 //payment config
-Route::get('/admin/config-payment', 'admin\ConfigController@config_payment')->name('config.payment')
+Route::get('/admin/config-address', 'admin\ConfigController@get_address')->name('config.address')
     ->middleware('role:,,SuperAdmin', 'check_view_permissions');
+Route::post('/admin/update_address','admin\ConfigController@update_address')->name('update.address');
 
 //shipping config
 Route::get('/admin/config-shipfee', 'admin\ConfigController@config_shipfee')->name('config.shipfee')
