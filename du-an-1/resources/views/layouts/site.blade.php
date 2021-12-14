@@ -79,9 +79,9 @@
                                         </ul>
                                     </li>
                                     <li><a href="{{url('blog')}}">TIN TỨC</a></li>
-                                    <li><a href="{{url('about-us')}}">GIỚI THIỆU</a></li>
-                                    @if(Session()->has('admin'))
-                                        <li><a href="{{url('dashboard.index')}}">Admin</a></li>
+                                    <li><a href="{{route('about-us')}}">GIỚI THIỆU</a></li>
+                                    @if( Session()->has('UserRole')  && Session()->get('UserRole') !== 6)
+                                        <li><a href="{{route('dashboard.index')}}">QUẢN TRỊ</a></li>
                                     @endif
 
                                 </ul>

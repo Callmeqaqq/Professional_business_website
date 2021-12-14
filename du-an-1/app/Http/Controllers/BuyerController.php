@@ -145,7 +145,14 @@ class BuyerController extends Controller
                 $request->session()->put('LoggedUser', $user->UserId);
                 $request->session()->put('LoggedUserName', $user->Fullname);
                 $request->session()->put('LoggedEmail', $request->loginEmail);
+                $request->session()->put('UserRole', $user->UserRole);
                 $request->session()->put('status', 'success/Đăng nhập thành công TK '.$user->Fullname);
+
+                $preUrl = explode( $request->getSchemeAndHttpHost(),$request->session()->get('backUrl') )[1];
+                $urlCut = explode('/',$preUrl)[1];
+                if( $user->UserRole === 6 && $urlCut === 'admin' ){
+                    return redirect( $request->getSchemeAndHttpHost());
+                }
                 return redirect($request->session()->get('backUrl'));
             } else {
                 $request->session()->put('status', 'danger/Mật khẩu không chính xác');
