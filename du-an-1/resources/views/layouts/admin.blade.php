@@ -198,9 +198,8 @@ if (session('status')) {
                                                 trị</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{asset('/admin/config-payment')}}">Thiết lập
-                                                thanh
-                                                toán</a>
+                                            <a class="nav-link" href="{{asset('/admin/config-address')}}">Thiết lập
+                                                địa chỉ</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{asset('/admin/config-shipfee')}}">Thiết
