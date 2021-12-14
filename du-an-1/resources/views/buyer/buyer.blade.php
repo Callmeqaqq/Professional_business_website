@@ -1,9 +1,8 @@
 @extends('layouts.site')
 @section('main')
-    <div class="login-register-area pb-100 pt-95">
+    <div class="login-register-area pt-100 pb-100">
         <div class="container">
             <div id="{{$page}}"></div>
-            {{ Breadcrumbs::render('buyer',$page) }}
             <div class="row">
                 <div class="col-lg-8 col-md-12 offset-lg-2">
                     <div class="login-register-wrapper">

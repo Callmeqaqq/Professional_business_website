@@ -1,7 +1,7 @@
 @extends('layouts.site')
 @section('main')
     @if(count($data)>1)
-        <div class="blog-area pt-100 pb-100">
+        <div class="blog-area pt-30 pb-100">
             <div class="container">
                 @if(isset($categoryData))
                     {{Breadcrumbs::render('blogCategory',$categoryData->BlogName, $categoryData->slug)}}

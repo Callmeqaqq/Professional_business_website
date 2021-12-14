@@ -164,7 +164,7 @@
                                                 </div>
                                                 <div class="single-input-item">
                                                     <label for="display-name" class="required">Số Diện Thoại
-                                                    <input type="text" id="phone " name="phone" value="{{$user->Phone ?? old('phone')}}"  placeholder="Nhập số điện thoại của bạn" /></label>
+                                                    <input type="text" name="phone" id="Phone" value="{{$user->Phone ?? old('phone')}}"  placeholder="Nhập số điện thoại của bạn" /></label>
                                                     <span class="text-danger" >@error('phone') {{$message}}@enderror</span>
                                                 </div>
                                                 <div class="single-input-item">

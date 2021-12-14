@@ -25,16 +25,21 @@ class Profile extends Controller
             'password.max' => 'Các kí tự không đươc nhiều hơn 50',
             'name.min' => 'Họ và Tên không đươc ít hơn 5',
             'name.max' => 'Họ và Tên không đươc nhiều hơn 100',
-            'phone' => 'vui lòng nhập đúng số điện thoại',
         ];
         $validate = Validator::make($request->all(),[
             'name' => 'required|min:5|max:100',
             'password' => 'required|min:6|max:50',
             'email' => 'required|email',
-            'phone' => 'numeric|min:10|max:10|phone_number|'
         ],$message);
         if ($validate->fails()) {
             return redirect('profile')->withErrors($validate)->withInput();
+        }
+        if(isset($request->phone)){
+            $pattern = "/^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$/";
+            if(!preg_match($pattern, $request->phone)){
+                $request->session()->put('status', 'danger/Bạn vừa nhập vào số điện thoại hợp lệ!');
+                return redirect('profile');
+            }
         }
         $user = DB::table('users')->select('password','Email')->where('UserId','=', Session('LoggedUser'))->get()->first();
         $listUser = DB::table('users')->select('UserId','Email')->get();
@@ -54,7 +59,9 @@ class Profile extends Controller
                         'phone' => $request->phone,
                         'address' => $request->address,
                     ]);
-            if($request){
+            if($query !== null){
+                $request->session()->put('LoggedUserName', $request->name);
+                $request->session()->put('LoggedEmail', $request->email);
                 $request->session()->put('status', 'success/Cập nhật thông tin thành công thành công');
             }else{
                 $request->session()->put('status', 'danger/Cập nhật thất bại đã có lỗi');

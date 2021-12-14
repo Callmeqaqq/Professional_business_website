@@ -27,7 +27,6 @@ class BuyerController extends Controller
             }else{
                 $urlBack = url()->previous();
             }
-            echo $urlBack;
             $request->session()->put('backUrl',$urlBack);
         }
 
