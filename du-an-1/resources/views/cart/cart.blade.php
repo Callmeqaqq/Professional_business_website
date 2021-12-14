@@ -264,7 +264,7 @@
                 buttons: {
                     'Xác nhận': function () {
                         $.ajax({
-                            type : 'POST',
+                            type : 'GET',
                             url  : "{{url('cart/delete-all-list-cart')}}",
                         }).done(function (response) {
                             if (response) {

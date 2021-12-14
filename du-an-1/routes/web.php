@@ -37,6 +37,7 @@ Route::get('/profile', 'Profile@index')->name('buyer.profile')->middleware('isLo
 Route::post('/profile/update', 'Profile@update')->name('buyer.update')->middleware('isLogged');
 Route::post('/profile/change', 'Profile@changePassword')->name('buyer.change')->middleware('isLogged');
 Route::get('/profile/order-detail/{OrderId}', 'Profile@OrderDetail')->name('buyer.orderdetail')->middleware('isLogged');
+Route::get('/profile/order-detail/cancel-order/{OrderId}/{Status}', 'Profile@CancelOrder')->middleware('isLogged');
 //======================================================================================================================
 
 

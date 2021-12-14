@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class Profile extends Controller
@@ -99,9 +101,36 @@ class Profile extends Controller
             ->Join('variant', 'orderdetail.VariantId', '=','variant.VariantId')
             ->Where('orders.UserId', Session('LoggedUser'))
             ->Where('orders.OrderId', $OrderId)
-            ->Select('variant.Color', 'variant.VariantName', 'orderdetail.Quantity', 'product.Price as ProductPrice', 'variant.Price as VariantPrice', 'orders.ShipFee' ,'orders.ShipDate', 'orders.ToPay')
+            ->Select('variant.Color', 'variant.VariantName', 'orderdetail.Quantity', 'product.Price as ProductPrice', 'variant.Price as VariantPrice', 'orders.ShipFee' ,'orders.ShipDate', 'orders.ToPay', 'orders.OrderId', 'orders.StatusId')
             ->get();
         return view('profile/orderdetail', compact('orderDetail'));
 //        dd($orderDetail);
+    }
+
+    function CancelOrder(Request $request, $orderId, $status) {
+        $create_time = Carbon::now();
+        $userId = Session::get('LoggedUser');
+        $userName = DB::table('users')->where('UserId', $userId)->value('Fullname');
+
+        $result = DB::table('historyorder')
+            ->Where('OrderId', $orderId)
+            ->Where('UserId', $userId)
+            ->Where('StatusId', $status)
+            ->Value('HistoryOrderId');
+
+        if (!$result) {
+            $UpdateOrder = DB::table('orders')
+                ->where('OrderId', $orderId)
+                ->update(['StatusId' => $status]);
+            $insertOder = DB::table('historyorder')->insert([
+                'CreateAt' => $create_time,
+                'StatusId' => $status,
+                'OrderId' => $orderId,
+                'UserId' => $userId,
+                'Description' => 'Đơn hàng đã hủy bởi '.$userName,
+            ]);
+
+            return $UpdateOrder && $insertOder;
+        }
     }
 }
