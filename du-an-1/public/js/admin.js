@@ -219,7 +219,7 @@ $(document).ready(function () {
 
         let handleAjaxTotalMoney = (now, daysAgo, type) => {
             AjaxTotalMoney(function (output) {
-                // console.log(output)
+                console.log(output)
                 let data = {labels: [], data: []};
                 const labels = [];
 

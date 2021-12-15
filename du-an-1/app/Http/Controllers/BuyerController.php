@@ -150,6 +150,7 @@ class BuyerController extends Controller
 
                 $preUrl = explode( $request->getSchemeAndHttpHost(),$request->session()->get('backUrl') )[1];
                 $urlCut = explode('/',$preUrl)[1];
+
                 if( $user->UserRole === 6 && $urlCut === 'admin' ){
                     return redirect( $request->getSchemeAndHttpHost());
                 }

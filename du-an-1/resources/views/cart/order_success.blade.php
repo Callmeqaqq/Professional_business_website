@@ -46,7 +46,7 @@
             <div class="left">
                 <h2>Đặt hàng thành công</h2>
                 <h2><a href="{{asset('/shop')}}"><button>Tiếp tục mua hàng</button></a></h2>
-                <h3><a href="{{asset('/profile?order')}}"><button>Chi tiết đơn hàng</button></a></h3>
+                <h3><a href="{{asset('/profile/order')}}"><button>Chi tiết đơn hàng</button></a></h3>
             </div>
             <div class="right">
                 <img src="{{asset('images/logo/ordersuccess.jpg')}}" alt="">

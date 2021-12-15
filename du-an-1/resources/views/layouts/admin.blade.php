@@ -97,6 +97,9 @@ if (session('status')) {
                             <a class="dropdown-item" href="{{asset('/buyer/logout')}}"
                             ><i class="fab fa-power-off mr-2"></i>Đăng Xuất</a
                             >
+                            <a class="dropdown-item" href="{{route('home')}}"
+                            ><i class="fab fa-home mr-2"></i>Về trang web </a
+                            >
                         </div>
                     </li>
                 </ul>

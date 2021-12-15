@@ -23,7 +23,10 @@ class SocialController extends Controller
 
             if($user){
                 $request->session()->put('LoggedUser',$user->UserId);
-                $request->session()->put('status', 'success/Đăng nhập thành công');
+                $request->session()->put('LoggedUserName', $user->Fullname);
+                $request->session()->put('LoggedEmail', $user->loginEmail);
+                $request->session()->put('UserRole', $user->UserRole);
+                $request->session()->put('status', 'success/Đăng nhập thành công TK '.$user->Fullname);
                 return redirect($request->session()->get('backUrl'));
             }
 
@@ -35,7 +38,10 @@ class SocialController extends Controller
             ]);
             $userNew = DB::table('users')->select('UserId')->where('email','=',$user_google->email )->first();
             $request->session()->put('LoggedUser',$userNew->UserId);
-            $request->session()->put('status', 'success/Đăng nhập thành công');
+            $request->session()->put('LoggedUserName', $userNew->Fullname);
+            $request->session()->put('LoggedEmail', $userNew->loginEmail);
+            $request->session()->put('UserRole', $userNew->UserRole);
+            $request->session()->put('status', 'success/Đăng nhập thành công TK '.$userNew->Fullname);
             return redirect($request->session()->get('backUrl'));
         } catch (Exception $e) {
             $request->session()->put('status', 'danger/Đã có lỗi sảy ra,hảy thử lại sau');

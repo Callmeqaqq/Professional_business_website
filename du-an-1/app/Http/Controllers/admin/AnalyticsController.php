@@ -33,10 +33,12 @@ class AnalyticsController extends Controller
 //        $today = date_format( $today,"Y/m/d");
 
             $total = DB::table('orders')
-                ->where('StatusId', '=','5')
-                ->whereBetween('ShipDate',[$DaysAgo, $today ] )
-                ->select( DB::raw('SUM(orders.ToPay) as total'),'ShipDate')
-                ->groupBy('ShipDate')
+                ->Join('historyorder','historyorder.OrderId','=','orders.OrderId')
+                ->where('orders.StatusId', '=','5')
+                ->where('historyorder.CreateAt', '>=',$DaysAgo )
+                ->where('historyorder.CreateAt','<=',$today )
+                ->select( DB::raw('SUM(orders.ToPay) as total'),'historyorder.CreateAt as ShipDate')
+                ->groupBy('historyorder.CreateAt')
                 ->get();
 
             return json_encode($total, JSON_THROW_ON_ERROR);
