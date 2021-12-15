@@ -144,7 +144,7 @@
                 </div>
             </div>
         @else
-            <p style="text-align: center">Giỏ hàng hiện đang trống</p>
+            <p style="text-align: center; padding: 100px; font-size: 18px;">Giỏ hàng hiện đang trống</p>
         @endif
     </div>
     <script type="text/javascript">

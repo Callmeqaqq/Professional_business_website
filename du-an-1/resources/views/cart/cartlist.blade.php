@@ -141,7 +141,7 @@
         </div>
     </div>
 @else
-    <p style="text-align: center">Giỏ hàng hiện đang trống</p>
+    <p style="text-align: center; padding: 100px; font-size: 18px;">Giỏ hàng hiện đang trống</p>
 @endif
 <script type="text/javascript">
     $(".btn-update-all-cart").on("click", function (){
@@ -207,7 +207,7 @@
             buttons: {
                 'Xác nhận': function () {
                     $.ajax({
-                        type : 'POST',
+                        type : 'GET',
                         url  : "{{url('cart/delete-all-list-cart')}}",
                     }).done(function (response) {
                         if (response) {
