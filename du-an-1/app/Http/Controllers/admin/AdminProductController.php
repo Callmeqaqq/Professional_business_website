@@ -46,6 +46,7 @@ class AdminProductController extends Controller
             "SupplierId" => "required",
             "Price" => "required",
             "price_new" => "required",
+            "moneyInput" => "required",
             "Discount" => "required|numeric|min:0|max:1",
             "Weight" => "required|numeric|min:0",
             "Color" => "required",
@@ -115,13 +116,16 @@ class AdminProductController extends Controller
 //        Chèn Biến thể mặc định cho Sản phẩm mới tạo
             DB::table('variant')
                 ->insert([
-                    'VariantName' => $request->Color,
+                    'VariantName' => $name_color,
                     'Price' => 0,
                     'Description' => $name_color,
                     'Active' => 1,
                     'Color' => $file_name,
                     'ProductId' => $ProductId,
-                    'Quantity' => $request->Quantity
+                    'Quantity' => $request->Quantity,
+                    'soldOut' => 0,
+                    'moneyInput' => $request->moneyInput,
+                    'totalInput' => $request->moneyInput * $request->Quantity,
                 ]);
             session()->put('add-success', $request->ProductName);
         } else {
@@ -381,7 +385,8 @@ class AdminProductController extends Controller
               "Quantity_v" => "required|numeric",
               "Description" => "required",
               "Active_v" => "required",
-              "Images_v" => "required|image|mimes:jpg,jpeg,svg,png"
+              "Images_v" => "required|image|mimes:jpg,jpeg,svg,png",
+              "moneyInput_v" => "required"
         ],$message);
 
         if ($validate->fails()) {
@@ -413,13 +418,16 @@ class AdminProductController extends Controller
 //            Tiến hành thêm biến thể
             DB::table('variant')
                 ->insert([
-                    'VariantName'=>$request->Color_v,
+                    'VariantName'=>$name_color,
                     'Price'=>($request->Price_variant)/100,
                     'Description' =>$request->Description,
                     'Active'=>$request->Active_v,
                     'Color'=>$file_name,
                     'ProductId'=>$request->ProductId,
-                    'Quantity'=>$request->Quantity_v
+                    'Quantity'=>$request->Quantity_v,
+                    'soldOut'=>0,
+                    'moneyInput' => $request->moneyInput_v,
+                    'totalInput'=>$request->moneyInput_v * $request->Quantity_v,
                 ]);
 //            Trả về session thành công
             session()->put('add-success-v',$name_color);

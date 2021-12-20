@@ -131,7 +131,7 @@
 {{--                        <input type="text" class="form-control date-inputmask" id="date-mask" placeholder=""/>--}}
 {{--                    </div>--}}
                     <div class="form-group col-4">
-                        <label for="inputText4" class="col-form-label">Giá (VNĐ)</label>
+                        <label for="inputText4" class="col-form-label">Giá bán ra(VNĐ)</label>
                         <input required name="Price" id="price" type="text" class="form-control" placeholder="Nhập giá sản phẩm" value = '{{old('Price')}}'/>
                         <input hidden type="number" id="price_new" name="price_new" value = '{{old('price_new')}}'>
                         <span class="text-danger">@error('price_new') {{$message}}@enderror</span>
@@ -152,6 +152,12 @@
                         <label for="inputText4" class="col-form-label">Màu:</label>
                         <input required name="Color" type="text" class="form-control" placeholder="Màu sản phẩm" value="{{old('Color')}}"/>
                         <span class="text-danger">@error('Color') {{$message}}@enderror</span>
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="inputText4" class="col-form-label">Giá nhập vào(VNĐ)</label>
+                        <input required name="Price" id="price2" type="text" class="form-control" placeholder="Nhập giá sản phẩm" value = '{{old('Price')}}'/>
+                        <input hidden type="number" id="price_new2" name="moneyInput" value = '{{old('moneyInput')}}'>
+                        <span class="text-danger">@error('moneyInput') {{$message}}@enderror</span>
                     </div>
                     <div class="form-group col-4">
                         <label for="inputText4" class="col-form-label">Số lượng <small>(Cái)</small></label>
@@ -231,6 +237,12 @@
                             <label for="inputText4" class="col-form-label">Giá (tăng bao nhiêu % so với giá cũ)</label>
                             <input required name="Price_variant" id="inputText4" type="number" step="1" max="500" min="1" class="form-control" placeholder="Nhập giá biến thể" value="{{old('Price_variant')}}"/>
                             <span class="text-danger">@error('Price_variant') {{$message}}@enderror</span>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="inputText4" class="col-form-label">Giá nhập vào(VNĐ)</label>
+                            <input required name="Price" id="price3" type="text" class="form-control" placeholder="Nhập giá sản phẩm" value = '{{old('Price')}}'/>
+                            <input hidden type="number" id="price_new3" name="moneyInput_v" value = '{{old('moneyInput_v')}}'>
+                            <span class="text-danger">@error('moneyInput_v') {{$message}}@enderror</span>
                         </div>
                     </div>
                     <div style="display: flex" class="card-body col-12">
@@ -326,6 +338,28 @@
             }
             if(isNaN(n)){
                 $('#price').val('');
+            }
+        });
+
+        $("#price2").on('keyup', function(){
+            var n = parseInt($(this).val().replace(/\D/g,''),10);
+            if(n>=0){
+                $('#price2').val(n.toLocaleString("de-DE"));
+                $('#price_new2').val(n);
+            }
+            if(isNaN(n)){
+                $('#price2').val('');
+            }
+        });
+
+        $("#price3").on('keyup', function(){
+            var n = parseInt($(this).val().replace(/\D/g,''),10);
+            if(n>=0){
+                $('#price3').val(n.toLocaleString("de-DE"));
+                $('#price_new3').val(n);
+            }
+            if(isNaN(n)){
+                $('#price3').val('');
             }
         });
         //Thiết lập tab

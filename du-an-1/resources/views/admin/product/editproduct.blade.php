@@ -256,6 +256,16 @@
                         </div>
                     </div>
                     <div style="display: flex" class="card-body col-12">
+                        <div class="form-group col-4">
+                            <label for="inputText4" class="col-form-label">Giá nhập vào </label>
+                            <input required name="moneyInput" id="inputText4" type="number" min="0" class="form-control" value="{{$var->moneyInput}}" placeholder="Nhập giá"/>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="inputText4" class="col-form-label">Số lượng đã bán </label>
+                            <input disabled id="inputText4" type="number" min="0" class="form-control" value="{{$var->soldOut}}" placeholder="Nhập giá"/>
+                        </div>
+                    </div>
+                    <div style="display: flex" class="card-body col-12">
                         <div class="form-group col-8">
                             <label for="formFile" class="form-label">Chọn Ảnh mặc định (1 Ảnh)</label>
                             <input name="Images" class="form-control" type="file" id="upload" onchange="ImagesFileAsURL()" value="">
