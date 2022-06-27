@@ -125,6 +125,7 @@
       <excludeFolder url="file://$MODULE_DIR$/du-an-1/vendor/laravel/socialite" />
       <excludeFolder url="file://$MODULE_DIR$/du-an-1/vendor/laravel/serializable-closure" />
       <excludeFolder url="file://$MODULE_DIR$/du-an-1/vendor/laravel/sanctum" />
+      <excludeFolder url="file://$MODULE_DIR$/du-an-1/vendor/yajra/laravel-datatables-oracle" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

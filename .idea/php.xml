@@ -119,6 +119,7 @@
       <path value="$PROJECT_DIR$/du-an-1/vendor/laravel/socialite" />
       <path value="$PROJECT_DIR$/du-an-1/vendor/laravel/serializable-closure" />
       <path value="$PROJECT_DIR$/du-an-1/vendor/laravel/sanctum" />
+      <path value="$PROJECT_DIR$/du-an-1/vendor/yajra/laravel-datatables-oracle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />
